@@ -17,12 +17,6 @@ double	*vision_direction(t_param *param)
 
 void	rt_filler(t_param *param)
 {
-	int i[4];
-
-	i[0] = 0;
-	i[1] = 0;
-	i[2] = 0;
-	i[3] = 0;
 	param->i[0] = 0;
 	while (param->i[0] < HEIGHT)
 	{
@@ -32,9 +26,7 @@ void	rt_filler(t_param *param)
 			vision_direction(param);
 			param->current_object = NULL;
 			object_intersection(param, param->eye, param->v);
-			if (param->current_object)
-				i[param->current_object->type]++;
-				print_obj_point(param);
+			print_obj_point(param);
 			param->i[1]++;
 		}
 		param->i[0]++;

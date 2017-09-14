@@ -15,9 +15,6 @@
 
 void	ft_putdbl(double d)
 {
-	int	i;
-
-	i = 0;
 	if (d < 0.0 && d > -1.0)
 		ft_putchar('-');
 	ft_putnbr(trunc(d));
