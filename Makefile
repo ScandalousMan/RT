@@ -33,7 +33,8 @@ SRC = main.c \
 	cylindre.c \
 	key_func.c \
 	ft_atod.c \
-	display.c
+	display.c \
+	new_functions.c
 
 # COLORS
 C_NO = "\033[00m"

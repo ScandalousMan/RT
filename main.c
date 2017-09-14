@@ -53,7 +53,8 @@ int		main(void)
 		return (-1);
 	// new_content(param);
 	rt_parser(param);
-	rt_filler(param);
+	// rt_filler(param);
+	rt_tracer(param);
 	mlx_hook(param->win, 2, 1L << 2, my_key_func, param);
 	mlx_loop(param->mlx);
 	return(0);

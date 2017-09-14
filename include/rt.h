@@ -30,6 +30,8 @@
 # define BRIGHTNESS 11
 # define EPSILON 0.001
 # define ROTATION 30.0
+# define MAX_RECURSION 0
+# define ANTI_ALIASING 1
 
 # include <unistd.h>
 # include <fcntl.h>
@@ -85,6 +87,10 @@ typedef struct	s_object
 	int				col;//couleur de surface de l'objet
 	double			kd;//coefficient de réflexion diffuse de l'objet
 	double			ks;//coefficient de réflexion spéculaire de l'objet
+	double			transparence;
+	double			reflexion;
+	double			thickness;//épaisseur de l'objet, 0 par défaut
+	double			index;//indice du matériaux constituant l'objet, 1 par défaut
 	int				phong;//exposant de Phong de l'objet
 	struct s_object	*next;//liste chainée
 }				t_object;
@@ -227,5 +233,11 @@ int 	rt_sphere_parser(t_param *param, t_parse *config);
 int 	rt_plane_parser(t_param *param, t_parse *config);
 int 	rt_cone_parser(t_param *param, t_parse *config);
 int 	rt_cylindre_parser(t_param *param, t_parse *config);
+
+void	rt_tracer(t_param *param);
+t_object	*closest_object(t_param *param, double *from, double *to);
+void		update_normal_vector(t_object *tmp, t_param *param);
+
+
 
 #endif

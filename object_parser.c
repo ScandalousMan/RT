@@ -25,6 +25,7 @@ int 	rt_sphere_parser(t_param *param, t_parse *config)
 		((t_sphere*)(tmp_object->dim))->center[1] += ft_atod(tmp_config->next->str);
 		((t_sphere*)(tmp_object->dim))->center[2] += ft_atod(tmp_config->next->next->str);
 	}
+	tmp_object->transparence = 0.5;
 	return (1);
 }
 

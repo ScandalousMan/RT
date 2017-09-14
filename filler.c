@@ -3,13 +3,12 @@
 double	*vision_direction(t_param *param)
 {
 	vec_multiply(param->f, param->look, param->v);
-
-	vec_multiply(((double)HEIGHT/ 2.0 - (double)param->i[0]) * 40.0 /
-		(double)HEIGHT, param->third, param->tmp_vec);
+	vec_multiply(((double)HEIGHT * ANTI_ALIASING / 2.0 - (double)param->i[0]) * 40.0 /
+		(double)HEIGHT * ANTI_ALIASING, param->third, param->tmp_vec);
 
 	pt_translated(param->v, param->tmp_vec, param->v);
-	vec_multiply(((double)param->i[1] - (double)WIDTH / 2.0) * 40.0 /
-		(double)WIDTH, param->align, param->tmp_vec);
+	vec_multiply(((double)param->i[1] - (double)WIDTH * ANTI_ALIASING / 2.0) * 40.0 /
+		(double)WIDTH * ANTI_ALIASING, param->align, param->tmp_vec);
 	pt_translated(param->v, param->tmp_vec, param->v);
 	vec_to_unit_norm(param->v);
 	return (param->v);
@@ -17,12 +16,6 @@ double	*vision_direction(t_param *param)
 
 void	rt_filler(t_param *param)
 {
-	int i[4];
-
-	i[0] = 0;
-	i[1] = 0;
-	i[2] = 0;
-	i[3] = 0;
 	param->i[0] = 0;
 	while (param->i[0] < HEIGHT)
 	{
@@ -33,7 +26,6 @@ void	rt_filler(t_param *param)
 			param->current_object = NULL;
 			object_intersection(param, param->eye, param->v);
 			if (param->current_object)
-				i[param->current_object->type]++;
 				print_obj_point(param);
 			param->i[1]++;
 		}
