@@ -69,7 +69,6 @@ t_parse	*split_whitespace(char *line)
 
 t_param 	*rt_parser(t_param *param)
 {
-	t_object	*tmp_object;
 	t_light		*tmp_light;
 	int			fd;
 	char 		*line;
@@ -93,7 +92,6 @@ t_param 	*rt_parser(t_param *param)
 		}
 		close(fd);
 	}
-	tmp_object = param->objects;
 	tmp_light = param->lights;
 	while (tmp_light)
 	{

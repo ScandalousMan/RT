@@ -40,11 +40,9 @@ static int		alloc_me(char **str, int n)
 
 char			*ft_itoa(int n)
 {
-	int		i;
 	int		j;
 	char	*str;
 
-	i = 0;
 	if (!(j = alloc_me(&str, n)))
 		return (NULL);
 	while (n < -9 || n > 9)

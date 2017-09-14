@@ -25,8 +25,7 @@ void	rt_filler(t_param *param)
 			vision_direction(param);
 			param->current_object = NULL;
 			object_intersection(param, param->eye, param->v);
-			if (param->current_object)
-				print_obj_point(param);
+			print_obj_point(param);
 			param->i[1]++;
 		}
 		param->i[0]++;
