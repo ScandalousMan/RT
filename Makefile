@@ -20,7 +20,7 @@ MAKEFLAGS += --silent
 ifeq ($(DEBUG), yes)
 	CFLAGS = -Wall -Werror -Wextra -fsanitize=address -g -ggdb `pkg-config --cflags gtk+-3.0`
 else
-	CFLAGS = -Wall -Werror -Wextra -O3 `pkg-config --cflags gtk+-3.0`
+	CFLAGS = `pkg-config --cflags gtk+-3.0` -Wall -Werror -Wextra -O3
 endif
 
 LIBFT_PATH = ./libft

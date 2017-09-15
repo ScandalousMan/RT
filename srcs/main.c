@@ -58,12 +58,29 @@
 // 	mlx_loop(param->mlx);
 // 	return(0);
 // }
+void    on_key_press (GtkWidget *widget, GdkEventKey *event, gpointer user_data) {
+    (void)*widget;
+    (void)user_data;
+
+    mprintf(1, "Key: %d", event->keyval);
+    //Need to handle keys
+}
+
+void    destroy_window(GtkApplication *app, gpointer user_data) {
+    (void)*app;
+    (void)user_data;
+
+    mprintf(1, "Window destroy");
+    //Need to free program
+}
 
 void    activate(GtkApplication *app, gpointer user_data) {
     GtkWidget *window;
 
     (void)user_data;
     window = gtk_application_window_new(app);
+    g_signal_connect(G_OBJECT(window), "destroy", G_CALLBACK(destroy_window), NULL);
+    g_signal_connect(G_OBJECT(window), "key_press_event", G_CALLBACK(on_key_press), NULL);
     gtk_window_set_title(GTK_WINDOW(window), "RT");
     gtk_window_set_default_size(GTK_WINDOW(window), 800, 800);
     gtk_window_set_resizable(GTK_WINDOW(window), FALSE);

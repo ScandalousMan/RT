@@ -36,6 +36,7 @@
 # include <stdlib.h>
 # include <math.h>
 # include <gtk/gtk.h>
+# include <gdk/gdkkeysyms.h>
 # include "../libft/incs/libft.h"
 
 typedef struct  s_parse
