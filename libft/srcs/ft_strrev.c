@@ -1,32 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putdbl.c                                        :+:      :+:    :+:   */
+/*   ft_strrev.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aguemy <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/13 14:39:31 by aguemy            #+#    #+#             */
-/*   Updated: 2017/03/13 14:47:48 by aguemy           ###   ########.fr       */
+/*   Created: 2015/07/10 23:51:50 by malexand          #+#    #+#             */
+/*   Updated: 2017/02/16 17:34:27 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <math.h>
 
-void	ft_putdbl(double d)
+char	*ft_strrev(char *str)
 {
-	if (d < 0.0 && d > -1.0)
-		ft_putchar('-');
-	ft_putnbr(trunc(d));
-	d -= trunc(d);
-	if (d < 0.0)
-		d = -d;
-	if (d != 0.0)
-		ft_putchar('.');
-	while (d != 0.0)
+	int		size;
+	int		i;
+	char	tmp;
+
+	i = 0;
+	size = 0;
+	if (!str)
+		return (NULL);
+	while (str[size] != '\0')
+		size++;
+	while (i < size / 2)
 	{
-		d = d * 10;
-		ft_putnbr(trunc(d));
-		d -= trunc(d);
+		tmp = str[i];
+		str[i] = str[size - i - 1];
+		str[size - i - 1] = tmp;
+		i++;
 	}
+	return (str);
 }

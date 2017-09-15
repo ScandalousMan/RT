@@ -34,9 +34,9 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdlib.h>
-# include "../lib-mlx/mlx.h"
 # include <math.h>
-# include "../libft/libft.h"
+# include <gtk/gtk.h>
+# include "../libft/incs/libft.h"
 
 typedef struct  s_parse
 {
