@@ -18,9 +18,9 @@ OS := $(shell uname -s)
 MAKEFLAGS += --silent
 
 ifeq ($(DEBUG), yes)
-	CFLAGS = -Wall -Werror -Wextra -fsanitize=address -g -ggdb `pkg-config --cflags gtk+-3.0`
+	CFLAGS = -Wall -Werror -Wextra -std=c99 -pedantic -02 -fsanitize=address -g -ggdb `pkg-config --cflags sdl2`
 else
-	CFLAGS = `pkg-config --cflags gtk+-3.0` -Wall -Werror -Wextra -O3
+	CFLAGS =  -Wall -Werror -Wextra -O2 `pkg-config --cflags sdl2` `pkg-config --cflags glew`
 endif
 
 LIBFT_PATH = ./libft
@@ -30,10 +30,10 @@ LIBFT_DEP = $(LIBFT_PATH)/srcs/*
 # Link lib : "-L FOLDER -lXXX" where XXX = libXXX.a
 
 ifeq ($(OS), Linux)
-	LFLAGS = -L./libft -lft `pkg-config --libs gtk+-3.0`
+	LFLAGS = -L./libft -lft `pkg-config --libs glew` `pkg-config --libs sdl2` -lGL -lm -lGLU
 	INCLUDE = -I./incs -I/usr/include/mlx
 else
-	LFLAGS = -L./libft -lft `pkg-config --libs gtk+-3.0`
+	LFLAGS = -L./libft -lft `pkg-config --libs glew` `pkg-config --libs sdl2` -framework openGL -lm
 	INCLUDE = -I./incs
 endif
 
@@ -42,8 +42,8 @@ SRC_DIR = srcs
 INC_DIR = incs
 
 SDIR =		./srcs/
-# SRCS =		$(notdir $(shell ls $(SRC_DIR)/*.c))
-SRCS =		main.c
+SRCS =		$(notdir $(shell ls $(SRC_DIR)/*.c))
+# SRCS =		main.c 
 SRCC =		$(addprefix $(SDIR),$(SRCS))
 
 ODIR =		./objs/
