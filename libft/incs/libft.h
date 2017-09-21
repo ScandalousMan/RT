@@ -6,7 +6,7 @@
 /*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/01 18:36:27 by alex              #+#    #+#             */
-/*   Updated: 2017/02/16 14:14:42 by malexand         ###   ########.fr       */
+/*   Updated: 2017/09/21 16:06:04 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,14 @@ typedef struct		s_list
 	struct s_list	*next;
 }					t_list;
 
-typedef struct	    s_fd
+typedef struct		s_fd
 {
 	int				filed;
 	char			*str;
-}                   t_fd;
+}					t_fd;
 
-int	                ft_max(int a, int b);
-int	                ft_min(int a, int b);
+int					ft_max(int a, int b);
+int					ft_min(int a, int b);
 
 int					ft_isalpha(int c);
 int					ft_isdigit(int c);
@@ -67,7 +67,7 @@ void				ft_putendl(const char *s);
 void				ft_putendl_fd(const char *s, int fd);
 void				ft_putnbr(int nb);
 void				ft_putnbr_fd(int n, int fd);
-void                ft_putdbl(double d);
+void				ft_putdbl(double d);
 void				ft_putlong(long n);
 void				ft_putlong_fd(long n, int fd);
 void				ft_freetab(char **tab);
