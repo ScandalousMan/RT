@@ -1,24 +1,17 @@
-/* nuklear - 1.32.0 - public domain */
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/09/21 17:02:46 by malexand          #+#    #+#             */
+/*   Updated: 2017/09/21 17:14:13 by malexand         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "tool.h"
 
-/* ===============================================================
- *
- *                          EXAMPLE
- *
- * ===============================================================*/
-/* This are some code examples to provide a small overview of what can be
- * done with this library. To try out an example uncomment the include
- * and the corresponding function. */
-/*#include "../style.c"*/
-/*#include "../calculator.c"*/
-/*#include "../overview.c"*/
-/*#include "../node_editor.c"*/
-
-/* ===============================================================
- *
- *                          DEMO
- *
- * ===============================================================*/
 int     main(int argc, char** argv)
 {
     (void)argc;
@@ -71,7 +64,7 @@ int     main(int argc, char** argv)
     /*nk_style_set_font(ctx, &roboto->handle)*/;}
 
     /* style.c */
-    /*set_style(ctx, THEME_WHITE);*/
+    // set_style(ctx, THEME_WHITE);
     /*set_style(ctx, THEME_RED);*/
     /*set_style(ctx, THEME_BLUE);*/
     /*set_style(ctx, THEME_DARK);*/
@@ -90,9 +83,8 @@ int     main(int argc, char** argv)
 
 
         /* GUI */
-        if (nk_begin(ctx, "Demo", nk_rect(50, 50, 200, 200),
-            NK_WINDOW_BORDER|NK_WINDOW_MOVABLE|NK_WINDOW_SCALABLE|
-            NK_WINDOW_CLOSABLE|NK_WINDOW_MINIMIZABLE|NK_WINDOW_TITLE))
+        if (nk_begin(ctx, "Demo", nk_rect(50, 50, 500, 200),
+            NK_WINDOW_BORDER|NK_WINDOW_MOVABLE|NK_WINDOW_MINIMIZABLE|NK_WINDOW_TITLE|NK_WINDOW_CLOSABLE))
         {
             nk_menubar_begin(ctx);
             nk_layout_row_begin(ctx, NK_STATIC, 25, 2);
@@ -100,7 +92,7 @@ int     main(int argc, char** argv)
             if (nk_menu_begin_label(ctx, "FILE", NK_TEXT_LEFT, nk_vec2(120, 200))) {
                 nk_layout_row_dynamic(ctx, 30, 1);
                 nk_menu_item_label(ctx, "OPEN", NK_TEXT_LEFT);
-                nk_menu_item_label(ctx, "CLOSE", NK_TEXT_LEFT);
+                nk_menu_item_label(ctx, "CLOSE", NK_TEXT_CENTERED);
                 nk_menu_end(ctx);
             }
             nk_layout_row_push(ctx, 45);
