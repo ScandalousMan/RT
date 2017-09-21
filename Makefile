@@ -13,7 +13,7 @@
 EXEC = RT
 
 export DEBUG = no
-CC = gcc
+CC = clang
 OS := $(shell uname -s)
 MAKEFLAGS += --silent
 

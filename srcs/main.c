@@ -33,7 +33,7 @@ int     main(int argc, char** argv)
     graph->win = SDL_CreateWindow("Demo",
         SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
         WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_OPENGL|SDL_WINDOW_SHOWN|SDL_WINDOW_ALLOW_HIGHDPI);
-    glContext = SDL_GL_CreateContext(win);
+    glContext = SDL_GL_CreateContext(graph->win);
     SDL_GetWindowSize(win, &win_width, &win_height);
 
     /* OpenGL setup */
@@ -44,7 +44,7 @@ int     main(int argc, char** argv)
         exit(1);
     }
 
-    ctx = nk_sdl_init(win);
+    ctx = nk_sdl_init(graph->win);
     /* Load Fonts: if none of these are loaded a default font will be used  */
     /* Load Cursor: if you uncomment cursor loading please hide the cursor */
     {struct nk_font_atlas *atlas;
@@ -59,14 +59,8 @@ int     main(int argc, char** argv)
     /*nk_style_load_all_cursors(ctx, atlas->cursors);*/
     /*nk_style_set_font(ctx, &roboto->handle)*/;}
 
-    /* style.c */
-    // set_style(ctx, THEME_WHITE);
-    /*set_style(ctx, THEME_RED);*/
-    /*set_style(ctx, THEME_BLUE);*/
-    /*set_style(ctx, THEME_DARK);*/
-
     background = nk_rgb(28,48,62);
-    while (running)
+    while (graph->running)
     {
         /* Input */
         SDL_Event evt;
@@ -79,7 +73,6 @@ int     main(int argc, char** argv)
 				SDL_Quit();
 				exit(0);
 			}
-			if (evt.)
             nk_sdl_handle_event(&evt);
         }
         nk_input_end(ctx);
