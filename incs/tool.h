@@ -6,7 +6,7 @@
 /*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/21 16:04:52 by malexand          #+#    #+#             */
-/*   Updated: 2017/09/21 16:07:29 by malexand         ###   ########.fr       */
+/*   Updated: 2017/09/21 17:32:00 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,17 @@
 # define MIN(a,b) ((a) < (b) ? (a) : (b))
 # define MAX(a,b) ((a) < (b) ? (b) : (a))
 # define LEN(a) (sizeof(a)/sizeof(a)[0])
+
+typedef struct nk_context	t_nk_context;
+
+typedef struct		s_sdl
+{
+	SDL_Window		*win;
+	SDL_GLContext	gl_context;
+	struct nk_color	background;
+	int				win_width;
+	int				win_height;
+	int				running;
+}					t_sdl;
 
 #endif

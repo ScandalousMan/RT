@@ -6,7 +6,7 @@
 /*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/21 17:02:46 by malexand          #+#    #+#             */
-/*   Updated: 2017/09/21 17:14:13 by malexand         ###   ########.fr       */
+/*   Updated: 2017/09/21 17:33:06 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,13 @@
 
 int     main(int argc, char** argv)
 {
-    (void)argc;
+	t_sdl	*graph;
+    t_nk_context *ctx;
+    
+	graph->running = 1;
+	
+	(void)argc;
     (void)argv;
-    /* Platform */
-    SDL_Window *win;
-    SDL_GLContext glContext;
-    struct nk_color background;
-    int win_width, win_height;
-    int running = 1;
-
-    /* GUI */
-    struct nk_context *ctx;
 
     /* SDL setup */
     SDL_SetHint(SDL_HINT_VIDEO_HIGHDPI_DISABLED, "0");
@@ -34,7 +30,7 @@ int     main(int argc, char** argv)
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
     SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
-    win = SDL_CreateWindow("Demo",
+    graph->win = SDL_CreateWindow("Demo",
         SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
         WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_OPENGL|SDL_WINDOW_SHOWN|SDL_WINDOW_ALLOW_HIGHDPI);
     glContext = SDL_GL_CreateContext(win);
@@ -76,14 +72,21 @@ int     main(int argc, char** argv)
         SDL_Event evt;
         nk_input_begin(ctx);
         while (SDL_PollEvent(&evt)) {
-            if (evt.type == SDL_QUIT) goto cleanup;
+            if (evt.type == SDL_QUIT) {
+				nk_sdl_shutdown();
+				SDL_GL_DeleteContext(glContext);
+				SDL_DestroyWindow(win);
+				SDL_Quit();
+				exit(0);
+			}
+			if (evt.)
             nk_sdl_handle_event(&evt);
         }
         nk_input_end(ctx);
 
 
         /* GUI */
-        if (nk_begin(ctx, "Demo", nk_rect(50, 50, 500, 200),
+        if (nk_begin(ctx, "RT UI", nk_rect(50, 50, 500, 200),
             NK_WINDOW_BORDER|NK_WINDOW_MOVABLE|NK_WINDOW_MINIMIZABLE|NK_WINDOW_TITLE|NK_WINDOW_CLOSABLE))
         {
             nk_menubar_begin(ctx);
@@ -120,12 +123,6 @@ int     main(int argc, char** argv)
         }
         nk_end(ctx);
 
-        /* -------------- EXAMPLES ---------------- */
-        /*calculator(ctx);*/
-        /*overview(ctx);*/
-        /*node_editor(ctx);*/
-        /* ----------------------------------------- */
-
         /* Draw */
         {float bg[4];
         nk_color_fv(bg, background);
@@ -141,11 +138,4 @@ int     main(int argc, char** argv)
         nk_sdl_render(NK_ANTI_ALIASING_ON, MAX_VERTEX_MEMORY, MAX_ELEMENT_MEMORY);
         SDL_GL_SwapWindow(win);}
     }
-
-cleanup:
-    nk_sdl_shutdown();
-    SDL_GL_DeleteContext(glContext);
-    SDL_DestroyWindow(win);
-    SDL_Quit();
-    return 0;
 }
