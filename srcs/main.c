@@ -16,8 +16,11 @@ int     main(int argc, char** argv)
 {
 	t_sdl	*graph;
     t_nk_context *ctx;
-    
-	graph->running = 1;
+	
+	if ((graph = (t_sdl*)malloc(sizeof(t_sdl))) == NULL) {
+		return (-1);
+	}
+	graph->run = 1;
 	
 	(void)argc;
     (void)argv;
@@ -30,11 +33,11 @@ int     main(int argc, char** argv)
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
     SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
-    graph->win = SDL_CreateWindow("Demo",
+    graph->win = SDL_CreateWindow("RT",
         SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
         WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_OPENGL|SDL_WINDOW_SHOWN|SDL_WINDOW_ALLOW_HIGHDPI);
-    glContext = SDL_GL_CreateContext(graph->win);
-    SDL_GetWindowSize(win, &win_width, &win_height);
+    graph->gl_context = SDL_GL_CreateContext(graph->win);
+    SDL_GetWindowSize(graph->win, &graph->win_width, &graph->win_height);
 
     /* OpenGL setup */
     glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
@@ -59,8 +62,8 @@ int     main(int argc, char** argv)
     /*nk_style_load_all_cursors(ctx, atlas->cursors);*/
     /*nk_style_set_font(ctx, &roboto->handle)*/;}
 
-    background = nk_rgb(28,48,62);
-    while (graph->running)
+    graph->background = nk_rgb(28,48,62);
+    while (graph->run)
     {
         /* Input */
         SDL_Event evt;
@@ -68,10 +71,18 @@ int     main(int argc, char** argv)
         while (SDL_PollEvent(&evt)) {
             if (evt.type == SDL_QUIT) {
 				nk_sdl_shutdown();
-				SDL_GL_DeleteContext(glContext);
-				SDL_DestroyWindow(win);
+				SDL_GL_DeleteContext(graph->gl_context);
+				SDL_DestroyWindow(graph->win);
 				SDL_Quit();
 				exit(0);
+			} else if (evt.type == SDL_KEYDOWN) {
+				if (evt.key.keysym.sym == SDLK_ESCAPE) {
+					nk_sdl_shutdown();
+					SDL_GL_DeleteContext(graph->gl_context);
+					SDL_DestroyWindow(graph->win);
+					SDL_Quit();
+					exit(0);	
+				}
 			}
             nk_sdl_handle_event(&evt);
         }
@@ -79,7 +90,7 @@ int     main(int argc, char** argv)
 
 
         /* GUI */
-        if (nk_begin(ctx, "RT UI", nk_rect(50, 50, 500, 200),
+	if (nk_begin(ctx, "RT UI", nk_rect(50, 50, 500, 200),
             NK_WINDOW_BORDER|NK_WINDOW_MOVABLE|NK_WINDOW_MINIMIZABLE|NK_WINDOW_TITLE|NK_WINDOW_CLOSABLE))
         {
             nk_menubar_begin(ctx);
@@ -118,9 +129,9 @@ int     main(int argc, char** argv)
 
         /* Draw */
         {float bg[4];
-        nk_color_fv(bg, background);
-        SDL_GetWindowSize(win, &win_width, &win_height);
-        glViewport(0, 0, win_width, win_height);
+        nk_color_fv(bg, graph->background);
+        SDL_GetWindowSize(graph->win, &graph->win_width, &graph->win_height);
+        glViewport(0, 0, graph->win_width, graph->win_height);
         glClear(GL_COLOR_BUFFER_BIT);
         glClearColor(bg[0], bg[1], bg[2], bg[3]);
         /* IMPORTANT: `nk_sdl_render` modifies some global OpenGL state
@@ -129,6 +140,6 @@ int     main(int argc, char** argv)
          * Make sure to either a.) save and restore or b.) reset your own state after
          * rendering the UI. */
         nk_sdl_render(NK_ANTI_ALIASING_ON, MAX_VERTEX_MEMORY, MAX_ELEMENT_MEMORY);
-        SDL_GL_SwapWindow(win);}
+        SDL_GL_SwapWindow(graph->win);}
     }
 }

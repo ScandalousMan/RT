@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "tool.h": "c"
+        "array": "c",
+        "string_view": "c"
     }
 }

@@ -12,15 +12,15 @@
 
 EXEC = RT
 
-export DEBUG = no
+export DEBUG = yes
 CC = clang
 OS := $(shell uname -s)
 MAKEFLAGS += --silent
 
 ifeq ($(DEBUG), yes)
-	CFLAGS = -Wall -Werror -Wextra -std=c99 -pedantic -02 -fsanitize=address -g -ggdb `pkg-config --cflags sdl2`
+	CFLAGS = -Wall -Werror -Wextra -std=c99 -pedantic -g -ggdb `pkg-config --cflags sdl2`
 else
-	CFLAGS =  -Wall -Werror -Wextra -O2 `pkg-config --cflags sdl2` `pkg-config --cflags glew`
+	CFLAGS =  -Wall -Werror -Wextra -std=c99 -pedantic -O2 `pkg-config --cflags sdl2` `pkg-config --cflags glew`
 endif
 
 LIBFT_PATH = ./libft

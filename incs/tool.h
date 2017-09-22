@@ -60,7 +60,9 @@ typedef struct		s_sdl
 	struct nk_color	background;
 	int				win_width;
 	int				win_height;
-	int				running;
+	int				run;
+
+	t_nk_context *ctx;
 }					t_sdl;
 
 #endif
