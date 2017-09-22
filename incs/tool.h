@@ -56,13 +56,13 @@ typedef struct nk_context	t_nk_context;
 typedef struct		s_sdl
 {
 	SDL_Window		*win;
+	t_nk_context 	*ctx;
 	SDL_GLContext	gl_context;
 	struct nk_color	background;
 	int				win_width;
 	int				win_height;
-	int				run;
 
-	t_nk_context *ctx;
+	char			*input;
 }					t_sdl;
 
 #endif
