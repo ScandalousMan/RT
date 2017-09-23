@@ -6,7 +6,7 @@
 /*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/21 16:04:52 by malexand          #+#    #+#             */
-/*   Updated: 2017/09/22 19:32:08 by alex             ###   ########.fr       */
+/*   Updated: 2017/09/23 14:41:12 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@
 # include <GL/glew.h>
 # include <SDL.h>
 # include <SDL_opengl.h>
-# include <SDL_thread.h>
+
+# include "../libft/incs/libft.h"
 
 # define NK_INCLUDE_FIXED_TYPES
 # define NK_INCLUDE_STANDARD_IO
@@ -52,6 +53,9 @@
 # define MIN(a, b) ((a) < (b) ? (a) : (b))
 # define MAX(a, b) ((a) < (b) ? (b) : (a))
 # define LEN(a) (sizeof(a)/sizeof(a)[0])
+
+# define TRUE '1'
+# define FALSE '0'
 
 typedef struct nk_context	t_nk_context;
 

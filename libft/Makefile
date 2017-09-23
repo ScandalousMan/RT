@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: malexand <malexand@student.42.fr>          +#+  +:+       +#+         #
+#    By: alex <alex@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/08/21 18:23:32 by malexand          #+#    #+#              #
-#    Updated: 2017/09/21 16:08:16 by malexand         ###   ########.fr        #
+#    Updated: 2017/09/23 13:13:48 by alex             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ INC		 			= -I./incs
 ifeq ($(DEBUG), yes)
 	CFLAGS = 		-Wall -Werror -Wextra -g -ggdb -fsanitize=address -v
 else
-	CFLAGS = 		-Wall -Werror -Wextra -O3
+	CFLAGS = 		-Wall -Werror -Wextra
 endif
 
 SDIR =				srcs/
