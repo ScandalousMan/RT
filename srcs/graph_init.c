@@ -6,7 +6,7 @@
 /*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/25 11:17:15 by malexand          #+#    #+#             */
-/*   Updated: 2017/09/25 14:51:18 by malexand         ###   ########.fr       */
+/*   Updated: 2017/09/25 15:05:33 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,5 @@ t_sdl	*graph_init(void)
 		graph->input[count] = '0';
 		count++;
 	}
-	graph->background = nk_rgb(0, 0, 0);
 	return (graph);
 }

@@ -6,7 +6,7 @@
 /*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/21 16:04:52 by malexand          #+#    #+#             */
-/*   Updated: 2017/09/25 14:59:59 by malexand         ###   ########.fr       */
+/*   Updated: 2017/09/25 15:12:42 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,6 @@ typedef struct					s_sdl
 {
 	SDL_Window					*win;
 	SDL_GLContext				gl_context;
-	struct nk_color				background;
-	int							win_width;
-	int							win_height;
 
 	char						*input;
 

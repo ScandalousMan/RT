@@ -6,7 +6,7 @@
 /*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/25 11:06:38 by malexand          #+#    #+#             */
-/*   Updated: 2017/09/25 14:58:41 by malexand         ###   ########.fr       */
+/*   Updated: 2017/09/25 15:14:33 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void	sdl_init(t_sdl *graph)
 		WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN |
 		SDL_WINDOW_ALLOW_HIGHDPI);
 	graph->gl_context = SDL_GL_CreateContext(graph->win);
-	SDL_GetWindowSize(graph->win, &graph->win_width, &graph->win_height);
 	glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
 	if (glewInit() != GLEW_OK)
 		exit(1);
