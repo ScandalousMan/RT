@@ -6,7 +6,7 @@
 /*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/25 11:06:38 by malexand          #+#    #+#             */
-/*   Updated: 2017/09/25 14:01:04 by malexand         ###   ########.fr       */
+/*   Updated: 2017/09/25 14:58:41 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 
 void	sdl_init(t_sdl *graph)
 {
+	t_nk_font_atlas *atlas;
+
 	glewExperimental = 1;
 	SDL_SetHint(SDL_HINT_VIDEO_HIGHDPI_DISABLED, "0");
 	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_EVENTS);
@@ -37,20 +39,16 @@ void	sdl_init(t_sdl *graph)
 	SDL_GetWindowSize(graph->win, &graph->win_width, &graph->win_height);
 	glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
 	if (glewInit() != GLEW_OK)
-	{
-		fprintf(stderr, "Failed to setup GLEW\n");
 		exit(1);
-	}
 	graph->ctx = nk_sdl_init(graph->win);
-    t_nk_font_atlas *atlas;
-    nk_sdl_font_stash_begin(&atlas);
-    nk_sdl_font_stash_end();
+	nk_sdl_font_stash_begin(&atlas);
+	nk_sdl_font_stash_end();
 }
 
 void	sdl_quit(t_sdl *graph)
 {
 	nk_sdl_shutdown();
-    SDL_GL_DeleteContext(graph->gl_context);
-    SDL_DestroyWindow(graph->win);
-    SDL_Quit();
+	SDL_GL_DeleteContext(graph->gl_context);
+	SDL_DestroyWindow(graph->win);
+	SDL_Quit();
 }

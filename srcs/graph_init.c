@@ -6,13 +6,13 @@
 /*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/25 11:17:15 by malexand          #+#    #+#             */
-/*   Updated: 2017/09/25 11:38:22 by malexand         ###   ########.fr       */
+/*   Updated: 2017/09/25 14:51:18 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tool.h"
 
-t_sdl	*graph_init()
+t_sdl	*graph_init(void)
 {
 	t_sdl	*graph;
 	int		count;
@@ -21,12 +21,13 @@ t_sdl	*graph_init()
 	if ((graph = (t_sdl*)malloc(sizeof(t_sdl))) == NULL)
 		return (NULL);
 	if ((graph->input = (char*)malloc(sizeof(char) * SDL_NUM_SCANCODES))
-    == NULL)
+	== NULL)
 		return (NULL);
 	while (count < SDL_NUM_SCANCODES)
-    {
+	{
 		graph->input[count] = '0';
 		count++;
 	}
+	graph->background = nk_rgb(0, 0, 0);
 	return (graph);
 }

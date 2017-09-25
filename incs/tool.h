@@ -6,7 +6,7 @@
 /*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/21 16:04:52 by malexand          #+#    #+#             */
-/*   Updated: 2017/09/25 14:01:53 by malexand         ###   ########.fr       */
+/*   Updated: 2017/09/25 14:59:59 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@
 typedef struct nk_context		t_nk_context;
 typedef struct nk_font_atlas	t_nk_font_atlas;
 
+typedef enum nk_anti_aliasing	t_nk_anti_aliasing;
+
 typedef struct					s_sdl
 {
 	SDL_Window					*win;
@@ -69,17 +71,21 @@ typedef struct					s_sdl
 	char						*input;
 
 	t_nk_context				*ctx;
-}					t_sdl;
+}								t_sdl;
 
 /*
 ** NK_API SDL Prototypes
 */
 
 t_nk_context					*nk_sdl_init(SDL_Window *win);
-void							nk_sdl_font_stash_begin(struct nk_font_atlas **atlas);
+void							nk_sdl_font_stash_begin(struct nk_font_atlas
+									**atlas);
 void							nk_sdl_font_stash_end(void);
 int								nk_sdl_handle_event(SDL_Event *evt);
-void							nk_sdl_render(enum nk_anti_aliasing , int max_vertex_buffer, int max_element_buffer);
+void							nk_sdl_render(t_nk_anti_aliasing
+									nk_anti_aliasing,
+									int max_vertex_buffer,
+									int max_element_buffer);
 void							nk_sdl_shutdown(void);
 void							nk_sdl_device_destroy(void);
 void							nk_sdl_device_create(void);
@@ -92,20 +98,21 @@ void							nk_sdl_device_create(void);
 ** Nuklear function
 */
 
-void				nukl_gui(t_sdl *graph);
+void							nukl_gui(t_sdl *graph);
 
 /*
 ** SDL2 Prototypes
 */
 
-void				sdl_init(t_sdl *graph);
-void				sdl_quit(t_sdl *graph);
-void				sdl_pull_evts(t_sdl *graph);
+void							sdl_init(t_sdl *graph);
+void							sdl_quit(t_sdl *graph);
+void							sdl_pull_evts(t_sdl *graph);
+void							sdl_draw(t_sdl *graph);
 
 /*
 ** Graph prototype
 */
 
-t_sdl				*graph_init();
+t_sdl							*graph_init(void);
 
 #endif

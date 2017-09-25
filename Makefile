@@ -6,13 +6,13 @@
 #    By: malexand <malexand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/08/21 18:23:32 by malexand          #+#    #+#              #
-#    Updated: 2017/09/25 11:30:32 by malexand         ###   ########.fr        #
+#    Updated: 2017/09/25 15:01:22 by malexand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 EXEC = RT
 
-export DEBUG = yes
+export DEBUG = no
 CC = clang
 OS := $(shell uname -s)
 MAKEFLAGS += --silent
@@ -71,7 +71,7 @@ else
 	@$(CC) $(CFLAGS) -o $@ $(OBCC) $(INCLUDE) $(LFLAGS)
 	@echo "\x1b[36m  + Compile program:\x1B[0m $@"
 	@echo "\x1B[31m\c"
-	# @norminette srcs/* incs/* | grep -B 1 "Error" || true
+	@norminette srcs/* incs/* | grep -B 1 "Error" || true
 	@echo "\x1B[0m\c"
 endif
 
