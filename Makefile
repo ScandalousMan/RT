@@ -6,19 +6,19 @@
 #    By: malexand <malexand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/08/21 18:23:32 by malexand          #+#    #+#              #
-#    Updated: 2017/09/21 16:08:10 by malexand         ###   ########.fr        #
+#    Updated: 2017/09/25 11:30:32 by malexand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 EXEC = RT
 
-export DEBUG = no
+export DEBUG = yes
 CC = clang
 OS := $(shell uname -s)
 MAKEFLAGS += --silent
 
 ifeq ($(DEBUG), yes)
-	CFLAGS = -Wall -Werror -Wextra -std=c99 -pedantic -02 -fsanitize=address -g -ggdb `pkg-config --cflags sdl2`
+	CFLAGS = -Wall -Werror -Wextra -std=c99 -pedantic -fsanitize=address -g -ggdb `pkg-config --cflags sdl2` `pkg-config --cflags glew`
 else
 	CFLAGS =  -Wall -Werror -Wextra -O2 `pkg-config --cflags sdl2` `pkg-config --cflags glew`
 endif

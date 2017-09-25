@@ -6,7 +6,7 @@
 /*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/21 16:04:52 by malexand          #+#    #+#             */
-/*   Updated: 2017/09/25 11:15:07 by malexand         ###   ########.fr       */
+/*   Updated: 2017/09/25 14:01:53 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@
 # include "nuklear.h"
 # include "nuklear_sdl_gl3.h"
 
-# define WINDOW_WIDTH 800
-# define WINDOW_HEIGHT 600
+# define WINDOW_WIDTH 1000
+# define WINDOW_HEIGHT 800
 
 # define MAX_VERTEX_MEMORY 512 * 1024
 # define MAX_ELEMENT_MEMORY 128 * 1024
@@ -52,32 +52,60 @@
 # define MAX(a,b) ((a) < (b) ? (b) : (a))
 # define LEN(a) (sizeof(a)/sizeof(a)[0])
 
-typedef struct nk_context	t_nk_context;
+# define TRUE '1'
+# define FALSE '0'
 
-typedef struct		s_sdl
+typedef struct nk_context		t_nk_context;
+typedef struct nk_font_atlas	t_nk_font_atlas;
+
+typedef struct					s_sdl
 {
-	SDL_Window		*win;
-	SDL_GLContext	gl_context;
-	struct nk_color	background;
-	int				win_width;
-	int				win_height;
+	SDL_Window					*win;
+	SDL_GLContext				gl_context;
+	struct nk_color				background;
+	int							win_width;
+	int							win_height;
 
-	char			*input;
+	char						*input;
 
-	t_nk_context	*ctx;
+	t_nk_context				*ctx;
 }					t_sdl;
+
+/*
+** NK_API SDL Prototypes
+*/
+
+t_nk_context					*nk_sdl_init(SDL_Window *win);
+void							nk_sdl_font_stash_begin(struct nk_font_atlas **atlas);
+void							nk_sdl_font_stash_end(void);
+int								nk_sdl_handle_event(SDL_Event *evt);
+void							nk_sdl_render(enum nk_anti_aliasing , int max_vertex_buffer, int max_element_buffer);
+void							nk_sdl_shutdown(void);
+void							nk_sdl_device_destroy(void);
+void							nk_sdl_device_create(void);
 
 /*
 ** NK_API Prototypes
 */
 
-NK_API int                  nk_sdl_handle_event(SDL_Event *evt);
+/*
+** Nuklear function
+*/
+
+void				nukl_gui(t_sdl *graph);
 
 /*
 ** SDL2 Prototypes
 */
 
-void						sdl_init(t_sdl *graph);
-void						sdl_pull_evts(t_sdl *graph);
+void				sdl_init(t_sdl *graph);
+void				sdl_quit(t_sdl *graph);
+void				sdl_pull_evts(t_sdl *graph);
+
+/*
+** Graph prototype
+*/
+
+t_sdl				*graph_init();
 
 #endif

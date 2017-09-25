@@ -6,7 +6,7 @@
 /*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/25 11:06:38 by malexand          #+#    #+#             */
-/*   Updated: 2017/09/25 11:12:14 by malexand         ###   ########.fr       */
+/*   Updated: 2017/09/25 14:01:04 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	sdl_init(t_sdl *graph)
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
-	graph->win = SDL_CreateWindow("Demo",
+	graph->win = SDL_CreateWindow("RT",
 		SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
 		WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN |
 		SDL_WINDOW_ALLOW_HIGHDPI);
@@ -41,4 +41,16 @@ void	sdl_init(t_sdl *graph)
 		fprintf(stderr, "Failed to setup GLEW\n");
 		exit(1);
 	}
+	graph->ctx = nk_sdl_init(graph->win);
+    t_nk_font_atlas *atlas;
+    nk_sdl_font_stash_begin(&atlas);
+    nk_sdl_font_stash_end();
+}
+
+void	sdl_quit(t_sdl *graph)
+{
+	nk_sdl_shutdown();
+    SDL_GL_DeleteContext(graph->gl_context);
+    SDL_DestroyWindow(graph->win);
+    SDL_Quit();
 }
