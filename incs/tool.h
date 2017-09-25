@@ -6,7 +6,7 @@
 /*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/21 16:04:52 by malexand          #+#    #+#             */
-/*   Updated: 2017/09/25 09:36:19 by malexand         ###   ########.fr       */
+/*   Updated: 2017/09/25 11:15:07 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@
 # include <SDL.h>
 # include <SDL_opengl.h>
 
+# include "../libft/incs/libft.h"
+
 # define NK_INCLUDE_FIXED_TYPES
 # define NK_INCLUDE_STANDARD_IO
 # define NK_INCLUDE_STANDARD_VARARGS
@@ -35,8 +37,7 @@
 # define NK_INCLUDE_VERTEX_BUFFER_OUTPUT
 # define NK_INCLUDE_FONT_BAKING
 # define NK_INCLUDE_DEFAULT_FONT
-# define NK_IMPLEMENTATION
-# define NK_SDL_GL3_IMPLEMENTATION
+
 # include "nuklear.h"
 # include "nuklear_sdl_gl3.h"
 
@@ -65,5 +66,18 @@ typedef struct		s_sdl
 
 	t_nk_context	*ctx;
 }					t_sdl;
+
+/*
+** NK_API Prototypes
+*/
+
+NK_API int                  nk_sdl_handle_event(SDL_Event *evt);
+
+/*
+** SDL2 Prototypes
+*/
+
+void						sdl_init(t_sdl *graph);
+void						sdl_pull_evts(t_sdl *graph);
 
 #endif

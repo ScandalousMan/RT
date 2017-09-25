@@ -10,8 +10,7 @@
  *
  * ===============================================================
  */
-#ifndef NK_SDL_GL3_H_
-#define NK_SDL_GL3_H_
+#ifdef NK_SDL_GL3_H_
 
 #include <SDL.h>
 #include <SDL_opengl.h>

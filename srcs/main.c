@@ -6,69 +6,30 @@
 /*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/21 17:02:46 by malexand          #+#    #+#             */
-/*   Updated: 2017/09/25 09:37:03 by malexand         ###   ########.fr       */
+/*   Updated: 2017/09/25 11:06:35 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "implementation.h"
 #include "tool.h"
 
-t_sdl	*graph_init() {
+t_sdl	*graph_init()
+{
 	t_sdl	*graph;
 	int		count;
 
 	count = 0;
-	if ((graph = (t_sdl*)malloc(sizeof(t_sdl))) == NULL) {
+	if ((graph = (t_sdl*)malloc(sizeof(t_sdl))) == NULL)
 		return (NULL);
-	}
-	if ((graph->input = (char*)malloc(sizeof(char) * SDL_NUM_SCANCODES)) == NULL) {
+	if ((graph->input = (char*)malloc(sizeof(char) * SDL_NUM_SCANCODES))
+    == NULL)
 		return (NULL);
-	}
-	while (count < SDL_NUM_SCANCODES) {
+	while (count < SDL_NUM_SCANCODES)
+    {
 		graph->input[count] = '0';
 		count++;
 	}
 	return (graph);
-}
-
-void	sdl_pull_evts(t_sdl *graph) {
-	/* Input */
-	SDL_Event evt;
-	nk_input_begin(graph->ctx);
-	while (SDL_PollEvent(&evt)) {
-		if (evt.type == SDL_QUIT) {
-			graph->input[SDL_SCANCODE_ESCAPE] = '1';
-		} else if (evt.type == SDL_KEYDOWN) {
-			graph->input[evt.key.keysym.scancode] = '1';
-		} else if (evt.type == SDL_KEYUP) {
-			graph->input[evt.key.keysym.scancode] = '0';
-		}
-		nk_sdl_handle_event(&evt);
-	}
-	nk_input_end(graph->ctx);
-}
-
-void	sdl_init(t_sdl *graph) {
-	/* SDL setup */
-    SDL_SetHint(SDL_HINT_VIDEO_HIGHDPI_DISABLED, "0");
-    SDL_Init(SDL_INIT_VIDEO|SDL_INIT_TIMER|SDL_INIT_EVENTS);
-    SDL_GL_SetAttribute (SDL_GL_CONTEXT_FLAGS, SDL_GL_CONTEXT_FORWARD_COMPATIBLE_FLAG);
-    SDL_GL_SetAttribute (SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
-    SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
-    graph->win = SDL_CreateWindow("Demo",
-        SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-        WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_OPENGL|SDL_WINDOW_SHOWN|SDL_WINDOW_ALLOW_HIGHDPI);
-    graph->gl_context = SDL_GL_CreateContext(graph->win);
-    SDL_GetWindowSize(graph->win, &graph->win_width, &graph->win_height);
-
-    /* OpenGL setup */
-    glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
-    glewExperimental = 1;
-    if (glewInit() != GLEW_OK) {
-        fprintf(stderr, "Failed to setup GLEW\n");
-        exit(1);
-    }
 }
 
 int     main(int argc, char** argv)
