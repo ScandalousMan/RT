@@ -3,24 +3,24 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: alex <alex@student.42.fr>                  +#+  +:+       +#+         #
+#    By: malexand <malexand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/08/21 18:23:32 by malexand          #+#    #+#              #
-#    Updated: 2017/09/23 13:14:42 by alex             ###   ########.fr        #
+#    Updated: 2017/09/21 16:08:10 by malexand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 EXEC = RT
 
-export DEBUG = yes
+export DEBUG = no
 CC = clang
 OS := $(shell uname -s)
 MAKEFLAGS += --silent
 
 ifeq ($(DEBUG), yes)
-	CFLAGS = -Wall -Werror -Wextra -std=c99 -pedantic -g -ggdb `pkg-config --cflags sdl2`
+	CFLAGS = -Wall -Werror -Wextra -std=c99 -pedantic -02 -fsanitize=address -g -ggdb `pkg-config --cflags sdl2`
 else
-	CFLAGS = -Wall -Werror -Wextra -std=c99 -pedantic -O2 `pkg-config --cflags sdl2` `pkg-config --cflags glew`
+	CFLAGS =  -Wall -Werror -Wextra -O2 `pkg-config --cflags sdl2` `pkg-config --cflags glew`
 endif
 
 LIBFT_PATH = ./libft
@@ -30,8 +30,8 @@ LIBFT_DEP = $(LIBFT_PATH)/srcs/*
 # Link lib : "-L FOLDER -lXXX" where XXX = libXXX.a
 
 ifeq ($(OS), Linux)
-	LFLAGS = -L./libft -lft `pkg-config --libs glew` `pkg-config --libs sdl2`
-	INCLUDE = -I./incs
+	LFLAGS = -L./libft -lft `pkg-config --libs glew` `pkg-config --libs sdl2` -lGL -lm -lGLU
+	INCLUDE = -I./incs -I/usr/include/mlx
 else
 	LFLAGS = -L./libft -lft `pkg-config --libs glew` `pkg-config --libs sdl2` -framework openGL -lm
 	INCLUDE = -I./incs

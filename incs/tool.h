@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tool.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/21 16:04:52 by malexand          #+#    #+#             */
-/*   Updated: 2017/09/23 14:41:12 by alex             ###   ########.fr       */
+/*   Updated: 2017/09/25 09:36:19 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@
 # include <SDL.h>
 # include <SDL_opengl.h>
 
-# include "../libft/incs/libft.h"
-
 # define NK_INCLUDE_FIXED_TYPES
 # define NK_INCLUDE_STANDARD_IO
 # define NK_INCLUDE_STANDARD_VARARGS
@@ -39,7 +37,6 @@
 # define NK_INCLUDE_DEFAULT_FONT
 # define NK_IMPLEMENTATION
 # define NK_SDL_GL3_IMPLEMENTATION
-
 # include "nuklear.h"
 # include "nuklear_sdl_gl3.h"
 
@@ -50,38 +47,23 @@
 # define MAX_ELEMENT_MEMORY 128 * 1024
 
 # define UNUSED(a) (void)a
-# define MIN(a, b) ((a) < (b) ? (a) : (b))
-# define MAX(a, b) ((a) < (b) ? (b) : (a))
+# define MIN(a,b) ((a) < (b) ? (a) : (b))
+# define MAX(a,b) ((a) < (b) ? (b) : (a))
 # define LEN(a) (sizeof(a)/sizeof(a)[0])
-
-# define TRUE '1'
-# define FALSE '0'
 
 typedef struct nk_context	t_nk_context;
 
 typedef struct		s_sdl
 {
 	SDL_Window		*win;
-	t_nk_context 	*ctx;
 	SDL_GLContext	gl_context;
 	struct nk_color	background;
 	int				win_width;
 	int				win_height;
 
 	char			*input;
+
+	t_nk_context	*ctx;
 }					t_sdl;
-
-/*
-** SDL2 prototypes functions
-*/
-
-void	init_sdl2(t_sdl *graph);
-void	pull_evts(t_sdl *graph);
-
-/*
-** Graph prototypes functions
-*/
-
-t_sdl	*init_struct_win();
 
 #endif
