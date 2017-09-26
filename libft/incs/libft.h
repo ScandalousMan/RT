@@ -6,7 +6,7 @@
 /*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/01 18:36:27 by alex              #+#    #+#             */
-/*   Updated: 2017/09/26 18:11:28 by malexand         ###   ########.fr       */
+/*   Updated: 2017/09/26 18:18:56 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ typedef struct		s_fd
 	int				filed;
 	char			*str;
 }					t_fd;
+
+void				error(int error, int send_perror, char *str);
 
 int					ft_max(int a, int b);
 int					ft_min(int a, int b);

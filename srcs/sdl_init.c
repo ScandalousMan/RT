@@ -6,7 +6,7 @@
 /*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/25 11:06:38 by malexand          #+#    #+#             */
-/*   Updated: 2017/09/26 18:00:15 by malexand         ###   ########.fr       */
+/*   Updated: 2017/09/26 18:18:20 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void		init_win_gui(t_sdl *graph)
 	graph->gl_context = SDL_GL_CreateContext(graph->win_gl);
 	glViewport(0, 0, WINDOW_GUI_WIDTH, WINDOW_GUI_HEIGHT);
 	if (glewInit() != GLEW_OK)
-		exit(1);
+		error(0, 0, "Glew init failed!");
 	graph->ctx = nk_sdl_init(graph->win_gl);
 	nk_sdl_font_stash_begin(&atlas);
 	nk_sdl_font_stash_end();
@@ -58,15 +58,12 @@ void			sdl_init(t_sdl *graph)
 	}
 	if ((graph->surfs = (SDL_Surface**)malloc(sizeof(SDL_Surface) * NB_THREAD))
 	== NULL)
-	{
-		printf("Erreur when malloc four surfaces");
-		exit(0);
-	}
+		error(0, 0, "Can't allocate array for surfaces");
 	while (++count < NB_THREAD)
 		if ((graph->surfs[count] = SDL_CreateRGBSurfaceWithFormat(0,
 		WINDOW_SDL_WIDTH, WINDOW_SDL_HEIGHT / 4, 32, SDL_PIXELFORMAT_RGBA32))
 		== NULL)
-			exit(0);
+			error(0, 0, "Can't create all surface");
 }
 
 void			sdl_quit(t_sdl *graph)
