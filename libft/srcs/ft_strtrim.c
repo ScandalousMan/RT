@@ -3,61 +3,76 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aguemy <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/18 15:03:27 by aguemy            #+#    #+#             */
-/*   Updated: 2016/11/23 14:51:30 by aguemy           ###   ########.fr       */
+/*   Created: 2016/05/07 21:53:03 by alex              #+#    #+#             */
+/*   Updated: 2017/02/16 17:34:27 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static void	limiter(char const *s, int *i, int *j, int *k)
+static	char	*ft_dtrim(char const *s)
 {
-	(*i) = 0;
-	(*j) = 0;
-	if (s != NULL)
+	int		count_trim;
+	int		count;
+	char	*tmp;
+
+	count_trim = 0;
+	count = 0;
+	if (!s)
+		return (NULL);
+	while (s[count_trim] == 32 || s[count_trim] == '\n' ||
+		s[count_trim] == '\t')
 	{
-		while ((s[*i] == ' ' || s[*i] == '\n' || s[*i] == '\t') &&
-				s[*i] != '\0')
-			(*i)++;
-		while (s[*j] != '\0')
-			(*j)++;
-		if ((*j) != 0)
-		{
-			(*j)--;
-			while ((*j) > 0 && (s[*j] == ' ' || s[*j] == '\n' || s[*j] == '\t'))
-				(*j)--;
-		}
+		count_trim++;
 	}
-	*k = *i;
+	if ((tmp = (char *)malloc(sizeof(*tmp) * (ft_strlen(s) + 1 - count_trim)))
+		== NULL)
+		return (NULL);
+	while (s[count_trim + count])
+	{
+		tmp[count] = s[count_trim + count];
+		count++;
+	}
+	tmp[count] = '\0';
+	return (tmp);
 }
 
-char		*ft_strtrim(char const *s)
+static	char	*ft_ltrim(char *s)
 {
-	int		i;
-	int		j;
-	int		k;
-	char	*str;
+	int		count_trim;
+	int		count;
+	int		len;
+	char	*tmp;
 
-	limiter(s, &i, &j, &k);
-	if (s == NULL)
+	if (!s)
 		return (NULL);
-	if (j == 0)
+	len = ft_strlen(s) - 1;
+	count_trim = 0;
+	count = 0;
+	while (s[len - count_trim] == 32 || s[len - count_trim] == '\n' ||
+		s[len - count_trim] == '\t')
 	{
-		if (!(str = (char*)malloc(sizeof(char) * 1)))
-			return (NULL);
+		count_trim++;
 	}
-	else
+	if ((tmp = (char *)malloc(sizeof(*tmp) * (len + 2 - count_trim))) == NULL)
+		return (NULL);
+	len++;
+	while (count < len - count_trim)
 	{
-		if (!(str = (char*)malloc(sizeof(char) * (j - i + 2))))
-			return (NULL);
-		while (i < j + 1)
-		{
-			str[i - k] = s[i];
-			i++;
-		}
+		tmp[count] = s[count];
+		count++;
 	}
-	str[i - k] = '\0';
-	return (str);
+	tmp[count] = '\0';
+	return (tmp);
+}
+
+char			*ft_strtrim(char const *s)
+{
+	if (!s)
+		return (NULL);
+	if (!ft_ltrim(ft_dtrim(s)))
+		return (NULL);
+	return (ft_ltrim(ft_dtrim(s)));
 }

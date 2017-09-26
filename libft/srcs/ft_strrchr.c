@@ -3,29 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aguemy <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/21 14:14:09 by aguemy            #+#    #+#             */
-/*   Updated: 2016/11/23 15:52:09 by aguemy           ###   ########.fr       */
+/*   Created: 2016/11/04 13:27:09 by malexand          #+#    #+#             */
+/*   Updated: 2017/02/16 17:34:27 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strrchr(const char *s, int c)
+char	*ft_strrchr(const char *str, int c)
 {
-	int		i;
-	char	*out;
+	int		count;
+	int		occu;
 
-	i = 0;
-	out = NULL;
-	if (c == '\0')
-		return ((char*)(s + ft_strlen(s)));
-	while (s[i] != '\0')
+	count = 0;
+	occu = 0;
+	if (str[0] == '\0')
+		return (NULL);
+	while (str[count] != '\0')
 	{
-		if (s[i] == (char)c)
-			out = (char*)(s + i);
-		i++;
+		if (str[count] == (unsigned char)c)
+			occu = count;
+		count++;
 	}
-	return (out);
+	if (c == '\0')
+		return (char *)(&str[count]);
+	if (occu == 0 && str[0] != c)
+		return (NULL);
+	return (char *)(&str[occu]);
 }

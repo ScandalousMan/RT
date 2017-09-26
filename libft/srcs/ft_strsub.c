@@ -3,33 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strsub.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aguemy <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/18 14:38:27 by aguemy            #+#    #+#             */
-/*   Updated: 2016/11/23 13:57:46 by aguemy           ###   ########.fr       */
+/*   Created: 2016/05/07 20:13:59 by alex              #+#    #+#             */
+/*   Updated: 2017/02/16 17:34:27 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strsub(char const *s, unsigned int start, size_t len)
+char	*ft_strsub(const char *s, unsigned int start, size_t len)
 {
-	unsigned int	i;
-	char			*str;
+	char	*str;
+	size_t	count;
 
-	i = start;
-	if (s == NULL)
+	count = 0;
+	if (!s || len > ft_strlen(s) || start > ft_strlen(s))
 		return (NULL);
-	if ((str = (char*)malloc(sizeof(char) * (len + 1))))
+	if ((str = (char*)malloc(sizeof(*str) * (len + 1))) == NULL)
+		return (NULL);
+	while (start + count < start + len)
 	{
-		while (i < start + len)
-		{
-			str[i - start] = s[i];
-			i++;
-		}
-		str[i - start] = '\0';
-		return (str);
+		str[count] = s[start + count];
+		count++;
 	}
-	else
-		return (NULL);
+	str[count] = '\0';
+	return (str);
 }

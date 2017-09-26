@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aguemy <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/22 14:02:31 by aguemy            #+#    #+#             */
-/*   Updated: 2016/11/24 13:32:57 by aguemy           ###   ########.fr       */
+/*   Created: 2016/11/07 16:59:20 by malexand          #+#    #+#             */
+/*   Updated: 2017/02/16 17:34:21 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,26 @@
 
 t_list	*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
 {
-	t_list	*res;
-	t_list	*tmp;
-	t_list	*out;
+	t_list	*result;
+	t_list	*tmpresult;
+	t_list	*tmplst;
 
-	if (lst != NULL && f)
-	{
-		if (!(tmp = ft_lstnew(lst->content, lst->content_size)))
-			return (NULL);
-		res = f(tmp);
-		out = res;
-		while (lst->next != NULL)
-		{
-			if (!(tmp = ft_lstnew(lst->next->content, lst->next->content_size)))
-				return (NULL);
-			res->next = f(tmp);
-			lst = lst->next;
-			res = res->next;
-		}
-		return (out);
-	}
-	else
+	if (lst == NULL || f == NULL)
 		return (NULL);
+	tmplst = f(lst);
+	if ((result = ft_lstnew(tmplst->content, tmplst->content_size)))
+	{
+		tmpresult = result;
+		lst = lst->next;
+		while (lst != NULL)
+		{
+			tmplst = (*f)(lst);
+			if (!(tmpresult->next = ft_lstnew(tmplst->content,
+										tmplst->content_size)))
+				return (NULL);
+			tmpresult = tmpresult->next;
+			lst = lst->next;
+		}
+	}
+	return (result);
 }

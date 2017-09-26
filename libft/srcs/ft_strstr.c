@@ -3,39 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aguemy <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/21 14:18:05 by aguemy            #+#    #+#             */
-/*   Updated: 2016/11/23 15:32:41 by aguemy           ###   ########.fr       */
+/*   Created: 2016/11/04 12:08:32 by malexand          #+#    #+#             */
+/*   Updated: 2017/02/16 17:34:27 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strstr(const char *m, const char *a)
+char	*ft_strstr(const char *big, const char *little)
 {
-	int	i[3];
+	int		count_big;
+	int		count_little;
 
-	i[0] = 0;
-	i[1] = 0;
-	i[2] = 0;
-	while (m[i[0]] != '\0' && i[2] == 0)
+	count_big = 0;
+	count_little = 0;
+	if (little[0] == '\0')
+		return (char *)(big);
+	while (big[count_big] != '\0')
 	{
-		if (a[0] == m[i[0]])
-		{
-			while ((m[i[1] + i[0]]) && a[i[1]] == m[i[0] + i[1]] && !(i[2]))
-				i[1]++;
-			if (a[i[1]] == '\0')
-				i[2] = 1;
-			else
-				i[1] = 0;
-		}
-		i[0]++;
+		if (big[count_big] == little[0])
+			while (big[count_big + count_little] == little[count_little]
+					&& little[count_little] != '\0'
+					&& big[count_big + count_little] != '\0')
+				count_little++;
+		if (count_little == (int)ft_strlen(little))
+			return ((char *)big + count_big);
+		else
+			count_little = 0;
+		count_big++;
 	}
-	if (a[0] == '\0')
-		return ((char*)m);
-	else if (i[2] != 0)
-		return ((char*)(m + i[0] - 1));
-	else
-		return (NULL);
+	return (NULL);
 }

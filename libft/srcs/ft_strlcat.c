@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aguemy <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/21 14:03:12 by aguemy            #+#    #+#             */
-/*   Updated: 2016/11/24 13:20:26 by aguemy           ###   ########.fr       */
+/*   Created: 2016/06/26 18:02:30 by root              #+#    #+#             */
+/*   Updated: 2017/02/16 17:33:41 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,20 @@
 
 size_t	ft_strlcat(char *dest, const char *src, size_t size)
 {
-	size_t	dlen;
-	size_t	slen;
 	size_t	i;
+	size_t	destlen;
+	size_t	srclen;
 
+	destlen = ft_strlen(dest);
+	srclen = ft_strlen(src);
+	if (size < destlen)
+		return (size + srclen);
 	i = 0;
-	dlen = ft_strlen(dest);
-	slen = ft_strlen(src);
-	if (dlen > size)
-		return (slen + size);
-	while (src[i] != '\0' && dlen + i < size - 1)
+	while (src[i] != '\0' && (destlen + i + 1) < size)
 	{
-		dest[dlen + i] = src[i];
+		dest[destlen + i] = src[i];
 		i++;
 	}
-	dest[dlen + i] = '\0';
-	return (dlen + slen);
+	dest[destlen + i] = '\0';
+	return (destlen + srclen);
 }

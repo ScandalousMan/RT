@@ -3,25 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnequ.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aguemy <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/18 14:35:31 by aguemy            #+#    #+#             */
-/*   Updated: 2016/11/23 13:54:51 by aguemy           ###   ########.fr       */
+/*   Created: 2016/05/07 20:03:01 by alex              #+#    #+#             */
+/*   Updated: 2017/02/16 17:33:36 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_strnequ(char const *s1, char const *s2, size_t n)
+int		ft_strnequ(const char *s1, const char *s2, size_t n)
 {
-	size_t	i;
+	size_t	count;
 
-	i = 0;
-	if (s1 == NULL || s2 == NULL)
+	count = 0;
+	if (!s1 || !s2)
 		return (0);
-	while (s1[i] != '\0' && i < n && s1[i] == s2[i])
-		i++;
-	if (s1[i] == s2[i] || i == n)
+	if (s1[0] == '\0' || s2[0] == '\0')
+		return (1);
+	while (s1[count] == s2[count] && s1[count] != '\0' && s2[count] != '\0' &&
+			count < n)
+		count++;
+	if (count == n || (count < n && s1[count] == s2[count]))
 		return (1);
 	else
 		return (0);

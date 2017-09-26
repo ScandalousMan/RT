@@ -3,40 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aguemy <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/21 13:32:57 by aguemy            #+#    #+#             */
-/*   Updated: 2016/11/23 10:35:03 by aguemy           ###   ########.fr       */
+/*   Created: 2016/05/01 20:55:54 by alex              #+#    #+#             */
+/*   Updated: 2017/02/16 17:34:25 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memmove(void *dst, const void *src, size_t len)
+void	*ft_memmove(void *dest, const void *src, size_t n)
 {
-	int				i;
-	unsigned char	*csrc;
-	unsigned char	*cdst;
+	char	*tmp;
+	char	*dest0;
+	char	*src0;
+	size_t	count;
 
-	i = 0;
-	csrc = (unsigned char*)src;
-	cdst = (unsigned char*)dst;
-	if (len == 0)
-		return (dst);
-	if (csrc > cdst)
-		while (i < (int)len)
-		{
-			cdst[i] = csrc[i];
-			i++;
-		}
-	else
+	count = 0;
+	src0 = (char *)src;
+	dest0 = (char *)dest;
+	if (dest == src || n == 0 ||
+			(tmp = (char *)malloc(sizeof(char) * n)) == NULL)
+		return (dest);
+	while (count < n)
 	{
-		i = (int)(len - 1);
-		while (i >= 0)
-		{
-			cdst[i] = csrc[i];
-			i--;
-		}
+		tmp[count] = src0[count];
+		count++;
 	}
-	return ((void*)(cdst));
+	count = 0;
+	while (count < n)
+	{
+		dest0[count] = tmp[count];
+		count++;
+	}
+	free(tmp);
+	tmp = NULL;
+	return (dest);
 }

@@ -3,51 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aguemy <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/11/18 14:46:29 by aguemy            #+#    #+#             */
-/*   Updated: 2016/11/23 14:08:50 by aguemy           ###   ########.fr       */
+/*   Created: 2016/05/07 21:05:39 by alex              #+#    #+#             */
+/*   Updated: 2017/02/16 17:33:42 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static void	filler(char const *s1, char const *s2, char **str)
+char	*ft_strjoin(const char *s1, const char *s2)
 {
-	int	i;
-	int	j;
-
-	i = 0;
-	while (s1[i] != '\0')
-	{
-		(*str)[i] = s1[i];
-		i++;
-	}
-	j = i;
-	while (s2[i - j] != '\0')
-	{
-		(*str)[i] = s2[i - j];
-		i++;
-	}
-	(*str)[i] = '\0';
-}
-
-char		*ft_strjoin(char const *s1, char const *s2)
-{
+	size_t	count;
+	size_t	len[2];
 	char	*str;
-	int		i;
-	int		j;
 
-	i = 0;
-	if (s1 == NULL || s2 == NULL)
+	if (!s1 || !s2)
 		return (NULL);
-	while (s1[i] != '\0')
-		i++;
-	j = i;
-	while (s2[i - j] != '\0')
-		i++;
-	if (!(str = (char*)malloc(sizeof(char) * (i + 1))))
+	len[0] = ft_strlen(s1);
+	len[1] = ft_strlen(s2);
+	str = ft_strnew(len[0] + len[1]);
+	if (str == NULL)
 		return (NULL);
-	filler(s1, s2, &str);
+	count = 0;
+	while (count < len[0])
+	{
+		str[count] = s1[count];
+		count++;
+	}
+	while (count < (len[0] + len[1]))
+	{
+		str[count] = s2[count - len[0]];
+		count++;
+	}
+	str[count] = '\0';
 	return (str);
 }

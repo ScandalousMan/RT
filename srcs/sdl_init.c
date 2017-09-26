@@ -6,7 +6,7 @@
 /*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/25 11:06:38 by malexand          #+#    #+#             */
-/*   Updated: 2017/09/26 17:45:33 by malexand         ###   ########.fr       */
+/*   Updated: 2017/09/26 18:00:15 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void			sdl_init(t_sdl *graph)
 {
 	int		count;
 
-	count = 0;
+	count = -1;
 	init_win_gui(graph);
 	if (SDL_CreateWindowAndRenderer(WINDOW_SDL_WIDTH, WINDOW_SDL_HEIGHT,
 	SDL_WINDOW_SHOWN | SDL_WINDOW_ALLOW_HIGHDPI, &graph->win_sdl,
@@ -56,28 +56,26 @@ void			sdl_init(t_sdl *graph)
 		printf("Erreur lors de la creation d'un renderer : %s", SDL_GetError());
 		exit(0);
 	}
-	if ((graph->surfs = (SDL_Surface**)malloc(sizeof(SDL_Surface) * 4))
+	if ((graph->surfs = (SDL_Surface**)malloc(sizeof(SDL_Surface) * NB_THREAD))
 	== NULL)
 	{
 		printf("Erreur when malloc four surfaces");
 		exit(0);
 	}
-	while (count < 4)
-	{
+	while (++count < NB_THREAD)
 		if ((graph->surfs[count] = SDL_CreateRGBSurfaceWithFormat(0,
 		WINDOW_SDL_WIDTH, WINDOW_SDL_HEIGHT / 4, 32, SDL_PIXELFORMAT_RGBA32))
 		== NULL)
 			exit(0);
-		count++;
-	}
 }
 
 void			sdl_quit(t_sdl *graph)
 {
-	SDL_FreeSurface(graph->surfs[0]);
-	SDL_FreeSurface(graph->surfs[1]);
-	SDL_FreeSurface(graph->surfs[2]);
-	SDL_FreeSurface(graph->surfs[3]);
+	int		count;
+
+	count = -1;
+	while (++count < NB_THREAD)
+		SDL_FreeSurface(graph->surfs[count]);
 	ft_strdel(&graph->input);
 	nk_sdl_shutdown();
 	SDL_GL_DeleteContext(graph->gl_context);

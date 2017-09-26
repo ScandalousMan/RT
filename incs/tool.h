@@ -6,7 +6,7 @@
 /*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/21 16:04:52 by malexand          #+#    #+#             */
-/*   Updated: 2017/09/26 17:33:23 by malexand         ###   ########.fr       */
+/*   Updated: 2017/09/26 17:52:01 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@
 # define WINDOW_GUI_HEIGHT 800
 # define WINDOW_SDL_WIDTH 1000
 # define WINDOW_SDL_HEIGHT 800
+
+# define NB_THREAD 8
 
 # define MAX_VERTEX_MEMORY 512 * 1024
 # define MAX_ELEMENT_MEMORY 128 * 1024
