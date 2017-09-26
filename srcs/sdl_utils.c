@@ -6,13 +6,13 @@
 /*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 16:48:16 by malexand          #+#    #+#             */
-/*   Updated: 2017/09/26 16:48:26 by malexand         ###   ########.fr       */
+/*   Updated: 2017/09/26 17:32:51 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tool.h"
 
-void	putpixel(SDL_Surface *surface, int x, int y, Uint32 pixel)
+void	putpxl(SDL_Surface *surface, int x, int y, Uint32 pixel)
 {
 	Uint8	*p;
 

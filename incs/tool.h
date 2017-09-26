@@ -6,7 +6,7 @@
 /*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/21 16:04:52 by malexand          #+#    #+#             */
-/*   Updated: 2017/09/26 16:49:03 by malexand         ###   ########.fr       */
+/*   Updated: 2017/09/26 17:33:23 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,8 +107,8 @@ void							nukl_gui(t_sdl *graph);
 ** SDL2 Prototypes
 */
 
-void							putpixel(SDL_Surface *surface, int x, int y,
-									Uint32 pixel);
+void							putpxl(SDL_Surface *surface, int x,
+									int y, Uint32 pixel);
 void							sdl_init(t_sdl *graph);
 void							sdl_quit(t_sdl *graph);
 void							sdl_pull_evts(t_sdl *graph);
