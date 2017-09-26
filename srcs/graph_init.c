@@ -6,7 +6,7 @@
 /*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/25 11:17:15 by malexand          #+#    #+#             */
-/*   Updated: 2017/09/25 15:05:33 by malexand         ###   ########.fr       */
+/*   Updated: 2017/09/26 16:53:38 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,9 @@ t_sdl	*graph_init(void)
 		return (NULL);
 	while (count < SDL_NUM_SCANCODES)
 	{
-		graph->input[count] = '0';
+		graph->input[count] = FALSE;
 		count++;
 	}
+	graph->input[count - 1] = '\0';
 	return (graph);
 }

@@ -6,7 +6,7 @@
 /*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/25 09:46:28 by malexand          #+#    #+#             */
-/*   Updated: 2017/09/25 11:42:32 by malexand         ###   ########.fr       */
+/*   Updated: 2017/09/26 16:54:11 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	sdl_pull_evts(t_sdl *graph)
 	nk_input_begin(graph->ctx);
 	while (SDL_PollEvent(&evt))
 	{
-		if (evt.type == SDL_QUIT)
+		if (evt.window.event == SDL_WINDOWEVENT_CLOSE || evt.type == SDL_QUIT)
 			graph->input[SDL_SCANCODE_ESCAPE] = TRUE;
 		if (evt.type == SDL_KEYDOWN)
 			graph->input[evt.key.keysym.scancode] = TRUE;

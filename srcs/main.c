@@ -6,19 +6,17 @@
 /*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/21 17:02:46 by malexand          #+#    #+#             */
-/*   Updated: 2017/09/25 14:53:03 by malexand         ###   ########.fr       */
+/*   Updated: 2017/09/26 16:37:55 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "implementation.h"
 #include "tool.h"
 
-int		main(int argc, char **argv)
+int		main(void)
 {
 	t_sdl	*graph;
 
-	(void)argc;
-	(void)argv;
 	if ((graph = graph_init()) == NULL)
 		return (0);
 	sdl_init(graph);

@@ -6,7 +6,7 @@
 /*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/21 16:04:52 by malexand          #+#    #+#             */
-/*   Updated: 2017/09/25 15:12:42 by malexand         ###   ########.fr       */
+/*   Updated: 2017/09/26 16:49:03 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,10 @@
 # include "nuklear.h"
 # include "nuklear_sdl_gl3.h"
 
-# define WINDOW_WIDTH 1000
-# define WINDOW_HEIGHT 800
+# define WINDOW_GUI_WIDTH 200
+# define WINDOW_GUI_HEIGHT 800
+# define WINDOW_SDL_WIDTH 1000
+# define WINDOW_SDL_HEIGHT 800
 
 # define MAX_VERTEX_MEMORY 512 * 1024
 # define MAX_ELEMENT_MEMORY 128 * 1024
@@ -62,8 +64,12 @@ typedef enum nk_anti_aliasing	t_nk_anti_aliasing;
 
 typedef struct					s_sdl
 {
-	SDL_Window					*win;
+	SDL_Window					*win_gl;
 	SDL_GLContext				gl_context;
+
+	SDL_Window					*win_sdl;
+	SDL_Renderer				*render_sdl;
+	SDL_Surface					**surfs;
 
 	char						*input;
 
@@ -101,6 +107,8 @@ void							nukl_gui(t_sdl *graph);
 ** SDL2 Prototypes
 */
 
+void							putpixel(SDL_Surface *surface, int x, int y,
+									Uint32 pixel);
 void							sdl_init(t_sdl *graph);
 void							sdl_quit(t_sdl *graph);
 void							sdl_pull_evts(t_sdl *graph);
