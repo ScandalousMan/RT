@@ -6,7 +6,7 @@
 #    By: malexand <malexand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/08/21 18:23:32 by malexand          #+#    #+#              #
-#    Updated: 2017/09/25 15:01:22 by malexand         ###   ########.fr        #
+#    Updated: 2017/09/26 16:44:45 by malexand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,7 @@ INC_DIR = incs
 
 SDIR =		./srcs/
 SRCS =		$(notdir $(shell ls $(SRC_DIR)/*.c))
-# SRCS =		main.c 
+# SRCS =		test.c 
 SRCC =		$(addprefix $(SDIR),$(SRCS))
 
 ODIR =		./objs/
@@ -115,11 +115,16 @@ endif
 re: fclean
 	make
 
-run: all
+run: re
 	@./$(EXEC)
 
 cleanlib:
 	@make -C ./libft fclean
 
+norm:
+	@echo "\x1B[31m\c"
+	@norminette srcs/* incs/* | grep -B 1 "Error" || true
+	@echo "\x1B[0m\c"
 
-.PHONY: all clean fclean re run directories cleanlib
+
+.PHONY: all clean fclean re run directories cleanlib norm
