@@ -6,7 +6,7 @@
 /*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 16:39:54 by aguemy            #+#    #+#             */
-/*   Updated: 2017/09/27 14:40:48 by malexand         ###   ########.fr       */
+/*   Updated: 2017/09/27 15:06:15 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,10 +210,11 @@ typedef struct	s_param
 	double			**rot;
 	double			epsilon;
 
+	t_sdl			*graph;
+	SDL_Thread		**thread;
+	
 	int				current_thread;
 
-	t_sdl			*graph;
-	
 	double			ia;//intensité de la lumiere ambiante
 	double			*m;//triplet intermediaire pour calculs ombres
 }				t_param;
@@ -371,5 +372,7 @@ void							sdl_draw(t_sdl *graph);
 */
 
 t_sdl							*graph_init(void);
+
+void							lauch_threads(t_param *param);
 
 #endif

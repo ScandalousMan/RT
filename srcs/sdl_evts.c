@@ -6,7 +6,7 @@
 /*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/25 09:46:28 by malexand          #+#    #+#             */
-/*   Updated: 2017/09/26 16:54:11 by malexand         ###   ########.fr       */
+/*   Updated: 2017/09/27 15:13:36 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ void	sdl_pull_evts(t_sdl *graph)
 			graph->input[evt.key.keysym.scancode] = TRUE;
 		if (evt.type == SDL_KEYUP)
 			graph->input[evt.key.keysym.scancode] = FALSE;
-		nk_sdl_handle_event(&evt);
+		if (evt.window.windowID == 1)
+			nk_sdl_handle_event(&evt);
 	}
 	nk_input_end(graph->ctx);
 }

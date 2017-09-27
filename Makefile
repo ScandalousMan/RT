@@ -6,16 +6,18 @@
 #    By: malexand <malexand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/08/21 18:23:32 by malexand          #+#    #+#              #
-#    Updated: 2017/09/27 14:26:05 by malexand         ###   ########.fr        #
+#    Updated: 2017/09/27 17:40:45 by malexand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 EXEC = RT
 
-export DEBUG = yes
+DEBUG = yes
 CC = clang
 OS := $(shell uname -s)
 MAKEFLAGS += --silent
+
+export
 
 ifeq ($(DEBUG), yes)
 	CFLAGS = -std=c99 -pedantic -g -ggdb `pkg-config --cflags sdl2` `pkg-config --cflags glew`
@@ -62,6 +64,7 @@ else
 endif
 
 $(EXEC): $(OBCC) $(LIBFT_FILE)
+	echo $(DEBUG)
 ifeq ($(OS), Linux)
 	@echo -e "\x1B[34m$(EXEC):\x1B[0m"
 	$(CC) $(CFLAGS) -o $@ $(OBCC) $(INCLUDE) $(LFLAGS)
@@ -104,7 +107,7 @@ else
 endif
 
 fclean: clean
-	@make -C ./libft delete
+	@make -C ./libft fclean
 	@rm -f $(EXEC)
 ifeq ($(OS), Linux)
 	@echo -e "\x1B[31m  - Remove:\x1B[0m $(EXEC)"
@@ -117,9 +120,6 @@ re: fclean
 
 run: re
 	@./$(EXEC)
-
-cleanlib:
-	@make -C ./libft fclean
 
 norm:
 	@echo "\x1B[31m\c"

@@ -6,14 +6,20 @@
 #    By: malexand <malexand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/08/21 18:23:32 by malexand          #+#    #+#              #
-#    Updated: 2017/09/26 18:10:52 by malexand         ###   ########.fr        #
+#    Updated: 2017/09/27 17:42:14 by malexand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+
+ifndef CC
+CC 					= gcc
+endif
+ifndef DEBUG
+DEBUG 				= no
+endif
+
 EXEC = libft.a
 
-CC 					= clang
-DEBUG				= no
 OS 					= $(shell uname -s)
 MKDIR_P 			= mkdir -p
 OUT_DIR 			= objs
@@ -24,9 +30,9 @@ FIRST				= yes
 INC		 			= -I./incs
 
 ifeq ($(DEBUG), yes)
-	CFLAGS = 		-Wall -Werror -Wextra -g -ggdb -fsanitize=address -v
+	CFLAGS = 		-Wall -Werror -Wextra -g -ggdb
 else
-	CFLAGS = 		-Wall -Werror -Wextra -O3
+	CFLAGS = 		-Wall -Werror -Wextra
 endif
 
 SDIR =				srcs/
@@ -62,7 +68,7 @@ else
 	@ranlib $@
 	@echo "\x1b[36m  + Compile program:\x1B[0m $@"
 	@echo "\x1B[31m\c"
-	# @norminette srcs/* incs/* | grep -B 1 "Error" || true
+# @norminette srcs/* incs/* | grep -B 1 "Error" || true
 	@echo "\x1B[0m\c"
 endif
 
@@ -101,15 +107,7 @@ else
 	@echo "\x1B[31m  - Remove:\x1B[0m $(EXEC)"
 endif
 
-delete:
-	@rm -f $(EXEC)
-ifeq ($(OS), Linux)
-	@echo -e "\x1B[31m  - Remove:\x1B[0m $(EXEC)"
-else
-	@echo "\x1B[31m  - Remove:\x1B[0m $(EXEC)"
-endif
-
 re: fclean
-	re
+	make
 
 .PHONY: all clean fclean re run directories cleanlib delete

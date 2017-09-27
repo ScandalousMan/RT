@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   create.c                                           :+:      :+:    :+:   */
+/*   constructor.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aguemy <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/27 14:57:42 by aguemy            #+#    #+#             */
-/*   Updated: 2017/06/02 15:18:21 by aguemy           ###   ########.fr       */
+/*   Updated: 2017/09/27 15:12:05 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ t_param			*struct_create(void)
 	if (!(param->tmp_vec = (double*)malloc(sizeof(double) * 3)))
 		return (NULL);
 	if (!(param->i = (int*)malloc(sizeof(int) * 2)))
+		return (NULL);
+	if (!(param->thread = (SDL_Thread**)malloc(sizeof(*param->thread) * NB_THREAD)))
 		return (NULL);
 	param->brightness = 1;
 	param->epsilon = EPSILON;

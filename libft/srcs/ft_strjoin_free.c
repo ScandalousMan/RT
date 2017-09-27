@@ -6,13 +6,19 @@
 /*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/14 10:32:41 by malexand          #+#    #+#             */
-/*   Updated: 2017/02/16 17:33:42 by malexand         ###   ########.fr       */
+/*   Updated: 2017/09/27 17:29:26 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strjoin_free(char *s1, const char *s2)
+static void		free_two_str(char *s1, char *s2)
+{
+	ft_strdel(&s1);
+	ft_strdel(&s2);
+}
+
+char	*ft_strjoin_free(char *s1, char *s2)
 {
 	size_t	count;
 	size_t	len[2];
@@ -37,6 +43,6 @@ char	*ft_strjoin_free(char *s1, const char *s2)
 		count++;
 	}
 	str[count] = '\0';
-	free(s1);
+	free_two_str(s1, s2);
 	return (str);
 }
