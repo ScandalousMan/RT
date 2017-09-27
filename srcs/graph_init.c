@@ -6,11 +6,11 @@
 /*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/25 11:17:15 by malexand          #+#    #+#             */
-/*   Updated: 2017/09/26 18:16:42 by malexand         ###   ########.fr       */
+/*   Updated: 2017/09/27 12:28:46 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tool.h"
+#include "rt.h"
 
 t_sdl	*graph_init(void)
 {

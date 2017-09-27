@@ -6,7 +6,7 @@
 /*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/25 11:06:38 by malexand          #+#    #+#             */
-/*   Updated: 2017/09/26 18:18:20 by malexand         ###   ########.fr       */
+/*   Updated: 2017/09/27 14:13:32 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void			sdl_init(t_sdl *graph)
 {
 	int		count;
 
-	count = -1;
+	count = 0;
 	init_win_gui(graph);
 	if (SDL_CreateWindowAndRenderer(WINDOW_SDL_WIDTH, WINDOW_SDL_HEIGHT,
 	SDL_WINDOW_SHOWN | SDL_WINDOW_ALLOW_HIGHDPI, &graph->win_sdl,
@@ -59,20 +59,26 @@ void			sdl_init(t_sdl *graph)
 	if ((graph->surfs = (SDL_Surface**)malloc(sizeof(SDL_Surface) * NB_THREAD))
 	== NULL)
 		error(0, 0, "Can't allocate array for surfaces");
-	while (++count < NB_THREAD)
+	while (count < NB_THREAD)
+	{
 		if ((graph->surfs[count] = SDL_CreateRGBSurfaceWithFormat(0,
-		WINDOW_SDL_WIDTH, WINDOW_SDL_HEIGHT / 4, 32, SDL_PIXELFORMAT_RGBA32))
+		WINDOW_SDL_WIDTH, WINDOW_SDL_HEIGHT / NB_THREAD, 32, SDL_PIXELFORMAT_RGBA32))
 		== NULL)
 			error(0, 0, "Can't create all surface");
+		count++;
+	}
 }
 
 void			sdl_quit(t_sdl *graph)
 {
 	int		count;
 
-	count = -1;
-	while (++count < NB_THREAD)
+	count = 0;
+	while (count < NB_THREAD)
+	{
 		SDL_FreeSurface(graph->surfs[count]);
+		count++;
+	}
 	ft_strdel(&graph->input);
 	nk_sdl_shutdown();
 	SDL_GL_DeleteContext(graph->gl_context);

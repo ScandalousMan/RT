@@ -3,22 +3,22 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: alex <alex@student.42.fr>                  +#+  +:+       +#+         #
+#    By: malexand <malexand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/08/21 18:23:32 by malexand          #+#    #+#              #
-#    Updated: 2017/09/26 19:20:25 by alex             ###   ########.fr        #
+#    Updated: 2017/09/27 14:26:05 by malexand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 EXEC = RT
 
-export DEBUG = no
+export DEBUG = yes
 CC = clang
 OS := $(shell uname -s)
 MAKEFLAGS += --silent
 
 ifeq ($(DEBUG), yes)
-	CFLAGS = -Wall -Werror -Wextra -std=c99 -pedantic -g -ggdb `pkg-config --cflags sdl2` `pkg-config --cflags glew`
+	CFLAGS = -std=c99 -pedantic -g -ggdb `pkg-config --cflags sdl2` `pkg-config --cflags glew`
 else
 	CFLAGS =  -Wall -Werror -Wextra -O2 `pkg-config --cflags sdl2` `pkg-config --cflags glew`
 endif
@@ -71,7 +71,7 @@ else
 	@$(CC) $(CFLAGS) -o $@ $(OBCC) $(INCLUDE) $(LFLAGS)
 	@echo "\x1b[36m  + Compile program:\x1B[0m $@"
 	@echo "\x1B[31m\c"
-	@norminette srcs/* incs/* | grep -B 1 "Error" || true
+	# @norminette srcs/* incs/* | grep -B 1 "Error" || true
 	@echo "\x1B[0m\c"
 endif
 

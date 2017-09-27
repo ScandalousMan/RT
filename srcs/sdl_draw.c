@@ -6,7 +6,7 @@
 /*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/25 14:46:21 by malexand          #+#    #+#             */
-/*   Updated: 2017/09/26 18:15:09 by malexand         ###   ########.fr       */
+/*   Updated: 2017/09/27 14:15:04 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ void	sdl_draw(t_sdl *graph)
 	dest.h = graph->surfs[count]->h;
 	while (count < NB_THREAD)
 	{
-		putpxl(graph->surfs[count], 10, 10,
-			SDL_MapRGBA(graph->surfs[count]->format, 0xFF, 0xFF, 0xFF, 0xFF));
 		text = SDL_CreateTextureFromSurface(graph->render_sdl,
 		graph->surfs[count]);
 		if (text)

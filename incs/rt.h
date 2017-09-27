@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aguemy <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 16:39:54 by aguemy            #+#    #+#             */
-/*   Updated: 2017/06/25 14:17:52 by aguemy           ###   ########.fr       */
+/*   Updated: 2017/09/27 14:15:45 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,9 @@
 # define WINDOW_GUI_WIDTH 200
 # define WINDOW_GUI_HEIGHT 800
 # define WINDOW_SDL_WIDTH 1000
-# define WINDOW_SDL_HEIGHT 800
+# define WINDOW_SDL_HEIGHT 1000
 
-# define NB_THREAD 8
+# define NB_THREAD 1
 
 # define MAX_VERTEX_MEMORY 512 * 1024
 # define MAX_ELEMENT_MEMORY 128 * 1024
@@ -209,6 +209,8 @@ typedef struct	s_param
 	int				*i;
 	double			**rot;
 	double			epsilon;
+
+	int				current_thread;
 
 	t_sdl			*graph;
 	
