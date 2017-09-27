@@ -3,84 +3,128 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aguemy <marvin@42.fr>                      +#+  +:+       +#+         #
+#    By: alex <alex@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2017/03/27 15:52:45 by aguemy            #+#    #+#              #
-#    Updated: 2017/06/04 22:35:54 by aguemy           ###   ########.fr        #
+#    Created: 2015/08/21 18:23:32 by malexand          #+#    #+#              #
+#    Updated: 2017/09/26 19:20:25 by alex             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = RT
-CC = gcc
-CFLAGS =  -Wall -Werror -Wextra
-HEADER = -I./include
-OBJ = $(SRC:.c=.o)
-LIB_PATH = ./libft/
-MLX_PATH = ./lib-mlx/
-LFLAGS = -L$(LIB_PATH) -lft -L$(MLX_PATH) -lmlx -framework OpenGL -framework AppKit
-LIB = $(LIB_PATH)libft.a
-SRC = main.c \
-	parser.c \
-	parser2.c \
-	object_parser.c \
-	components.c \
-	constructor.c \
-	vec_tools.c \
-	distance.c \
-	closest.c \
-	key_func.c \
-	ft_atod.c \
-	display.c \
-	new_functions.c \
-	sphere.c \
-	plane.c \
-	cone.c \
-	cone_tools.c \
-	cylindre.c \
-	cylindre_tools.c \
-	light.c \
-	ellipsoide.c
+EXEC = RT
 
-# COLORS
-C_NO = "\033[00m"
-C_OK = "\033[34m"
-C_GOOD = "\033[32m"
-C_ERROR = "\033[31m"
-C_WARN = "\033[33m"
+export DEBUG = no
+CC = clang
+OS := $(shell uname -s)
+MAKEFLAGS += --silent
 
-# DEBUG MESSAGE
-SUCCESS = [ $(C_GOOD)OK$(C_NO) ]
-OK = [ $(C_OK)OK$(C_NO) ]
+ifeq ($(DEBUG), yes)
+	CFLAGS = -Wall -Werror -Wextra -std=c99 -pedantic -g -ggdb `pkg-config --cflags sdl2` `pkg-config --cflags glew`
+else
+	CFLAGS =  -Wall -Werror -Wextra -O2 `pkg-config --cflags sdl2` `pkg-config --cflags glew`
+endif
 
-all: lib-mlx/libmlx.a libft/libft.a $(NAME)
+LIBFT_PATH = ./libft
+LIBFT_FILE = $(LIBFT_PATH)/libft.a
+LIBFT_DEP = $(LIBFT_PATH)/srcs/*
 
-libft/libft.a:
-	@make -C $(LIB_PATH)
+# Link lib : "-L FOLDER -lXXX" where XXX = libXXX.a
 
-lib-mlx/libmlx.a:
-	@make -C $(MLX_PATH)
+ifeq ($(OS), Linux)
+	LFLAGS = -L./libft -lft `pkg-config --libs glew` `pkg-config --libs sdl2` -lGL -lm -lGLU
+	INCLUDE = -I./incs -I/usr/include/mlx
+else
+	LFLAGS = -L./libft -lft `pkg-config --libs glew` `pkg-config --libs sdl2` -framework openGL -lm
+	INCLUDE = -I./incs
+endif
 
-$(NAME): $(OBJ)
-	@$(CC) $(CFLAGS) -o $@ $(OBJ) $(LFLAGS) $(HEADER)
-	@echo $(SUCCESS)" Compiling" $(NAME) "\t\t"
+OUT_DIR = objs
+SRC_DIR = srcs
+INC_DIR = incs
 
-%.o: %.c ./include/rt.h
-	@$(CC) $(CFLAGS) $(HEADER) -c -o $@ $<
-	@echo $(OK)" Linking $< \t\t"
+SDIR =		./srcs/
+SRCS =		$(notdir $(shell ls $(SRC_DIR)/*.c))
+# SRCS =		test.c 
+SRCC =		$(addprefix $(SDIR),$(SRCS))
+
+ODIR =		./objs/
+OBJS =		$(SRCS:.c=.o)
+OBCC =		$(addprefix $(ODIR),$(OBJS))
+
+all: directories $(EXEC)
+
+$(LIBFT_FILE): $(LIBFT_DEP)
+ifeq ($(OS), Linux)
+	@echo -e "\x1B[34mLibft:\x1B[0m\n"
+	@make -C ./libft
+else
+	@echo "\x1B[34mLibft:\x1B[0m\n"
+	@make -C ./libft
+endif
+
+$(EXEC): $(OBCC) $(LIBFT_FILE)
+ifeq ($(OS), Linux)
+	@echo -e "\x1B[34m$(EXEC):\x1B[0m"
+	$(CC) $(CFLAGS) -o $@ $(OBCC) $(INCLUDE) $(LFLAGS)
+	@echo -e "\x1b[36m  + Compile program:\x1B[0m $@"
+else
+	@echo "\x1B[34m$(EXEC):\x1B[0m"
+	@$(CC) $(CFLAGS) -o $@ $(OBCC) $(INCLUDE) $(LFLAGS)
+	@echo "\x1b[36m  + Compile program:\x1B[0m $@"
+	@echo "\x1B[31m\c"
+	@norminette srcs/* incs/* | grep -B 1 "Error" || true
+	@echo "\x1B[0m\c"
+endif
+
+$(ODIR)%.o: $(SDIR)%.c
+	$(CC) $^ $(CFLAGS) -c -o $@ $(INCLUDE)
+ifeq ($(OS), Linux)
+	@echo -e "\r\x1B[32m  + Compile:\x1B[0m $(notdir $^)"
+else
+	@echo "\r\x1B[32m  + Compile:\x1B[0m $(notdir $^)"
+endif
+
+directories: ${OUT_DIR} ${SRC_DIR} ${INC_DIR}
+
+${OUT_DIR}:
+	@mkdir -p ${OUT_DIR}
+
+${SRC_DIR}:
+	@mkdir -p ${SRC_DIR}
+
+${INC_DIR}:
+	@mkdir -p ${INC_DIR}
 
 clean:
-	@rm -f $(OBJ)
-	@make -C $(LIB_PATH) clean
-	@make -C $(MLX_PATH) clean
-	@echo $(OK)" Cleaning $(NAME) \t\t"
+	@make -C ./libft clean
+	@rm -rf $(OUT_DIR)
+ifeq ($(OS), Linux)
+	@echo -e "\x1B[31m  - Remove:\x1B[0m objs"
+else
+	@echo "\x1B[31m  - Remove:\x1B[0m objs"
+endif
 
 fclean: clean
-	@rm -f $(NAME)
-	@make -C $(MLX_PATH) fclean
-	@make -C $(LIB_PATH) fclean
-	@echo $(OK)" Delete $(NAME) \t\t"
+	@make -C ./libft delete
+	@rm -f $(EXEC)
+ifeq ($(OS), Linux)
+	@echo -e "\x1B[31m  - Remove:\x1B[0m $(EXEC)"
+else
+	@echo "\x1B[31m  - Remove:\x1B[0m $(EXEC)"
+endif
 
 re: fclean
 	make
 
-.PHONY: all clean fclean re $(LIB)
+run: re
+	@./$(EXEC)
+
+cleanlib:
+	@make -C ./libft fclean
+
+norm:
+	@echo "\x1B[31m\c"
+	@norminette srcs/* incs/* | grep -B 1 "Error" || true
+	@echo "\x1B[0m\c"
+
+
+.PHONY: all clean fclean re run directories cleanlib norm
