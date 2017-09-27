@@ -6,7 +6,7 @@
 /*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/21 17:02:46 by malexand          #+#    #+#             */
-/*   Updated: 2017/09/27 14:10:37 by malexand         ###   ########.fr       */
+/*   Updated: 2017/09/27 14:35:43 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ int		main(void)
 		return (-1);
 	if ((graph = graph_init()) == NULL)
 		error(0, 0, "Can't allocate graph struct");
-	sdl_init(graph);
 	param->graph = graph;
 	param->current_thread = 0;
+	sdl_init(graph);
 	rt_parser(param);
 	rt_tracer(param);
 	while (graph->input[SDL_SCANCODE_ESCAPE] == FALSE)

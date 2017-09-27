@@ -85,7 +85,7 @@ void	rt_tracer(t_param *param)
 	param->i[0] = 0;
 	while (param->i[0] < WINDOW_SDL_HEIGHT)
 	{
-		param->i[1] = 1;
+		param->i[1] = 0;
 		while (param->i[1] < WINDOW_SDL_WIDTH)
 		{
 			col[0] = 0;
