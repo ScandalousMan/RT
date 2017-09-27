@@ -30,7 +30,7 @@
 # define BRIGHTNESS 11
 # define EPSILON 0.001
 # define ROTATION 30.0
-# define MAX_RECURSION 0
+# define MAX_RECURSION 1
 # define ANTI_ALIASING 1
 
 # include <unistd.h>
@@ -73,6 +73,14 @@ typedef struct s_cylindre
 	double			radius;
 }				t_cylindre;
 
+typedef struct s_ellipsoide
+{
+	double			*center;
+	double			a;
+	double			b;
+	double			c;
+}				t_ellipsoide;
+
 typedef struct	s_object
 {
 	void			*dim;
@@ -82,13 +90,11 @@ typedef struct	s_object
 	double			shadow;
 
 	double			*tmp_vec;
-	// double			*translate;
-	// double			*rotate;
 	int				col;//couleur de surface de l'objet
 	double			kd;//coefficient de réflexion diffuse de l'objet
 	double			ks;//coefficient de réflexion spéculaire de l'objet
-	double			transparence;
-	double			reflexion;
+	double			transparency;
+	double			reflection;
 	double			thickness;//épaisseur de l'objet, 0 par défaut
 	double			index;//indice du matériaux constituant l'objet, 1 par défaut
 	int				phong;//exposant de Phong de l'objet
@@ -104,6 +110,20 @@ typedef struct	s_light
 	struct s_light	*next;
 }				t_light;
 
+typedef struct	s_path
+{
+	double			*from;
+	double			*v;//triplet pour la direction du rayon initial
+	double			*x;//triplet pour point d'intersection
+	double			*n;//triplet pour vecteur normal
+	double			*l;//rayon de la lumiere
+	double			*r;//rayon réfléchi
+	double			*t;//rayon transmis
+	t_object		*current_object;
+	struct s_path	*reflected;
+	struct s_path	*transmitted;
+}				t_path;
+
 typedef struct	s_param
 {
 	void			*mlx;
@@ -115,22 +135,19 @@ typedef struct	s_param
 	double			*look;//direction dans laquelle l'oeil regarde
 	double			*align;//eye's alignment to define what is looked at
 	double			*third;//third dimension in the referential
-	double			*v;//triplet pour vecteur de raytracing
 	double			obj_d;//object's distance
 	double			tmp_d;//last distance used
-	double			*x;//triplet pour point d'intersection
-	double			*n;//triplet pour vecteur normal
-	double			*l;//rayon de la lumiere
-	double			*r;//rayon réfléchi
+	t_path			*path;
 	t_object		*objects;
 	t_light			*lights;
 	int				num_lights;
-	t_object		*current_object;
 	t_object		*intersect_object;
 	t_object		*tmp_object;
 	t_light			*tmp_light;
 	double			*tmp_vec;
-	int 			bright;
+	int 			brightness;
+	double			bright;
+	double			diffuse;
 	int				*i;
 	double			**rot;
 	double			epsilon;
@@ -163,12 +180,14 @@ t_object		*add_cone(t_param *param, double *org, double *u,
 				double angle);
 t_object		*add_cylindre(t_param *param, double *org, double *u,
 				double radius);
+t_object		*add_ellipsoide(t_param *param, double *org, double a, double b,
+				double c);
 /*
 **-------------------------------------init-------------------------------------
 */
 t_param			*values_init(t_param *param);
 void			rt_filler(t_param *param);
-t_object		*object_intersection(t_param *param, double *from, double *to);
+t_object		*object_intersection(t_param *param, double *from, double *to, t_path *path);
 void			print_obj_point(t_param *param);
 /*
 **------------------------------------tools-------------------------------------
@@ -199,10 +218,12 @@ double			distance_calc(t_object *tmp, t_param *param, double *from,
 				double *to);
 double			distance_to_sphere(t_object *tmp, double *from,
 				double *to);
-double			distance_to_square(t_object *tmp, t_param *param, double *from,
+double			distance_to_plane(t_object *tmp, double *from,
 				double *to);
-double			distance_to_plan(t_object *tmp, double *from,
-				double *to, double *ref);
+double			distance_to_cone(t_object *tmp, double *from, double *to);
+double			distance_to_cylindre(t_object *tmp, double *from, double *to);
+double			distance_to_ellipsoide(t_object *tmp, double *from,
+				double *to);
 /*
 **-------------------------------------cone-------------------------------------
 */
@@ -233,11 +254,17 @@ int 	rt_sphere_parser(t_param *param, t_parse *config);
 int 	rt_plane_parser(t_param *param, t_parse *config);
 int 	rt_cone_parser(t_param *param, t_parse *config);
 int 	rt_cylindre_parser(t_param *param, t_parse *config);
+int		rt_ellipsoide_parser(t_param *param, t_parse *config);
 
 void	rt_tracer(t_param *param);
-t_object	*closest_object(t_param *param, double *from, double *to);
-void		update_normal_vector(t_object *tmp, t_param *param);
-
-
+t_object	*closest_object(t_param *param, double *from, double *to, t_path *path);
+void		update_normal_vector(t_object *tmp, t_path *path);
+t_object		*object_constructor(t_param *param);
+void	update_normal_sphere(t_object *tmp, t_path *path);
+void	update_normal_plane(t_object *tmp, t_path *path);
+void	update_normal_cone(t_object *tmp, t_path *path);
+void	update_normal_cylindre(t_object *tmp, t_path *path);
+void	update_normal_ellipsoide(t_object *tmp, t_path *path);
+void	display_lights(t_param *param);
 
 #endif

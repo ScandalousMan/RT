@@ -12,40 +12,34 @@
 
 #include "rt.h"
 
-// NE PAS OUBLIER DE VERIFIER QUE LA NORME DES VECTEURS DIRECTEURS N'EST PAS NULLE
-
-t_param			*struct_create(void *mlx, void *win, void *img, char *addr)
+t_path			*path_create(int index)
 {
-	t_param		*param;
+	t_path		*path;
 
-	if (!(param = (t_param*)malloc(sizeof(t_param))))
+	if (!(path = (t_path*)malloc(sizeof(t_path))))
 		return (NULL);
-	if (!(param->v = (double*)malloc(sizeof(double) * 3)))
+	if (!(path->from = (double*)malloc(sizeof(double) * 3)))
 		return (NULL);
-	if (!(param->x = (double*)malloc(sizeof(double) * 3)))
+	if (!(path->v = (double*)malloc(sizeof(double) * 3)))
 		return (NULL);
-	if (!(param->n = (double*)malloc(sizeof(double) * 3)))
+	if (!(path->x = (double*)malloc(sizeof(double) * 3)))
 		return (NULL);
-	if (!(param->l = (double*)malloc(sizeof(double) * 3)))
+	if (!(path->n = (double*)malloc(sizeof(double) * 3)))
 		return (NULL);
-	if (!(param->r = (double*)malloc(sizeof(double) * 3)))
+	if (!(path->l = (double*)malloc(sizeof(double) * 3)))
 		return (NULL);
-	if (!(param->tmp_vec = (double*)malloc(sizeof(double) * 3)))
+	if (!(path->r = (double*)malloc(sizeof(double) * 3)))
 		return (NULL);
-	if (!(param->i = (int*)malloc(sizeof(int) * 2)))
+	if (!(path->t = (double*)malloc(sizeof(double) * 3)))
 		return (NULL);
-	param->mlx = mlx;
-	param->win = win;
-	param->img = img;
-	param->addr = addr;
-	param->bright = 1;
-	param->epsilon = EPSILON;
-	param->objects = NULL;
-	param->lights = NULL;
-	param->tmp_object = NULL;
-	param->tmp_light = NULL;
-	param->current_object = NULL;
-	param->intersect_object = NULL;
+	path->current_object = NULL;
+	path->reflected = index < MAX_RECURSION ? path_create(index + 1) : NULL;
+	path->transmitted = index < MAX_RECURSION ? path_create(index + 1) : NULL;
+	return path;
+}
+
+t_param			*create_rotation_matrice(t_param *param)
+{
 	if (!(param->rot = (double**)malloc(sizeof(double*) * 3)))
 		return NULL;
 	if (!(param->rot[0] = (double*)malloc(sizeof(double) * 3)))
@@ -54,7 +48,35 @@ t_param			*struct_create(void *mlx, void *win, void *img, char *addr)
 		return NULL;
 	if (!(param->rot[2] = (double*)malloc(sizeof(double) * 3)))
 		return NULL;
-	return (param);
+	return param;
+}
+
+t_param			*struct_create(void *mlx, void *win, void *img, char *addr)
+{
+	t_param		*param;
+
+	if (!(param = (t_param*)malloc(sizeof(t_param))))
+		return (NULL);
+	param->path = path_create(0);
+	if (!(param->tmp_vec = (double*)malloc(sizeof(double) * 3)))
+		return (NULL);
+	if (!(param->i = (int*)malloc(sizeof(int) * 2)))
+		return (NULL);
+	param->mlx = mlx;
+	param->win = win;
+	param->img = img;
+	param->addr = addr;
+	param->brightness = 1;
+	param->epsilon = EPSILON;
+	param->objects = NULL;
+	param->lights = NULL;
+	param->tmp_object = NULL;
+	param->tmp_light = NULL;
+	param->intersect_object = NULL;
+	param->f = FOCAL_VALUE;
+	param->ia = 1.0;
+	param->num_lights = 0;
+	return create_rotation_matrice(param);
 }
 
 t_light			*add_light(t_light **lights, double *src, double i, int col)
@@ -104,11 +126,9 @@ t_object		*object_constructor(t_param *param)
 	}
 	if (!(param->tmp_object = (t_object*)malloc(sizeof(t_object))))
 		return (NULL);
-	// if (!(param->tmp_object->translate = (double*)malloc(sizeof(double) * 3)))
-	// 	return (NULL);
-	// if (!(param->tmp_object->rotate = (double*)malloc(sizeof(double) * 3)))
-	// 	return (NULL);
 	param->tmp_object->num = num;
+	param->tmp_object->transparency = 0.2;
+	param->tmp_object->reflection = 0.2;
 	if (!(param->tmp_object->tmp_vec = (double*)malloc(sizeof(double) * 3)))
 		return (NULL);
 	param->tmp_object->next = NULL;
@@ -117,95 +137,4 @@ t_object		*object_constructor(t_param *param)
 	else
 		param->objects = param->tmp_object;
 	return (param->tmp_object);
-}
-
-t_object		*add_sphere(t_param *param, double *center, double radius)
-{
-	t_object	*tmp;
-
-	tmp = NULL;
-	if (!center)
-		return (NULL);
-	tmp = object_constructor(param);
-	if (tmp)
-	{
-		tmp->type = 1;
-		tmp->kd = 0.55;
-		tmp->ks = 0.25;
-		tmp->phong = SPECULAR_EXP;
-		if (!(tmp->dim = ((t_sphere*)malloc(sizeof(t_sphere)))))
-			return (NULL);
-		((t_sphere*)(tmp->dim))->center = center;
-		((t_sphere*)(tmp->dim))->radius = radius;
-	}
-	return (tmp);
-}
-
-t_object		*add_plane(t_param *param, double *n, double *ref)
-{
-	t_object	*tmp;
-
-	tmp = NULL;
-	if (!ref || !n)
-		return (NULL);
-	tmp = object_constructor(param);
-	if (tmp)
-	{
-		tmp->type = 2;
-		tmp->kd = 0.55;
-		tmp->ks = 0.0;
-		tmp->phong = SPECULAR_EXP;
-		if (!(tmp->dim = ((t_plane*)malloc(sizeof(t_plane)))))
-			return (NULL);
-		((t_plane*)(tmp->dim))->ref = ref;
-		((t_plane*)(tmp->dim))->n = vec_to_unit_norm(n);
-	}
-	return (tmp);
-}
-
-t_object		*add_cone(t_param *param, double *org, double *u,
-		double angle)
-{
-	t_object	*tmp;
-
-	tmp = NULL;
-	if (!org || !u || M_PI / 2 <= angle || -M_PI / 2 >= angle)
-		return (NULL);
-	tmp = object_constructor(param);
-	if (tmp)
-	{
-		tmp->type = 3;
-		tmp->kd = 0.55;
-		tmp->ks = 0.25;
-		tmp->phong = SPECULAR_EXP;
-		if (!(tmp->dim = ((t_cone*)malloc(sizeof(t_cone)))))
-			return (NULL);
-		((t_cone*)(tmp->dim))->org = org;
-		((t_cone*)(tmp->dim))->u = vec_to_unit_norm(u);
-		((t_cone*)(tmp->dim))->angle = angle;
-	}
-	return (tmp);
-}
-
-t_object		*add_cylindre(t_param *param, double *org, double *u, double radius)
-{
-	t_object	*tmp;
-
-	tmp = NULL;
-	if (!org || !u)
-		return (NULL);
-	tmp = object_constructor(param);
-	if (tmp)
-	{
-		tmp->type = 4;
-		tmp->kd = 0.55;
-		tmp->ks = 0.25;
-		tmp->phong = SPECULAR_EXP;
-		if (!(tmp->dim = ((t_cylindre*)malloc(sizeof(t_cylindre)))))
-			return (NULL);
-		((t_cylindre*)(tmp->dim))->org = org;
-		((t_cylindre*)(tmp->dim))->radius = radius;
-		((t_cylindre*)(tmp->dim))->u = vec_to_unit_norm(u);
-	}
-	return (tmp);
 }

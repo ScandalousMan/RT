@@ -61,6 +61,23 @@ void	free_lights(t_param *param)
 	}
 }
 
+void	free_path(t_path *path)
+{
+	if (path)
+	{
+		free(path->from);
+		free(path->v);
+		free(path->x);
+		free(path->n);
+		free(path->l);
+		free(path->r);
+		free(path->t);
+		free_path(path->reflected);
+		free_path(path->transmitted);
+		free(path);
+	}
+}
+
 void	end_program(t_param *param)
 {
 	free(param->addr);
@@ -70,11 +87,6 @@ void	end_program(t_param *param)
 	free(param->look);
 	free(param->align);
 	free(param->third);
-	free(param->v);
-	free(param->x);
-	free(param->n);
-	free(param->l);
-	free(param->r);
 	free(param->tmp_vec);
 	free(param->i);
 	free(param->rot[0]);
@@ -83,6 +95,7 @@ void	end_program(t_param *param)
 	free(param->rot);
 	free_objects(param);
 	free_lights(param);
+	free_path(param->path);
 	free(param);
 	exit(0);
 }
@@ -94,13 +107,6 @@ double	**rotation_matrice(double alpha, double beta, double gamma, t_param *para
 		alpha = alpha * M_PI / 180.0;
 		beta = beta * M_PI / 180.0;
 		gamma = gamma * M_PI / 180.0;
-		ft_putstr("\nalpha:\n");
-		ft_putdbl(alpha);
-		ft_putstr("\nbeta :\n");
-		ft_putdbl(beta);
-		ft_putstr("\ngamma:\n");
-		ft_putdbl(gamma);
-		ft_putchar('\n');
 		param->rot[0][0] = cos(beta) * cos(gamma);
 		param->rot[0][1] = -1.0 * cos(beta) * sin(gamma);
 		param->rot[0][2] = sin(beta);
@@ -202,7 +208,10 @@ int		my_key_func(int keycode, t_param *param)
 		free_objects(param);
 		free_lights(param);
 		rt_parser(param);
-		rt_filler(param);
+		ft_putstr("\nnumber of lights\n");
+		ft_putnbr(param->num_lights);
+		ft_putchar('\n');
+		rt_tracer(param);
 	}
 	else{
 		ft_putnbr(keycode);
@@ -211,7 +220,7 @@ int		my_key_func(int keycode, t_param *param)
 	if (keycode != REFRESH)
 	{
 		ft_bzero(param->addr, HEIGHT * WIDTH * 4);
-		rt_filler(param);
+		rt_tracer(param);
 	}
 	return (0);
 }

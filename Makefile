@@ -27,14 +27,19 @@ SRC = main.c \
 	constructor.c \
 	vec_tools.c \
 	distance.c \
-	filler.c \
 	closest.c \
-	cone.c \
-	cylindre.c \
 	key_func.c \
 	ft_atod.c \
 	display.c \
-	new_functions.c
+	new_functions.c \
+	sphere.c \
+	plane.c \
+	cone.c \
+	cone_tools.c \
+	cylindre.c \
+	cylindre_tools.c \
+	light.c \
+	ellipsoide.c
 
 # COLORS
 C_NO = "\033[00m"

@@ -1,13 +1,13 @@
 #include "rt.h"
 
-t_object	*closest_object(t_param *param, double *from, double *to)
+t_object	*closest_object(t_param *param, double *from, double *to, t_path *path)
 {
 	param->obj_d= -1.0;
 	param->tmp_object = param->objects;
 
 	while (param->tmp_object)
 	{
-		if (param->current_object && param->tmp_object->num == param->current_object->num)
+		if (path->current_object && param->tmp_object->num == path->current_object->num)
 			param->tmp_object = param->tmp_object->next;
 		if (param->tmp_object)
 		{
@@ -23,48 +23,36 @@ t_object	*closest_object(t_param *param, double *from, double *to)
 	return (param->intersect_object);
 }
 
-void		update_normal_vector(t_object *tmp, t_param *param)
+void		update_normal_vector(t_object *tmp, t_path *path)
 {
 	if (tmp->type == 1)
-		vec_soustraction(param->x, ((t_sphere*)(tmp->dim))->center, param->n);
+		update_normal_sphere(tmp, path);
 	else if (tmp->type == 2)
-	{
-		vec_copy(((t_plane*)(tmp->dim))->n, param->n);
-		if (scalar_product(param->n, param->v) > 0.0)
-			vec_multiply(-1.0, param->n, param->n);
-	}
-	if (tmp->type == 3)
-	{
-		vec_soustraction(param->x, ((t_cone*)(tmp->dim))->org, param->n);
-		vec_multiply(1.0 / scalar_product(param->n, ((t_cone*)(tmp->dim))->u) * vec_norm(param->n) * vec_norm(param->n), ((t_cone*)(tmp->dim))->u, tmp->tmp_vec);
-		vec_soustraction(param->n, tmp->tmp_vec, param->n);
-	}
-	if (tmp->type == 4)
-	{
-		vec_soustraction(param->x, ((t_cylindre*)(tmp->dim))->org, param->n);
-		vec_multiply(scalar_product(param->n, ((t_cylindre*)(tmp->dim))->u), ((t_cylindre*)(tmp->dim))->u, tmp->tmp_vec);
-		vec_soustraction(param->n, tmp->tmp_vec, param->n);
-	}
-	vec_to_unit_norm(param->n);
+		update_normal_plane(tmp, path);
+	else if (tmp->type == 3)
+		update_normal_cone(tmp, path);
+	else if (tmp->type == 4)
+		update_normal_cylindre(tmp, path);
+	vec_to_unit_norm(path->n);
 }
 
-t_object	*object_intersection(t_param *param, double *from, double *to)
+t_object	*object_intersection(t_param *param, double *from, double *to, t_path *path)
 {
 	param->intersect_object = NULL;
-	if (param->current_object)
+	if (path->current_object)
 	{
-		closest_object(param, from, param->l);
+		closest_object(param, from, path->l, path);
 		if (param->obj_d > pt_dist(from, param->tmp_light->src))
 			param->intersect_object = NULL;
 	}
 	else
 	{
-		param->current_object = closest_object(param, from, to);
-		if (param->current_object)
+		path->current_object = closest_object(param, from, to, path);
+		if (path->current_object)
 		{
-			vec_multiply(param->obj_d - param->epsilon, param->v, param->x);
-			pt_translated(param->eye, param->x, param->x);
-			update_normal_vector(param->current_object, param);
+			vec_multiply(param->obj_d - param->epsilon, path->v, path->x);
+			pt_translated(from, path->x, path->x);
+			update_normal_vector(path->current_object, path);
 		}
 	}
 	return (param->intersect_object);

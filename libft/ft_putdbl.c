@@ -13,8 +13,11 @@
 #include "libft.h"
 #include <math.h>
 
-void	ft_putdbl(double d)
+void	ft_putdbl(double d, int index)
 {
+	int	i;
+
+	i = 0;
 	if (d < 0.0 && d > -1.0)
 		ft_putchar('-');
 	ft_putnbr(trunc(d));
@@ -23,10 +26,11 @@ void	ft_putdbl(double d)
 		d = -d;
 	if (d != 0.0)
 		ft_putchar('.');
-	while (d != 0.0)
+	while (d != 0.0 && i < index)
 	{
 		d = d * 10;
 		ft_putnbr(trunc(d));
 		d -= trunc(d);
+		i++;
 	}
 }

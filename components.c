@@ -14,11 +14,11 @@
 
 void		ft_putvec(double *x)
 {
-	ft_putdbl(x[0]);
+	ft_putdbl(x[0], 4);
 	ft_putstr(", ");
-	ft_putdbl(x[1]);
+	ft_putdbl(x[1], 4);
 	ft_putstr(", ");
-	ft_putdbl(x[2]);
+	ft_putdbl(x[2], 4);
 }
 
 int		rgb_ratio(int color, double a)
@@ -76,10 +76,10 @@ void	display_info(t_param *param)
 	if (param->i[0] == 500 && param->i[1] == 500)
 	{
 		ft_putstr("current_obj = ");
-		if (!param->current_object)
+		if (!param->path->current_object)
 			ft_putnbr(-1);
 		else
-			ft_putnbr(param->current_object->type);
+			ft_putnbr(param->path->current_object->type);
 		ft_putchar('\n');
 		ft_putstr("intersect_obj = ");
 		if (!param->intersect_object)
@@ -87,17 +87,17 @@ void	display_info(t_param *param)
 		else
 			ft_putnbr(param->intersect_object->type);
 		ft_putchar('\n');
-		ft_putstr("param->x = ");
-		if (!param->x)
+		ft_putstr("param->path->x = ");
+		if (!param->path->x)
 			ft_putnbr(-1);
 		else
-			ft_putvec(param->x);
+			ft_putvec(param->path->x);
 		ft_putchar('\n');
 		ft_putstr("normale = ");
-		if (!param->n)
+		if (!param->path->n)
 			ft_putnbr(-1);
 		else
-			ft_putvec(param->n);
+			ft_putvec(param->path->n);
 		ft_putchar('\n');
 	}
 }

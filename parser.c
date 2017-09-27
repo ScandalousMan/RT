@@ -69,7 +69,6 @@ t_parse	*split_whitespace(char *line)
 
 t_param 	*rt_parser(t_param *param)
 {
-	t_light		*tmp_light;
 	int			fd;
 	char 		*line;
 	int			count;
@@ -77,9 +76,6 @@ t_param 	*rt_parser(t_param *param)
 	count = 0;
 	if (param)
 	{
-		param->f = FOCAL_VALUE;
-		param->ia = 1.0;
-		param->num_lights = 0;
 		fd = open("rtv1.config", O_RDONLY);
 		if (fd < 0)
 			return (0);
@@ -92,23 +88,7 @@ t_param 	*rt_parser(t_param *param)
 		}
 		close(fd);
 	}
-	tmp_light = param->lights;
-	while (tmp_light)
-	{
-		ft_putstr("light detected,#");
-		ft_putnbr(tmp_light->num);
-		ft_putchar('\n');
-		ft_putvec(tmp_light->src);
-		ft_putstr("\n**************\n");
-		tmp_light = tmp_light->next;
-	}
-	// while (tmp_object)
-	// {
-	// 	ft_putstr("object detected, type: ");
-	// 	ft_putnbr(tmp_object->type);
-	// 	ft_putchar('\n');
-	// 	tmp_object = tmp_object->next;
-	// }
+	display_lights(param);
 	display_objects(param);
 	return (param);
 }

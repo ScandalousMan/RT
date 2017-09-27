@@ -30,14 +30,5 @@ void	rt_filler(t_param *param)
 		}
 		param->i[0]++;
 	}
-	// ft_putstr("occurrences found :\n");
-	// ft_putnbr(i[0]);
-	// ft_putchar('\n');
-	// ft_putnbr(i[1]);
-	// ft_putchar('\n');
-	// ft_putnbr(i[2]);
-	// ft_putchar('\n');
-	// ft_putnbr(i[3]);
-	// ft_putchar('\n');
 	mlx_put_image_to_window(param->mlx, param->win, param->img, 50, 50);
 }

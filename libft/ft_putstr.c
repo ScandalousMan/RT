@@ -14,13 +14,5 @@
 
 void	ft_putstr(char const *str)
 {
-	int	i;
-
-	i = 0;
-	if (str != NULL)
-	{
-		while (str[i] != '\0')
-			i++;
-		write(1, str, i);
-	}
+	write(1, str, ft_strlen(str));
 }
