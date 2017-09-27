@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 16:39:54 by aguemy            #+#    #+#             */
-/*   Updated: 2017/09/27 14:40:48 by malexand         ###   ########.fr       */
+/*   Updated: 2017/09/27 15:46:43 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,9 @@
 # define PARSING_PRECISION 10
 # define FOCAL_VALUE 40.0
 # define ABS(Value) ((Value < 0) ? -1 * Value : Value)
-# define WIDTH 800
-# define HEIGHT 800
+# ifdef __linux__
+#  define M_PI 3.141592653589793238462643383279
+# endif
 # define SPECULAR_EXP 8
 # define ESCAPE 53
 # define REFRESH 15
