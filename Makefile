@@ -6,7 +6,7 @@
 #    By: malexand <malexand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/08/21 18:23:32 by malexand          #+#    #+#              #
-#    Updated: 2017/09/27 17:40:45 by malexand         ###   ########.fr        #
+#    Updated: 2017/09/27 18:06:07 by malexand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -107,7 +107,7 @@ else
 endif
 
 fclean: clean
-	@make -C ./libft fclean
+	@make -C ./libft delete
 	@rm -f $(EXEC)
 ifeq ($(OS), Linux)
 	@echo -e "\x1B[31m  - Remove:\x1B[0m $(EXEC)"
@@ -120,6 +120,9 @@ re: fclean
 
 run: re
 	@./$(EXEC)
+
+cleanlib:
+	@make -C ./libft fclean
 
 norm:
 	@echo "\x1B[31m\c"

@@ -6,7 +6,7 @@
 #    By: malexand <malexand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/08/21 18:23:32 by malexand          #+#    #+#              #
-#    Updated: 2017/09/27 17:42:14 by malexand         ###   ########.fr        #
+#    Updated: 2017/09/27 18:04:21 by malexand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -100,6 +100,14 @@ else
 endif
 
 fclean: clean
+	@rm -f $(EXEC)
+ifeq ($(OS), Linux)
+	@echo -e "\x1B[31m  - Remove:\x1B[0m $(EXEC)"
+else
+	@echo "\x1B[31m  - Remove:\x1B[0m $(EXEC)"
+endif
+
+delete:
 	@rm -f $(EXEC)
 ifeq ($(OS), Linux)
 	@echo -e "\x1B[31m  - Remove:\x1B[0m $(EXEC)"

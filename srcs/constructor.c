@@ -6,7 +6,7 @@
 /*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/27 14:57:42 by aguemy            #+#    #+#             */
-/*   Updated: 2017/09/27 15:12:05 by malexand         ###   ########.fr       */
+/*   Updated: 2017/09/27 17:57:47 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ t_param			*struct_create(void)
 		return (NULL);
 	if (!(param->i = (int*)malloc(sizeof(int) * 2)))
 		return (NULL);
-	if (!(param->thread = (SDL_Thread**)malloc(sizeof(*param->thread) * NB_THREAD)))
+	if (!(param->thread = (SDL_Thread**)malloc(sizeof(SDL_Thread*) * NB_THREAD)))
 		return (NULL);
 	param->brightness = 1;
 	param->epsilon = EPSILON;
