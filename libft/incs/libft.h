@@ -6,7 +6,7 @@
 /*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/01 18:36:27 by alex              #+#    #+#             */
-/*   Updated: 2017/09/27 17:24:13 by malexand         ###   ########.fr       */
+/*   Updated: 2017/09/28 15:12:35 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ void				ft_putdbl(double d, int index);
 void				ft_putlong(long n);
 void				ft_putlong_fd(long n, int fd);
 void				ft_freetab(char **tab);
+
+double				*ft_dbldup(const double *src);
 
 int					ft_strcmp(const char *s1, const char *s2);
 int					ft_strncmp (const char *s1, const char *s2, size_t num);

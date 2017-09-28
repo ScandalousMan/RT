@@ -6,7 +6,7 @@
 /*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 16:39:54 by aguemy            #+#    #+#             */
-/*   Updated: 2017/09/28 14:29:35 by malexand         ###   ########.fr       */
+/*   Updated: 2017/09/28 15:15:49 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@
 # define WINDOW_SDL_WIDTH 1024
 # define WINDOW_SDL_HEIGHT 1024
 
-# define NB_THREAD 16
+# define NB_THREAD 8
 
 # define MAX_VERTEX_MEMORY 512 * 1024
 # define MAX_ELEMENT_MEMORY 128 * 1024

@@ -6,36 +6,34 @@
 /*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/27 15:05:21 by malexand          #+#    #+#             */
-/*   Updated: 2017/09/28 14:34:24 by malexand         ###   ########.fr       */
+/*   Updated: 2017/09/28 15:13:12 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-double	*ft_dbldup(const double *src)
+t_param		*param_cpy(t_param *param, int count)
 {
-	double	*new_dbl;
+	t_param		*param_cpy;
 
-	if (src == NULL)
-		return (NULL);
-	if (!(new_dbl = (double*)malloc(sizeof(double))))
-		return (NULL);
-	*new_dbl = *src;
-	return (new_dbl);
+	if (!(param_cpy = struct_create()))
+			error(0, 0, "Init param for multi thread failed!");
+	param_cpy->graph = param->graph;
+	param_cpy->current_thread = count;
+	return (param_cpy);
 }
 
-static int calc(void *ptr)
+static int	calc(void *ptr)
 {
 	t_param		*param;
 
 	param = (t_param*)ptr;
 	rt_parser(param);
 	rt_tracer(param);
-	ft_putnbr(param->current_thread);
     return (0);
 }
 
-void	lauch_threads(t_param *param)
+void		lauch_threads(t_param *param)
 {
 	int			count;
 	int			threadReturnValue;
@@ -43,16 +41,13 @@ void	lauch_threads(t_param *param)
 	t_param		**params;
 
 	count = 0;
+	name = ft_strdup("Thread0");
 	if (!(params = (t_param**)malloc(sizeof(t_param*) * NB_THREAD)))
 		error(0, 0, "Alloc all thread not work");
-	name = ft_strdup("Thread0");
 	while (count < NB_THREAD)
 	{
 		name[6] = 48 + count;
-		if (!(params[count] = struct_create()))
-			error(0, 0, "Init param for multi thread failed!");
-		params[count]->graph = param->graph;
-		params[count]->current_thread = count;
+		params[count] = param_cpy(param, count);
 		if (!(param->thread[count] = SDL_CreateThread(calc, name, (void*)params[count])))
 			error(0, 0, "Create new thread failed!");
 		count++;
@@ -60,7 +55,6 @@ void	lauch_threads(t_param *param)
 	count = 0;
 	while (count < NB_THREAD)
 	{
-		name[6] = 48 + count;
 		SDL_WaitThread(param->thread[count], &threadReturnValue);
 		if (threadReturnValue != 0)
 			error(0, 0, "Thread wrong return value");
