@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_func.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aguemy <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 16:38:39 by aguemy            #+#    #+#             */
-/*   Updated: 2017/05/01 18:19:04 by aguemy           ###   ########.fr       */
+/*   Updated: 2017/09/27 18:09:07 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,7 +201,6 @@ int		my_key_func(int keycode, t_param *param)
 	}
 	else if (keycode == REFRESH)
 	{
-		ft_bzero(param->addr, WINDOW_SDL_HEIGHT * WINDOW_SDL_WIDTH * 4);
 		free_objects(param);
 		free_lights(param);
 		rt_parser(param);
@@ -216,7 +215,6 @@ int		my_key_func(int keycode, t_param *param)
 	}
 	if (keycode != REFRESH)
 	{
-		ft_bzero(param->addr, WINDOW_SDL_HEIGHT * WINDOW_SDL_WIDTH * 4);
 		rt_tracer(param);
 	}
 	return (0);

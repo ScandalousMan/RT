@@ -6,7 +6,7 @@
 /*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/27 14:53:46 by aguemy            #+#    #+#             */
-/*   Updated: 2017/09/27 14:45:13 by malexand         ###   ########.fr       */
+/*   Updated: 2017/09/28 14:31:14 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,11 @@ int		color_summer(int col1, int col2)
 
 void	store_pixel(t_param *param, int color)
 {
-	if (param->i[0] >= 0 && param->i[0] < WINDOW_SDL_WIDTH / NB_THREAD && param->i[1] >= 0 && param->i[1] < WINDOW_SDL_HEIGHT / NB_THREAD)
-		putpxl(param->graph->surfs[param->current_thread], param->i[1], param->i[0],
+	if (param->i[0] >= 0 && param->i[0] - ((param->current_thread) * WINDOW_SDL_HEIGHT / NB_THREAD) < WINDOW_SDL_HEIGHT / NB_THREAD
+	&& param->i[1] >= 0 && param->i[1] < WINDOW_SDL_WIDTH)
+		putpxl(param->graph->surfs[param->current_thread],
+		param->i[1],
+		param->i[0] - (param->current_thread) * WINDOW_SDL_HEIGHT / NB_THREAD,
 		SDL_MapRGBA(param->graph->surfs[param->current_thread]->format,(color) & 0xFF, (color >> 8) & 0xFF, (color >> 16) & 0xFF, 0xFF));
 }
 

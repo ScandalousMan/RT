@@ -82,8 +82,8 @@ void	rt_tracer(t_param *param)
 	int		tmp_col;
 	int 	alias[2];
 
-	param->i[0] = 0;
-	while (param->i[0] < WINDOW_SDL_HEIGHT)
+	param->i[0] = param->current_thread * WINDOW_SDL_HEIGHT / NB_THREAD;
+	while (param->i[0] < (param->current_thread + 1) * WINDOW_SDL_HEIGHT / NB_THREAD)
 	{
 		param->i[1] = 0;
 		while (param->i[1] < WINDOW_SDL_WIDTH)

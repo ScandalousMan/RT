@@ -6,7 +6,7 @@
 /*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 16:39:54 by aguemy            #+#    #+#             */
-/*   Updated: 2017/09/27 15:46:43 by alex             ###   ########.fr       */
+/*   Updated: 2017/10/03 11:32:52 by aguemy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,10 @@
 
 # define WINDOW_GUI_WIDTH 200
 # define WINDOW_GUI_HEIGHT 800
-# define WINDOW_SDL_WIDTH 1000
-# define WINDOW_SDL_HEIGHT 1000
+# define WINDOW_SDL_WIDTH 1024
+# define WINDOW_SDL_HEIGHT 1024
 
-# define NB_THREAD 1
+# define NB_THREAD 8
 
 # define MAX_VERTEX_MEMORY 512 * 1024
 # define MAX_ELEMENT_MEMORY 128 * 1024
@@ -185,10 +185,6 @@ typedef struct	s_path
 
 typedef struct	s_param
 {
-	void			*mlx;
-	void			*win;
-	void			*img;
-	char			*addr;
 	double			f;//focale
 	double			*eye;//position de l'oeil de l'observateur
 	double			*look;//direction dans laquelle l'oeil regarde
@@ -211,10 +207,12 @@ typedef struct	s_param
 	double			**rot;
 	double			epsilon;
 
-	int				current_thread;
-
 	t_sdl			*graph;
+	SDL_Thread		**thread;
 	
+	int				current_thread;
+	int				refresh;
+
 	double			ia;//intensité de la lumiere ambiante
 	double			*m;//triplet intermediaire pour calculs ombres
 }				t_param;
@@ -372,5 +370,7 @@ void							sdl_draw(t_sdl *graph);
 */
 
 t_sdl							*graph_init(void);
+
+void							lauch_threads(t_param *param);
 
 #endif
