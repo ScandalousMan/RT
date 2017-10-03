@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   threads.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aguemy <aguemy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/27 15:05:21 by malexand          #+#    #+#             */
-/*   Updated: 2017/09/28 15:13:12 by malexand         ###   ########.fr       */
+/*   Updated: 2017/10/03 11:44:22 by aguemy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,12 @@ t_param		*param_cpy(t_param *param, int count)
 			error(0, 0, "Init param for multi thread failed!");
 	param_cpy->graph = param->graph;
 	param_cpy->current_thread = count;
+	vec_copy(param_cpy->eye, param->eye);
+	vec_copy(param_cpy->look, param->look);
+	vec_copy(param_cpy->align, param->align);
+	vec_copy(param_cpy->third, param->third);
+	param_cpy->objects = param->objects;
+	param_cpy->lights = param->lights;
 	return (param_cpy);
 }
 
@@ -28,6 +34,7 @@ static int	calc(void *ptr)
 	t_param		*param;
 
 	param = (t_param*)ptr;
+
 	rt_parser(param);
 	rt_tracer(param);
     return (0);

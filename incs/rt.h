@@ -6,7 +6,7 @@
 /*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 16:39:54 by aguemy            #+#    #+#             */
-/*   Updated: 2017/10/03 11:32:52 by aguemy           ###   ########.fr       */
+/*   Updated: 2017/10/03 15:11:27 by aguemy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,11 +233,13 @@ int				color_summer(int col1, int col2);
 t_param			*struct_create(void);
 t_param			*new_content(t_param *param);
 t_light			*add_light(t_light **lights, double *src, double i, int col);
+t_light			*light_copy(t_light *src);
 t_object		*add_sphere(t_param *param, double *center, double radius);
 t_object		*add_cube(t_param *param, double *center, double side);
 t_object		*add_plane(t_param *param, double *n, double *ref);
 t_object		*add_cone(t_param *param, double *org, double *u,
 				double angle);
+t_object		*object_copy(t_object *src);
 t_object		*add_cylindre(t_param *param, double *org, double *u,
 				double radius);
 t_object		*add_ellipsoide(t_param *param, double *org, double a, double b,
