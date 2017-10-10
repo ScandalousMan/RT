@@ -33,7 +33,7 @@ t_sphere	*duplicate_sphere(t_sphere *src)
 	return copy;
 }
 
-t_splane	*duplicate_plane(t_plane *src)
+t_plane		*duplicate_plane(t_plane *src)
 {
 	t_plane	*copy;
 
@@ -106,15 +106,15 @@ t_object	*object_copy(t_object *src)
 	copy->num = src->num;
 	copy->type = src->type;
 	if (copy->type == 1)
-		(t_sphere*)(copy->dim) = duplicate_sphere((t_sphere*)(src->dim));
+		copy->dim = (void*)duplicate_sphere((t_sphere*)(src->dim));
 	else if (copy->type == 2)
-		(t_plane*)(copy->dim) = duplicate_plane((t_plane*)(src->dim));
+		copy->dim = (void*)duplicate_plane((t_plane*)(src->dim));
 	else if (copy->type == 3)
-		(t_cone*)(copy->dim) = duplicate_cone((t_cone*)(src->dim));
+		copy->dim = (void*)duplicate_cone((t_cone*)(src->dim));
 	else if (copy->type == 4)
-		(t_cylindre*)(copy->dim) = duplicate_cylindre((t_cylindre*)(src->dim));
+		copy->dim = (void*)duplicate_cylindre((t_cylindre*)(src->dim));
 	else if (copy->type == 5)
-		(t_ellipsoide*)(copy->dim) = duplicate_ellipsoide((t_ellipsoide*)(src->dim));
+		copy->dim = (void*)duplicate_ellipsoide((t_ellipsoide*)(src->dim));
 	copy->shadow = src->shadow;
 	copy->col = src->col;
 	copy->kd = src->kd;

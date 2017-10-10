@@ -20,12 +20,12 @@ t_param		*param_cpy(t_param *param, int count)
 			error(0, 0, "Init param for multi thread failed!");
 	param_cpy->graph = param->graph;
 	param_cpy->current_thread = count;
-	vec_copy(param_cpy->eye, param->eye);
-	vec_copy(param_cpy->look, param->look);
-	vec_copy(param_cpy->align, param->align);
-	vec_copy(param_cpy->third, param->third);
-	param_cpy->objects = param->objects;
-	param_cpy->lights = param->lights;
+	param_cpy->eye = vec_dup(param->eye);
+	param_cpy->look = vec_dup(param->look);
+	param_cpy->align = vec_dup(param->align);
+	param_cpy->third = vec_dup(param->third);
+	param_cpy->objects = object_copy(param->objects);
+	param_cpy->lights = light_copy(param->lights);
 	return (param_cpy);
 }
 
@@ -34,8 +34,7 @@ static int	calc(void *ptr)
 	t_param		*param;
 
 	param = (t_param*)ptr;
-
-	rt_parser(param);
+	// rt_parser(param);
 	rt_tracer(param);
     return (0);
 }

@@ -51,3 +51,13 @@ void	matrice_product(double **matrice, double *col, double *dest)
 		dest[2] = c;
 	}
 }
+
+double	*vec_dup(double *vec)
+{
+	double	*res;
+
+	if (!(res = (double*)malloc(sizeof(double) * 3)))
+		return NULL;
+	vec_copy(vec, res);
+	return res;
+}

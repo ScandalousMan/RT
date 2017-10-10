@@ -268,6 +268,7 @@ double			*vector_product(double *x, double *y, double *container);
 double			*vec_soustraction(double *x, double *y, double *container);
 int				is_in_list(t_param *param, t_light *light);
 void			matrice_product(double **matrice, double *col, double *dest);
+double			*vec_dup(double *vec);
 /*
 **------------------------------------display-----------------------------------
 */

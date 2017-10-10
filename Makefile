@@ -35,7 +35,7 @@ ifeq ($(OS), Linux)
 	LFLAGS = -L./libft -lft `pkg-config --libs glew` `pkg-config --libs sdl2` -lGL -lm -lGLU
 	INCLUDE = -I./incs -I/usr/include/mlx
 else
-	LFLAGS = -L./libft -lft `pkg-config --libs glew` `pkg-config --libs sdl2` -framework openGL -lm
+	LFLAGS = -L./libft -lft `pkg-config --libs glew` `pkg-config --libs sdl2` -framework OpenGL -lm
 	INCLUDE = -I./incs
 endif
 
