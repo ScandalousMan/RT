@@ -50,7 +50,7 @@ void			sdl_init(t_sdl *graph)
 	count = 0;
 	init_win_gui(graph);
 	if (SDL_CreateWindowAndRenderer(WINDOW_SDL_WIDTH, WINDOW_SDL_HEIGHT,
-	SDL_WINDOW_SHOWN | SDL_WINDOW_ALLOW_HIGHDPI, &graph->win_sdl,
+	SDL_WINDOW_SHOWN, &graph->win_sdl,
 	&graph->render_sdl) < 0)
 	{
 		printf("Erreur lors de la creation d'un renderer : %s", SDL_GetError());
