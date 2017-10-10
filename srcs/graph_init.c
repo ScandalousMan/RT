@@ -26,5 +26,6 @@ t_sdl	*graph_init(void)
 	while (++count < SDL_NUM_SCANCODES)
 		graph->input[count] = FALSE;
 	graph->input[count - 1] = '\0';
+	graph->show_tmp = 0;
 	return (graph);
 }
