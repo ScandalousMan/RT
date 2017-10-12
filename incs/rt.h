@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 16:39:54 by aguemy            #+#    #+#             */
-/*   Updated: 2017/10/03 15:11:27 by aguemy           ###   ########.fr       */
+/*   Updated: 2017/10/12 11:10:01 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -365,6 +365,8 @@ void							nukl_gui(t_sdl *graph);
 
 void							putpxl(SDL_Surface *surface, int x,
 									int y, Uint32 pixel);
+Uint32							getpxl(SDL_Surface *surface, int x, int y);
+Uint32							format_Uint32(Uint32 pixel, SDL_PixelFormat *fmt);
 void							sdl_init(t_sdl *graph);
 void							sdl_quit(t_sdl *graph);
 void							sdl_pull_evts(t_sdl *graph);
