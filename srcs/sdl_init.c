@@ -50,8 +50,7 @@ void			sdl_init(t_sdl *graph)
 	count = 0;
 	init_win_gui(graph);
 	if (SDL_CreateWindowAndRenderer(WINDOW_SDL_WIDTH, WINDOW_SDL_HEIGHT,
-	SDL_WINDOW_SHOWN, &graph->win_sdl,
-	&graph->render_sdl) < 0)
+	SDL_WINDOW_SHOWN, &graph->win_sdl, &graph->render_sdl) < 0)
 	{
 		printf("Erreur lors de la creation d'un renderer : %s", SDL_GetError());
 		exit(0);
@@ -59,9 +58,16 @@ void			sdl_init(t_sdl *graph)
 	if ((graph->surfs = (SDL_Surface**)malloc(sizeof(SDL_Surface) * NB_THREAD))
 	== NULL)
 		error(0, 0, "Can't allocate array for surfaces");
+	if ((graph->tmp_surfs = (SDL_Surface**)malloc(sizeof(SDL_Surface) * NB_THREAD))
+	== NULL)
+		error(0, 0, "Can't allocate array for surfaces");
 	while (count < NB_THREAD)
 	{
 		if ((graph->surfs[count] = SDL_CreateRGBSurfaceWithFormat(0,
+		WINDOW_SDL_WIDTH, WINDOW_SDL_HEIGHT / NB_THREAD, 32, SDL_PIXELFORMAT_RGBA32))
+		== NULL)
+			error(0, 0, "Can't create all surface");
+		if ((graph->tmp_surfs[count] = SDL_CreateRGBSurfaceWithFormat(0,
 		WINDOW_SDL_WIDTH, WINDOW_SDL_HEIGHT / NB_THREAD, 32, SDL_PIXELFORMAT_RGBA32))
 		== NULL)
 			error(0, 0, "Can't create all surface");

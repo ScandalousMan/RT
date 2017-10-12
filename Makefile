@@ -12,7 +12,7 @@
 
 EXEC = RT
 
-DEBUG = yes
+DEBUG = no
 CC = clang
 OS := $(shell uname -s)
 MAKEFLAGS += --silent

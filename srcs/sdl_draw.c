@@ -24,8 +24,13 @@ void	sdl_draw(t_sdl *graph)
 	dest.h = graph->surfs[count]->h;
 	while (count < NB_THREAD)
 	{
-		text = SDL_CreateTextureFromSurface(graph->render_sdl,
-		graph->surfs[count]);
+		if (graph->show_tmp == 0) {
+			text = SDL_CreateTextureFromSurface(graph->render_sdl,
+			graph->surfs[count]);
+		} else {
+			text = SDL_CreateTextureFromSurface(graph->render_sdl,
+			graph->tmp_surfs[count]);
+		}
 		if (text)
 		{
 			dest.y = (WINDOW_SDL_HEIGHT / NB_THREAD) * count;
