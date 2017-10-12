@@ -31,8 +31,8 @@
 # define BRIGHTNESS 11
 # define EPSILON 0.001
 # define ROTATION 30.0
-# define MAX_RECURSION 1
-# define ANTI_ALIASING 1
+# define MAX_RECURSION 0
+# define ANTI_ALIASING 4
 
 # include <fcntl.h>
 # include <stdlib.h>
