@@ -6,7 +6,7 @@
 #    By: malexand <malexand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/08/21 18:23:32 by malexand          #+#    #+#              #
-#    Updated: 2017/09/27 18:06:07 by malexand         ###   ########.fr        #
+#    Updated: 2017/10/12 11:13:43 by malexand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,7 +64,6 @@ else
 endif
 
 $(EXEC): $(OBCC) $(LIBFT_FILE)
-	echo $(DEBUG)
 ifeq ($(OS), Linux)
 	@echo -e "\x1B[34m$(EXEC):\x1B[0m"
 	$(CC) $(CFLAGS) -o $@ $(OBCC) $(INCLUDE) $(LFLAGS)
