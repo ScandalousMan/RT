@@ -12,25 +12,40 @@
 
 #include "rt.h"
 
+void	evts_handler(t_param *param, int scancode)
+{
+	if (param){
+		ft_putstr("scancode : ");
+		ft_putnbr(scancode);
+		ft_putchar('\n');
+	}
+	if (scancode == 44){
+		param->graph->show_tmp = 1;
+		greyscale(param);
+		sdl_draw(param->graph);
+	}
+}
+
 /*
 ** SDL events handling function
 */
-
-void	sdl_pull_evts(t_sdl *graph)
+void	sdl_pull_evts(t_param *param)
 {
 	SDL_Event evt;
 
-	nk_input_begin(graph->ctx);
+	nk_input_begin(param->graph->ctx);
 	while (SDL_PollEvent(&evt))
 	{
 		if (evt.window.event == SDL_WINDOWEVENT_CLOSE || evt.type == SDL_QUIT)
-			graph->input[SDL_SCANCODE_ESCAPE] = TRUE;
-		if (evt.type == SDL_KEYDOWN)
-			graph->input[evt.key.keysym.scancode] = TRUE;
+			param->graph->input[SDL_SCANCODE_ESCAPE] = TRUE;
+		if (evt.type == SDL_KEYDOWN){
+			param->graph->input[evt.key.keysym.scancode] = TRUE;
+			evts_handler(param, evt.key.keysym.scancode);
+		}
 		if (evt.type == SDL_KEYUP)
-			graph->input[evt.key.keysym.scancode] = FALSE;
+			param->graph->input[evt.key.keysym.scancode] = FALSE;
 		if (evt.window.windowID == 1)
 			nk_sdl_handle_event(&evt);
 	}
-	nk_input_end(graph->ctx);
+	nk_input_end(param->graph->ctx);
 }

@@ -24,6 +24,7 @@ void	sdl_draw(t_sdl *graph)
 	dest.h = graph->surfs[count]->h;
 	while (count < NB_THREAD)
 	{
+		ft_putstr("je passe ici\n");
 		if (graph->show_tmp == 0) {
 			text = SDL_CreateTextureFromSurface(graph->render_sdl,
 			graph->surfs[count]);

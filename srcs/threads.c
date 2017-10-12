@@ -34,7 +34,6 @@ static int	calc(void *ptr)
 	t_param		*param;
 
 	param = (t_param*)ptr;
-	// rt_parser(param);
 	rt_tracer(param);
     return (0);
 }

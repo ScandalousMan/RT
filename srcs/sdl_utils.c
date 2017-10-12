@@ -70,19 +70,28 @@ Uint32	getpxl(SDL_Surface *surface, int x, int y)
 ** tab_color: [0] = red ; [1] = green ; [2] = blue ; [3] = alpha
 */
 
-Uint32	convert_Uint32_to_int(Uint32 pixel, SDL_PixelFormat *fmt)
+int		convert_Uint32_to_int(Uint32 pixel, SDL_PixelFormat *fmt)
 {
 	Uint8		*tab_color;
 	int			count;
-	Uint32		color;
+	int			color;
 
 	count = 0;
-	color = 0x00000000;
+	// color = 0x00000000;
 	tab_color = (Uint8 *)malloc(sizeof(Uint8) * 4);
 	SDL_GetRGBA(pixel, fmt, &tab_color[0], &tab_color[1], &tab_color[2], &tab_color[3]);
-	color += (int)(tab_color[0] & 0xFF000000);
-	color += (int)(tab_color[1] & 0x00FF0000);
-	color += (int)(tab_color[2] & 0x0000FF00);
-	color += (int)(tab_color[3] & 0x000000FF);
+	color = tab_color[0] + 256 * tab_color[1] + 256 * 256 * tab_color[2];
+	ft_putnbr(tab_color[0]);
+	ft_putstr(", ");
+	ft_putnbr(tab_color[1]);
+	ft_putstr(", ");
+	ft_putnbr(tab_color[2]);
+	ft_putstr(", ");
+	ft_putnbr(tab_color[3]);
+	ft_putstr(")\n");
+	// color += (int)(tab_color[0] & 0xFF000000);
+	// color += (int)(tab_color[1] & 0x00FF0000);
+	// color += (int)(tab_color[2] & 0x0000FF00);
+	// color += (int)(tab_color[3] & 0x000000FF);
 	return color;
 }

@@ -31,11 +31,13 @@ int		main(void)
 	rt_parser(param);
 	while (graph->input[SDL_SCANCODE_ESCAPE] == FALSE)
 	{
-		sdl_pull_evts(graph);
+		sdl_pull_evts(param);
 		nukl_gui(graph);
 		if (param->refresh == 1)
+		{
 			lauch_threads(param);
-		sdl_draw(graph);
+			sdl_draw(graph);
+		}
 	}
 	sdl_quit(graph);
 	return (0);

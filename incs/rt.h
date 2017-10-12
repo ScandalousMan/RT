@@ -31,8 +31,8 @@
 # define BRIGHTNESS 11
 # define EPSILON 0.001
 # define ROTATION 30.0
-# define MAX_RECURSION 0
-# define ANTI_ALIASING 4
+# define MAX_RECURSION 1
+# define ANTI_ALIASING 1
 
 # include <fcntl.h>
 # include <stdlib.h>
@@ -79,6 +79,8 @@
 
 # define TRUE '1'
 # define FALSE '0'
+
+# define CARTOON_FACTOR 25
 
 typedef struct nk_context		t_nk_context;
 typedef struct nk_font_atlas	t_nk_font_atlas;
@@ -333,6 +335,13 @@ void	update_normal_ellipsoide(t_object *tmp, t_path *path);
 void	display_lights(t_param *param);
 
 /*
+**POST PROCESSING FUNCTIONS
+*/
+void	greyscale(t_param *param);
+void 	sepia(t_param *param);
+void	cartoon(t_param *param);
+
+/*
 ** NK_API SDL Prototypes
 */
 
@@ -367,10 +376,12 @@ void							putpxl(SDL_Surface *surface, int x,
 									int y, Uint32 pixel);
 Uint32							getpxl(SDL_Surface *surface, int x, int y);
 Uint32							format_Uint32(Uint32 pixel, SDL_PixelFormat *fmt);
+int							convert_Uint32_to_int(Uint32 pixel, SDL_PixelFormat *fmt);
 void							sdl_init(t_sdl *graph);
 void							sdl_quit(t_sdl *graph);
-void							sdl_pull_evts(t_sdl *graph);
+void							sdl_pull_evts(t_param *param);
 void							sdl_draw(t_sdl *graph);
+
 
 /*
 ** Graph prototype
