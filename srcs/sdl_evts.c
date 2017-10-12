@@ -12,14 +12,9 @@
 
 #include "rt.h"
 
-void	evts_handler(t_param *param, int scancode)
+void	evts_handler(t_param *param)
 {
-	if (param){
-		ft_putstr("scancode : ");
-		ft_putnbr(scancode);
-		ft_putchar('\n');
-	}
-	if (scancode == 44){
+	if (param->graph->input[SDL_SCANCODE_SPACE] == TRUE) {
 		param->graph->show_tmp = 1;
 		greyscale(param);
 		sdl_draw(param->graph);
@@ -40,12 +35,12 @@ void	sdl_pull_evts(t_param *param)
 			param->graph->input[SDL_SCANCODE_ESCAPE] = TRUE;
 		if (evt.type == SDL_KEYDOWN){
 			param->graph->input[evt.key.keysym.scancode] = TRUE;
-			evts_handler(param, evt.key.keysym.scancode);
 		}
 		if (evt.type == SDL_KEYUP)
 			param->graph->input[evt.key.keysym.scancode] = FALSE;
 		if (evt.window.windowID == 1)
 			nk_sdl_handle_event(&evt);
 	}
+	evts_handler(param);
 	nk_input_end(param->graph->ctx);
 }
