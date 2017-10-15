@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 16:39:54 by aguemy            #+#    #+#             */
-/*   Updated: 2017/10/12 11:10:01 by malexand         ###   ########.fr       */
+/*   Updated: 2017/10/15 21:57:59 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # define PARSING_PRECISION 10
 # define FOCAL_VALUE 40.0
 # define ABS(Value) ((Value < 0) ? -1 * Value : Value)
+# define RGB(r, g, b)(256 * 256 * (int)(r) + 256 * (int)(g) + (int)(b))
 # ifdef __linux__
 #  define M_PI 3.141592653589793238462643383279
 # endif
