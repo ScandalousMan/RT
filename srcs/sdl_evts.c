@@ -14,11 +14,24 @@
 
 void	evts_handler(t_param *param)
 {
-	if (param->graph->input[SDL_SCANCODE_SPACE] == TRUE) {
+	if (param->graph->input[SDL_SCANCODE_R] == TRUE) {
+		param->graph->show_tmp = 0;
+		param->refresh = 1;
+	}
+	if (param->graph->input[SDL_SCANCODE_S] == TRUE) {
+		param->graph->show_tmp = 1;
+		sepia(param);
+		param->refresh = 1;
+	}
+	if (param->graph->input[SDL_SCANCODE_C] == TRUE) {
+		param->graph->show_tmp = 1;
+		cartoon(param);
+		param->refresh = 1;
+	}
+	if (param->graph->input[SDL_SCANCODE_G] == TRUE) {
 		param->graph->show_tmp = 1;
 		greyscale(param);
 		param->refresh = 1;
-		param->graph->input[SDL_SCANCODE_SPACE] = FALSE;
 	}
 }
 

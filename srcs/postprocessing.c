@@ -40,13 +40,20 @@ int		sepiacer(int color)
 
 void	sepia(t_param *param)
 {
+	int height;
+
+	height = 0;
 	param->i[0] = 0;
 	while (param->i[0] < WINDOW_SDL_HEIGHT)
 	{
 		param->i[1] = 0;
 		while (param->i[1] < WINDOW_SDL_WIDTH)
 		{
-			store_pixel_single(param, sepiacer((int)convert_Uint32_to_int(getpxl(param->graph->surfs[(int)(param->i[0] * NB_THREAD / WINDOW_SDL_HEIGHT)], param->i[1], param->i[0]), param->graph->surfs[0]->format)), (int)(param->i[0] * NB_THREAD / WINDOW_SDL_HEIGHT));
+			if ((int)(param->i[0] * NB_THREAD / WINDOW_SDL_HEIGHT) * (WINDOW_SDL_HEIGHT / NB_THREAD) != 0)
+				height = param->i[0] % ((int)(param->i[0] * NB_THREAD / WINDOW_SDL_HEIGHT) * (WINDOW_SDL_HEIGHT / NB_THREAD));
+			else
+				height = param->i[0];
+			store_pixel_single(param, sepiacer(getpxl(param->graph->surfs[(int)(param->i[0] * NB_THREAD / WINDOW_SDL_HEIGHT)], param->i[1], height)), (int)(param->i[0] * NB_THREAD / WINDOW_SDL_HEIGHT));
 			param->i[1]++;
 		}
 		param->i[0]++;
@@ -62,13 +69,20 @@ int		cartooner(int color)
 
 void	cartoon(t_param *param)
 {
+	int height;
+
+	height = 0;
 	param->i[0] = 0;
 	while (param->i[0] < WINDOW_SDL_HEIGHT)
 	{
 		param->i[1] = 0;
 		while (param->i[1] < WINDOW_SDL_WIDTH)
 		{
-			store_pixel_single(param, cartooner((int)convert_Uint32_to_int(getpxl(param->graph->surfs[(int)(param->i[0] * NB_THREAD / WINDOW_SDL_HEIGHT)], param->i[1], param->i[0]), param->graph->surfs[0]->format)), (int)(param->i[0] * NB_THREAD / WINDOW_SDL_HEIGHT));
+			if ((int)(param->i[0] * NB_THREAD / WINDOW_SDL_HEIGHT) * (WINDOW_SDL_HEIGHT / NB_THREAD) != 0)
+				height = param->i[0] % ((int)(param->i[0] * NB_THREAD / WINDOW_SDL_HEIGHT) * (WINDOW_SDL_HEIGHT / NB_THREAD));
+			else
+				height = param->i[0];
+			store_pixel_single(param, cartooner(getpxl(param->graph->surfs[(int)(param->i[0] * NB_THREAD / WINDOW_SDL_HEIGHT)], param->i[1], height)), (int)(param->i[0] * NB_THREAD / WINDOW_SDL_HEIGHT));
 			param->i[1]++;
 		}
 		param->i[0]++;
