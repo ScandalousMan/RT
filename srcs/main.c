@@ -6,7 +6,7 @@
 /*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/21 17:02:46 by malexand          #+#    #+#             */
-/*   Updated: 2017/09/28 14:29:46 by malexand         ###   ########.fr       */
+/*   Updated: 2017/10/16 11:24:36 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,15 @@ int		main(void)
 	param->refresh = 1;
 	sdl_init(graph);
 	rt_parser(param);
+	lauch_threads(param);
 	while (graph->input[SDL_SCANCODE_ESCAPE] == FALSE)
 	{
 		sdl_pull_evts(param);
 		nukl_gui(graph);
 		if (param->refresh == 1)
 		{
-			lauch_threads(param);
 			sdl_draw(graph);
+			param->refresh = 0;
 		}
 	}
 	sdl_quit(graph);

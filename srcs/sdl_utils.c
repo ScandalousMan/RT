@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sdl_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 16:48:16 by malexand          #+#    #+#             */
-/*   Updated: 2017/10/15 22:04:35 by alex             ###   ########.fr       */
+/*   Updated: 2017/10/16 11:59:43 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,7 @@ void	putpxl(SDL_Surface *surface, int x, int y, Uint32 pixel)
 
 Uint32 getpxl(SDL_Surface *surface, int x, int y)
 {
-    int bpp = surface->format->BytesPerPixel;
-    /* Here p is the address to the pixel we want to retrieve */
+		int bpp = surface->format->BytesPerPixel;
     Uint8 *p = (Uint8 *)surface->pixels + y * surface->pitch + x * bpp;
 
     switch(bpp) {

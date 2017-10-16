@@ -6,7 +6,7 @@
 /*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/25 09:46:28 by malexand          #+#    #+#             */
-/*   Updated: 2017/09/27 15:13:36 by malexand         ###   ########.fr       */
+/*   Updated: 2017/10/16 11:15:30 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ void	evts_handler(t_param *param)
 	if (param->graph->input[SDL_SCANCODE_SPACE] == TRUE) {
 		param->graph->show_tmp = 1;
 		greyscale(param);
-		sdl_draw(param->graph);
+		param->refresh = 1;
+		param->graph->input[SDL_SCANCODE_SPACE] = FALSE;
 	}
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   threads.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aguemy <aguemy@student.42.fr>              +#+  +:+       +#+        */
+/*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/27 15:05:21 by malexand          #+#    #+#             */
-/*   Updated: 2017/10/03 11:44:22 by aguemy           ###   ########.fr       */
+/*   Updated: 2017/10/16 11:23:03 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,4 @@ void		lauch_threads(t_param *param)
 			error(0, 0, "Thread wrong return value");
 		count++;
 	}
-	param->refresh = 0;
 }

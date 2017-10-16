@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 16:39:54 by aguemy            #+#    #+#             */
-/*   Updated: 2017/10/15 21:57:59 by alex             ###   ########.fr       */
+/*   Updated: 2017/10/16 12:09:45 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -228,7 +228,8 @@ typedef struct	s_param
 double			ft_pow(double x, int n);
 int				rgb_color(unsigned char r, unsigned char g, unsigned char b);
 int				rgb_ratio(int color, double a);
-void			store_pixel(t_param *param, int color);
+void			store_pixel_thread(t_param *param, int color, int num_surf);
+void			store_pixel_single(t_param *param, int color, int num_surf);
 void			display_info(t_param *param);
 double			ft_atod(const char *str);
 int				color_summer(int col1, int col2);
@@ -377,7 +378,7 @@ void							putpxl(SDL_Surface *surface, int x,
 									int y, Uint32 pixel);
 Uint32							getpxl(SDL_Surface *surface, int x, int y);
 Uint32							format_Uint32(Uint32 pixel, SDL_PixelFormat *fmt);
-int							convert_Uint32_to_int(Uint32 pixel, SDL_PixelFormat *fmt);
+int								convert_Uint32_to_int(Uint32 pixel, SDL_PixelFormat *fmt);
 void							sdl_init(t_sdl *graph);
 void							sdl_quit(t_sdl *graph);
 void							sdl_pull_evts(t_param *param);

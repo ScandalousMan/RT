@@ -108,9 +108,9 @@ void	rt_tracer(t_param *param)
 				}
 				alias[0]++;
 			}
-			store_pixel(param, rgb_color((unsigned char)(col[0] / ANTI_ALIASING / ANTI_ALIASING),
+			store_pixel_thread(param, rgb_color((unsigned char)(col[0] / ANTI_ALIASING / ANTI_ALIASING),
 				(unsigned char)(col[1] / ANTI_ALIASING / ANTI_ALIASING),
-				(unsigned char)(col[2] / ANTI_ALIASING / ANTI_ALIASING)));
+				(unsigned char)(col[2] / ANTI_ALIASING / ANTI_ALIASING)), param->current_thread);
 			param->i[1]++;
 		}
 		param->i[0]++;

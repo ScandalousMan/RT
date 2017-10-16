@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sdl_draw.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/25 14:46:21 by malexand          #+#    #+#             */
-/*   Updated: 2017/10/15 22:05:12 by alex             ###   ########.fr       */
+/*   Updated: 2017/10/16 11:26:50 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	sdl_draw(t_sdl *graph)
 	dest.h = graph->surfs[count]->h;
 	while (count < NB_THREAD)
 	{
-		ft_putstr("je passe ici\n");
 		if (graph->show_tmp == 0) {
 			text = SDL_CreateTextureFromSurface(graph->render_sdl,
 			graph->surfs[count]);
