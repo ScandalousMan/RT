@@ -6,7 +6,7 @@
 /*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/21 17:02:46 by malexand          #+#    #+#             */
-/*   Updated: 2017/10/16 11:24:36 by malexand         ###   ########.fr       */
+/*   Updated: 2017/10/17 12:24:07 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_state	**state_init()
 		while (j < WINDOW_SDL_WIDTH)
 		{
 				state[i][j].d = 0;
-				state[i][j].obj_num = 0;
+				state[i][j].obj_num = NULL;
 			j++;
 		}
 		i++;

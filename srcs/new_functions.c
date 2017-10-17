@@ -64,7 +64,7 @@ int		ray_color(t_param *param, double *from, double *to, int index, t_path *path
 		if (!param->state[param->i[0]][param->i[1]].d)
 		{
 			param->state[param->i[0]][param->i[1]].d = param->obj_d;
-			param->state[param->i[0]][param->i[1]].obj_num = path->current_object->num;	
+			param->state[param->i[0]][param->i[1]].obj_num = path->current_object;	
 		}
 		if (index < MAX_RECURSION)
 		{

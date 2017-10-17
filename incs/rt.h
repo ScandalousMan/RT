@@ -6,7 +6,7 @@
 /*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 16:39:54 by aguemy            #+#    #+#             */
-/*   Updated: 2017/10/16 12:09:45 by malexand         ###   ########.fr       */
+/*   Updated: 2017/10/17 12:23:32 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,7 +191,7 @@ typedef struct	s_path
 typedef struct	s_state
 {
 	double			d;
-	int				obj_num;
+	t_object		*obj_num;
 }				t_state;
 
 typedef struct	s_param
