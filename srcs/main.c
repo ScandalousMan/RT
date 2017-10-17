@@ -6,7 +6,7 @@
 /*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/21 17:02:46 by malexand          #+#    #+#             */
-/*   Updated: 2017/10/17 12:24:07 by malexand         ###   ########.fr       */
+/*   Updated: 2017/10/17 12:35:39 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,31 +42,27 @@ t_state	**state_init()
 
 int		main(void)
 {
-	t_sdl	*graph;
 	t_param	*param;
 
 	if (!(param = struct_create()))
 		return (-1);
-	if ((graph = graph_init()) == NULL)
+	if ((param->graph = graph_init()) == NULL)
 		error(0, 0, "Can't allocate graph struct");
-	param->graph = graph;
-	param->current_thread = 0;
 	if (!(param->state = state_init()))
 		return (-1);
-	param->refresh = 1;
-	sdl_init(graph);
 	rt_parser(param);
+	sdl_init(param->graph);
 	lauch_threads(param);
-	while (graph->input[SDL_SCANCODE_ESCAPE] == FALSE)
+	while (param->graph->input[SDL_SCANCODE_ESCAPE] == FALSE)
 	{
 		sdl_pull_evts(param);
-		nukl_gui(graph);
+		nukl_gui(param->graph);
 		if (param->refresh == 1)
 		{
-			sdl_draw(graph);
+			sdl_draw(param->graph);
 			param->refresh = 0;
 		}
 	}
-	sdl_quit(graph);
+	sdl_quit(param->graph);
 	return (0);
 }

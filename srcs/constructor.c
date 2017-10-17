@@ -6,7 +6,7 @@
 /*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/27 14:57:42 by aguemy            #+#    #+#             */
-/*   Updated: 2017/09/27 17:57:47 by malexand         ###   ########.fr       */
+/*   Updated: 2017/10/17 12:28:04 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ t_param			*struct_create(void)
 	param->f = FOCAL_VALUE;
 	param->ia = 1.0;
 	param->num_lights = 0;
+	param->refresh = 1;
+	param->current_thread = 0;
 	return create_rotation_matrice(param);
 }
 

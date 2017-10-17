@@ -6,7 +6,7 @@
 /*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 16:39:54 by aguemy            #+#    #+#             */
-/*   Updated: 2017/10/17 12:23:32 by malexand         ###   ########.fr       */
+/*   Updated: 2017/10/17 12:36:14 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,30 +147,30 @@ typedef struct s_ellipsoide
 
 typedef struct	s_object
 {
-	void			*dim;
-	int				num;
-	int				type;//1 for sphere, 2 for plane, 3 for cone, 4 for cylindre
+	void				*dim;
+	int					num;
+	int					type;//1 for sphere, 2 for plane, 3 for cone, 4 for cylindre
 
 	double			shadow;
 
 	double			*tmp_vec;
-	int				col;//couleur de surface de l'objet
+	int					col;//couleur de surface de l'objet
 	double			kd;//coefficient de réflexion diffuse de l'objet
 	double			ks;//coefficient de réflexion spéculaire de l'objet
 	double			transparency;
 	double			reflection;
 	double			thickness;//épaisseur de l'objet, 0 par défaut
 	double			index;//indice du matériaux constituant l'objet, 1 par défaut
-	int				phong;//exposant de Phong de l'objet
+	int					phong;//exposant de Phong de l'objet
 	struct s_object	*next;//liste chainée
 }				t_object;
 
 typedef struct	s_light
 {
-	int				num;
-	int				col;
-	double			*src;//position de la source lumineuse
-	double			i;//intensité de la source lumineuse
+	int							num;
+	int							col;
+	double					*src;//position de la source lumineuse
+	double					i;//intensité de la source lumineuse
 	struct s_light	*next;
 }				t_light;
 
