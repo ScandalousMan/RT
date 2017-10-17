@@ -6,7 +6,7 @@
 /*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/25 09:46:28 by malexand          #+#    #+#             */
-/*   Updated: 2017/10/17 12:26:56 by malexand         ###   ########.fr       */
+/*   Updated: 2017/10/17 12:46:02 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,17 @@ void	evts_handler(t_param *param)
 	}
 }
 
+void	handle_clic(SDL_MouseButtonEvent evt)
+{
+	if (evt.button == SDL_BUTTON_LEFT) {
+		mprintf(1, "Mouse LEFT button pressed at : x=[%d], y=[%d]\n", evt.x, evt.y);
+	} else if (evt.button == SDL_BUTTON_MIDDLE) {
+		ft_putendl("Mouse MIDDLE button pressed");
+	} else if (evt.button == SDL_BUTTON_RIGHT) {
+		ft_putendl("Mouse RIGHT button pressed");
+	}
+}
+
 /*
 ** SDL events handling function
 */
@@ -49,9 +60,11 @@ void	sdl_pull_evts(t_param *param)
 		}
 		if (evt.type == SDL_KEYUP)
 			param->graph->input[evt.key.keysym.scancode] = FALSE;
-		if (evt.window.windowID == 1)
+		if (evt.window.windowID == 1) 
 			nk_sdl_handle_event(&evt);
+		if (evt.window.windowID == 2 && evt.button.type == SDL_MOUSEBUTTONDOWN)
+			handle_clic(evt.button);
+		evts_handler(param);
 	}
-	evts_handler(param);
 	nk_input_end(param->graph->ctx);
 }
