@@ -188,6 +188,12 @@ typedef struct	s_path
 	struct s_path	*transmitted;
 }				t_path;
 
+typedef struct	s_state
+{
+	double			d;
+	int				obj_num;
+}				t_state;
+
 typedef struct	s_param
 {
 	double			f;//focale
@@ -211,6 +217,7 @@ typedef struct	s_param
 	int				*i;
 	double			**rot;
 	double			epsilon;
+	t_state			**state;
 
 	t_sdl			*graph;
 	SDL_Thread		**thread;

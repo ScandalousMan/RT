@@ -3,12 +3,12 @@
 void	find_intersection(t_param *param, double *from, double *to, t_path *path)
 {
 	path->current_object = closest_object(param, from, to, path);
-		if (path->current_object)
-		{
-			vec_multiply(param->obj_d - param->epsilon, path->v, path->x);
-			pt_translated(from, path->x, path->x);
-			update_normal_vector(path->current_object, path);
-		}
+	if (path->current_object)
+	{
+		vec_multiply(param->obj_d - param->epsilon, path->v, path->x);
+		pt_translated(from, path->x, path->x);
+		update_normal_vector(path->current_object, path);
+	}
 }
 
 int		object_color(t_param *param, t_path *path)
@@ -57,23 +57,33 @@ int		ray_color(t_param *param, double *from, double *to, int index, t_path *path
 {
 	path->current_object = NULL;
 	find_intersection(param, from, to, path);
-	if (index < MAX_RECURSION)
-	{
-		vec_copy(path->v, path->transmitted->v);
-		vec_copy(path->x, path->transmitted->from);
-		vec_copy(path->r, path->reflected->v);
-		vec_copy(path->x, path->reflected->from);
-		vec_multiply(2 * EPSILON, path->v, param->tmp_vec);
-		pt_translated(path->transmitted->from, param->tmp_vec, path->transmitted->from);
-		return (rgb_ratio(object_color(param, path),
-			(1.0 - path->current_object->transparency - path->current_object->reflection)) +
-			rgb_ratio(ray_color(param, path->transmitted->from, path->transmitted->v, index + 1, path->transmitted),
-			path->current_object->transparency) +
-			rgb_ratio(ray_color(param, path->reflected->from, path->reflected->v, index + 1, path->reflected),
-			path->current_object->reflection));
-	}
+	if (!path->current_object)
+		return 0;
 	else
-		return (object_color(param, path));
+	{
+		if (!param->state[param->i[0]][param->i[1]].d)
+		{
+			param->state[param->i[0]][param->i[1]].d = param->obj_d;
+			param->state[param->i[0]][param->i[1]].obj_num = path->current_object->num;	
+		}
+		if (index < MAX_RECURSION)
+		{
+			vec_copy(path->v, path->transmitted->v);
+			vec_copy(path->x, path->transmitted->from);
+			vec_copy(path->r, path->reflected->v);
+			vec_copy(path->x, path->reflected->from);
+			vec_multiply(2 * EPSILON, path->v, param->tmp_vec);
+			pt_translated(path->transmitted->from, param->tmp_vec, path->transmitted->from);
+			return (rgb_ratio(object_color(param, path),
+				(1.0 - path->current_object->transparency - path->current_object->reflection)) +
+				rgb_ratio(ray_color(param, path->transmitted->from, path->transmitted->v, index + 1, path->transmitted),
+				path->current_object->transparency) +
+				rgb_ratio(ray_color(param, path->reflected->from, path->reflected->v, index + 1, path->reflected),
+				path->current_object->reflection));
+		}
+		else
+			return (object_color(param, path));
+	}
 }
 
 void	rt_tracer(t_param *param)

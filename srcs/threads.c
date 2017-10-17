@@ -26,6 +26,7 @@ t_param		*param_cpy(t_param *param, int count)
 	param_cpy->third = vec_dup(param->third);
 	param_cpy->objects = object_copy(param->objects);
 	param_cpy->lights = light_copy(param->lights);
+	param_cpy->state = param->state;
 	return (param_cpy);
 }
 

@@ -15,6 +15,31 @@
 
 /*utiliser la fonction error pour toute erreur*/
 
+t_state	**state_init()
+{
+	t_state **state;
+	int 	i;
+	int 	j;
+
+	i = 0;
+	if (!(state = (t_state**)malloc(sizeof(t_state*) * WINDOW_SDL_HEIGHT)))
+		return NULL;
+	while (i < WINDOW_SDL_HEIGHT)
+	{
+		j = 0;
+		if (!(state[i] = (t_state*)malloc(sizeof(t_state) * WINDOW_SDL_WIDTH)))
+			return NULL;
+		while (j < WINDOW_SDL_WIDTH)
+		{
+				state[i][j].d = 0;
+				state[i][j].obj_num = 0;
+			j++;
+		}
+		i++;
+	}
+	return state;
+}
+
 int		main(void)
 {
 	t_sdl	*graph;
@@ -26,6 +51,8 @@ int		main(void)
 		error(0, 0, "Can't allocate graph struct");
 	param->graph = graph;
 	param->current_thread = 0;
+	if (!(param->state = state_init()))
+		return (-1);
 	param->refresh = 1;
 	sdl_init(graph);
 	rt_parser(param);
