@@ -95,8 +95,8 @@ typedef struct					s_sdl
 
 	SDL_Window					*win_sdl;
 	SDL_Renderer				*render_sdl;
-	SDL_Surface					**surfs;
-	SDL_Surface					**tmp_surfs;
+	SDL_Surface					*surfs[NB_THREAD];
+	SDL_Surface					*tmp_surfs[NB_THREAD];
 
 	char						*input;
 	int							show_tmp;

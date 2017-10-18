@@ -55,12 +55,6 @@ void			sdl_init(t_sdl *graph)
 		printf("Erreur lors de la creation d'un renderer : %s", SDL_GetError());
 		exit(0);
 	}
-	if ((graph->surfs = (SDL_Surface**)malloc(sizeof(SDL_Surface) * NB_THREAD))
-	== NULL)
-		error(0, 0, "Can't allocate array for surfaces");
-	if ((graph->tmp_surfs = (SDL_Surface**)malloc(sizeof(SDL_Surface) * NB_THREAD))
-	== NULL)
-		error(0, 0, "Can't allocate array for surfaces");
 	while (count < NB_THREAD)
 	{
 		if ((graph->surfs[count] = SDL_CreateRGBSurfaceWithFormat(0,
