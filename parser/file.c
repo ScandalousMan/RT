@@ -6,13 +6,17 @@
 /*   By: jbouille <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/20 15:58:14 by jbouille          #+#    #+#             */
-/*   Updated: 2017/10/23 10:09:36 by jbouille         ###   ########.fr       */
+/*   Updated: 2017/10/23 15:31:54 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fcntl.h>
 #include <unistd.h>
 #include <libft.h>
+#include <json.h>
+
+// TO DELETE (isspace)
+#include <ctype.h>
 
 /*					DEBUG													  */
 
@@ -24,6 +28,128 @@ void	print_lst(t_list *lst)
 }
 
 /*					END														  */
+
+char	*parse_jstring(char *json, void **value)
+{
+	int	i;
+
+	i = 1;
+	if (json != NULL && json[i] != '\0')
+	{
+		++i;
+		while (json[i])
+		{
+			if (json[i] == '"' && json[i - 1] != '\\')
+			{
+				json[i] = '\0';
+				*value = json + 1;
+				return (json + i + 1) ;
+			}
+			++i;
+		}
+	}
+	return (NULL);
+}
+
+char *get_key(char *json, t_jstring *key)
+{
+	int	i;
+
+	i = 0;
+	if (json != NULL && json[i] != '\0')
+	{
+		++i;
+		while (json[i])
+		{
+			if (json[i] == '"' && json[i - 1] != '\\')
+			{
+				json[i] = '\0';
+				*key = json + 1;
+				return (json + i + 1) ;
+			}
+			++i;
+		}
+	}
+	return (NULL);
+}
+
+t_jtype	get_type(char *json)
+{
+	if (json)
+	{
+		if (json[0] == '"')
+			return (JSTRING);
+		else if (json[0] == '[')
+			return (JARRAY);
+		else if (json[0] == '{')
+			return (JOBJECT);
+//		else if ()
+	}
+	return (JUNKNOWN);
+}
+
+char *get_value(char *json, t_jtype *type, void **value)
+{
+	int	i;
+
+	*type = get_type(json);
+	i = 0;
+	while (i < sizeof(g_func_parse) / sizeof(t_func_type))
+	{
+		if (g_func_parse[i].type == *type)
+		{
+			json = (g_func_parse[i].f)(json, value);
+		}
+		++i;
+	}
+	ft_putendl(*value);
+	ft_putendl(json);
+	return (json);
+}
+
+char	*parse_key_value(char *json, t_jobject *obj)
+{
+	if (json == NULL)
+		return (NULL);
+	if ((obj = (t_jobject*)malloc(sizeof(t_jobject))) == NULL)
+		return (NULL); //EXIT ?
+	obj->next = NULL;
+	json = get_key(json, &(obj->key));
+	//if NULL error
+	ft_putendl((char*)(obj->key));
+	if (json && json[0] == ':')
+	{
+		json = get_value(json + 1, &(obj->type), &(obj->value));
+		if (json && json[0] == ',')
+			json = parse_key_value(json + 1, obj->next);
+	}
+	else
+		;//error
+	return (json);
+}
+
+char *parse_jobject(char *json, void **value)
+{
+
+	return (json);
+}
+
+int	parse(char *json, t_jobject **obj)
+{
+	if (ft_strlen(json) >= 2)
+	{
+		if (json[0] != '{')
+			return (EXIT_FAILURE);//ERROR
+		json = parse_key_value(json + 1, *obj);
+		if (ft_strlen(json) != 1 || json[0] != '}')
+		{
+			ft_putendl("EXIT_FAILURE");
+			ft_putendl(json);
+			return (EXIT_FAILURE);//ERROR
+		}
+	}
+	return (EXIT_SUCCESS);
+}
 
 static const size_t get_string_size(t_list *lst)
 {
@@ -80,7 +206,7 @@ char	*clear_string(char *s)
 				in_str = (in_str + 1) % 2;
 			}
 		}
-		else if (isspace(s[i])/* == ' '*/ && in_str == 0)
+		else if (/* ft_ */isspace(s[i]) && in_str == 0)
 			c++;
 		else
 		{
@@ -130,6 +256,12 @@ int read_file(const char *path)
 		return (EXIT_FAILURE);
 	ft_lstiter(lst, &print_lst);
 	ft_putendl(lst_to_string(lst));
+
+	char *json = lst_to_string(lst);
+	t_jobject	*obj;
+
+	obj = NULL;
+	parse(json, &obj);
 	return (ret);
 }
 
