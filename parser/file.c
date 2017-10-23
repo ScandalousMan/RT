@@ -6,7 +6,7 @@
 /*   By: jbouille <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/20 15:58:14 by jbouille          #+#    #+#             */
-/*   Updated: 2017/10/23 15:31:54 by jbouille         ###   ########.fr       */
+/*   Updated: 2017/10/23 19:20:43 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@
 
 // TO DELETE (isspace)
 #include <ctype.h>
+
+//FOR PRINTF
+#include <stdio.h>
 
 /*					DEBUG													  */
 
@@ -73,6 +76,52 @@ char *get_key(char *json, t_jstring *key)
 	return (NULL);
 }
 
+int	ft_isjint(char *json)
+{
+	int	i;
+
+	i = 0;
+	while (json && json[i] != '\0' && json[i] != ',' && json[i] != ']' && json[i] != '}')
+	{
+		if (i == 0 && json[i] == '-')
+			;
+		else if (ft_isdigit(json[i]) == 0)
+			return (0);
+		++i;
+	}
+	if (json && i == 1 && json[0] == '-')
+		return (0);
+	return (i);
+}
+
+int	ft_isjdouble(char *json)
+{
+	int	i;
+
+	i = 0;
+	while (json && json[i] != '\0' && json[i] != '.' && json[i] != ',' && json[i] != ']' && json[i] != '}')
+	{
+		if (i == 0 && json[i] == '-')
+			;
+		else if (ft_isdigit(json[i]) == 0)
+			return (0);
+		++i;
+	}
+	if (json && i == 1 && json[0] == '-')
+		return (0);
+	if (json && json[i] == '.')
+	{
+		++i;
+		while (json && json[i] != '\0' && json[i] != ',' && json[i] != ']' && json[i] != '}')
+		{
+			if (ft_isdigit(json[i]) == 0)
+				return (0);
+			++i;
+		}
+	}
+	return (i);
+}
+
 t_jtype	get_type(char *json)
 {
 	if (json)
@@ -83,7 +132,10 @@ t_jtype	get_type(char *json)
 			return (JARRAY);
 		else if (json[0] == '{')
 			return (JOBJECT);
-//		else if ()
+		else if (ft_isjint(json) > 0)
+			return (JINT);
+		else if (ft_isjdouble(json) > 0)
+			return (JDOUBLE);
 	}
 	return (JUNKNOWN);
 }
@@ -102,7 +154,14 @@ char *get_value(char *json, t_jtype *type, void **value)
 		}
 		++i;
 	}
-	ft_putendl(*value);
+
+	//DEBUG
+	if (*type == JSTRING)
+		ft_putendl(*value);
+	else if (*type == JINT)
+		printf("%i\n", (int)(((int*)(*value))[0]));
+	else if (*type == JDOUBLE)
+		printf("%f\n", (double)(((double*)(*value))[0]));
 	ft_putendl(json);
 	return (json);
 }
@@ -128,9 +187,94 @@ char	*parse_key_value(char *json, t_jobject *obj)
 	return (json);
 }
 
-char *parse_jobject(char *json, void **value)
+char	*parse_jint(char *json, void **value)
 {
+	char	tmp;
+	size_t	size;
+	t_jint	*number;
 
+	if (json == NULL)
+		return (NULL);
+	if ((number = (t_jint*)malloc(sizeof(t_jint))) == NULL)
+		return (NULL);
+	size = ft_isjint(json);
+	tmp = json[size];
+	json[size] = '\0';
+	*number = ft_atoi(json);
+	*value = (void*)(number);
+	json[size] = tmp;
+	return (json + size);
+}
+
+char	*parse_jdouble(char *json, void **value)
+{
+	char		tmp;
+	size_t		size;
+	t_jdouble	*number;
+
+	if (json == NULL)
+		return (NULL);
+	if ((number = (t_jdouble*)malloc(sizeof(t_jdouble))) == NULL)
+		return (NULL);
+	size = ft_isjdouble(json);
+	tmp = json[size];
+	json[size] = '\0';
+	*number = ft_atod(json);
+	*value = (void*)(number);
+	json[size] = tmp;
+	return (json + size);
+}
+
+char	*parse_jobject(char *json, void **value)
+{
+	t_jobject	*obj;
+
+	obj = NULL;
+	if (ft_strlen(json) >= 2)
+	{
+		if ((obj = (t_jobject*)malloc(sizeof(t_jobject))) == NULL)
+			return (NULL);
+		if (json[0] != '{')
+			return (NULL);//ERROR
+		json = parse_key_value(json + 1, obj);
+		if (json && json[0] != '}')
+		{
+			ft_putendl("EXIT_FAILURE");
+			ft_putendl(json);
+			return (NULL);
+		}
+	}
+	*value = obj;
+	return (json + 1);//ERROR
+}
+
+char	*parse_jarray_value(char *json, t_jarray *array)
+{
+	if (json == NULL)
+		return (NULL);
+	if ((array = (t_jarray*)malloc(sizeof(t_jarray))) == NULL)
+		return (NULL); //EXIT ?
+	array->next = NULL;
+	json = get_value(json + 1, &(array->type), &(array->value));
+	if (json && json[0] == ',')
+		json = parse_jarray_value(json + 1, array->next);
+	return (json);
+}
+
+char	*parse_jarray(char *json, void **value)
+{
+	t_jarray	*array;
+
+	array = NULL;
+	if (json[0] != '[')
+		return (NULL);//ERROR
+	json = parse_jarray_value(json + 1, array);
+	if (ft_strlen(json) != 1 || json[0] != ']')
+	{
+		ft_putendl("EXIT_FAILURE");
+		ft_putendl(json);
+		return (NULL);//ERROR
+	}
 	return (json);
 }
 
