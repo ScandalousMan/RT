@@ -6,7 +6,7 @@
 /*   By: jbouille <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/20 15:58:14 by jbouille          #+#    #+#             */
-/*   Updated: 2017/10/23 19:20:43 by jbouille         ###   ########.fr       */
+/*   Updated: 2017/10/24 01:43:41 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,9 @@
 //FOR PRINTF
 #include <stdio.h>
 
+
+//ERRNO
+#include <errno.h>
 /*					DEBUG													  */
 
 void	print_lst(t_list *lst)
@@ -45,7 +48,11 @@ char	*parse_jstring(char *json, void **value)
 			if (json[i] == '"' && json[i - 1] != '\\')
 			{
 				json[i] = '\0';
-				*value = json + 1;
+				if ((*value = ft_strdup(json + 1)) == NULL)
+				{
+					perror(NULL);
+					exit(EXIT_FAILURE);
+				}
 				return (json + i + 1) ;
 			}
 			++i;
@@ -56,18 +63,25 @@ char	*parse_jstring(char *json, void **value)
 
 char *get_key(char *json, t_jstring *key)
 {
-	int	i;
+	char	tmp;
+	int		i;
 
 	i = 0;
-	if (json != NULL && json[i] != '\0')
+	if (json != NULL && json[i] == '"')
 	{
 		++i;
 		while (json[i])
 		{
 			if (json[i] == '"' && json[i - 1] != '\\')
 			{
+				tmp = json[i];
 				json[i] = '\0';
-				*key = json + 1;
+				if ((*key = ft_strdup(json + 1)) == NULL)
+				{
+					perror(NULL);
+					exit(EXIT_FAILURE);
+				}
+				json[i] = tmp;
 				return (json + i + 1) ;
 			}
 			++i;
@@ -136,6 +150,11 @@ t_jtype	get_type(char *json)
 			return (JINT);
 		else if (ft_isjdouble(json) > 0)
 			return (JDOUBLE);
+		else if (ft_strnequ("true", json, 4)
+			|| ft_strnequ("false", json, 5))
+			return (JBOOL);
+		else if (ft_strnequ("null", json, 4))
+			return (JNULL);
 	}
 	return (JUNKNOWN);
 }
@@ -144,25 +163,38 @@ char *get_value(char *json, t_jtype *type, void **value)
 {
 	int	i;
 
+	if (json == NULL)
+		return (NULL);
 	*type = get_type(json);
+//	printf("type: %d\n", *type);
+	if (*type == JUNKNOWN)
+		return (NULL);
 	i = 0;
 	while (i < sizeof(g_func_parse) / sizeof(t_func_type))
 	{
 		if (g_func_parse[i].type == *type)
 		{
 			json = (g_func_parse[i].f)(json, value);
+			break ;
 		}
 		++i;
 	}
 
 	//DEBUG
+	if (*value)
+	{
 	if (*type == JSTRING)
-		ft_putendl(*value);
+		printf("%s\n", *value);
 	else if (*type == JINT)
 		printf("%i\n", (int)(((int*)(*value))[0]));
 	else if (*type == JDOUBLE)
 		printf("%f\n", (double)(((double*)(*value))[0]));
-	ft_putendl(json);
+	else if (*type == JBOOL)
+		printf("%d\n", (t_jbool)(((t_jbool*)(*value))[0]));
+	else if (*type == JNULL)
+		printf("%s\n", *value);
+	}
+	printf("%s\n", json);
 	return (json);
 }
 
@@ -171,19 +203,26 @@ char	*parse_key_value(char *json, t_jobject *obj)
 	if (json == NULL)
 		return (NULL);
 	if ((obj = (t_jobject*)malloc(sizeof(t_jobject))) == NULL)
-		return (NULL); //EXIT ?
+	{
+		perror(NULL);
+		exit(EXIT_FAILURE);
+	}
 	obj->next = NULL;
+	obj->value = NULL;
+	printf("avant get key: %s\n", json);
 	json = get_key(json, &(obj->key));
 	//if NULL error
-	ft_putendl((char*)(obj->key));
+	printf("%s\n", (char*)(obj->key));
 	if (json && json[0] == ':')
 	{
 		json = get_value(json + 1, &(obj->type), &(obj->value));
+		if (json == NULL)
+			return (NULL);
 		if (json && json[0] == ',')
 			json = parse_key_value(json + 1, obj->next);
 	}
 	else
-		;//error
+		return (NULL);//error
 	return (json);
 }
 
@@ -196,7 +235,10 @@ char	*parse_jint(char *json, void **value)
 	if (json == NULL)
 		return (NULL);
 	if ((number = (t_jint*)malloc(sizeof(t_jint))) == NULL)
-		return (NULL);
+	{
+		perror(NULL);
+		exit(EXIT_FAILURE);
+	}
 	size = ft_isjint(json);
 	tmp = json[size];
 	json[size] = '\0';
@@ -215,7 +257,10 @@ char	*parse_jdouble(char *json, void **value)
 	if (json == NULL)
 		return (NULL);
 	if ((number = (t_jdouble*)malloc(sizeof(t_jdouble))) == NULL)
-		return (NULL);
+	{
+		perror(NULL);
+		exit(EXIT_FAILURE);
+	}
 	size = ft_isjdouble(json);
 	tmp = json[size];
 	json[size] = '\0';
@@ -229,18 +274,23 @@ char	*parse_jobject(char *json, void **value)
 {
 	t_jobject	*obj;
 
+	if (json == NULL)
+		return (NULL);
 	obj = NULL;
 	if (ft_strlen(json) >= 2)
 	{
 		if ((obj = (t_jobject*)malloc(sizeof(t_jobject))) == NULL)
-			return (NULL);
+		{
+			perror(NULL);
+			exit(EXIT_FAILURE);
+		}
 		if (json[0] != '{')
 			return (NULL);//ERROR
 		json = parse_key_value(json + 1, obj);
-		if (json && json[0] != '}')
+		if (json == NULL || (json && json[0] != '}'))
 		{
 			ft_putendl("EXIT_FAILURE");
-			ft_putendl(json);
+//			ft_putendl(json);
 			return (NULL);
 		}
 	}
@@ -253,10 +303,14 @@ char	*parse_jarray_value(char *json, t_jarray *array)
 	if (json == NULL)
 		return (NULL);
 	if ((array = (t_jarray*)malloc(sizeof(t_jarray))) == NULL)
-		return (NULL); //EXIT ?
+	{
+		perror(NULL);
+		exit(EXIT_FAILURE);
+	}
 	array->next = NULL;
-	json = get_value(json + 1, &(array->type), &(array->value));
-	if (json && json[0] == ',')
+	array->value = NULL;
+	json = get_value(json, &(array->type), &(array->value));
+	if (json && json[0] == ',' && json[1] != ']')
 		json = parse_jarray_value(json + 1, array->next);
 	return (json);
 }
@@ -266,29 +320,66 @@ char	*parse_jarray(char *json, void **value)
 	t_jarray	*array;
 
 	array = NULL;
+	if (json == NULL)
+		return (NULL);
 	if (json[0] != '[')
 		return (NULL);//ERROR
 	json = parse_jarray_value(json + 1, array);
-	if (ft_strlen(json) != 1 || json[0] != ']')
-	{
-		ft_putendl("EXIT_FAILURE");
-		ft_putendl(json);
+	if (json == NULL)
+		return (NULL);
+	if (json && json[0] != ']')
 		return (NULL);//ERROR
+	return (json + 1);
+}
+
+char	*parse_jbool(char *json, void **value)
+{
+	t_jbool	*b;
+
+	if (ft_strnequ("true", json, 4) || ft_strnequ("false", json, 5))
+	{
+		if ((b = (t_jbool*)malloc(sizeof(t_jbool))) == NULL)
+		{
+			perror(NULL);
+			exit(EXIT_FAILURE);
+		}
 	}
-	return (json);
+	if (ft_strnequ("true", json, 4))
+	{
+		*b = TRUE;
+		*value = b;
+		return (json + 4);
+	}
+	if (ft_strnequ("false", json, 5))
+	{
+		*b = FALSE;
+		*value = b;
+		return (json + 5);
+	}
+	return (NULL);
+}
+
+char	*parse_jnull(char *json, void **value)
+{
+	if (ft_strnequ("null", json, 4))
+	{
+		*value = NULL;
+		return (json + 4);
+	}
+	return (NULL);
 }
 
 int	parse(char *json, t_jobject **obj)
 {
-	if (ft_strlen(json) >= 2)
+	if (json && ft_strlen(json) >= 2)
 	{
 		if (json[0] != '{')
 			return (EXIT_FAILURE);//ERROR
 		json = parse_key_value(json + 1, *obj);
-		if (ft_strlen(json) != 1 || json[0] != '}')
+		if (json == NULL || (json && (ft_strlen(json) != 1 || json[0] != '}')))
 		{
 			ft_putendl("EXIT_FAILURE");
-			ft_putendl(json);
+//			ft_putendl(json);
 			return (EXIT_FAILURE);//ERROR
 		}
 	}
@@ -346,6 +437,7 @@ char	*clear_string(char *s)
 			else
 			{
 				ft_memmove(s + i - c, s + i, ft_strlen(s + i) + 1);
+				i -= c;
 				c = 0;
 				in_str = (in_str + 1) % 2;
 			}
@@ -355,6 +447,7 @@ char	*clear_string(char *s)
 		else
 		{
 			ft_memmove(s + i - c, s + i, ft_strlen(s + i) + 1);
+			i -= c;
 			c = 0;
 		}
 		i++;
@@ -385,6 +478,23 @@ int	read_lines(int fd, t_list **lst)
 	return (EXIT_SUCCESS);
 }
 
+void	free_lst(t_list *lst)
+{
+	t_list *tmp;
+	t_list *to_free;
+
+	tmp = lst;
+	while (tmp != NULL)
+	{
+		free(tmp->content);
+		tmp->content = NULL;
+		to_free = tmp;
+		tmp = tmp->next;
+		free(to_free);
+		to_free = NULL;
+	}
+}
+
 int read_file(const char *path)
 {
 	int		fd;
@@ -402,10 +512,13 @@ int read_file(const char *path)
 	ft_putendl(lst_to_string(lst));
 
 	char *json = lst_to_string(lst);
+	free_lst(lst);
+	
 	t_jobject	*obj;
 
 	obj = NULL;
 	parse(json, &obj);
+	free(json);
 	return (ret);
 }
 
