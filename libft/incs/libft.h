@@ -6,7 +6,7 @@
 /*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/01 18:36:27 by alex              #+#    #+#             */
-/*   Updated: 2017/09/28 15:12:35 by malexand         ###   ########.fr       */
+/*   Updated: 2017/10/23 18:40:44 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@
 # define WHT   "\x1B[37m"
 # define RESET "\x1B[0m"
 # define BUFF_SIZE 32
+
+# define PARSING_PRECISION 10
 
 typedef struct		s_list
 {
