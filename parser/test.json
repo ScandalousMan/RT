@@ -1,0 +1,9 @@
+{
+	"key": "value",
+	"array": "content_array",
+	"object": {
+		"object_key": "object value"
+	},
+	"number": 42,
+	"number_double": 42.21
+}
