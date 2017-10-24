@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sdl_evts.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/25 09:46:28 by malexand          #+#    #+#             */
-/*   Updated: 2017/10/17 12:46:02 by malexand         ###   ########.fr       */
+/*   Updated: 2017/10/24 21:37:03 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,10 @@ void	sdl_pull_evts(t_param *param)
 		}
 		if (evt.type == SDL_KEYUP)
 			param->graph->input[evt.key.keysym.scancode] = FALSE;
-		if (evt.window.windowID == 1) 
+		if (evt.window.windowID == SDL_GetWindowID(param->graph->win_gl))
 			nk_sdl_handle_event(&evt);
-		if (evt.window.windowID == 2 && evt.button.type == SDL_MOUSEBUTTONDOWN)
+		if (evt.window.windowID == SDL_GetWindowID(param->graph->win_sdl) &&
+		evt.button.type == SDL_MOUSEBUTTONDOWN)
 			handle_clic(evt.button);
 		evts_handler(param);
 	}

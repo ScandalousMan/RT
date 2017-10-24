@@ -8,20 +8,13 @@ int		greyscaler(int color)
 
 void	greyscale(t_param *param)
 {
-	int height;
-
-	height = 0;
 	param->i[0] = 0;
 	while (param->i[0] < WINDOW_SDL_HEIGHT)
 	{
 		param->i[1] = 0;
 		while (param->i[1] < WINDOW_SDL_WIDTH)
 		{
-			if ((int)(param->i[0] * NB_THREAD / WINDOW_SDL_HEIGHT) * (WINDOW_SDL_HEIGHT / NB_THREAD) != 0)
-				height = param->i[0] % ((int)(param->i[0] * NB_THREAD / WINDOW_SDL_HEIGHT) * (WINDOW_SDL_HEIGHT / NB_THREAD));
-			else
-				height = param->i[0];
-			store_pixel_single(param, greyscaler(getpxl(param->graph->surfs[(int)(param->i[0] * NB_THREAD / WINDOW_SDL_HEIGHT)], param->i[1], height)), (int)(param->i[0] * NB_THREAD / WINDOW_SDL_HEIGHT));
+			putpxl(param, param->i[0], param->i[1], greyscaler(getpxl(param, param->i[0], param->i[1])));
 			param->i[1]++;
 		}
 		param->i[0]++;
@@ -40,20 +33,13 @@ int		sepiacer(int color)
 
 void	sepia(t_param *param)
 {
-	int height;
-
-	height = 0;
 	param->i[0] = 0;
 	while (param->i[0] < WINDOW_SDL_HEIGHT)
 	{
 		param->i[1] = 0;
 		while (param->i[1] < WINDOW_SDL_WIDTH)
 		{
-			if ((int)(param->i[0] * NB_THREAD / WINDOW_SDL_HEIGHT) * (WINDOW_SDL_HEIGHT / NB_THREAD) != 0)
-				height = param->i[0] % ((int)(param->i[0] * NB_THREAD / WINDOW_SDL_HEIGHT) * (WINDOW_SDL_HEIGHT / NB_THREAD));
-			else
-				height = param->i[0];
-			store_pixel_single(param, sepiacer(getpxl(param->graph->surfs[(int)(param->i[0] * NB_THREAD / WINDOW_SDL_HEIGHT)], param->i[1], height)), (int)(param->i[0] * NB_THREAD / WINDOW_SDL_HEIGHT));
+			putpxl(param, param->i[0], param->i[1], sepiacer(getpxl(param, param->i[0], param->i[1])));
 			param->i[1]++;
 		}
 		param->i[0]++;
@@ -69,20 +55,13 @@ int		cartooner(int color)
 
 void	cartoon(t_param *param)
 {
-	int height;
-
-	height = 0;
 	param->i[0] = 0;
 	while (param->i[0] < WINDOW_SDL_HEIGHT)
 	{
 		param->i[1] = 0;
 		while (param->i[1] < WINDOW_SDL_WIDTH)
 		{
-			if ((int)(param->i[0] * NB_THREAD / WINDOW_SDL_HEIGHT) * (WINDOW_SDL_HEIGHT / NB_THREAD) != 0)
-				height = param->i[0] % ((int)(param->i[0] * NB_THREAD / WINDOW_SDL_HEIGHT) * (WINDOW_SDL_HEIGHT / NB_THREAD));
-			else
-				height = param->i[0];
-			store_pixel_single(param, cartooner(getpxl(param->graph->surfs[(int)(param->i[0] * NB_THREAD / WINDOW_SDL_HEIGHT)], param->i[1], height)), (int)(param->i[0] * NB_THREAD / WINDOW_SDL_HEIGHT));
+			putpxl(param, param->i[0], param->i[1], cartooner(getpxl(param, param->i[0], param->i[1])));
 			param->i[1]++;
 		}
 		param->i[0]++;

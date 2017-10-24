@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   threads.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/27 15:05:21 by malexand          #+#    #+#             */
-/*   Updated: 2017/10/16 11:23:03 by malexand         ###   ########.fr       */
+/*   Updated: 2017/10/24 21:51:45 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static int	calc(void *ptr)
 
 	param = (t_param*)ptr;
 	rt_tracer(param);
-    return (0);
+  return (0);
 }
 
 void		lauch_threads(t_param *param)
@@ -66,4 +66,5 @@ void		lauch_threads(t_param *param)
 			error(0, 0, "Thread wrong return value");
 		count++;
 	}
+	ft_strdel(&name);
 }

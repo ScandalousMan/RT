@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   components.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/27 14:53:46 by aguemy            #+#    #+#             */
-/*   Updated: 2017/10/16 12:10:23 by malexand         ###   ########.fr       */
+/*   Updated: 2017/10/24 01:05:38 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,55 +48,6 @@ int		color_summer(int col1, int col2)
 		ft_min(255, col1 % 256 % 256 + col2 % 256 % 256) * 256 * 256);
 }
 
-void	store_pixel_thread(t_param *param, int color, int num_surf)
-{
-	// mprintf(1, "Surface : [%d], x : [%d], y : [%d], color : [%d]\n", num_surf, param->i[1], param->i[0], color);
-	if (param->graph->show_tmp == 0) {
-		if (param->i[0] >= 0 && param->i[0] - ((num_surf) *
-			WINDOW_SDL_HEIGHT / NB_THREAD) < WINDOW_SDL_HEIGHT / NB_THREAD
-		&& param->i[1] >= 0 && param->i[1] < WINDOW_SDL_WIDTH)
-			putpxl(param->graph->surfs[num_surf],
-			param->i[1], param->i[0] - (num_surf) *
-			WINDOW_SDL_HEIGHT / NB_THREAD, 
-			SDL_MapRGBA(param->graph->surfs[num_surf]->format,
-			(color) & 0xFF, (color >> 8) & 0xFF, (color >> 16) & 0xFF, 0xFF));
-	} else {		
-		if (param->i[0] >= 0 && param->i[0] - ((num_surf) *
-			WINDOW_SDL_HEIGHT / NB_THREAD) < WINDOW_SDL_HEIGHT / NB_THREAD
-		&& param->i[1] >= 0 && param->i[1] < WINDOW_SDL_WIDTH)
-			putpxl(param->graph->tmp_surfs[num_surf],
-			param->i[1], param->i[0] - (num_surf) *
-			WINDOW_SDL_HEIGHT / NB_THREAD, 
-			SDL_MapRGBA(param->graph->tmp_surfs[num_surf]->format,
-			(color) & 0xFF, (color >> 8) & 0xFF, (color >> 16) & 0xFF, 0xFF));
-	}
-}
-
-void store_pixel_single(t_param *param, int color, int num_surf)
-{
-	int height;
-	
-	if (num_surf * (WINDOW_SDL_HEIGHT / NB_THREAD) != 0)
-		height = param->i[0] % (num_surf * (WINDOW_SDL_HEIGHT / NB_THREAD));
-	else
-		height = param->i[0];
-	// mprintf(1, "Store = Surface : [%d], x : [%d], y : [%d], color : [%d]\n", num_surf, param->i[1], height, color);
-	if (param->graph->show_tmp == 0) {
-		if (height >= 0 && height < WINDOW_SDL_HEIGHT / NB_THREAD
-		&& param->i[1] >= 0 && param->i[1] < WINDOW_SDL_WIDTH)
-			putpxl(param->graph->surfs[num_surf],
-			param->i[1], height, 
-			SDL_MapRGBA(param->graph->surfs[num_surf]->format,
-			(color) & 0xFF, (color >> 8) & 0xFF, (color >> 16) & 0xFF, 0xFF));
-	} else {		
-		if (height >= 0 && height < WINDOW_SDL_HEIGHT / NB_THREAD
-			&& param->i[1] >= 0 && param->i[1] < WINDOW_SDL_WIDTH)
-			putpxl(param->graph->tmp_surfs[num_surf],
-			param->i[1], height, 
-			SDL_MapRGBA(param->graph->tmp_surfs[num_surf]->format,
-			(color) & 0xFF, (color >> 8) & 0xFF, (color >> 16) & 0xFF, 0xFF));
-	}
-}
 
 void	display_info(t_param *param)
 {

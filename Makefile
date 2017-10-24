@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: malexand <malexand@student.42.fr>          +#+  +:+       +#+         #
+#    By: alex <alex@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/08/21 18:23:32 by malexand          #+#    #+#              #
-#    Updated: 2017/10/16 12:09:54 by malexand         ###   ########.fr        #
+#    Updated: 2017/10/24 01:13:07 by alex             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 EXEC = RT
 
-DEBUG = no
+DEBUG = yes
 CC = clang
 OS := $(shell uname -s)
 MAKEFLAGS += --silent

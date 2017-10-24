@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 16:39:54 by aguemy            #+#    #+#             */
-/*   Updated: 2017/10/17 12:36:14 by malexand         ###   ########.fr       */
+/*   Updated: 2017/10/24 22:16:45 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,8 @@ typedef struct					s_sdl
 	SDL_Surface					*surfs[NB_THREAD];
 	SDL_Surface					*tmp_surfs[NB_THREAD];
 
-	char						*input;
-	int							show_tmp;
+	char								*input;
+	int									show_tmp;
 
 	t_nk_context				*ctx;
 }								t_sdl;
@@ -235,8 +235,6 @@ typedef struct	s_param
 double			ft_pow(double x, int n);
 int				rgb_color(unsigned char r, unsigned char g, unsigned char b);
 int				rgb_ratio(int color, double a);
-void			store_pixel_thread(t_param *param, int color, int num_surf);
-void			store_pixel_single(t_param *param, int color, int num_surf);
 void			display_info(t_param *param);
 double			ft_atod(const char *str);
 int				color_summer(int col1, int col2);
@@ -381,10 +379,9 @@ void							nukl_gui(t_sdl *graph);
 ** SDL2 Prototypes
 */
 
-void							putpxl(SDL_Surface *surface, int x,
-									int y, Uint32 pixel);
-Uint32							getpxl(SDL_Surface *surface, int x, int y);
-Uint32							format_Uint32(Uint32 pixel, SDL_PixelFormat *fmt);
+void							putpxl(t_param *param, int y, int x, Uint32 pixel);
+Uint32 						getpxl(t_param *param, int y, int x);
+Uint32						format_Uint32(Uint32 pixel, SDL_PixelFormat *fmt);
 int								convert_Uint32_to_int(Uint32 pixel, SDL_PixelFormat *fmt);
 void							sdl_init(t_sdl *graph);
 void							sdl_quit(t_sdl *graph);
