@@ -8,5 +8,6 @@
 	"number_double"  : 42.21,
 	"array int": [0, 12, 42, 21],
 	"bool": false,
-	"null"        :   null
+	"null"        :   null,
+	"": {}
 }
