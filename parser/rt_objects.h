@@ -6,7 +6,7 @@
 /*   By: jbouille <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 14:13:11 by jbouille          #+#    #+#             */
-/*   Updated: 2017/10/24 18:10:50 by jbouille         ###   ########.fr       */
+/*   Updated: 2017/10/25 00:48:34 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define RT_OBJECTS_H
 
 # include <json.h>
+# include <stddef.h>
 
 typedef enum			e_object_type
 {
@@ -45,12 +46,16 @@ typedef struct			s_key
 
 typedef struct			s_object
 {
+	const char			*name;
 	const t_object_type	type;
 	const t_key			*key;
+	const size_t		size;
 }						t_object;
 
+# define RT_OBJECT_TYPE "type"
+
 const t_key				g_common_keys[] = {
-	{"type", RTSTRING, RTNULL},
+	{RT_OBJECT_TYPE, RTSTRING, RTNULL},
 	{"color", RTVECTOR, RTCHAR},
 	{"kd", RTDOUBLE, RTNULL},
 	{"ks", RTDOUBLE, RTNULL},
@@ -88,11 +93,11 @@ const t_key				g_main_object_keys[] = {
 };
 
 const t_object			g_objects[] = {
-	{RTSPHERE, g_sphere_keys},
-	{RTPLAN, g_plan_keys},
-	{RTCONE, g_cone_keys},
-	{RTCYLINDER, g_cylinder_keys},
-	{RTQUADRIC, g_quadric_keys}
+	{"sphere", RTSPHERE, g_sphere_keys, sizeof(g_sphere_keys) / sizeof(t_key)},
+	{"plan", RTPLAN, g_plan_keys, sizeof(g_plan_keys) / sizeof(t_key)},
+	{"cone", RTCONE, g_cone_keys, sizeof(g_cone_keys) / sizeof(t_key)},
+	{"cylinder", RTCYLINDER, g_cylinder_keys, sizeof(g_cylinder_keys) / sizeof(t_key)},
+	{"quadric", RTQUADRIC, g_quadric_keys, sizeof(g_quadric_keys) / sizeof(t_key)}
 };
 
 #endif

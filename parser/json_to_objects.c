@@ -6,7 +6,7 @@
 /*   By: jbouille <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 17:32:22 by jbouille          #+#    #+#             */
-/*   Updated: 2017/10/24 19:03:06 by jbouille         ###   ########.fr       */
+/*   Updated: 2017/10/25 01:00:21 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,39 +49,98 @@ size_t	jarray_len(t_jarray *array)
 	return (size);
 }
 
-int	jobject_contains(t_jobject *obj, const char *key)
+int	is_type(void* value, t_jtype jtype, t_rt_type type, t_rt_type subtype);
+
+int	jobject_contains(t_jobject *obj, t_key key)
 {
 	t_jobject	*tmp;
 
 	tmp = obj;
 	while (tmp)
 	{
-		if (ft_strequ(tmp->key, key))
-			return (1);
+		if (ft_strequ(tmp->key, key.key))
+			return (is_type(tmp->value, tmp->type, key.type, key.content_type));
 		tmp = tmp->next;
 	}
 	return (0);
 }
 
-int	jobject_is_type(t_jobject *obj, t_rt_type type)
+const char	*get_string_value(t_jobject *obj, const char *key)
 {
+	t_jobject	*tmp;
+
+	tmp = obj;
+	while (tmp)
+	{
+		if (obj->type == JSTRING && ft_strequ(tmp->key, key))
+			return ((const char*)(tmp->value));
+		tmp = tmp->next;
+	}
+	return (NULL);
+}
+
+int	is_object(t_jobject *obj, const t_key *keys, const size_t keys_size, int is_common);
+
+int	is_rt_object(t_jobject *obj)
+{
+	const char		*rt_type = get_string_value(obj, RT_OBJECT_TYPE);
+	const size_t	nb_obj = sizeof(g_objects) / sizeof(t_object);
+	size_t			i;
+
+	printf("rt_type_key: %s\n", rt_type);
+	i = 0;
+	while (i < nb_obj)
+	{
+//		printf("is_rt_objects: %zu\n", g_objects[i].size);
+		if (ft_strequ(g_objects[i].name, rt_type))
+			return (is_object(obj, g_objects[i].key, g_objects[i].size, 1));
+		++i;
+	}
+	return (0);
+}
+
+int	check_subtypes(t_jarray *array, t_rt_type subtype);
+
+int	is_type(void* value, t_jtype jtype, t_rt_type type, t_rt_type subtype)
+{
+//	return (0);
+//	printf("is_type: %d\n", jtype);
+//	printf("is_type: %d\n", type);
 	if (type == RTNULL)
-		return (obj->type == JNULL);
+		return (jtype == JNULL);
 	else if (type == RTSTRING)
-		return (obj->type == JSTRING);
+		return (jtype == JSTRING);
 	else if (type == RTDOUBLE)
-		return (obj->type == JDOUBLE || obj->type == JINT);
+		return (jtype == JDOUBLE || jtype == JINT);
 	else if (type == RTCHAR)
-		return (obj->type == JINT && *((int*)obj->value) >= 0 && *((int*)obj->value) <= 255);
+		return (jtype == JINT && *((int*)value) >= 0 && *((int*)value) <= 255);
 	else if (type == RTINT)
-		return (obj->type == JINT);
-	else if (type == RTARRAY) // check_subtypes
-		return (obj->type == JARRAY);
+		return (jtype == JINT);
+	else if (type == RTARRAY)
+		return (jtype == JARRAY && check_subtypes((t_jarray*)value, subtype)); //check_subtypes
 	else if (type == RTOBJECT)
-		return (obj->type == JOBJECT); //check_subtypes
+		return (jtype == JOBJECT && is_rt_object((t_jobject*)value)); //is_rt_object
 	else if (type == RTVECTOR)
-		return (obj->type == JARRAY && jarray_len((t_jarray*)(obj->value)) == 3
-				); // check_subtypes
+		return (jtype == JARRAY && jarray_len((t_jarray*)value) == 3
+		&& check_subtypes((t_jarray*)value, subtype));
+	//check_subtypes	
+	return (0);
+}
+
+int	check_subtypes(t_jarray *array, t_rt_type subtype)
+{
+	t_jarray	*tmp;
+
+	tmp = array;
+	while (tmp)
+	{
+		if (subtype == RTOBJECT)
+			printf("OBJECT ---------->\n");
+//		printf("check_subtypes: %d\n", tmp->type);
+		if (is_type(tmp->value, tmp->type, subtype, subtype) == 0)
+			return (0);
+		tmp = tmp->next;
+	}
 	return (1);
 }
 
@@ -96,22 +155,25 @@ int	is_object(t_jobject *obj, const t_key *keys, const size_t keys_size, int is_
 		common_size = 0;
 	if (keys_size + common_size != jobject_len(obj))
 		return (0);
+//	printf("common_size: %zu\n", common_size);
 	i = 0;
 	while (i < keys_size)
 	{
-		if (jobject_contains(obj, keys[i].key) == 0)
+		printf("is_object: %zu %s %d %d\n", i, keys[i].key, obj->type, keys[i].type);
+		if (jobject_contains(obj, keys[i]) == 0)
 			return (0);
-		if (jobject_is_type(obj, keys[i].type) == 0)
-			return (0);
+//		if (is_type(obj->value, obj->type, keys[i].type, keys[i].content_type) == 0)
+//			return (0);
 		++i;
 	}
 	i = 0;
 	while (i < common_size)
 	{
-		if (jobject_contains(obj, g_common_keys[i].key) == 0)
+		printf("is_object: %zu %s %d %d\n", i, g_common_keys[i].key, obj->type, g_common_keys[i].type);
+		if (jobject_contains(obj, g_common_keys[i]) == 0)
 			return (0);
-		if (jobject_is_type(obj, g_common_keys[i].type) == 0)
-			return (0);
+//		if (is_type(obj->value, obj->type, g_common_keys[i].type, g_common_keys[i].content_type) == 0)
+//			return (0);
 		++i;
 	}
 	return (1);
@@ -120,6 +182,7 @@ int	is_object(t_jobject *obj, const t_key *keys, const size_t keys_size, int is_
 int	json_to_objects(t_jobject *obj)
 {
 	const size_t	size = sizeof(g_main_object_keys) / sizeof(t_key);
+
 	if (is_object(obj, g_main_object_keys, size, 0) == 0)
 		return (0);
 	return (1);
