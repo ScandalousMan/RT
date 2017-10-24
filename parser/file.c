@@ -6,7 +6,7 @@
 /*   By: jbouille <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/20 15:58:14 by jbouille          #+#    #+#             */
-/*   Updated: 2017/10/24 18:36:11 by jbouille         ###   ########.fr       */
+/*   Updated: 2017/10/25 00:46:01 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -313,21 +313,21 @@ char	*parse_jobject(char *json, void **value)
 	return (json + 1);//ERROR
 }
 
-char	*parse_jarray_value(char *json, t_jarray *array)
+char	*parse_jarray_value(char *json, t_jarray **array)
 {
 	if (json == NULL)
 		return (NULL);
-	if ((array = (t_jarray*)malloc(sizeof(t_jarray))) == NULL)
+	if ((*array = (t_jarray*)malloc(sizeof(t_jarray))) == NULL)
 	{
 		perror(NULL);
 		exit(EXIT_FAILURE);
 	}
-	array->next = NULL;
-	array->value = NULL;
-	json = get_value(json, &(array->type), &(array->value));
-	printf("array_value: %s\n", array->value);
+	(*array)->next = NULL;
+	(*array)->value = NULL;
+	json = get_value(json, &((*array)->type), &((*array)->value));
+	printf("array_value: %d\n", *(int*)((*array)->value));
 	if (json && json[0] == ',' && json[1] != ']')
-		json = parse_jarray_value(json + 1, array->next);
+		json = parse_jarray_value(json + 1, &((*array)->next));
 	return (json);
 }
 
@@ -341,9 +341,10 @@ char	*parse_jarray(char *json, void **value)
 	if (json[0] != '[')
 		return (NULL);//ERROR
 	if (json[1] != ']')
-		json = parse_jarray_value(json + 1, array);
+		json = parse_jarray_value(json + 1, &array);
 	else
 		json = json + 1;
+	*value = array;
 	if (json == NULL)
 		return (NULL);
 	if (json && json[0] != ']')
@@ -471,6 +472,7 @@ char	*clear_string(char *s)
 		}
 		i++;
 	}
+	s[i - c] = '\0';
 	return (s);
 }
 
@@ -534,12 +536,13 @@ int read_file(const char *path)
 	free_lst(lst);
 	
 	t_jobject	*obj;
+	int			retour;
 
 	obj = NULL;
-	parse(json, &obj);
+	retour = parse(json, &obj);
 	free(json);
-
-	printf("json_to_objects: %d\n", json_to_objects(obj));
+	if (!retour)
+		printf("json_to_objects: %d\n", json_to_objects(obj));
 	return (ret);
 }
 
