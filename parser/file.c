@@ -6,7 +6,7 @@
 /*   By: jbouille <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/20 15:58:14 by jbouille          #+#    #+#             */
-/*   Updated: 2017/10/24 01:43:41 by jbouille         ###   ########.fr       */
+/*   Updated: 2017/10/24 18:36:11 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,17 @@
 #include <unistd.h>
 #include <libft.h>
 #include <json.h>
+
+//#include <rt_objects.h>
+const t_func_type		g_func_parse[] = {
+	{JSTRING, &parse_jstring},
+	{JOBJECT, &parse_jobject},
+	{JARRAY, &parse_jarray},
+	{JINT, &parse_jint},
+	{JDOUBLE, &parse_jdouble},
+	{JBOOL, &parse_jbool},
+	{JNULL, &parse_jnull}
+};
 
 // TO DELETE (isspace)
 #include <ctype.h>
@@ -175,6 +186,7 @@ char *get_value(char *json, t_jtype *type, void **value)
 		if (g_func_parse[i].type == *type)
 		{
 			json = (g_func_parse[i].f)(json, value);
+			printf("get_value: %s\n", json);
 			break ;
 		}
 		++i;
@@ -198,28 +210,28 @@ char *get_value(char *json, t_jtype *type, void **value)
 	return (json);
 }
 
-char	*parse_key_value(char *json, t_jobject *obj)
+char	*parse_key_value(char *json, t_jobject **obj)
 {
 	if (json == NULL)
 		return (NULL);
-	if ((obj = (t_jobject*)malloc(sizeof(t_jobject))) == NULL)
+	if ((*obj = (t_jobject*)malloc(sizeof(t_jobject))) == NULL)
 	{
 		perror(NULL);
 		exit(EXIT_FAILURE);
 	}
-	obj->next = NULL;
-	obj->value = NULL;
+	(*obj)->next = NULL;
+	(*obj)->value = NULL;
 	printf("avant get key: %s\n", json);
-	json = get_key(json, &(obj->key));
+	json = get_key(json, &((*obj)->key));
 	//if NULL error
-	printf("%s\n", (char*)(obj->key));
+	printf("%s\n", (char*)((*obj)->key));
 	if (json && json[0] == ':')
 	{
-		json = get_value(json + 1, &(obj->type), &(obj->value));
+		json = get_value(json + 1, &((*obj)->type), &((*obj)->value));
 		if (json == NULL)
 			return (NULL);
 		if (json && json[0] == ',')
-			json = parse_key_value(json + 1, obj->next);
+			json = parse_key_value(json + 1, &((*obj)->next));
 	}
 	else
 		return (NULL);//error
@@ -286,7 +298,10 @@ char	*parse_jobject(char *json, void **value)
 		}
 		if (json[0] != '{')
 			return (NULL);//ERROR
-		json = parse_key_value(json + 1, obj);
+		if (json[1] != '}')
+			json = parse_key_value(json + 1, &obj);
+		else
+			json = json + 1;
 		if (json == NULL || (json && json[0] != '}'))
 		{
 			ft_putendl("EXIT_FAILURE");
@@ -310,6 +325,7 @@ char	*parse_jarray_value(char *json, t_jarray *array)
 	array->next = NULL;
 	array->value = NULL;
 	json = get_value(json, &(array->type), &(array->value));
+	printf("array_value: %s\n", array->value);
 	if (json && json[0] == ',' && json[1] != ']')
 		json = parse_jarray_value(json + 1, array->next);
 	return (json);
@@ -324,7 +340,10 @@ char	*parse_jarray(char *json, void **value)
 		return (NULL);
 	if (json[0] != '[')
 		return (NULL);//ERROR
-	json = parse_jarray_value(json + 1, array);
+	if (json[1] != ']')
+		json = parse_jarray_value(json + 1, array);
+	else
+		json = json + 1;
 	if (json == NULL)
 		return (NULL);
 	if (json && json[0] != ']')
@@ -375,7 +394,7 @@ int	parse(char *json, t_jobject **obj)
 	{
 		if (json[0] != '{')
 			return (EXIT_FAILURE);//ERROR
-		json = parse_key_value(json + 1, *obj);
+		json = parse_key_value(json + 1, obj);
 		if (json == NULL || (json && (ft_strlen(json) != 1 || json[0] != '}')))
 		{
 			ft_putendl("EXIT_FAILURE");
@@ -519,11 +538,13 @@ int read_file(const char *path)
 	obj = NULL;
 	parse(json, &obj);
 	free(json);
+
+	printf("json_to_objects: %d\n", json_to_objects(obj));
 	return (ret);
 }
 
 int main()
 {
-	read_file("test.json");
+	read_file("rt.json");
 	return (EXIT_SUCCESS);
 }

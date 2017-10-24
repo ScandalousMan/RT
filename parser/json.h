@@ -6,7 +6,7 @@
 /*   By: jbouille <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/23 10:13:19 by jbouille          #+#    #+#             */
-/*   Updated: 2017/10/24 00:35:18 by jbouille         ###   ########.fr       */
+/*   Updated: 2017/10/24 18:13:06 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,22 +50,24 @@ typedef struct			s_jobject
 	struct s_jobject	*next;
 }						t_jobject;
 
-/* FUNCTIONS */
-char	*parse_jstring(char *json, void **value);
-char	*parse_jobject(char *json, void **value);
-char	*parse_jarray(char *json, void **value);
-char	*parse_jint(char *json, void **value);
-char	*parse_jdouble(char *json, void **value);
-char	*parse_jbool(char *json, void **value);
-char	*parse_jnull(char *json, void **value);
+/*
+**		FUNCTIONS
+*/
+char					*parse_jstring	(char *json, void **value);
+char					*parse_jobject	(char *json, void **value);
+char					*parse_jarray	(char *json, void **value);
+char					*parse_jint		(char *json, void **value);
+char					*parse_jdouble	(char *json, void **value);
+char					*parse_jbool	(char *json, void **value);
+char					*parse_jnull	(char *json, void **value);
 
 typedef struct			s_func_type
 {
 	t_jtype				type;
-	char				*(*f)(char*,void**);
+	char				*(*f)(char*, void**);
 }						t_func_type;
-
-const t_func_type	g_func_parse[] = {
+/*
+const t_func_type		g_func_parse[] = {
 	{JSTRING, &parse_jstring},
 	{JOBJECT, &parse_jobject},
 	{JARRAY, &parse_jarray},
@@ -74,5 +76,6 @@ const t_func_type	g_func_parse[] = {
 	{JBOOL, &parse_jbool},
 	{JNULL, &parse_jnull}
 };
-
+*/
+int	json_to_objects(t_jobject *obj);
 #endif
