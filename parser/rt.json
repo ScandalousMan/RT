@@ -13,10 +13,10 @@
 		{
 			"type": "sphere",
 			"color": [125, 255, 12],
-			"kd": 0.2,
+			"kd": -0.2,
 			"ks": 1.5,
-			"texture": "texture_2",
-
+			"texture": "texture_2",		 
+	
 			"center": [1, 2, 3],
 			"radius": 124.5
 
