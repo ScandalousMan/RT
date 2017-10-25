@@ -6,7 +6,7 @@
 /*   By: jbouille <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/23 10:13:19 by jbouille          #+#    #+#             */
-/*   Updated: 2017/10/24 18:13:06 by jbouille         ###   ########.fr       */
+/*   Updated: 2017/10/26 01:44:30 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,4 @@ const t_func_type		g_func_parse[] = {
 	{JNULL, &parse_jnull}
 };
 */
-int	json_to_objects(t_jobject *obj);
 #endif
