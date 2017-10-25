@@ -6,7 +6,7 @@
 /*   By: jbouille <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 17:32:22 by jbouille          #+#    #+#             */
-/*   Updated: 2017/10/25 01:00:21 by jbouille         ###   ########.fr       */
+/*   Updated: 2017/10/25 15:32:46 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	is_object(t_jobject *obj, const t_key *keys, const size_t keys_size, int is_
 int	is_rt_object(t_jobject *obj)
 {
 	const char		*rt_type = get_string_value(obj, RT_OBJECT_TYPE);
-	const size_t	nb_obj = sizeof(g_objects) / sizeof(t_object);
+	const size_t	nb_obj = RT_KEYS_SIZE(g_objects);
 	size_t			i;
 
 	printf("rt_type_key: %s\n", rt_type);
@@ -103,27 +103,37 @@ int	check_subtypes(t_jarray *array, t_rt_type subtype);
 
 int	is_type(void* value, t_jtype jtype, t_rt_type type, t_rt_type subtype)
 {
-//	return (0);
-//	printf("is_type: %d\n", jtype);
-//	printf("is_type: %d\n", type);
 	if (type == RTNULL)
 		return (jtype == JNULL);
 	else if (type == RTSTRING)
 		return (jtype == JSTRING);
 	else if (type == RTDOUBLE)
 		return (jtype == JDOUBLE || jtype == JINT);
+	else if (type == RTUDOUBLE)
+		return ((jtype == JINT && *((int*)value) >= 0) || (jtype == JDOUBLE && *((double*)value) >= 0.0));
 	else if (type == RTCHAR)
 		return (jtype == JINT && *((int*)value) >= 0 && *((int*)value) <= 255);
 	else if (type == RTINT)
 		return (jtype == JINT);
 	else if (type == RTARRAY)
-		return (jtype == JARRAY && check_subtypes((t_jarray*)value, subtype)); //check_subtypes
+		return (jtype == JARRAY && check_subtypes((t_jarray*)value, subtype));
 	else if (type == RTOBJECT)
-		return (jtype == JOBJECT && is_rt_object((t_jobject*)value)); //is_rt_object
+		return (jtype == JOBJECT && is_rt_object((t_jobject*)value));
 	else if (type == RTVECTOR)
 		return (jtype == JARRAY && jarray_len((t_jarray*)value) == 3
 		&& check_subtypes((t_jarray*)value, subtype));
-	//check_subtypes	
+	else if (type == RTCOEF)
+		return ((jtype == JINT && *((int*)value) >= 0 && *((int*)value) <= 1)
+				|| (jtype == JDOUBLE && *((double*)value) >= 0.0 && *((double*)value) <= 1.0));
+	else if (type == RTANGLE)
+		return ((jtype == JINT && *((int*)value) >= 0 && *((int*)value) < 90)
+				|| (jtype == JDOUBLE && *((double*)value) >= 0.0 && *((double*)value) < 90.0));
+	else if (type == RTTEXTURE)
+		return (jtype == JOBJECT
+				&& is_object((t_jobject*)value, g_texture_keys, RT_KEYS_SIZE(g_texture_keys), 0));
+	else if (type == RTN)
+		return ((jtype == JINT && *((int*)value) >= 1)
+				|| (jtype == JDOUBLE && *((double*)value) >= 1.0));
 	return (0);
 }
 
@@ -150,20 +160,17 @@ int	is_object(t_jobject *obj, const t_key *keys, const size_t keys_size, int is_
 	size_t	i;
 
 	if (is_common)
-		common_size = sizeof(g_common_keys) / sizeof(t_key);
+		common_size = RT_KEYS_SIZE(g_common_keys);
 	else
 		common_size = 0;
 	if (keys_size + common_size != jobject_len(obj))
 		return (0);
-//	printf("common_size: %zu\n", common_size);
 	i = 0;
 	while (i < keys_size)
 	{
 		printf("is_object: %zu %s %d %d\n", i, keys[i].key, obj->type, keys[i].type);
 		if (jobject_contains(obj, keys[i]) == 0)
 			return (0);
-//		if (is_type(obj->value, obj->type, keys[i].type, keys[i].content_type) == 0)
-//			return (0);
 		++i;
 	}
 	i = 0;
@@ -172,8 +179,6 @@ int	is_object(t_jobject *obj, const t_key *keys, const size_t keys_size, int is_
 		printf("is_object: %zu %s %d %d\n", i, g_common_keys[i].key, obj->type, g_common_keys[i].type);
 		if (jobject_contains(obj, g_common_keys[i]) == 0)
 			return (0);
-//		if (is_type(obj->value, obj->type, g_common_keys[i].type, g_common_keys[i].content_type) == 0)
-//			return (0);
 		++i;
 	}
 	return (1);
@@ -181,9 +186,7 @@ int	is_object(t_jobject *obj, const t_key *keys, const size_t keys_size, int is_
 
 int	json_to_objects(t_jobject *obj)
 {
-	const size_t	size = sizeof(g_main_object_keys) / sizeof(t_key);
-
-	if (is_object(obj, g_main_object_keys, size, 0) == 0)
+	if (is_object(obj, g_main_object_keys, RT_KEYS_SIZE(g_main_object_keys), 0) == 0)
 		return (0);
 	return (1);
 }
