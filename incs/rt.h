@@ -6,7 +6,7 @@
 /*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 16:39:54 by aguemy            #+#    #+#             */
-/*   Updated: 2017/10/25 17:20:34 by jbouille         ###   ########.fr       */
+/*   Updated: 2017/10/25 19:52:12 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,20 +171,20 @@ typedef struct	s_light
 {
 	int							num;
 	int							col;
-	double					*src;//position de la source lumineuse
+	double					src[VEC_SIZE];//position de la source lumineuse
 	double					i;//intensité de la source lumineuse
 	struct s_light	*next;
 }				t_light;
 
 typedef struct	s_path
 {
-	double			*from;
-	double			*v;//triplet pour la direction du rayon initial
-	double			*x;//triplet pour point d'intersection
-	double			*n;//triplet pour vecteur normal
-	double			*l;//rayon de la lumiere
-	double			*r;//rayon réfléchi
-	double			*t;//rayon transmis
+	double			from[VEC_SIZE];
+	double			v[VEC_SIZE];//triplet pour la direction du rayon initial
+	double			x[VEC_SIZE];//triplet pour point d'intersection
+	double			n[VEC_SIZE];//triplet pour vecteur normal
+	double			l[VEC_SIZE];//rayon de la lumiere
+	double			r[VEC_SIZE];//rayon réfléchi
+	double			t[VEC_SIZE];//rayon transmis
 	t_object		*current_object;
 	struct s_path	*reflected;
 	struct s_path	*transmitted;
@@ -199,10 +199,10 @@ typedef struct	s_state
 typedef struct	s_param
 {
 	double			f;//focale
-	double			*eye;//position de l'oeil de l'observateur
-	double			*look;//direction dans laquelle l'oeil regarde
-	double			*align;//eye's alignment to define what is looked at
-	double			*third;//third dimension in the referential
+	double			eye[VEC_SIZE];//position de l'oeil de l'observateur
+	double			look[VEC_SIZE];//direction dans laquelle l'oeil regarde
+	double			align[VEC_SIZE];//eye's alignment to define what is looked at
+	double			third[VEC_SIZE];//third dimension in the referential
 	double			obj_d;//object's distance
 	double			tmp_d;//last distance used
 	t_path			*path;
@@ -212,12 +212,12 @@ typedef struct	s_param
 	t_object		*intersect_object;
 	t_object		*tmp_object;
 	t_light			*tmp_light;
-	double			*tmp_vec;
+	double			tmp_vec[VEC_SIZE];
 	int 			brightness;
 	double			bright;
 	double			diffuse;
-	int				*i;
-	double			**rot;
+	int				i[2];
+	double			rot[VEC_SIZE][VEC_SIZE];
 	double			epsilon;
 	t_state			**state;
 
@@ -228,7 +228,7 @@ typedef struct	s_param
 	int				refresh;
 
 	double			ia;//intensité de la lumiere ambiante
-	double			*m;//triplet intermediaire pour calculs ombres
+	double			m[VEC_SIZE];//triplet intermediaire pour calculs ombres
 }				t_param;
 
 /*
@@ -269,6 +269,7 @@ void			print_obj_point(t_param *param);
 /*
 **------------------------------------tools-------------------------------------
 */
+void			*duplicate(void *src, size_t size);
 double			ft_atod(const char *str);
 double			second_level(double a, double b, double c);
 double			vec_norm(double *v);
@@ -282,7 +283,7 @@ double			scalar_product(double *x, double *y);
 double			*vector_product(double *x, double *y, double *container);
 double			*vec_soustraction(double *x, double *y, double *container);
 int				is_in_list(t_param *param, t_light *light);
-void			matrice_product(double **matrice, double *col, double *dest);
+void			matrice_product(double matrice[VEC_SIZE][VEC_SIZE], double *col, double *dest);
 double			*vec_dup(double *vec);
 /*
 **------------------------------------display-----------------------------------
@@ -318,7 +319,7 @@ double			cylindre_third_term(t_object *tmp);
 void			ft_putvec(double *x);
 int				my_key_func(int keycode, t_param *param);
 void			eye_rotation(double alpha, double beta, double gamma, t_param *param);
-double			**rotation_matrice(double alpha, double beta, double gamma, t_param *param);
+void			rotation_matrice(double alpha, double beta, double gamma, t_param *param);
 /*
 **------------------------------------parser------------------------------------
 */

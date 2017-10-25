@@ -6,7 +6,7 @@
 /*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/27 14:57:42 by aguemy            #+#    #+#             */
-/*   Updated: 2017/10/25 17:22:13 by jbouille         ###   ########.fr       */
+/*   Updated: 2017/10/25 19:40:03 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,26 +18,12 @@ t_path			*path_create(int index)
 
 	if (!(path = (t_path*)malloc(sizeof(t_path))))
 		return (NULL);
-	if (!(path->from = (double*)malloc(sizeof(double) * 3)))
-		return (NULL);
-	if (!(path->v = (double*)malloc(sizeof(double) * 3)))
-		return (NULL);
-	if (!(path->x = (double*)malloc(sizeof(double) * 3)))
-		return (NULL);
-	if (!(path->n = (double*)malloc(sizeof(double) * 3)))
-		return (NULL);
-	if (!(path->l = (double*)malloc(sizeof(double) * 3)))
-		return (NULL);
-	if (!(path->r = (double*)malloc(sizeof(double) * 3)))
-		return (NULL);
-	if (!(path->t = (double*)malloc(sizeof(double) * 3)))
-		return (NULL);
 	path->current_object = NULL;
 	path->reflected = index < MAX_RECURSION ? path_create(index + 1) : NULL;
 	path->transmitted = index < MAX_RECURSION ? path_create(index + 1) : NULL;
-	return path;
+	return (path);
 }
-
+/*
 t_param			*create_rotation_matrice(t_param *param)
 {
 	if (!(param->rot = (double**)malloc(sizeof(double*) * 3)))
@@ -50,7 +36,7 @@ t_param			*create_rotation_matrice(t_param *param)
 		return NULL;
 	return param;
 }
-
+*/
 t_param			*struct_create(void)
 {
 	t_param		*param;
@@ -58,10 +44,10 @@ t_param			*struct_create(void)
 	if (!(param = (t_param*)malloc(sizeof(t_param))))
 		return (NULL);
 	param->path = path_create(0);
-	if (!(param->tmp_vec = (double*)malloc(sizeof(double) * 3)))
-		return (NULL);
-	if (!(param->i = (int*)malloc(sizeof(int) * 2)))
-		return (NULL);
+//	if (!(param->tmp_vec = (double*)malloc(sizeof(double) * 3)))
+//		return (NULL);
+//	if (!(param->i = (int*)malloc(sizeof(int) * 2)))
+//		return (NULL);
 	if (!(param->thread = (SDL_Thread**)malloc(sizeof(SDL_Thread*) * NB_THREAD)))
 		return (NULL);
 	param->brightness = 1;
@@ -76,7 +62,8 @@ t_param			*struct_create(void)
 	param->num_lights = 0;
 	param->refresh = 1;
 	param->current_thread = 0;
-	return create_rotation_matrice(param);
+	return (param);
+//	return create_rotation_matrice(param);
 }
 
 t_light			*add_light(t_light **lights, double *src, double i, int col)
@@ -98,7 +85,7 @@ t_light			*add_light(t_light **lights, double *src, double i, int col)
 	}
 	if (!(new = (t_light*)malloc(sizeof(t_light))))
 		return (NULL);
-	new->src = src;
+	ft_memcpy(&(new->src), src, VEC_SIZE * sizeof(double));
 	new->i = i;
 	new->col = col;
 	new->num = num;

@@ -6,7 +6,7 @@
 /*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/27 15:05:21 by malexand          #+#    #+#             */
-/*   Updated: 2017/10/16 11:23:03 by malexand         ###   ########.fr       */
+/*   Updated: 2017/10/25 19:00:53 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,23 @@ t_param		*param_cpy(t_param *param, int count)
 {
 	t_param		*param_cpy;
 
+	
 	if (!(param_cpy = struct_create()))
 			error(0, 0, "Init param for multi thread failed!");
 	param_cpy->graph = param->graph;
 	param_cpy->current_thread = count;
-	param_cpy->eye = vec_dup(param->eye);
-	param_cpy->look = vec_dup(param->look);
-	param_cpy->align = vec_dup(param->align);
-	param_cpy->third = vec_dup(param->third);
+	ft_memcpy(&(param_cpy->eye), &(param->eye), VEC_SIZE * sizeof(double));
+	ft_memcpy(&(param_cpy->look), &(param->look), VEC_SIZE * sizeof(double));
+	ft_memcpy(&(param_cpy->align), &(param->align), VEC_SIZE * sizeof(double));
+	ft_memcpy(&(param_cpy->third), &(param->third), VEC_SIZE * sizeof(double));
+//	param_cpy->eye = vec_dup(param->eye);
+//	param_cpy->look = vec_dup(param->look);
+//	param_cpy->align = vec_dup(param->align);
+//	param_cpy->third = vec_dup(param->third);
 	param_cpy->objects = object_copy(param->objects);
 	param_cpy->lights = light_copy(param->lights);
 	param_cpy->state = param->state;
+
 	return (param_cpy);
 }
 

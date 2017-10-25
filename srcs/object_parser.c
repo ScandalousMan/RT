@@ -20,7 +20,7 @@ int 		rt_object_parser(t_param *param, t_parse *config)
 	return (0);
 }
 
-static void	*duplicate(void *src, size_t size)
+void	*duplicate(void *src, size_t size)
 {
 	void	*copy;
 

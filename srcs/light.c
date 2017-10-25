@@ -24,15 +24,13 @@ t_light	*light_copy(t_light *src)
 	t_light	*copy;
 
 	if (!src)
-		return NULL;
-	if (!(copy = (t_light*)malloc(sizeof(t_light))))
-		return NULL;
-	copy->num = src->num;
-	copy->col = src->col;
-	copy->i = src->i;
-	if (!(copy->src = (double*)malloc(sizeof(double) * 3)))
-		return NULL;
-	vec_copy(src->src, copy->src);
-	copy->next = light_copy(src->next);
+		return (NULL);
+	if (!(copy = duplicate(src, sizeof(t_light))))
+		return (NULL);
+	if (src->next)
+	{
+		if (!(copy->next = light_copy(src->next)))
+			return (NULL);
+	}
 	return (copy);
 }

@@ -6,7 +6,7 @@
 /*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/27 14:53:46 by aguemy            #+#    #+#             */
-/*   Updated: 2017/10/16 12:10:23 by malexand         ###   ########.fr       */
+/*   Updated: 2017/10/25 18:51:49 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,15 +115,15 @@ void	display_info(t_param *param)
 			ft_putnbr(param->intersect_object->type);
 		ft_putchar('\n');
 		ft_putstr("param->path->x = ");
-		if (!param->path->x)
-			ft_putnbr(-1);
-		else
+//		if (!param->path->x)
+//			ft_putnbr(-1);
+//		else
 			ft_putvec(param->path->x);
 		ft_putchar('\n');
 		ft_putstr("normale = ");
-		if (!param->path->n)
-			ft_putnbr(-1);
-		else
+//		if (!param->path->n)
+//			ft_putnbr(-1);
+//		else
 			ft_putvec(param->path->n);
 		ft_putchar('\n');
 	}

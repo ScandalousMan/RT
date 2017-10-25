@@ -55,8 +55,6 @@ t_object		*add_plane(t_param *param, double *n, double *ref)
 			return (NULL);
 		ft_memcpy(&(((t_plane*)tmp->dim)->ref), ref, VEC_SIZE * sizeof(double));
 		ft_memcpy(&(((t_plane*)tmp->dim)->n), vec_to_unit_norm(n), VEC_SIZE * sizeof(double));
-//		((t_plane*)(tmp->dim))->ref = ref;
-//		((t_plane*)(tmp->dim))->n = vec_to_unit_norm(n);
 	}
 	return (tmp);
 }

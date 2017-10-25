@@ -31,8 +31,8 @@ int 	rt_init(t_param *param, char *line, int count)
 	config = split_whitespace(line);
 	if (count == 1 && config->list_len == 3)
 	{
-		if (!(param->eye = (double*)malloc(sizeof(double) * 3)))
-			return (0);
+//		if (!(param->eye = (double*)malloc(sizeof(double) * 3)))
+//			return (0);
 		param->eye[0] = ft_atod(config->str);
 		param->eye[1] = ft_atod(config->next->str);
 		param->eye[2] = ft_atod(config->next->next->str);
@@ -42,8 +42,8 @@ int 	rt_init(t_param *param, char *line, int count)
 	}
 	else if (count == 2 && config->list_len == 3)
 	{
-		if (!(param->look = (double*)malloc(sizeof(double) * 3)))
-			return (0);
+//		if (!(param->look = (double*)malloc(sizeof(double) * 3)))
+//			return (0);
 		param->look[0] = ft_atod(config->str);
 		param->look[1] = ft_atod(config->next->str);
 		param->look[2] = ft_atod(config->next->next->str);
@@ -54,15 +54,15 @@ int 	rt_init(t_param *param, char *line, int count)
 	}
 	else if (count == 3 && config->list_len == 3)
 	{
-		if (!(param->align = (double*)malloc(sizeof(double) * 3)))
-			return (0);
+//		if (!(param->align = (double*)malloc(sizeof(double) * 3)))
+//			return (0);
 		param->align[0] = ft_atod(config->str);
 		param->align[1] = ft_atod(config->next->str);
 		param->align[2] = ft_atod(config->next->next->str);
-		if (!param->look)
-			return (0);
-		if (!(param->third = (double*)malloc(sizeof(double) * 3)))
-			return (0);
+//		if (!param->look)
+//			return (0);
+//		if (!(param->third = (double*)malloc(sizeof(double) * 3)))
+//			return (0);
 		vec_to_unit_norm(vector_product(param->align, param->look, param->third));
 	}
 	else if (!rt_objects_lights_parser(param, config))
