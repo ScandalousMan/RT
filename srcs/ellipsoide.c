@@ -46,7 +46,8 @@ t_object		*add_ellipsoide(t_param *param, double *center, double a, double b, do
 		tmp->phong = SPECULAR_EXP;
 		if (!(tmp->dim = ((t_ellipsoide*)malloc(sizeof(t_ellipsoide)))))
 			return (NULL);
-		((t_ellipsoide*)(tmp->dim))->center = center;
+		ft_memcpy(&(((t_ellipsoide*)tmp->dim)->center), center, VEC_SIZE * sizeof(double));
+//		((t_ellipsoide*)(tmp->dim))->center = center;
 		((t_ellipsoide*)(tmp->dim))->a = a;
 		((t_ellipsoide*)(tmp->dim))->b = b;
 		((t_ellipsoide*)(tmp->dim))->c = c;

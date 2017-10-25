@@ -6,7 +6,7 @@
 /*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/27 14:57:42 by aguemy            #+#    #+#             */
-/*   Updated: 2017/10/17 12:28:04 by malexand         ###   ########.fr       */
+/*   Updated: 2017/10/25 17:22:13 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,8 +129,6 @@ t_object		*object_constructor(t_param *param)
 	param->tmp_object->num = num;
 	param->tmp_object->transparency = 0.2;
 	param->tmp_object->reflection = 0.2;
-	if (!(param->tmp_object->tmp_vec = (double*)malloc(sizeof(double) * 3)))
-		return (NULL);
 	param->tmp_object->next = NULL;
 	if (param->objects && prev)
 		prev->next = param->tmp_object;

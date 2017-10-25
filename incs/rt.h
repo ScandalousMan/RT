@@ -6,7 +6,7 @@
 /*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 16:39:54 by aguemy            #+#    #+#             */
-/*   Updated: 2017/10/17 12:36:14 by malexand         ###   ########.fr       */
+/*   Updated: 2017/10/25 17:20:34 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 # define EPSILON 0.001
 # define ROTATION 30.0
 # define MAX_RECURSION 1
-# define ANTI_ALIASING 1
+# define ANTI_ALIASING 2
 
 # include <fcntl.h>
 # include <stdlib.h>
@@ -104,6 +104,8 @@ typedef struct					s_sdl
 	t_nk_context				*ctx;
 }								t_sdl;
 
+# define VEC_SIZE 3
+
 typedef struct  s_parse
 {
 	char			*str;
@@ -113,33 +115,33 @@ typedef struct  s_parse
 
 typedef struct	s_sphere
 {
-	double			*center;
+	double			center[VEC_SIZE];
 	double			radius;
 }				t_sphere;
 
 typedef struct s_plane
 {
-	double			*n;
-	double			*ref;
+	double			n[VEC_SIZE];
+	double			ref[VEC_SIZE];
 }				t_plane;
 
 typedef struct s_cone
 {
-	double			*org;
-	double			*u;
+	double			org[VEC_SIZE];
+	double			u[VEC_SIZE];
 	double			angle;
 }				t_cone;
 
 typedef struct s_cylindre
 {
-	double			*org;
-	double			*u;
+	double			org[VEC_SIZE];
+	double			u[VEC_SIZE];
 	double			radius;
 }				t_cylindre;
 
 typedef struct s_ellipsoide
 {
-	double			*center;
+	double			center[VEC_SIZE];
 	double			a;
 	double			b;
 	double			c;
@@ -153,7 +155,7 @@ typedef struct	s_object
 
 	double			shadow;
 
-	double			*tmp_vec;
+	double			tmp_vec[VEC_SIZE];
 	int					col;//couleur de surface de l'objet
 	double			kd;//coefficient de réflexion diffuse de l'objet
 	double			ks;//coefficient de réflexion spéculaire de l'objet

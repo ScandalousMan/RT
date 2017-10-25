@@ -55,9 +55,12 @@ t_object		*add_cylindre(t_param *param, double *org, double *u, double radius)
 		tmp->phong = SPECULAR_EXP;
 		if (!(tmp->dim = ((t_cylindre*)malloc(sizeof(t_cylindre)))))
 			return (NULL);
-		((t_cylindre*)(tmp->dim))->org = org;
+		ft_memcpy(&(((t_cylindre*)tmp->dim)->org), org, VEC_SIZE * sizeof(double));
+		ft_memcpy(&(((t_cylindre*)tmp->dim)->u), vec_to_unit_norm(u), VEC_SIZE * sizeof(double));
 		((t_cylindre*)(tmp->dim))->radius = radius;
-		((t_cylindre*)(tmp->dim))->u = vec_to_unit_norm(u);
+//		((t_cylindre*)(tmp->dim))->org = org;
+//		((t_cylindre*)(tmp->dim))->radius = radius;
+//		((t_cylindre*)(tmp->dim))->u = vec_to_unit_norm(u);
 	}
 	return (tmp);
 }

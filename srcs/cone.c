@@ -56,8 +56,8 @@ t_object		*add_cone(t_param *param, double *org, double *u,
 		tmp->phong = SPECULAR_EXP;
 		if (!(tmp->dim = ((t_cone*)malloc(sizeof(t_cone)))))
 			return (NULL);
-		((t_cone*)(tmp->dim))->org = org;
-		((t_cone*)(tmp->dim))->u = vec_to_unit_norm(u);
+		ft_memcpy(&(((t_cone*)tmp->dim)->org), org, VEC_SIZE * sizeof(double));
+		ft_memcpy(&(((t_cone*)tmp->dim)->u), vec_to_unit_norm(u), VEC_SIZE * sizeof(double));
 		((t_cone*)(tmp->dim))->angle = angle;
 	}
 	return (tmp);

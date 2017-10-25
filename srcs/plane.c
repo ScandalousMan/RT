@@ -53,8 +53,10 @@ t_object		*add_plane(t_param *param, double *n, double *ref)
 		tmp->phong = SPECULAR_EXP;
 		if (!(tmp->dim = ((t_plane*)malloc(sizeof(t_plane)))))
 			return (NULL);
-		((t_plane*)(tmp->dim))->ref = ref;
-		((t_plane*)(tmp->dim))->n = vec_to_unit_norm(n);
+		ft_memcpy(&(((t_plane*)tmp->dim)->ref), ref, VEC_SIZE * sizeof(double));
+		ft_memcpy(&(((t_plane*)tmp->dim)->n), vec_to_unit_norm(n), VEC_SIZE * sizeof(double));
+//		((t_plane*)(tmp->dim))->ref = ref;
+//		((t_plane*)(tmp->dim))->n = vec_to_unit_norm(n);
 	}
 	return (tmp);
 }

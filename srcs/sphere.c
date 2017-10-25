@@ -44,7 +44,8 @@ t_object		*add_sphere(t_param *param, double *center, double radius)
 		tmp->phong = SPECULAR_EXP;
 		if (!(tmp->dim = ((t_sphere*)malloc(sizeof(t_sphere)))))
 			return (NULL);
-		((t_sphere*)(tmp->dim))->center = center;
+		ft_memcpy(&(((t_sphere*)tmp->dim)->center), center, VEC_SIZE * sizeof(double));
+//		((t_sphere*)(tmp->dim))->center = center;
 		((t_sphere*)(tmp->dim))->radius = radius;
 	}
 	return (tmp);
