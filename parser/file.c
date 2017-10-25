@@ -6,7 +6,7 @@
 /*   By: jbouille <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/20 15:58:14 by jbouille          #+#    #+#             */
-/*   Updated: 2017/10/25 00:46:01 by jbouille         ###   ########.fr       */
+/*   Updated: 2017/10/25 15:44:12 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,6 @@ const t_func_type		g_func_parse[] = {
 	{JBOOL, &parse_jbool},
 	{JNULL, &parse_jnull}
 };
-
-// TO DELETE (isspace)
-#include <ctype.h>
 
 //FOR PRINTF
 #include <stdio.h>
@@ -462,7 +459,7 @@ char	*clear_string(char *s)
 				in_str = (in_str + 1) % 2;
 			}
 		}
-		else if (/* ft_ */isspace(s[i]) && in_str == 0)
+		else if (ft_isspace(s[i]) && in_str == 0)
 			c++;
 		else
 		{
