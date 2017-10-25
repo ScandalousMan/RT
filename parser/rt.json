@@ -4,8 +4,16 @@
 			"type": "plan",
 			"color": [125, 255, 12],
 			"kd": 0.2,
-			"ks": 1.5,
-			"texture": "texture_1",
+			"ks": 0.5,
+			"texture":
+				{
+					"type": "native",
+					"name": "texture_1"
+				},
+			"transparency": 0.233,
+			"reflection": 0.87,
+			"n": 3,
+			"thickness": 0.88,
 
 			"normal": [0, 1, 1],
 			"point": [3.0, 4.0, 5.0]
@@ -13,12 +21,20 @@
 		{
 			"type": "sphere",
 			"color": [125, 255, 12],
-			"kd": -0.2,
-			"ks": 1.5,
-			"texture": "texture_2",		 
+			"kd": 0.2,
+			"ks": 0.5,
+			"texture":
+				{
+					"type": "file",
+					"name": "path/to/texture_2.ext"
+				},			
+			"transparency": 0.25,
+			"reflection": 0.34,
+			"n": 1,
+			"thickness": 0.21,
 	
 			"center": [1, 2, 3],
-			"radius": 124.5
+			"radius": 85.5
 
 		}
 	]
