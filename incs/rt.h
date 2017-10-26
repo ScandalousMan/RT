@@ -6,7 +6,7 @@
 /*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 16:39:54 by aguemy            #+#    #+#             */
-/*   Updated: 2017/10/25 19:52:12 by jbouille         ###   ########.fr       */
+/*   Updated: 2017/10/26 19:07:49 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@
 # include <SDL.h>
 # include <SDL_opengl.h>
 
-# include "../libft/incs/libft.h"
+# include "../libft/libft.h"
 
 # define NK_INCLUDE_FIXED_TYPES
 # define NK_INCLUDE_STANDARD_IO
@@ -153,7 +153,7 @@ typedef struct	s_object
 	int					num;
 	int					type;//1 for sphere, 2 for plane, 3 for cone, 4 for cylindre
 
-	double			shadow;
+//	double			shadow;
 
 	double			tmp_vec[VEC_SIZE];
 	int					col;//couleur de surface de l'objet
