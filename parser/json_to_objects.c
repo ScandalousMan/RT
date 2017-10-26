@@ -6,7 +6,7 @@
 /*   By: jbouille <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 17:32:22 by jbouille          #+#    #+#             */
-/*   Updated: 2017/10/26 20:24:13 by jbouille         ###   ########.fr       */
+/*   Updated: 2017/10/27 00:59:31 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,12 @@ int	is_type(void* value, t_jtype jtype, t_rt_type type, t_rt_type subtype)
 		return (jtype == JINT);
 	else if (type == RTARRAY)
 		return (jtype == JARRAY && check_subtypes((t_jarray*)value, subtype));
+	else if (type == RTCAMERA)
+		return (jtype == JOBJECT
+				&& is_object((t_jobject*)value, g_camera_keys, RT_KEYS_SIZE(g_camera_keys), 0));
+	else if (type == RTLIGHT)
+		return (jtype == JOBJECT
+				&& is_object((t_jobject*)value, g_light_keys, RT_KEYS_SIZE(g_light_keys), 0));
 	else if (type == RTOBJECT)
 		return (jtype == JOBJECT && is_rt_object((t_jobject*)value));
 	else if (type == RTVECTOR)
@@ -189,7 +195,7 @@ int	json_to_objects(t_jobject *obj)
 {
 	if (is_object(obj, g_main_object_keys, RT_KEYS_SIZE(g_main_object_keys), 0) == 0)
 		return (0);
-	printf("obj_size: %zu\n", jobject_len(((t_jarray*)((t_jobject*)(obj->value))->value)->value));//DEBUG
+//	printf("obj_size: %zu\n", jobject_len(((t_jarray*)((t_jobject*)(obj->value))->value)->value));//DEBUG
 	if (!(objects_storage(obj)))
 		return (0);
 	return (1);

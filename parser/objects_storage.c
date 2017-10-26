@@ -6,7 +6,7 @@
 /*   By: jbouille <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 15:43:31 by jbouille          #+#    #+#             */
-/*   Updated: 2017/10/26 20:23:58 by jbouille         ###   ########.fr       */
+/*   Updated: 2017/10/27 01:42:10 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,23 @@
 #include <rt_objects.h>
 #include <libft.h>
 #include <stdlib.h>
+
+int	get_color(t_jarray *array)
+{
+	int			rgb[VEC_SIZE];
+	int			i;
+	t_jarray	*tmp;
+
+	i = 0;
+	tmp = array;
+	while (tmp && i < VEC_SIZE)
+	{
+		rgb[i] = *((int*)(tmp->value));
+		++i;
+		tmp = tmp->next;
+	}
+	return ((rgb[2] << 16) | (rgb[1] << 8) | rgb[0]);
+}
 
 t_jobject	*get_jobject(t_jobject *obj, const char *key)
 {
@@ -132,9 +149,7 @@ int	fill_object(t_object *obj, t_jobject *jobj, int num)
 	obj->tmp_vec[2] = 0;
 	obj->phong = SPECULAR_EXP;//TODO
 	tmp = get_jobject(jobj, "color");
-//	obj->col = *(int*)(((t_jarray*)tmp->value)->value) << 2 * sizeof(uint8_t); //TODO
-//	obj->col += *(int*)(((t_jarray*)tmp->value)->next->value) << 1 * sizeof(uint8_t); //TODO
-//	obj->col += *(int*)(((t_jarray*)tmp->value)->next->next->value) << 0 * sizeof(uint8_t); //TODO
+	obj->col = get_color((t_jarray*)(tmp->value));
 	tmp = get_jobject(jobj, "kd");
 	obj->kd = get_double(tmp->type, tmp->value);
 	tmp = get_jobject(jobj, "ks");
@@ -171,8 +186,41 @@ t_object	*get_object(t_jarray *array, int num)
 	return (new);
 }
 
+int	fill_light(t_light *light, t_jobject *jobj, int num)
+{
+	t_jobject	*tmp;
+
+	light->num = num;
+	tmp = get_jobject(jobj, "color");
+	light->col = get_color((t_jarray*)(tmp->value));
+	fill_vector(&(light->src), (t_jarray*)(get_jobject(jobj, "center")->value));
+	tmp = get_jobject(jobj, "intensity");
+	light->i = get_double(tmp->type, tmp->value);
+	return (1);
+}
+
+t_light		*get_light(t_jarray *array, int num)
+{
+	t_light	*new;
+
+	if (array == NULL)
+		return (NULL);
+	if (!(new = (t_light*)malloc(sizeof(t_light))))
+		return (NULL);//EXIT
+	if (fill_light(new, array->value, num) == 0)
+		return (NULL);
+	new->next = get_light(array->next, num + 1);
+	return (new);
+}
+
+//TODO CAMERA
+
+t_light		*lights_storage(t_jobject *obj)
+{
+	return (get_light(get_jobject(obj, LIGHTS_KEY)->value, 1));
+}
+
 t_object	*objects_storage(t_jobject *obj)
 {
 	return (get_object(get_jobject(obj, OBJECTS_KEY)->value, 1));
-	return (NULL);
 }

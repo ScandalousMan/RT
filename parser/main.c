@@ -6,7 +6,7 @@
 /*   By: jbouille <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 01:40:48 by jbouille          #+#    #+#             */
-/*   Updated: 2017/10/26 19:12:28 by jbouille         ###   ########.fr       */
+/*   Updated: 2017/10/26 23:44:49 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int main(int ac, char **av)
 	t_jobject	*obj;
 	int			ret;
 
-	if (!(json = read_file("rt.json")))
+	if (!(json = read_file("../rtv1.json")))
 		return (EXIT_FAILURE);
 	obj = NULL;
 	ret = json_parse(json, &obj);

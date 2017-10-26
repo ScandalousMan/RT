@@ -6,7 +6,7 @@
 /*   By: jbouille <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 14:13:11 by jbouille          #+#    #+#             */
-/*   Updated: 2017/10/26 20:09:28 by jbouille         ###   ########.fr       */
+/*   Updated: 2017/10/27 00:57:45 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ typedef enum			e_rt_type
 	RTCHAR,
 	RTINT,
 	RTARRAY,
+	RTCAMERA,
+	RTLIGHT,
 	RTOBJECT,
 	RTVECTOR,
 	RTCOEF,
@@ -59,6 +61,8 @@ typedef struct			s_object_def
 }						t_object_def;
 
 # define RT_OBJECT_TYPE		"type"
+# define CAMERA_KEY			"camera"
+# define LIGHTS_KEY			"lights"
 # define OBJECTS_KEY		"objects"
 # define RT_KEYS_SIZE(keys)	(sizeof(keys) / sizeof(t_key))
 
@@ -101,7 +105,21 @@ const t_key				g_quadric_keys[] = {
 	{"tmp", RTNULL, RTNULL}
 };
 
+const t_key				g_camera_keys[] = {
+	{"eye", RTVECTOR, RTDOUBLE},
+	{"look", RTVECTOR, RTDOUBLE},
+	{"align", RTVECTOR, RTDOUBLE},
+};
+
+const t_key				g_light_keys[] = {
+	{"center", RTVECTOR, RTDOUBLE},
+	{"color", RTVECTOR, RTCHAR},
+	{"intensity", RTCOEF, RTNULL},
+};
+
 const t_key				g_main_object_keys[] = {
+	{CAMERA_KEY, RTCAMERA, RTNULL},
+	{LIGHTS_KEY, RTARRAY, RTLIGHT},
 	{OBJECTS_KEY, RTARRAY, RTOBJECT}
 };
 
@@ -131,7 +149,9 @@ extern const t_key				g_plan_keys[];
 extern const t_key				g_cone_keys[];
 extern const t_key				g_cylinder_keys[];
 extern const t_key				g_quadric_keys[];
-extern const t_key				g_main_object_keys[1];
+extern const t_key				g_camera_keys[3];
+extern const t_key				g_light_keys[3];
+extern const t_key				g_main_object_keys[3];
 extern const t_key				g_texture_keys[2];
 #endif
 
