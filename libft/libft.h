@@ -6,7 +6,7 @@
 /*   By: aguemy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/18 11:49:30 by aguemy            #+#    #+#             */
-/*   Updated: 2017/10/25 15:38:09 by jbouille         ###   ########.fr       */
+/*   Updated: 2017/10/26 20:27:37 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@ typedef struct		s_list
 	size_t			content_size;
 	struct s_list	*next;
 }					t_list;
+
+void				error(int error, int send_perror, char *str);
+int					mprintf(int fd, char *str, ...);
 
 int					ft_atoi(const char *str);
 void				ft_bzero(void *s, size_t n);
