@@ -6,7 +6,7 @@
 /*   By: jbouille <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 17:32:22 by jbouille          #+#    #+#             */
-/*   Updated: 2017/10/25 15:32:46 by jbouille         ###   ########.fr       */
+/*   Updated: 2017/10/26 20:24:13 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,9 +184,13 @@ int	is_object(t_jobject *obj, const t_key *keys, const size_t keys_size, int is_
 	return (1);
 }
 
+#include <objects_storage.h>
 int	json_to_objects(t_jobject *obj)
 {
 	if (is_object(obj, g_main_object_keys, RT_KEYS_SIZE(g_main_object_keys), 0) == 0)
+		return (0);
+	printf("obj_size: %zu\n", jobject_len(((t_jarray*)((t_jobject*)(obj->value))->value)->value));//DEBUG
+	if (!(objects_storage(obj)))
 		return (0);
 	return (1);
 }

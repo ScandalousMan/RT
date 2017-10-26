@@ -6,7 +6,7 @@
 /*   By: jbouille <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 14:13:11 by jbouille          #+#    #+#             */
-/*   Updated: 2017/10/25 15:29:39 by jbouille         ###   ########.fr       */
+/*   Updated: 2017/10/26 20:09:28 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,14 @@ typedef struct			s_object_def
 	const t_object_type	type;
 	const t_key			*key;
 	const size_t		size;
+	void				*(*fill)(t_jobject*);
 }						t_object_def;
 
 # define RT_OBJECT_TYPE		"type"
+# define OBJECTS_KEY		"objects"
 # define RT_KEYS_SIZE(keys)	(sizeof(keys) / sizeof(t_key))
 
+# ifdef MY_GLOBALS
 const t_key				g_common_keys[] = {
 	{RT_OBJECT_TYPE, RTSTRING, RTNULL},
 	{"color", RTVECTOR, RTCHAR},
@@ -99,7 +102,7 @@ const t_key				g_quadric_keys[] = {
 };
 
 const t_key				g_main_object_keys[] = {
-	{"objects", RTARRAY, RTOBJECT}
+	{OBJECTS_KEY, RTARRAY, RTOBJECT}
 };
 
 const t_key				g_texture_keys[] = {
@@ -107,12 +110,29 @@ const t_key				g_texture_keys[] = {
 	{"name", RTSTRING, RTNULL},
 };
 
+/* TODO CHANGE FUNCTIONS DECLARATIONS */
+void	*fill_sphere	(t_jobject *jobj);
+void	*fill_plane		(t_jobject *jobj);
+void	*fill_cone		(t_jobject *jobj);
+void	*fill_cylinder	(t_jobject *jobj);
 const t_object_def		g_objects[] = {
-	{"sphere", RTSPHERE, g_sphere_keys, RT_KEYS_SIZE(g_sphere_keys)},
-	{"plan", RTPLAN, g_plan_keys, RT_KEYS_SIZE(g_plan_keys)},
-	{"cone", RTCONE, g_cone_keys, RT_KEYS_SIZE(g_cone_keys)},
-	{"cylinder", RTCYLINDER, g_cylinder_keys, RT_KEYS_SIZE(g_cylinder_keys)},
-	{"quadric", RTQUADRIC, g_quadric_keys, RT_KEYS_SIZE(g_quadric_keys)}
+	{"sphere", RTSPHERE, g_sphere_keys, RT_KEYS_SIZE(g_sphere_keys), &fill_sphere},
+	{"plane", RTPLAN, g_plan_keys, RT_KEYS_SIZE(g_plan_keys), &fill_plane},
+	{"cone", RTCONE, g_cone_keys, RT_KEYS_SIZE(g_cone_keys), &fill_cone},
+	{"cylinder", RTCYLINDER, g_cylinder_keys, RT_KEYS_SIZE(g_cylinder_keys), &fill_cylinder},
+	{"quadric", RTQUADRIC, g_quadric_keys, RT_KEYS_SIZE(g_quadric_keys), NULL}
 };
+#else
+
+extern const t_object_def		g_objects[5];
+extern const t_key				g_common_keys[9];
+extern const t_key				g_sphere_keys[];
+extern const t_key				g_plan_keys[];
+extern const t_key				g_cone_keys[];
+extern const t_key				g_cylinder_keys[];
+extern const t_key				g_quadric_keys[];
+extern const t_key				g_main_object_keys[1];
+extern const t_key				g_texture_keys[2];
+#endif
 
 #endif

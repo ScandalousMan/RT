@@ -1,7 +1,7 @@
 {
 	"objects": [
 		{
-			"type": "plan",
+			"type": "plane",
 			"color": [125, 255, 12],
 			"kd": 0.2,
 			"ks": 0.5,

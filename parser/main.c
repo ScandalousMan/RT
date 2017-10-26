@@ -6,7 +6,7 @@
 /*   By: jbouille <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 01:40:48 by jbouille          #+#    #+#             */
-/*   Updated: 2017/10/26 01:46:25 by jbouille         ###   ########.fr       */
+/*   Updated: 2017/10/26 19:12:28 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 int	json_to_objects(t_jobject *obj);
 #include <file.h>
 
+#define MY_GLOBALS
+#include <rt_objects.h>
 int main(int ac, char **av)
 {
 	char		*json;
