@@ -66,7 +66,7 @@ t_parse	*split_whitespace(char *line)
 	}
 	return (config);
 }
-
+/*
 t_param 	*rt_parser(t_param *param)
 {
 	int			fd;
@@ -91,4 +91,4 @@ t_param 	*rt_parser(t_param *param)
 	display_lights(param);
 	display_objects(param);
 	return (param);
-}
+}*/

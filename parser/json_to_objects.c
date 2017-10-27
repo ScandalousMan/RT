@@ -6,7 +6,7 @@
 /*   By: jbouille <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 17:32:22 by jbouille          #+#    #+#             */
-/*   Updated: 2017/10/27 00:59:31 by jbouille         ###   ########.fr       */
+/*   Updated: 2017/10/27 17:20:25 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,12 +191,27 @@ int	is_object(t_jobject *obj, const t_key *keys, const size_t keys_size, int is_
 }
 
 #include <objects_storage.h>
-int	json_to_objects(t_jobject *obj)
+int	json_to_objects(t_jobject *obj, t_param *param)
 {
 	if (is_object(obj, g_main_object_keys, RT_KEYS_SIZE(g_main_object_keys), 0) == 0)
 		return (0);
 //	printf("obj_size: %zu\n", jobject_len(((t_jarray*)((t_jobject*)(obj->value))->value)->value));//DEBUG
-	if (!(objects_storage(obj)))
-		return (0);
+	param->eye[0] = 0;
+	param->eye[1] = -300;
+	param->eye[2] = 0;
+	param->look[0] = 0;
+	param->look[1] = 1;
+	param->look[2] = 0;
+	param->align[0] = 1;
+	param->align[1] = 0;
+	param->align[2] = 0;
+	vec_to_unit_norm(vector_product(param->align, param->look, param->third));
+	param->lights = lights_storage(obj);
+	param->objects = objects_storage(obj, param);
+	//ATTENTION AUX RETOURS
+	display_lights(param);
+	display_objects(param);	
+//	if (!(objects_storage(obj, param)))
+//		return (0);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: jbouille <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 15:43:31 by jbouille          #+#    #+#             */
-/*   Updated: 2017/10/27 01:42:10 by jbouille         ###   ########.fr       */
+/*   Updated: 2017/10/27 17:27:53 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,48 +85,73 @@ void	fill_vector(double vector[1][VEC_SIZE], t_jarray *array)
 	}
 }
 
-void	*fill_sphere(t_jobject *jobj)
+void	*fill_sphere(t_jobject *jobj, t_param *param)
 {
 	t_sphere	*obj;
 	t_jobject	*tmp;
+	double		tr[VEC_SIZE];
 
 	if (!(obj = (t_sphere *)malloc(sizeof(t_sphere))))
 		return (NULL);//EXIT
 	fill_vector((&(obj->center)), (t_jarray*)(get_jobject(jobj, "center")->value));
 	tmp = get_jobject(jobj, "radius");
 	obj->radius = get_double(tmp->type, tmp->value);
+	fill_vector(&tr, (t_jarray*)(get_jobject(jobj, "translation")->value));
+	obj->center[0] += tr[0];
+	obj->center[1] += tr[1];
+	obj->center[2] += tr[2];
+	fill_vector(&tr, (t_jarray*)(get_jobject(jobj, "rotation")->value));
+	rotation_matrice(tr[0], tr[1], tr[2], param);
+//	matrice_product(param->rot, obj->n, obj->n);
 	return (obj);
 }
 
-void	*fill_plane(t_jobject *jobj)
+void	*fill_plane(t_jobject *jobj, t_param *param)
 {
-	t_plane	*obj;
+	t_plane		*obj;
+	double		tr[VEC_SIZE];
 
 	if (!(obj = (t_plane *)malloc(sizeof(t_plane))))
 		return (NULL);//EXIT
 	fill_vector((&(obj->n)), (t_jarray*)(get_jobject(jobj, "normal")->value));
 	fill_vector((&(obj->ref)), (t_jarray*)(get_jobject(jobj, "point")->value));
+	fill_vector(&tr, (t_jarray*)(get_jobject(jobj, "translation")->value));
+	obj->ref[0] += tr[0];
+	obj->ref[1] += tr[1];
+	obj->ref[2] += tr[2];
+	fill_vector(&tr, (t_jarray*)(get_jobject(jobj, "rotation")->value));
+	rotation_matrice(tr[0], tr[1], tr[2], param);
+	matrice_product(param->rot, obj->n, obj->n);
 	return (obj);
 }
 
-void	*fill_cone(t_jobject *jobj)
+void	*fill_cone(t_jobject *jobj, t_param *param)
 {
 	t_cone		*obj;
 	t_jobject	*tmp;
+	double		tr[VEC_SIZE];
 
 	if (!(obj = (t_cone *)malloc(sizeof(t_cone))))
 		return (NULL);//EXIT
 	fill_vector(&(obj->org), (t_jarray*)(get_jobject(jobj, "center")->value));
 	fill_vector(&(obj->u), (t_jarray*)(get_jobject(jobj, "vector")->value));
 	tmp = get_jobject(jobj, "angle");
-	obj->angle = get_double(tmp->type, tmp->value);
+	obj->angle =  M_PI / 180.0 * get_double(tmp->type, tmp->value);
+	fill_vector(&tr, (t_jarray*)(get_jobject(jobj, "translation")->value));
+	obj->org[0] += tr[0];
+	obj->org[1] += tr[1];
+	obj->org[2] += tr[2];
+	fill_vector(&tr, (t_jarray*)(get_jobject(jobj, "rotation")->value));
+	rotation_matrice(tr[0], tr[1], tr[2], param);
+	matrice_product(param->rot, obj->u, obj->u);
 	return (obj);
 }
 
-void	*fill_cylinder(t_jobject *jobj)
+void	*fill_cylinder(t_jobject *jobj, t_param *param)
 {
 	t_cylindre	*obj;
 	t_jobject	*tmp;
+	double		tr[VEC_SIZE];
 
 	if (!(obj = (t_cylindre *)malloc(sizeof(t_cylindre))))
 		return (NULL);//EXIT
@@ -134,14 +159,22 @@ void	*fill_cylinder(t_jobject *jobj)
 	fill_vector(&(obj->u), (t_jarray*)(get_jobject(jobj, "vector")->value));
 	tmp = get_jobject(jobj, "radius");
 	obj->radius = get_double(tmp->type, tmp->value);
+	fill_vector(&tr, (t_jarray*)(get_jobject(jobj, "translation")->value));
+	obj->org[0] += tr[0];
+	obj->org[1] += tr[1];
+	obj->org[2] += tr[2];
+	fill_vector(&tr, (t_jarray*)(get_jobject(jobj, "rotation")->value));
+	rotation_matrice(tr[0], tr[1], tr[2], param);
+	matrice_product(param->rot, obj->u, obj->u);
 	return (obj);
 }
 #include <stdint.h>
-int	fill_object(t_object *obj, t_jobject *jobj, int num)
+int	fill_object(t_object *obj, t_jobject *jobj, int num, t_param *param)
 {
 	const t_object_def obj_def = get_object_def_by_name(get_jobject(jobj, RT_OBJECT_TYPE)->value);
 
 	t_jobject	*tmp;
+
 	obj->type = obj_def.type;
 	obj->num = num;//REALLY NEED THAT ?
 	obj->tmp_vec[0] = 0;//TODO CHANGE THIS BEURK !
@@ -166,13 +199,13 @@ int	fill_object(t_object *obj, t_jobject *jobj, int num)
 	tmp = get_jobject(jobj, "texture");//JSON_OBJECT
 //	obj->texture = ;//NOT EXISTS FOR THE MOMENT
 	if (obj_def.fill)
-		obj->dim = obj_def.fill(jobj);
+		obj->dim = obj_def.fill(jobj, param);
 	else
 		obj->dim = NULL;//EXIT ??? pas forcement si l'object ne prends pas de param...
 	return (1);
 }
 
-t_object	*get_object(t_jarray *array, int num)
+t_object	*get_object(t_jarray *array, int num, t_param *param)
 {
 	t_object	*new;
 
@@ -180,9 +213,9 @@ t_object	*get_object(t_jarray *array, int num)
 		return (NULL);
 	if (!(new = (t_object*)malloc(sizeof(t_object))))
 		return (NULL);//EXIT
-	if (fill_object(new, array->value, num) == 0)
+	if (fill_object(new, array->value, num, param) == 0)
 		return (NULL);
-	new->next = get_object(array->next, num + 1);
+	new->next = get_object(array->next, num + 1, param);
 	return (new);
 }
 
@@ -220,7 +253,13 @@ t_light		*lights_storage(t_jobject *obj)
 	return (get_light(get_jobject(obj, LIGHTS_KEY)->value, 1));
 }
 
-t_object	*objects_storage(t_jobject *obj)
+t_object	*objects_storage(t_jobject *obj, t_param *param)
 {
-	return (get_object(get_jobject(obj, OBJECTS_KEY)->value, 1));
+	return (get_object(get_jobject(obj, OBJECTS_KEY)->value, 1, param));
 }
+/*
+t_param	*rt_parser(t_param *param)
+{
+	
+}
+*/
