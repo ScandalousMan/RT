@@ -6,7 +6,7 @@
 #    By: malexand <malexand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/08/21 18:23:32 by malexand          #+#    #+#              #
-#    Updated: 2017/10/29 18:59:38 by jbouille         ###   ########.fr        #
+#    Updated: 2017/10/29 19:07:40 by jbouille         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,8 +35,8 @@ ifeq ($(OS), Linux)
 	LFLAGS = -L./libft -lft `pkg-config --libs glew` `pkg-config --libs sdl2` -lGL -lm -lGLU
 	INCLUDE = -I./incs -I/usr/include/mlx
 else
-	LFLAGS = -L./libft -lft `pkg-config --libs glew` `pkg-config --libs sdl2` -framework OpenGL -lm -Lparser -ljson
-	INCLUDE = -I./incs -I./libft -I./parser
+	LFLAGS = -L./libft -lft `pkg-config --libs glew` `pkg-config --libs sdl2` -framework OpenGL -lm -Llibjson -ljson
+	INCLUDE = -I./incs -I./libft -I./libjson
 endif
 
 OUT_DIR = objs
@@ -76,6 +76,7 @@ ifeq ($(OS), Linux)
 	$(CC) $(CFLAGS) -o $@ $(OBCC) $(INCLUDE) $(LFLAGS)
 	@echo -e "\x1b[36m  + Compile program:\x1B[0m $@"
 else
+	@make -C libjson
 	@echo "\x1B[34m$(EXEC):\x1B[0m"
 	@$(CC) $(CFLAGS) -o $@ $(OBCC) $(INCLUDE) $(LFLAGS)
 	@echo "\x1b[36m  + Compile program:\x1B[0m $@"
@@ -105,6 +106,7 @@ ${INC_DIR}:
 
 clean:
 	@make -C ./libft clean
+	@make -C libjson clean
 	@rm -rf $(OUT_DIR)
 ifeq ($(OS), Linux)
 	@echo -e "\x1B[31m  - Remove:\x1B[0m objs"
@@ -114,6 +116,7 @@ endif
 
 fclean: clean
 	@make -C ./libft delete
+	@make -C libjson fclean
 	@rm -f $(EXEC)
 ifeq ($(OS), Linux)
 	@echo -e "\x1B[31m  - Remove:\x1B[0m $(EXEC)"
