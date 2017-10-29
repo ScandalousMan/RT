@@ -6,12 +6,13 @@
 /*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/21 17:02:46 by malexand          #+#    #+#             */
-/*   Updated: 2017/10/27 17:07:23 by jbouille         ###   ########.fr       */
+/*   Updated: 2017/10/29 18:42:05 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "implementation.h"
 #include "rt.h"
+#include <rt_parser.h>
 
 /*utiliser la fonction error pour toute erreur*/
 
@@ -50,7 +51,8 @@ int		main(void)
 		error(0, 0, "Can't allocate graph struct");
 	if (!(param->state = state_init()))
 		return (-1);
-	rt_parser(param);
+	if (!rt_parser(param, "rtv1.json"))
+		return (1);
 	sdl_init(param->graph);
 	lauch_threads(param);
 	while (param->graph->input[SDL_SCANCODE_ESCAPE] == FALSE)

@@ -6,7 +6,7 @@
 /*   By: jbouille <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/20 15:58:14 by jbouille          #+#    #+#             */
-/*   Updated: 2017/10/29 18:12:13 by jbouille         ###   ########.fr       */
+/*   Updated: 2017/10/29 18:57:54 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	print_lst(t_list *lst)
 
 /*					END														  */
 
-static const size_t get_string_size(t_list *lst)
+static size_t get_string_size(t_list *lst)
 {
 	size_t	size;
 	t_list	*tmp;

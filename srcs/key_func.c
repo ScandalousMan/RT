@@ -6,7 +6,7 @@
 /*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 16:38:39 by aguemy            #+#    #+#             */
-/*   Updated: 2017/10/25 19:57:50 by jbouille         ###   ########.fr       */
+/*   Updated: 2017/10/29 18:55:24 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,7 +197,7 @@ int		my_key_func(int keycode, t_param *param)
 	{
 		free_objects(param);
 		free_lights(param);
-		rt_parser(param);
+//		rt_parser(param);
 		ft_putstr("\nnumber of lights\n");
 		ft_putnbr(param->num_lights);
 		ft_putchar('\n');

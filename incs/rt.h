@@ -6,7 +6,7 @@
 /*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 16:39:54 by aguemy            #+#    #+#             */
-/*   Updated: 2017/10/27 16:24:53 by jbouille         ###   ########.fr       */
+/*   Updated: 2017/10/29 18:54:20 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -323,7 +323,7 @@ void			rotation_matrice(double alpha, double beta, double gamma, t_param *param)
 /*
 **------------------------------------parser------------------------------------
 */
-t_param	*rt_parser(t_param *param);
+//t_param	*rt_parser(t_param *param);
 t_parse	*split_whitespace(char *line);
 int 	rt_light_parser(t_param *param, t_parse *config);
 int 	rt_objects_lights_parser(t_param *param, t_parse *config);

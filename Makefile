@@ -6,7 +6,7 @@
 #    By: malexand <malexand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/08/21 18:23:32 by malexand          #+#    #+#              #
-#    Updated: 2017/10/29 18:25:14 by jbouille         ###   ########.fr        #
+#    Updated: 2017/10/29 18:59:38 by jbouille         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,8 +35,8 @@ ifeq ($(OS), Linux)
 	LFLAGS = -L./libft -lft `pkg-config --libs glew` `pkg-config --libs sdl2` -lGL -lm -lGLU
 	INCLUDE = -I./incs -I/usr/include/mlx
 else
-	LFLAGS = -L./libft -lft `pkg-config --libs glew` `pkg-config --libs sdl2` -framework OpenGL -lm
-	INCLUDE = -I./incs
+	LFLAGS = -L./libft -lft `pkg-config --libs glew` `pkg-config --libs sdl2` -framework OpenGL -lm -Lparser -ljson
+	INCLUDE = -I./incs -I./libft -I./parser
 endif
 
 OUT_DIR = objs
@@ -46,12 +46,13 @@ INC_DIR = incs
 SDIR =		./srcs/
 #SRCS =		$(notdir $(shell ls $(SRC_DIR)/*.c))
 SRCS =		closest.c components.c cone.c cone_tools.c constructor.c \
-			cylindre.c cylindre_tools.c distance.c ellipsoide.c \
+			cylindre.c cylindre_tools.c display.c distance.c ellipsoide.c \
 			ft_atod.c graph_init.c key_func.c light.c main.c \
 			new_functions.c nukl_gui.c object_parser.c parser.c parser2.c\
 			plane.c postprocessing.c sdl_draw.c sdl_evts.c sdl_init.c \
 			sdl_utils.c sphere.c threads.c vec_tools.c vec_tools2.c \
-			vec_tools3.c
+			vec_tools3.c \
+			file.c json_to_objects.c objects_storage.c rt_parser.c
 SRCC =		$(addprefix $(SDIR),$(SRCS))
 
 ODIR =		./objs/

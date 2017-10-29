@@ -6,7 +6,7 @@
 /*   By: jbouille <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 15:43:31 by jbouille          #+#    #+#             */
-/*   Updated: 2017/10/27 17:27:53 by jbouille         ###   ########.fr       */
+/*   Updated: 2017/10/29 18:58:35 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ t_jobject	*get_jobject(t_jobject *obj, const char *key)
 	return (NULL);//EXIT error dans le check des objets
 }
 
-const	t_object_def	get_object_def_by_name(const char *name)
+t_object_def	get_object_def_by_name(const char *name)
 {
 	size_t	i;
 
