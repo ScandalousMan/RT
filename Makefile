@@ -6,7 +6,7 @@
 #    By: malexand <malexand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/08/21 18:23:32 by malexand          #+#    #+#              #
-#    Updated: 2017/10/16 12:09:54 by malexand         ###   ########.fr        #
+#    Updated: 2017/10/29 18:25:14 by jbouille         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,8 +44,14 @@ SRC_DIR = srcs
 INC_DIR = incs
 
 SDIR =		./srcs/
-SRCS =		$(notdir $(shell ls $(SRC_DIR)/*.c))
-# SRCS =		test.c 
+#SRCS =		$(notdir $(shell ls $(SRC_DIR)/*.c))
+SRCS =		closest.c components.c cone.c cone_tools.c constructor.c \
+			cylindre.c cylindre_tools.c distance.c ellipsoide.c \
+			ft_atod.c graph_init.c key_func.c light.c main.c \
+			new_functions.c nukl_gui.c object_parser.c parser.c parser2.c\
+			plane.c postprocessing.c sdl_draw.c sdl_evts.c sdl_init.c \
+			sdl_utils.c sphere.c threads.c vec_tools.c vec_tools2.c \
+			vec_tools3.c
 SRCC =		$(addprefix $(SDIR),$(SRCS))
 
 ODIR =		./objs/
