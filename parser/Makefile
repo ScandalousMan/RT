@@ -1,6 +1,6 @@
 .PHONY: all, clean, fclean, re
 NAME = libjson.a
-SRC = json_parse.c json_type.c parse_key_value.c parse_number.c parse_string.c
+SRC = json_parse.c json_type.c parse_key_value.c parse_number.c parse_string.c stringify.c
 DIR_SRC = sources/
 DIR_OBJ = objects/
 OBJ = $(addprefix $(DIR_OBJ),$($(sort SRC):.c=.o))

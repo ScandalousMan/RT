@@ -6,11 +6,12 @@
 /*   By: jbouille <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 01:04:36 by jbouille          #+#    #+#             */
-/*   Updated: 2017/10/26 01:08:37 by jbouille         ###   ########.fr       */
+/*   Updated: 2017/10/29 18:17:15 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <json.h>
+#include <json_parse.h>
 #include <parse_key_value.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -40,7 +41,7 @@ char		*parse_jobject(char *json, void **value)
 			return (NULL);
 	}
 	*value = obj;
-	return (json + 1);//ERROR
+	return (json + 1);
 }
 
 static char	*parse_jarray_value(char *json, t_jarray **array)
@@ -55,7 +56,8 @@ static char	*parse_jarray_value(char *json, t_jarray **array)
 	(*array)->next = NULL;
 	(*array)->value = NULL;
 	json = get_value(json, &((*array)->type), &((*array)->value));
-	printf("array_value: %d\n", *(int*)((*array)->value));
+	if (json)
+		printf("array_value: %d\n", *(int*)((*array)->value));
 	if (json && json[0] == ',' && json[1] != ']')
 		json = parse_jarray_value(json + 1, &((*array)->next));
 	return (json);
@@ -84,6 +86,7 @@ char		*parse_jarray(char *json, void **value)
 
 int			json_parse(char *json, t_jobject **obj)
 {
+	stringify(json);
 	if (json && ft_strlen(json) >= 2)
 	{
 		if (json[0] != '{')

@@ -6,7 +6,7 @@
 /*   By: jbouille <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/20 15:58:14 by jbouille          #+#    #+#             */
-/*   Updated: 2017/10/26 01:46:27 by jbouille         ###   ########.fr       */
+/*   Updated: 2017/10/29 18:12:13 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <unistd.h>
 #include <libft.h>
 #include <json.h>
+#include <json_parse.h>
 
 //FOR PRINTF
 #include <stdio.h>
@@ -63,43 +64,6 @@ char	*lst_to_string(t_list *lst)
 	return (s);
 }
 
-char	*clear_string(char *s)
-{
-	int		i;
-	size_t	c;
-	int		in_str;
-
-	in_str = 0;
-	i = 0;
-	c = 0;
-	while (s[i] != '\0')
-	{
-		if (s[i] == '"')
-		{
-			if (i > 0 && s[i - 1] == '\\')
-				;
-			else
-			{
-				ft_memmove(s + i - c, s + i, ft_strlen(s + i) + 1);
-				i -= c;
-				c = 0;
-				in_str = (in_str + 1) % 2;
-			}
-		}
-		else if (ft_isspace(s[i]) && in_str == 0)
-			c++;
-		else
-		{
-			ft_memmove(s + i - c, s + i, ft_strlen(s + i) + 1);
-			i -= c;
-			c = 0;
-		}
-		i++;
-	}
-	s[i - c] = '\0';
-	return (s);
-}
-
 int	read_lines(int fd, t_list **lst)
 {
 	char	*line;
@@ -112,7 +76,8 @@ int	read_lines(int fd, t_list **lst)
 	while ((ret = get_next_line(fd, &line)) > 0)
 	{
 		ft_putendl(line);
-		if ((tmp = ft_lstnew((const void*)clear_string(line), ft_strlen(line) + 1)) == NULL)
+		stringify(line);
+		if ((tmp = ft_lstnew((const void*)line, ft_strlen(line) + 1)) == NULL)
 			return (EXIT_FAILURE);
 		if (tmp_prev == NULL)
 			ft_lstadd(lst, tmp);

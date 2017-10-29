@@ -6,7 +6,7 @@
 /*   By: jbouille <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 00:55:04 by jbouille          #+#    #+#             */
-/*   Updated: 2017/10/26 00:57:36 by jbouille         ###   ########.fr       */
+/*   Updated: 2017/10/29 18:06:09 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,75 @@
 #include <stdio.h>
 #include <libft.h>
 
-char	*parse_jstring(char *json, void **value)
+/*
+**	Pas de gestion de \u ...
+*/
+
+char	*escape_chars(char *s)
 {
 	int	i;
 
-	i = 1;
-	if (json != NULL && json[i] != '\0')
+	i = 0;
+	while (s[i] != '\0')
 	{
-		++i;
-		while (json[i])
+		if (s[i] == '\\' && (s[i + 1] == '"' || s[i + 1] == '\\'
+			|| s[i + 1] == '/' || s[i + 1] == 'b' || s[i + 1] == 'f'
+			|| s[i + 1] == 'n' || s[i + 1] == 'r' || s[i + 1] == 't'))
 		{
-			if (json[i] == '"' && json[i - 1] != '\\')
+			if (s[i + 1] == '"')
+				s[i] = '"';
+			else if (s[i + 1] == '\\')
+				s[i] = '\\';
+			else if (s[i + 1] == '/')
+				s[i] = '/';
+			else if (s[i + 1] == 'b')
+				s[i] = '\b';
+			else if (s[i + 1] == 'f')
+				s[i] = '\f';
+			else if (s[i + 1] == 'n')
+				s[i] = '\n';
+			else if (s[i + 1] == 'r')
+				s[i] = '\r';
+			else if (s[i + 1] == 't')
+				s[i] = '\t';
+			ft_memmove(s + i + 1, s + i + 2, ft_strlen(s + i + 2) + 1);
+		}
+		else if (s[i] == '\\')
+		{
+			ft_memmove(s + i, s + i + 1, ft_strlen(s + i + 1) + 1);
+			--i;
+		}
+		++i;
+	}
+	return (s);
+}
+
+char	*parse_jstring(char *json, void **value)
+{
+	int		i;
+	char	tmp;
+
+	i = 1;
+	if (json != NULL && json[0] && json[i] != '\0')
+	{
+		while (json[i] != '\0')
+		{
+			if (json[i] == '\\' && json[i + 1] == '"')
+				++i;
+			else if (json[i] == '"')
 			{
+				tmp = json[i];
 				json[i] = '\0';
 				if ((*value = ft_strdup(json + 1)) == NULL)
 				{
+					json[i] = tmp;
 					perror(NULL);
 					exit(EXIT_FAILURE);
 				}
-				return (json + i + 1) ;
+				json[i] = tmp;
+				printf("%zu: %s\n", ft_strlen(*value), *value);
+				*value = escape_chars(*value);
+				return (json + i + 1);
 			}
 			++i;
 		}

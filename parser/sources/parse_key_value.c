@@ -6,7 +6,7 @@
 /*   By: jbouille <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 00:28:41 by jbouille          #+#    #+#             */
-/*   Updated: 2017/10/26 01:25:37 by jbouille         ###   ########.fr       */
+/*   Updated: 2017/10/29 16:51:40 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,9 @@ char	*get_key(char *json, t_jstring *key)
 		++i;
 		while (json[i])
 		{
-			if (json[i] == '"' && json[i - 1] != '\\')
+			if (json[i] == '\\' && json[i + 1] == '"')
+				++i;
+			else if (json[i] == '"')
 			{
 				tmp = json[i];
 				json[i] = '\0';
@@ -50,7 +52,8 @@ char	*get_key(char *json, t_jstring *key)
 					exit(EXIT_FAILURE);
 				}
 				json[i] = tmp;
-				return (json + i + 1) ;
+				*key = escape_chars(*key);
+				return (json + i + 1);
 			}
 			++i;
 		}
@@ -110,7 +113,7 @@ char	*parse_key_value(char *json, t_jobject **obj)
 	(*obj)->value = NULL;
 //	printf("avant get key: %s\n", json);
 	json = get_key(json, &((*obj)->key));
-//	printf("%s\n", (char*)((*obj)->key));
+	printf("%s\n", (char*)((*obj)->key));
 	if (json && json[0] == ':')
 	{
 		json = get_value(json + 1, &((*obj)->type), &((*obj)->value));

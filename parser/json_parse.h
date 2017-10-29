@@ -6,7 +6,7 @@
 /*   By: jbouille <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 01:11:47 by jbouille          #+#    #+#             */
-/*   Updated: 2017/10/26 01:12:35 by jbouille         ###   ########.fr       */
+/*   Updated: 2017/10/29 18:10:36 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <json.h>
 
-int	json_parse(char *json, t_jobject **obj);
+int		json_parse(char *json, t_jobject **obj);
+char	*stringify(char *s);
 
 #endif
