@@ -6,7 +6,7 @@
 #    By: malexand <malexand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/08/21 18:23:32 by malexand          #+#    #+#              #
-#    Updated: 2017/10/25 15:38:26 by jbouille         ###   ########.fr        #
+#    Updated: 2017/11/06 16:20:04 by jbouille         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ INC		 			= -I./incs
 ifeq ($(DEBUG), yes)
 	CFLAGS = 		-Wall -Werror -Wextra -g -ggdb
 else
-	CFLAGS = 		-Wall -Werror -Wextra
+	CFLAGS = 		-Wall -Werror -Wextra -O3 -Ofast
 endif
 
 SDIR =				srcs/

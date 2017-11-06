@@ -6,7 +6,7 @@
 /*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/27 15:05:21 by malexand          #+#    #+#             */
-/*   Updated: 2017/10/25 19:00:53 by jbouille         ###   ########.fr       */
+/*   Updated: 2017/11/06 16:35:53 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,22 @@ void		lauch_threads(t_param *param)
 		error(0, 0, "Alloc all thread not work");
 	while (count < NB_THREAD)
 	{
-		name[6] = 48 + count;
 		params[count] = param_cpy(param, count);
+		++count;
+	}
+	clock_t start = clock();//TODO delete
+	count = 0;
+	while (count < NB_THREAD)
+	{
+		name[6] = 48 + count;
+	//	params[count] = param_cpy(param, count);
 		if (!(param->thread[count] = SDL_CreateThread(calc, name, (void*)params[count])))
 			error(0, 0, "Create new thread failed!");
 		count++;
 	}
+	param->end = clock();//TODO delete
+	printf("Create threads %.5lf secondes...\n", (double)(param->end - start) / CLOCKS_PER_SEC);
+	start = clock();//TODO delete
 	count = 0;
 	while (count < NB_THREAD)
 	{
@@ -72,4 +82,6 @@ void		lauch_threads(t_param *param)
 			error(0, 0, "Thread wrong return value");
 		count++;
 	}
+	param->end = clock();//TODO delete
+	printf("Calculs %.5lf secondes...\n", (double)(param->end - start) / CLOCKS_PER_SEC);
 }

@@ -1,5 +1,5 @@
 #include "rt.h"
-
+/*
 int 	rt_ellipsoide_parser(t_param *param, t_parse *config)
 {
 	double		*org;
@@ -54,7 +54,7 @@ t_object		*add_ellipsoide(t_param *param, double *center, double a, double b, do
 	}
 	return (tmp);
 }
-
+*/
 double	distance_to_ellipsoide(t_object *tmp, double *from, double *to)
 {
 	if (tmp && from && to)

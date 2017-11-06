@@ -6,7 +6,7 @@
 /*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 16:39:54 by aguemy            #+#    #+#             */
-/*   Updated: 2017/10/29 18:54:20 by jbouille         ###   ########.fr       */
+/*   Updated: 2017/11/06 16:36:30 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@
 # define WINDOW_SDL_WIDTH 800
 # define WINDOW_SDL_HEIGHT 800
 
-# define NB_THREAD 8
+# define NB_THREAD 400
 
 # define MAX_VERTEX_MEMORY 512 * 1024
 # define MAX_ELEMENT_MEMORY 128 * 1024
@@ -105,14 +105,14 @@ typedef struct					s_sdl
 }								t_sdl;
 
 # define VEC_SIZE 3
-
+/*
 typedef struct  s_parse
 {
 	char			*str;
 	int 			list_len;
 	struct s_parse	*next;
 }				t_parse;
-
+*/
 typedef struct	s_sphere
 {
 	double			center[VEC_SIZE];
@@ -198,6 +198,8 @@ typedef struct	s_state
 
 typedef struct	s_param
 {
+	clock_t			start;//TODO delete
+	clock_t			end;//TODO delete
 	double			f;//focale
 	double			eye[VEC_SIZE];//position de l'oeil de l'observateur
 	double			look[VEC_SIZE];//direction dans laquelle l'oeil regarde
@@ -210,7 +212,7 @@ typedef struct	s_param
 	t_light			*lights;
 	int				num_lights;
 	t_object		*intersect_object;
-	t_object		*tmp_object;
+//	t_object		*tmp_object;
 	t_light			*tmp_light;
 	double			tmp_vec[VEC_SIZE];
 	int 			brightness;
@@ -247,18 +249,18 @@ int				color_summer(int col1, int col2);
 */
 t_param			*struct_create(void);
 t_param			*new_content(t_param *param);
-t_light			*add_light(t_light **lights, double *src, double i, int col);
+//t_light			*add_light(t_light **lights, double *src, double i, int col);
 t_light			*light_copy(t_light *src);
-t_object		*add_sphere(t_param *param, double *center, double radius);
-t_object		*add_cube(t_param *param, double *center, double side);
-t_object		*add_plane(t_param *param, double *n, double *ref);
-t_object		*add_cone(t_param *param, double *org, double *u,
-				double angle);
+//t_object		*add_sphere(t_param *param, double *center, double radius);
+//t_object		*add_cube(t_param *param, double *center, double side);
+//t_object		*add_plane(t_param *param, double *n, double *ref);
+//t_object		*add_cone(t_param *param, double *org, double *u,
+//				double angle);
 t_object		*object_copy(t_object *src);
-t_object		*add_cylindre(t_param *param, double *org, double *u,
-				double radius);
-t_object		*add_ellipsoide(t_param *param, double *org, double a, double b,
-				double c);
+//t_object		*add_cylindre(t_param *param, double *org, double *u,
+//				double radius);
+//t_object		*add_ellipsoide(t_param *param, double *org, double a, double b,
+//				double c);
 /*
 **-------------------------------------init-------------------------------------
 */
@@ -270,11 +272,12 @@ void			print_obj_point(t_param *param);
 **------------------------------------tools-------------------------------------
 */
 void			*duplicate(void *src, size_t size);
-double			ft_atod(const char *str);
+//double			ft_atod(const char *str);
 double			second_level(double a, double b, double c);
 double			vec_norm(double *v);
 double			*vec_to_unit_norm(double *v);
-double			pt_dist(double *x, double *y);
+//double			pt_dist(double *x, double *y);//TODO delete?
+double			pt_dist_root(double *x, double *y);
 double			*vec_multiply(double a, double *vec, double *container);
 double			*pt_translated(double *pt, double *vec, double *container);
 void			vec_copy(double *src, double *des);
@@ -324,16 +327,16 @@ void			rotation_matrice(double alpha, double beta, double gamma, t_param *param)
 **------------------------------------parser------------------------------------
 */
 //t_param	*rt_parser(t_param *param);
-t_parse	*split_whitespace(char *line);
-int 	rt_light_parser(t_param *param, t_parse *config);
-int 	rt_objects_lights_parser(t_param *param, t_parse *config);
+//t_parse	*split_whitespace(char *line);
+//int 	rt_light_parser(t_param *param, t_parse *config);
+//int 	rt_objects_lights_parser(t_param *param, t_parse *config);
 int 	rt_init(t_param *param, char *line, int count);
-int 	rt_object_parser(t_param *param, t_parse *config);
-int 	rt_sphere_parser(t_param *param, t_parse *config);
-int 	rt_plane_parser(t_param *param, t_parse *config);
-int 	rt_cone_parser(t_param *param, t_parse *config);
-int 	rt_cylindre_parser(t_param *param, t_parse *config);
-int		rt_ellipsoide_parser(t_param *param, t_parse *config);
+//int 	rt_object_parser(t_param *param, t_parse *config);
+//int 	rt_sphere_parser(t_param *param, t_parse *config);
+//int 	rt_plane_parser(t_param *param, t_parse *config);
+//int 	rt_cone_parser(t_param *param, t_parse *config);
+//int 	rt_cylindre_parser(t_param *param, t_parse *config);
+//int		rt_ellipsoide_parser(t_param *param, t_parse *config);
 
 void	rt_tracer(t_param *param);
 t_object	*closest_object(t_param *param, double *from, double *to, t_path *path);

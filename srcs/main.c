@@ -6,7 +6,7 @@
 /*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/21 17:02:46 by malexand          #+#    #+#             */
-/*   Updated: 2017/10/29 18:42:05 by jbouille         ###   ########.fr       */
+/*   Updated: 2017/11/06 15:32:48 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int		main(void)
 
 	if (!(param = struct_create()))
 		return (-1);
+	param->start = clock();//TODO delete
 	if ((param->graph = graph_init()) == NULL)
 		error(0, 0, "Can't allocate graph struct");
 	if (!(param->state = state_init()))
@@ -62,6 +63,8 @@ int		main(void)
 		if (param->refresh == 1)
 		{
 			sdl_draw(param->graph);
+			param->end = clock();//TODO delete
+			printf("Render %.5lf secondes...\n", (double)(param->end - param->start) / CLOCKS_PER_SEC);
 			param->refresh = 0;
 		}
 	}
