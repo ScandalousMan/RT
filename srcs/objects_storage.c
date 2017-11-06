@@ -6,7 +6,7 @@
 /*   By: jbouille <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 15:43:31 by jbouille          #+#    #+#             */
-/*   Updated: 2017/10/29 18:58:35 by jbouille         ###   ########.fr       */
+/*   Updated: 2017/11/06 10:46:27 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -247,6 +247,17 @@ t_light		*get_light(t_jarray *array, int num)
 }
 
 //TODO CAMERA
+
+int			camera_storage(t_jobject *obj, t_param *param)
+{
+	t_jobject	*tmp;
+
+	tmp = get_jobject(obj, CAMERA_KEY)->value;
+	fill_vector(&(param->eye), (t_jarray*)(get_jobject(tmp, "eye")->value));
+	fill_vector(&(param->look), (t_jarray*)(get_jobject(tmp, "look")->value));
+	fill_vector(&(param->align), (t_jarray*)(get_jobject(tmp, "align")->value));
+	return (1);
+}
 
 t_light		*lights_storage(t_jobject *obj)
 {
