@@ -6,7 +6,7 @@
 /*   By: jbouille <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 14:13:11 by jbouille          #+#    #+#             */
-/*   Updated: 2017/10/27 17:22:43 by jbouille         ###   ########.fr       */
+/*   Updated: 2017/11/08 18:25:46 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,10 @@ typedef enum			e_rt_type
 	RTCOEF,
 	RTANGLE,
 	RTTEXTURE,
-	RTN
+	RTN,
+	RTCUSTOM,
+	RTCUSTOMOBJ,
+	RTSIGN
 }						t_rt_type;
 
 typedef struct			s_key
@@ -65,6 +68,7 @@ typedef struct			s_object_def
 # define CAMERA_KEY			"camera"
 # define LIGHTS_KEY			"lights"
 # define OBJECTS_KEY		"objects"
+# define CUSTOMS_KEY		"custom_objects"
 # define RT_KEYS_SIZE(keys)	(sizeof(keys) / sizeof(t_key))
 
 # ifdef MY_GLOBALS
@@ -124,12 +128,23 @@ const t_key				g_light_keys[] = {
 const t_key				g_main_object_keys[] = {
 	{CAMERA_KEY, RTCAMERA, RTNULL},
 	{LIGHTS_KEY, RTARRAY, RTLIGHT},
-	{OBJECTS_KEY, RTARRAY, RTOBJECT}
+	{OBJECTS_KEY, RTARRAY, RTOBJECT},
+	{CUSTOMS_KEY, RTARRAY, RTCUSTOM}
 };
 
 const t_key				g_texture_keys[] = {
 	{RT_OBJECT_TYPE, RTSTRING, RTNULL},
 	{"name", RTSTRING, RTNULL},
+};
+
+const t_key				g_custom_keys[] = {
+	{"name", RTSTRING, RTNULL},
+	{OBJECTS_KEY, RTARRAY, RTCUSTOMOBJ}
+};
+
+const t_key				g_customobj_keys[] = {
+	{"intersection", RTSIGN, RTNULL},
+	{"object", RTOBJECT, RTNULL}
 };
 
 /* TODO CHANGE FUNCTIONS DECLARATIONS */
@@ -156,8 +171,10 @@ extern const t_key				g_cylinder_keys[];
 extern const t_key				g_quadric_keys[];
 extern const t_key				g_camera_keys[3];
 extern const t_key				g_light_keys[3];
-extern const t_key				g_main_object_keys[3];
+extern const t_key				g_main_object_keys[4];
 extern const t_key				g_texture_keys[2];
+extern const t_key				g_custom_keys[2];
+extern const t_key				g_customobj_keys[2];
 
 #endif
 

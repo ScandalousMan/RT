@@ -6,7 +6,7 @@
 /*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/21 17:02:46 by malexand          #+#    #+#             */
-/*   Updated: 2017/11/08 14:31:54 by jbouille         ###   ########.fr       */
+/*   Updated: 2017/11/08 18:37:30 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,15 @@ t_state	**state_init()
 	return state;
 }
 
-int		main(void)
+int		main(int ac, char **av)
 {
 	t_param	*param;
+	char	*filename;
 
+	if (ac == 2)
+		filename = av[1];
+	else
+		filename = "rtv1.json";
 	if (!(param = struct_create()))
 		return (-1);
 	param->start = clock();//TODO delete
@@ -52,7 +57,7 @@ int		main(void)
 		error(0, 0, "Can't allocate graph struct");
 	if (!(param->state = state_init()))
 		return (-1);
-	if (!rt_parser(param, "rtv1.json"))
+	if (!rt_parser(param, filename))
 		return (1);
 	sdl_init(param->graph);
 	lauch_threads(param);
