@@ -6,7 +6,7 @@
 /*   By: aguemy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/11/18 11:49:30 by aguemy            #+#    #+#             */
-/*   Updated: 2017/03/13 14:50:31 by aguemy           ###   ########.fr       */
+/*   Updated: 2017/10/26 20:27:37 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@ typedef struct		s_list
 	size_t			content_size;
 	struct s_list	*next;
 }					t_list;
+
+void				error(int error, int send_perror, char *str);
+int					mprintf(int fd, char *str, ...);
 
 int					ft_atoi(const char *str);
 void				ft_bzero(void *s, size_t n);
@@ -86,5 +89,7 @@ void				ft_lstadd(t_list **alst, t_list *n);
 void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 int					get_next_line(int fd, char **line);
+double				ft_atod(const char *str);
+int					ft_isspace(int c);
 
 #endif

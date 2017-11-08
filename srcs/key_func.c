@@ -6,7 +6,7 @@
 /*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 16:38:39 by aguemy            #+#    #+#             */
-/*   Updated: 2017/09/27 18:09:07 by malexand         ###   ########.fr       */
+/*   Updated: 2017/10/29 18:55:24 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,28 +19,28 @@ void	free_objects(t_param *param)
 	while (param && param->objects)
 	{
 		tmp = param->objects->next;
-		free(param->objects->tmp_vec);
+//		free(param->objects->tmp_vec);
 		if (param->objects->type == 1)
 		{
-			free (((t_sphere*)(param->objects->dim))->center);
+//			free (((t_sphere*)(param->objects->dim))->center);
 			free ((t_sphere*)(param->objects->dim));
 		}
 		else if (param->objects->type == 2)
 		{
-			free (((t_plane*)(param->objects->dim))->n);
-			free (((t_plane*)(param->objects->dim))->ref);
+//			free (((t_plane*)(param->objects->dim))->n);
+//			free (((t_plane*)(param->objects->dim))->ref);
 			free ((t_plane*)(param->objects->dim));
 		}
 		else if (param->objects->type == 3)
 		{
-			free (((t_cone*)(param->objects->dim))->org);
-			free (((t_cone*)(param->objects->dim))->u);
+//			free (((t_cone*)(param->objects->dim))->org);
+//			free (((t_cone*)(param->objects->dim))->u);
 			free ((t_cone*)(param->objects->dim));
 		}
 		else if (param->objects->type == 4)
 		{
-			free (((t_cylindre*)(param->objects->dim))->org);
-			free (((t_cylindre*)(param->objects->dim))->u);
+//			free (((t_cylindre*)(param->objects->dim))->org);
+//			free (((t_cylindre*)(param->objects->dim))->u);
 			free ((t_cylindre*)(param->objects->dim));
 		}
 		free(param->objects);
@@ -55,7 +55,7 @@ void	free_lights(t_param *param)
 	while (param && param->lights)
 	{
 		tmp = param->lights->next;
-		free(param->lights->src);
+//		free(param->lights->src);
 		free(param->lights);
 		param->lights = tmp;
 	}
@@ -65,13 +65,13 @@ void	free_path(t_path *path)
 {
 	if (path)
 	{
-		free(path->from);
-		free(path->v);
-		free(path->x);
-		free(path->n);
-		free(path->l);
-		free(path->r);
-		free(path->t);
+//		free(path->from);
+//		free(path->v);
+//		free(path->x);
+//		free(path->n);
+//		free(path->l);
+//		free(path->r);
+//		free(path->t);
 		free_path(path->reflected);
 		free_path(path->transmitted);
 		free(path);
@@ -80,16 +80,16 @@ void	free_path(t_path *path)
 
 void	end_program(t_param *param)
 {
-	free(param->eye);
-	free(param->look);
-	free(param->align);
-	free(param->third);
-	free(param->tmp_vec);
-	free(param->i);
-	free(param->rot[0]);
-	free(param->rot[1]);
-	free(param->rot[2]);
-	free(param->rot);
+//	free(param->eye);
+//	free(param->look);
+//	free(param->align);
+//	free(param->third);
+//	free(param->tmp_vec);
+//	free(param->i);
+//	free(param->rot[0]);
+//	free(param->rot[1]);
+//	free(param->rot[2]);
+//	free(param->rot);
 	free_objects(param);
 	free_lights(param);
 	free_path(param->path);
@@ -97,26 +97,20 @@ void	end_program(t_param *param)
 	exit(0);
 }
 
-double	**rotation_matrice(double alpha, double beta, double gamma, t_param *param)
+void	rotation_matrice(double alpha, double beta, double gamma, t_param *param)
 {
-	if (param->rot && param->rot[0] && param->rot[1] && param->rot[2])
-	{
-		alpha = alpha * M_PI / 180.0;
-		beta = beta * M_PI / 180.0;
-		gamma = gamma * M_PI / 180.0;
-		param->rot[0][0] = cos(beta) * cos(gamma);
-		param->rot[0][1] = -1.0 * cos(beta) * sin(gamma);
-		param->rot[0][2] = sin(beta);
-		param->rot[1][0] = sin(alpha) * sin(beta) * cos(gamma) + cos(alpha) * sin(gamma);
-		param->rot[1][1] = cos(alpha) * cos(gamma) - sin(alpha) * sin(beta) * sin(gamma);
-		param->rot[1][2] = -1.0 * sin(alpha) * cos(beta);
-		param->rot[2][0] = sin(alpha) * sin(gamma) - cos(alpha) * sin(beta) * cos(gamma);
-		param->rot[2][1] = cos(alpha) * sin(beta) * sin(gamma) + sin(alpha) * cos(gamma);
-		param->rot[2][2] = cos(alpha) * cos(beta);
-		return param->rot;
-	}
-	else
-		return NULL;
+	alpha = alpha * M_PI / 180.0;
+	beta = beta * M_PI / 180.0;
+	gamma = gamma * M_PI / 180.0;
+	param->rot[0][0] = cos(beta) * cos(gamma);
+	param->rot[0][1] = -1.0 * cos(beta) * sin(gamma);
+	param->rot[0][2] = sin(beta);
+	param->rot[1][0] = sin(alpha) * sin(beta) * cos(gamma) + cos(alpha) * sin(gamma);
+	param->rot[1][1] = cos(alpha) * cos(gamma) - sin(alpha) * sin(beta) * sin(gamma);
+	param->rot[1][2] = -1.0 * sin(alpha) * cos(beta);
+	param->rot[2][0] = sin(alpha) * sin(gamma) - cos(alpha) * sin(beta) * cos(gamma);
+	param->rot[2][1] = cos(alpha) * sin(beta) * sin(gamma) + sin(alpha) * cos(gamma);
+	param->rot[2][2] = cos(alpha) * cos(beta);
 }
 
 void	eye_rotation(double alpha, double beta, double gamma, t_param *param)
@@ -203,7 +197,7 @@ int		my_key_func(int keycode, t_param *param)
 	{
 		free_objects(param);
 		free_lights(param);
-		rt_parser(param);
+//		rt_parser(param);
 		ft_putstr("\nnumber of lights\n");
 		ft_putnbr(param->num_lights);
 		ft_putchar('\n');

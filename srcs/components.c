@@ -6,7 +6,7 @@
 /*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/27 14:53:46 by aguemy            #+#    #+#             */
-/*   Updated: 2017/10/24 01:05:38 by alex             ###   ########.fr       */
+/*   Updated: 2017/11/08 14:32:15 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int		rgb_ratio(int color, double a)
 	r = ft_min((int)trunc(a * ((color) & 0xFF)), 255);
 	g = ft_min((int)trunc(a * ((color >> 8) & 0xFF)), 255);
 	b = ft_min((int)trunc(a * ((color >> 16) & 0xFF)), 255);
-	return (r + g * 256 + b * 256 * 256);
+	return (r | (g << 8) | (b << 16));
 }
 
 int		rgb_color(unsigned char red, unsigned char green, unsigned char blue)
@@ -43,9 +43,9 @@ int		rgb_color(unsigned char red, unsigned char green, unsigned char blue)
 
 int		color_summer(int col1, int col2)
 {
-	return (ft_min(255, (int)trunc(col1 / 256 / 256) + (int)trunc(col2 / 256 / 256)) +
-		ft_min(255, ((int)trunc(col1 / 256) % 256 + (int)trunc(col2 / 256) % 256)) * 256 +
-		ft_min(255, col1 % 256 % 256 + col2 % 256 % 256) * 256 * 256);
+	return ((ft_min(255, (int)trunc((col1 >> 16) & 0xFF) + (int)trunc((col2 >> 16) & 0xFF))) |
+		(ft_min(255, (((int)trunc(col1 >> 8) & 0xFF) + ((int)trunc(col2 >> 8) & 0xFF))) << 8) |
+		(ft_min(255, (col1 & 0xFF) + (col2 & 0xFF)) << 16));
 }
 
 
@@ -66,15 +66,15 @@ void	display_info(t_param *param)
 			ft_putnbr(param->intersect_object->type);
 		ft_putchar('\n');
 		ft_putstr("param->path->x = ");
-		if (!param->path->x)
-			ft_putnbr(-1);
-		else
+//		if (!param->path->x)
+//			ft_putnbr(-1);
+//		else
 			ft_putvec(param->path->x);
 		ft_putchar('\n');
 		ft_putstr("normale = ");
-		if (!param->path->n)
-			ft_putnbr(-1);
-		else
+//		if (!param->path->n)
+//			ft_putnbr(-1);
+//		else
 			ft_putvec(param->path->n);
 		ft_putchar('\n');
 	}

@@ -6,7 +6,7 @@
 /*   By: aguemy <aguemy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/19 11:07:29 by aguemy            #+#    #+#             */
-/*   Updated: 2017/09/19 11:08:38 by aguemy           ###   ########.fr       */
+/*   Updated: 2017/10/25 19:55:08 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,24 +32,18 @@ double	second_level(double a, double b, double c)
 		return ((-b - det) / 2.0 / a);
 }
 
-void	matrice_product(double **matrice, double *col, double *dest)
+void	matrice_product(double mat[VEC_SIZE][VEC_SIZE], double *col, double *dest)
 {
 	double	a;
 	double	b;
 	double	c;
 
-	if (matrice && col && dest)
-	{
-		a = matrice[0][0] * col[0] + matrice[0][1] * col[1] +
-			matrice[0][2] * col[2];
-		b = matrice[1][0] * col[0] + matrice[1][1] * col[1] +
-			matrice[1][2] * col[2];
-		c = matrice[2][0] * col[0] + matrice[2][1] * col[1] +
-			matrice[2][2] * col[2];
-		dest[0] = a;
-		dest[1] = b;
-		dest[2] = c;
-	}
+	a = mat[0][0] * col[0] + mat[0][1] * col[1] + mat[0][2] * col[2];
+	b = mat[1][0] * col[0] + mat[1][1] * col[1] + mat[1][2] * col[2];
+	c = mat[2][0] * col[0] + mat[2][1] * col[1] + mat[2][2] * col[2];
+	dest[0] = a;
+	dest[1] = b;
+	dest[2] = c;
 }
 
 double	*vec_dup(double *vec)

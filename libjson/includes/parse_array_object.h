@@ -1,22 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strnequ.c                                       :+:      :+:    :+:   */
+/*   parse_array_object.h                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jbouille <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/11/25 16:02:23 by jbouille          #+#    #+#             */
-/*   Updated: 2015/11/28 13:05:55 by jbouille         ###   ########.fr       */
+/*   Created: 2017/10/26 01:10:09 by jbouille          #+#    #+#             */
+/*   Updated: 2017/10/26 01:11:17 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef PARSE_ARRAY_OBJECT_H
+# define PARSE_ARRAY_OBJECT_H
 
-int	ft_strnequ(char const *s1, char const *s2, size_t n)
-{
-	if (!s1 || !s2)
-		return (0);
-	if (!ft_strncmp(s1, s2, n))
-		return (1);
-	return (0);
-}
+char	*parse_jobject(char *json, void **value);
+char	*parse_jarray(char *json, void **value);
+
+#endif

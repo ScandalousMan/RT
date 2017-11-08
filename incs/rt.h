@@ -6,7 +6,7 @@
 /*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 16:39:54 by aguemy            #+#    #+#             */
-/*   Updated: 2017/10/24 22:16:45 by alex             ###   ########.fr       */
+/*   Updated: 2017/11/08 14:30:06 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 # define EPSILON 0.001
 # define ROTATION 30.0
 # define MAX_RECURSION 1
-# define ANTI_ALIASING 1
+# define ANTI_ALIASING 2
 
 # include <fcntl.h>
 # include <stdlib.h>
@@ -50,7 +50,7 @@
 # include <SDL.h>
 # include <SDL_opengl.h>
 
-# include "../libft/incs/libft.h"
+# include "../libft/libft.h"
 
 # define NK_INCLUDE_FIXED_TYPES
 # define NK_INCLUDE_STANDARD_IO
@@ -68,7 +68,7 @@
 # define WINDOW_SDL_WIDTH 800
 # define WINDOW_SDL_HEIGHT 800
 
-# define NB_THREAD 8
+# define NB_THREAD 32
 
 # define MAX_VERTEX_MEMORY 512 * 1024
 # define MAX_ELEMENT_MEMORY 128 * 1024
@@ -104,42 +104,44 @@ typedef struct					s_sdl
 	t_nk_context				*ctx;
 }								t_sdl;
 
+# define VEC_SIZE 3
+/*
 typedef struct  s_parse
 {
 	char			*str;
 	int 			list_len;
 	struct s_parse	*next;
 }				t_parse;
-
+*/
 typedef struct	s_sphere
 {
-	double			*center;
+	double			center[VEC_SIZE];
 	double			radius;
 }				t_sphere;
 
 typedef struct s_plane
 {
-	double			*n;
-	double			*ref;
+	double			n[VEC_SIZE];
+	double			ref[VEC_SIZE];
 }				t_plane;
 
 typedef struct s_cone
 {
-	double			*org;
-	double			*u;
+	double			org[VEC_SIZE];
+	double			u[VEC_SIZE];
 	double			angle;
 }				t_cone;
 
 typedef struct s_cylindre
 {
-	double			*org;
-	double			*u;
+	double			org[VEC_SIZE];
+	double			u[VEC_SIZE];
 	double			radius;
 }				t_cylindre;
 
 typedef struct s_ellipsoide
 {
-	double			*center;
+	double			center[VEC_SIZE];
 	double			a;
 	double			b;
 	double			c;
@@ -151,9 +153,9 @@ typedef struct	s_object
 	int					num;
 	int					type;//1 for sphere, 2 for plane, 3 for cone, 4 for cylindre
 
-	double			shadow;
+//	double			shadow;
 
-	double			*tmp_vec;
+	double			tmp_vec[VEC_SIZE];
 	int					col;//couleur de surface de l'objet
 	double			kd;//coefficient de réflexion diffuse de l'objet
 	double			ks;//coefficient de réflexion spéculaire de l'objet
@@ -169,20 +171,20 @@ typedef struct	s_light
 {
 	int							num;
 	int							col;
-	double					*src;//position de la source lumineuse
+	double					src[VEC_SIZE];//position de la source lumineuse
 	double					i;//intensité de la source lumineuse
 	struct s_light	*next;
 }				t_light;
 
 typedef struct	s_path
 {
-	double			*from;
-	double			*v;//triplet pour la direction du rayon initial
-	double			*x;//triplet pour point d'intersection
-	double			*n;//triplet pour vecteur normal
-	double			*l;//rayon de la lumiere
-	double			*r;//rayon réfléchi
-	double			*t;//rayon transmis
+	double			from[VEC_SIZE];
+	double			v[VEC_SIZE];//triplet pour la direction du rayon initial
+	double			x[VEC_SIZE];//triplet pour point d'intersection
+	double			n[VEC_SIZE];//triplet pour vecteur normal
+	double			l[VEC_SIZE];//rayon de la lumiere
+	double			r[VEC_SIZE];//rayon réfléchi
+	double			t[VEC_SIZE];//rayon transmis
 	t_object		*current_object;
 	struct s_path	*reflected;
 	struct s_path	*transmitted;
@@ -196,11 +198,13 @@ typedef struct	s_state
 
 typedef struct	s_param
 {
+	clock_t			start;//TODO delete
+	clock_t			end;//TODO delete
 	double			f;//focale
-	double			*eye;//position de l'oeil de l'observateur
-	double			*look;//direction dans laquelle l'oeil regarde
-	double			*align;//eye's alignment to define what is looked at
-	double			*third;//third dimension in the referential
+	double			eye[VEC_SIZE];//position de l'oeil de l'observateur
+	double			look[VEC_SIZE];//direction dans laquelle l'oeil regarde
+	double			align[VEC_SIZE];//eye's alignment to define what is looked at
+	double			third[VEC_SIZE];//third dimension in the referential
 	double			obj_d;//object's distance
 	double			tmp_d;//last distance used
 	t_path			*path;
@@ -208,14 +212,14 @@ typedef struct	s_param
 	t_light			*lights;
 	int				num_lights;
 	t_object		*intersect_object;
-	t_object		*tmp_object;
+//	t_object		*tmp_object;
 	t_light			*tmp_light;
-	double			*tmp_vec;
+	double			tmp_vec[VEC_SIZE];
 	int 			brightness;
 	double			bright;
 	double			diffuse;
-	int				*i;
-	double			**rot;
+	int				i[2];
+	double			rot[VEC_SIZE][VEC_SIZE];
 	double			epsilon;
 	t_state			**state;
 
@@ -226,7 +230,7 @@ typedef struct	s_param
 	int				refresh;
 
 	double			ia;//intensité de la lumiere ambiante
-	double			*m;//triplet intermediaire pour calculs ombres
+	double			m[VEC_SIZE];//triplet intermediaire pour calculs ombres
 }				t_param;
 
 /*
@@ -243,18 +247,18 @@ int				color_summer(int col1, int col2);
 */
 t_param			*struct_create(void);
 t_param			*new_content(t_param *param);
-t_light			*add_light(t_light **lights, double *src, double i, int col);
+//t_light			*add_light(t_light **lights, double *src, double i, int col);
 t_light			*light_copy(t_light *src);
-t_object		*add_sphere(t_param *param, double *center, double radius);
-t_object		*add_cube(t_param *param, double *center, double side);
-t_object		*add_plane(t_param *param, double *n, double *ref);
-t_object		*add_cone(t_param *param, double *org, double *u,
-				double angle);
+//t_object		*add_sphere(t_param *param, double *center, double radius);
+//t_object		*add_cube(t_param *param, double *center, double side);
+//t_object		*add_plane(t_param *param, double *n, double *ref);
+//t_object		*add_cone(t_param *param, double *org, double *u,
+//				double angle);
 t_object		*object_copy(t_object *src);
-t_object		*add_cylindre(t_param *param, double *org, double *u,
-				double radius);
-t_object		*add_ellipsoide(t_param *param, double *org, double a, double b,
-				double c);
+//t_object		*add_cylindre(t_param *param, double *org, double *u,
+//				double radius);
+//t_object		*add_ellipsoide(t_param *param, double *org, double a, double b,
+//				double c);
 /*
 **-------------------------------------init-------------------------------------
 */
@@ -265,11 +269,13 @@ void			print_obj_point(t_param *param);
 /*
 **------------------------------------tools-------------------------------------
 */
-double			ft_atod(const char *str);
+void			*duplicate(void *src, size_t size);
+//double			ft_atod(const char *str);
 double			second_level(double a, double b, double c);
 double			vec_norm(double *v);
 double			*vec_to_unit_norm(double *v);
-double			pt_dist(double *x, double *y);
+//double			pt_dist(double *x, double *y);//TODO delete?
+double			pt_dist_root(double *x, double *y);
 double			*vec_multiply(double a, double *vec, double *container);
 double			*pt_translated(double *pt, double *vec, double *container);
 void			vec_copy(double *src, double *des);
@@ -278,7 +284,7 @@ double			scalar_product(double *x, double *y);
 double			*vector_product(double *x, double *y, double *container);
 double			*vec_soustraction(double *x, double *y, double *container);
 int				is_in_list(t_param *param, t_light *light);
-void			matrice_product(double **matrice, double *col, double *dest);
+void			matrice_product(double matrice[VEC_SIZE][VEC_SIZE], double *col, double *dest);
 double			*vec_dup(double *vec);
 /*
 **------------------------------------display-----------------------------------
@@ -314,21 +320,21 @@ double			cylindre_third_term(t_object *tmp);
 void			ft_putvec(double *x);
 int				my_key_func(int keycode, t_param *param);
 void			eye_rotation(double alpha, double beta, double gamma, t_param *param);
-double			**rotation_matrice(double alpha, double beta, double gamma, t_param *param);
+void			rotation_matrice(double alpha, double beta, double gamma, t_param *param);
 /*
 **------------------------------------parser------------------------------------
 */
-t_param	*rt_parser(t_param *param);
-t_parse	*split_whitespace(char *line);
-int 	rt_light_parser(t_param *param, t_parse *config);
-int 	rt_objects_lights_parser(t_param *param, t_parse *config);
+//t_param	*rt_parser(t_param *param);
+//t_parse	*split_whitespace(char *line);
+//int 	rt_light_parser(t_param *param, t_parse *config);
+//int 	rt_objects_lights_parser(t_param *param, t_parse *config);
 int 	rt_init(t_param *param, char *line, int count);
-int 	rt_object_parser(t_param *param, t_parse *config);
-int 	rt_sphere_parser(t_param *param, t_parse *config);
-int 	rt_plane_parser(t_param *param, t_parse *config);
-int 	rt_cone_parser(t_param *param, t_parse *config);
-int 	rt_cylindre_parser(t_param *param, t_parse *config);
-int		rt_ellipsoide_parser(t_param *param, t_parse *config);
+//int 	rt_object_parser(t_param *param, t_parse *config);
+//int 	rt_sphere_parser(t_param *param, t_parse *config);
+//int 	rt_plane_parser(t_param *param, t_parse *config);
+//int 	rt_cone_parser(t_param *param, t_parse *config);
+//int 	rt_cylindre_parser(t_param *param, t_parse *config);
+//int		rt_ellipsoide_parser(t_param *param, t_parse *config);
 
 void	rt_tracer(t_param *param);
 t_object	*closest_object(t_param *param, double *from, double *to, t_path *path);

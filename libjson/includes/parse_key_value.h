@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strnequ.c                                       :+:      :+:    :+:   */
+/*   parse_key_value.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jbouille <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/11/25 16:02:23 by jbouille          #+#    #+#             */
-/*   Updated: 2015/11/28 13:05:55 by jbouille         ###   ########.fr       */
+/*   Created: 2017/10/26 00:34:32 by jbouille          #+#    #+#             */
+/*   Updated: 2017/10/26 00:37:01 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef PARSE_KEY_VALUE_H
+# define PARSE_KEY_VALUE_H
 
-int	ft_strnequ(char const *s1, char const *s2, size_t n)
-{
-	if (!s1 || !s2)
-		return (0);
-	if (!ft_strncmp(s1, s2, n))
-		return (1);
-	return (0);
-}
+# include <json.h>
+
+char	*get_key(char *json, t_jstring *key);
+char	*get_value(char *json, t_jtype *type, void **value);
+char	*parse_key_value(char *json, t_jobject **obj);
+
+#endif

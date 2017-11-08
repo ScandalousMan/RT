@@ -1,22 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strnequ.c                                       :+:      :+:    :+:   */
+/*   rt_parser.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jbouille <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/11/25 16:02:23 by jbouille          #+#    #+#             */
-/*   Updated: 2015/11/28 13:05:55 by jbouille         ###   ########.fr       */
+/*   Created: 2017/10/29 18:44:04 by jbouille          #+#    #+#             */
+/*   Updated: 2017/10/29 18:45:54 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef RT_PARSER_H
+# define RT_PARSER_H
 
-int	ft_strnequ(char const *s1, char const *s2, size_t n)
-{
-	if (!s1 || !s2)
-		return (0);
-	if (!ft_strncmp(s1, s2, n))
-		return (1);
-	return (0);
-}
+# include <rt.h>
+
+int	rt_parser(t_param *param, const char *file);
+
+#endif
