@@ -6,7 +6,7 @@
 /*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 16:39:54 by aguemy            #+#    #+#             */
-/*   Updated: 2017/11/08 14:30:06 by jbouille         ###   ########.fr       */
+/*   Updated: 2017/11/09 17:12:59 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,6 +195,19 @@ typedef struct	s_state
 	double			d;
 	t_object		*obj_num;
 }				t_state;
+
+typedef struct	s_custom_obj
+{
+	char		op;
+	t_object	*object;
+}				t_custom_obj;
+
+typedef struct	s_custom
+{
+	char				*name;
+	struct s_custom_obj	*objects;
+	struct s_custom		*next;
+}				t_custom;
 
 typedef struct	s_param
 {
