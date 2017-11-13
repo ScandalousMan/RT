@@ -6,7 +6,7 @@
 /*   By: jbouille <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 17:32:22 by jbouille          #+#    #+#             */
-/*   Updated: 2017/11/08 18:33:17 by jbouille         ###   ########.fr       */
+/*   Updated: 2017/11/13 18:34:41 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,6 +207,7 @@ int	json_to_objects(t_jobject *obj, t_param *param)
 	if (camera_storage(obj, param) == 0)
 		return (0);
 	vec_to_unit_norm(vector_product(param->align, param->look, param->third));
+	param->customs = customs_storage(obj, param);
 	param->lights = lights_storage(obj);
 	param->objects = objects_storage(obj, param);
 	//ATTENTION AUX RETOURS

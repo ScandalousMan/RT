@@ -6,13 +6,13 @@
 #    By: alex <alex@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/08/21 18:23:32 by malexand          #+#    #+#              #
-#    Updated: 2017/11/08 14:32:57 by jbouille         ###   ########.fr        #
+#    Updated: 2017/11/13 17:56:55 by jbouille         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 EXEC = RT
 
-DEBUG = yes
+DEBUG = no
 CC = clang
 OS := $(shell uname -s)
 MAKEFLAGS += --silent

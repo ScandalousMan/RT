@@ -6,7 +6,7 @@
 /*   By: jbouille <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 15:43:31 by jbouille          #+#    #+#             */
-/*   Updated: 2017/11/06 10:46:27 by jbouille         ###   ########.fr       */
+/*   Updated: 2017/11/13 18:56:52 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,20 @@
 #include <rt_objects.h>
 #include <libft.h>
 #include <stdlib.h>
+
+t_custom	*get_custom_ptr(char *name, t_custom *list)
+{
+	t_custom	*tmp;
+
+	tmp = list;
+	while (tmp)
+	{
+		if (ft_strequ(name, tmp->name))
+			return (tmp);
+		tmp = tmp->next;
+	}
+	return (NULL);
+}
 
 int	get_color(t_jarray *array)
 {
@@ -168,6 +182,17 @@ void	*fill_cylinder(t_jobject *jobj, t_param *param)
 	matrice_product(param->rot, obj->u, obj->u);
 	return (obj);
 }
+
+void	*fill_customobject(t_jobject *jobj, t_param *param)
+{
+	t_custom_obj	*obj;
+	t_jobject		*tmp;
+
+	tmp = get_jobject(jobj, "name");
+	obj = get_custom_ptr(tmp->value, param->customs)->objects;//TODO TEST RETOUR
+	return (obj);
+}
+
 #include <stdint.h>
 int	fill_object(t_object *obj, t_jobject *jobj, int num, t_param *param)
 {
@@ -175,6 +200,7 @@ int	fill_object(t_object *obj, t_jobject *jobj, int num, t_param *param)
 
 	t_jobject	*tmp;
 
+	obj->next = NULL;
 	obj->type = obj_def.type;
 	obj->num = num;//REALLY NEED THAT ?
 	obj->tmp_vec[0] = 0;//TODO CHANGE THIS BEURK !
@@ -246,6 +272,63 @@ t_light		*get_light(t_jarray *array, int num)
 	return (new);
 }
 
+int	fill_custom_obj(t_custom_obj *custom_obj, t_jobject *jobj, t_param *param)
+{
+	t_jobject	*tmp;
+	
+	tmp = get_jobject(jobj, "intersection");
+	custom_obj->op = ((char*)(tmp->value))[0];
+	printf("OP: %c\n", custom_obj->op);
+	tmp = get_jobject(jobj, "object");
+	if (!(custom_obj->object = (t_object*)malloc(sizeof(t_object))))
+		return (0);
+	return (fill_object(custom_obj->object, tmp->value, 1, param));
+}
+
+t_custom_obj	*get_custom_obj(t_jarray *array, t_param *param)
+{
+	t_custom_obj	*custom_obj;
+
+	if (array == NULL)
+		return (NULL);
+	if (!(custom_obj = (t_custom_obj*)malloc(sizeof(t_custom_obj))))
+		return (NULL);
+	if (fill_custom_obj(custom_obj, array->value, param) == 0)
+		return (NULL);
+	custom_obj->next = get_custom_obj(array->next, param);
+	return (custom_obj);
+}
+
+int	fill_custom(t_custom *custom, t_jobject *jobj, int num, t_param *param)
+{
+	t_jobject	*tmp;
+	
+	custom->id = num;
+	tmp = get_jobject(jobj, "name");
+	printf("TEST: %s\n", tmp->value);
+
+	custom->name = ft_strdup(tmp->value);
+	if (custom->name == NULL)
+		return (0);
+	tmp = get_jobject(jobj, "objects");
+	custom->objects = get_custom_obj(tmp->value, param);
+	return (1);
+}
+
+t_custom	*get_custom(t_jarray *array, int num, t_param *param)
+{
+	t_custom	*custom;
+
+	if (array == NULL)
+		return (NULL);
+	if (!(custom = (t_custom*)malloc(sizeof(t_custom))))
+		return (NULL);
+	if (fill_custom(custom, array->value, num, param) == 0)
+		return (NULL);
+	custom->next = get_custom(array->next, num + 1, param);
+	return (custom);
+}
+
 //TODO CAMERA
 
 int			camera_storage(t_jobject *obj, t_param *param)
@@ -268,9 +351,8 @@ t_object	*objects_storage(t_jobject *obj, t_param *param)
 {
 	return (get_object(get_jobject(obj, OBJECTS_KEY)->value, 1, param));
 }
-/*
-t_param	*rt_parser(t_param *param)
+
+t_custom	*customs_storage(t_jobject *obj, t_param *param)
 {
-	
+	return (get_custom(get_jobject(obj, CUSTOMS_KEY)->value, 1, param));
 }
-*/

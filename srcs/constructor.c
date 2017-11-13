@@ -6,7 +6,7 @@
 /*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/27 14:57:42 by aguemy            #+#    #+#             */
-/*   Updated: 2017/11/06 15:01:50 by jbouille         ###   ########.fr       */
+/*   Updated: 2017/11/13 16:14:20 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ t_param			*struct_create(void)
 		return (NULL);
 	param->brightness = 1;
 	param->epsilon = EPSILON;
+	param->customs = NULL;
 	param->objects = NULL;
 	param->lights = NULL;
 //	param->tmp_object = NULL;

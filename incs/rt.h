@@ -6,7 +6,7 @@
 /*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 16:39:54 by aguemy            #+#    #+#             */
-/*   Updated: 2017/11/09 17:12:59 by jbouille         ###   ########.fr       */
+/*   Updated: 2017/11/13 16:46:16 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,14 +196,16 @@ typedef struct	s_state
 	t_object		*obj_num;
 }				t_state;
 
-typedef struct	s_custom_obj
+typedef struct			s_custom_obj
 {
-	char		op;
-	t_object	*object;
-}				t_custom_obj;
+	char				op;
+	t_object			*object;
+	struct s_custom_obj	*next;
+}						t_custom_obj;
 
 typedef struct	s_custom
 {
+	int					id;
 	char				*name;
 	struct s_custom_obj	*objects;
 	struct s_custom		*next;
@@ -221,6 +223,7 @@ typedef struct	s_param
 	double			obj_d;//object's distance
 	double			tmp_d;//last distance used
 	t_path			*path;
+	t_custom		*customs;
 	t_object		*objects;
 	t_light			*lights;
 	int				num_lights;
