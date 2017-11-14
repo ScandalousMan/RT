@@ -6,7 +6,7 @@
 /*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/27 14:53:46 by aguemy            #+#    #+#             */
-/*   Updated: 2017/11/08 14:32:15 by jbouille         ###   ########.fr       */
+/*   Updated: 2017/11/14 18:58:00 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,25 +27,25 @@ int		rgb_ratio(int color, double a)
 	int 	g;
 	int 	b;
 
-	r = ft_min((int)trunc(a * ((color) & 0xFF)), 255);
+	r = ft_min((int)trunc(a * ((color >> 16) & 0xFF)), 255);
 	g = ft_min((int)trunc(a * ((color >> 8) & 0xFF)), 255);
-	b = ft_min((int)trunc(a * ((color >> 16) & 0xFF)), 255);
-	return (r | (g << 8) | (b << 16));
+	b = ft_min((int)trunc(a * ((color) & 0xFF)), 255);
+	return (b | (g << 8) | (r << 16));
 }
 
 int		rgb_color(unsigned char red, unsigned char green, unsigned char blue)
 {
 	int		rgb;
 
-	rgb = (blue << 16) | (green << 8) | (red);
+	rgb = (red << 16) | (green << 8) | (blue);
 	return (rgb);
 }
 
 int		color_summer(int col1, int col2)
 {
-	return ((ft_min(255, (int)trunc((col1 >> 16) & 0xFF) + (int)trunc((col2 >> 16) & 0xFF))) |
+	return (((ft_min(255, (int)trunc((col1 >> 16) & 0xFF) + (int)trunc((col2 >> 16) & 0xFF))) << 16) |
 		(ft_min(255, (((int)trunc(col1 >> 8) & 0xFF) + ((int)trunc(col2 >> 8) & 0xFF))) << 8) |
-		(ft_min(255, (col1 & 0xFF) + (col2 & 0xFF)) << 16));
+		(ft_min(255, (col1 & 0xFF) + (col2 & 0xFF))));
 }
 
 
