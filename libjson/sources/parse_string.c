@@ -6,7 +6,7 @@
 /*   By: jbouille <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 00:55:04 by jbouille          #+#    #+#             */
-/*   Updated: 2017/10/29 18:06:09 by jbouille         ###   ########.fr       */
+/*   Updated: 2017/11/14 17:58:46 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,18 +102,18 @@ char	*parse_jbool(char *json, void **value)
 			perror(NULL);
 			exit(EXIT_FAILURE);
 		}
-	}
-	if (ft_strnequ("true", json, 4))
-	{
-		*b = TRUE;
-		*value = b;
-		return (json + 4);
-	}
-	if (ft_strnequ("false", json, 5))
-	{
-		*b = FALSE;
-		*value = b;
-		return (json + 5);
+		if (ft_strnequ("true", json, 4))
+		{
+			*b = TRUE;
+			*value = b;
+			return (json + 4);
+		}
+		if (ft_strnequ("false", json, 5))
+		{
+			*b = FALSE;
+			*value = b;
+			return (json + 5);
+		}
 	}
 	return (NULL);
 }
