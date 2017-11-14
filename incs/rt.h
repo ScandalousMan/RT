@@ -6,7 +6,7 @@
 /*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 16:39:54 by aguemy            #+#    #+#             */
-/*   Updated: 2017/11/13 16:46:16 by jbouille         ###   ########.fr       */
+/*   Updated: 2017/11/14 12:19:36 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,6 +198,9 @@ typedef struct	s_state
 
 typedef struct			s_custom_obj
 {
+	double				org[VEC_SIZE];
+	double				u[VEC_SIZE];
+
 	char				op;
 	t_object			*object;
 	struct s_custom_obj	*next;

@@ -6,7 +6,7 @@
 /*   By: jbouille <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 14:13:11 by jbouille          #+#    #+#             */
-/*   Updated: 2017/11/13 18:45:41 by jbouille         ###   ########.fr       */
+/*   Updated: 2017/11/14 12:25:36 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,8 @@ const t_key				g_quadric_keys[] = {
 };
 
 const t_key				g_customobject_keys[] = {
-	{"name", RTSTRING, RTNULL}
+	{"name", RTSTRING, RTNULL},
+	{"center", RTVECTOR, RTDOUBLE}
 };
 
 const t_key				g_camera_keys[] = {

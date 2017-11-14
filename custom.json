@@ -118,6 +118,27 @@
 		},
 
 		{
+			"type": "custom",
+			"color": [50, 255, 50],
+			"kd": 0.55,
+			"ks": 0.0,
+			"texture":
+				{
+					"type": "native",
+					"name": "texture_1"
+				},
+			"transparency": 0.2,
+			"reflection": 0.2,
+			"n": 1,
+			"thickness": 0.5,
+			"translation": [10, 0, 0],
+			"rotation": [0, 45, 0],
+
+			"center": [-50, -70, 50],
+			"name": "test"
+		},
+
+		{
 			"type": "cylinder",
 			"color": [255, 255, 0],
 			"kd": 0.55,

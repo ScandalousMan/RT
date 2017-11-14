@@ -6,7 +6,7 @@
 /*   By: jbouille <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 15:43:31 by jbouille          #+#    #+#             */
-/*   Updated: 2017/11/13 18:56:52 by jbouille         ###   ########.fr       */
+/*   Updated: 2017/11/14 12:15:14 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,11 +185,23 @@ void	*fill_cylinder(t_jobject *jobj, t_param *param)
 
 void	*fill_customobject(t_jobject *jobj, t_param *param)
 {
+	t_custom		*cust;
 	t_custom_obj	*obj;
 	t_jobject		*tmp;
+	double			tr[VEC_SIZE];
 
 	tmp = get_jobject(jobj, "name");
-	obj = get_custom_ptr(tmp->value, param->customs)->objects;//TODO TEST RETOUR
+	if (!(cust = get_custom_ptr(tmp->value, param->customs)))
+		return (NULL);//ERROR can't find this custom object
+	obj = cust->objects;//COPY?
+	fill_vector(&(obj->org), (t_jarray*)(get_jobject(jobj, "center")->value));
+	fill_vector(&tr, (t_jarray*)(get_jobject(jobj, "translation")->value));
+	obj->org[0] += tr[0];
+	obj->org[1] += tr[1];
+	obj->org[2] += tr[2];
+	fill_vector(&tr, (t_jarray*)(get_jobject(jobj, "rotation")->value));
+	rotation_matrice(tr[0], tr[1], tr[2], param);
+	matrice_product(param->rot, obj->u, obj->u);
 	return (obj);
 }
 
