@@ -6,7 +6,7 @@
 /*   By: jbouille <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 01:40:48 by jbouille          #+#    #+#             */
-/*   Updated: 2017/10/29 18:37:23 by jbouille         ###   ########.fr       */
+/*   Updated: 2017/11/14 14:31:49 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <stdio.h>
 
 #include <json_parse.h>
+#include <json_free.h>
 #include <rt.h>
 int	json_to_objects(t_jobject *obj, t_param* param);
 #include <file.h>
@@ -33,5 +34,6 @@ int	rt_parser(t_param *param, const char *file)
 	free(json);
 	if (!ret)
 		printf("json_to_objects: %d\n", json_to_objects(obj, param));
+	free_jobject(obj);
 	return (1);
 }
