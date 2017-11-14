@@ -111,9 +111,9 @@ void	rt_tracer(t_param *param)
 						ANTI_ALIASING * param->i[0] + alias[0],
 						ANTI_ALIASING * param->i[1] + alias[1]);
 					tmp_col = ray_color(param, param->eye, param->path->v, 0, param->path);
-					col[0] += tmp_col & 0xFF;
+					col[0] += (tmp_col >> 16) & 0xFF;
 					col[1] += (tmp_col >> 8) & 0xFF;
-					col[2] += (tmp_col >> 16) & 0xFF;
+					col[2] += (tmp_col) & 0xFF;
 					alias[1]++;
 				}
 				alias[0]++;

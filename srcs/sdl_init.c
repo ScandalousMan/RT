@@ -6,7 +6,7 @@
 /*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/25 11:06:38 by malexand          #+#    #+#             */
-/*   Updated: 2017/11/14 17:02:49 by malexand         ###   ########.fr       */
+/*   Updated: 2017/11/14 19:47:18 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,11 @@ void			sdl_init(t_sdl *graph)
 	while (count < NB_THREAD)
 	{
 		if ((graph->surfs[count] = SDL_CreateRGBSurfaceWithFormat(0,
-		WINDOW_SDL_WIDTH, WINDOW_SDL_HEIGHT / NB_THREAD, 32, SDL_PIXELFORMAT_RGBA32))
+		WINDOW_SDL_WIDTH, WINDOW_SDL_HEIGHT / NB_THREAD, 32, SDL_PIXELFORMAT_ARGB8888))
 		== NULL)
 			error(0, 0, "Can't create all surface");
 		if ((graph->tmp_surfs[count] = SDL_CreateRGBSurfaceWithFormat(0,
-		WINDOW_SDL_WIDTH, WINDOW_SDL_HEIGHT / NB_THREAD, 32, SDL_PIXELFORMAT_RGBA32))
+		WINDOW_SDL_WIDTH, WINDOW_SDL_HEIGHT / NB_THREAD, 32, SDL_PIXELFORMAT_ARGB8888))
 		== NULL)
 			error(0, 0, "Can't create all surface");
 		count++;

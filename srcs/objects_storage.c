@@ -6,7 +6,7 @@
 /*   By: jbouille <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 15:43:31 by jbouille          #+#    #+#             */
-/*   Updated: 2017/11/14 12:15:14 by jbouille         ###   ########.fr       */
+/*   Updated: 2017/11/14 18:30:56 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	get_color(t_jarray *array)
 		++i;
 		tmp = tmp->next;
 	}
-	return ((rgb[2] << 16) | (rgb[1] << 8) | rgb[0]);
+	return ((rgb[0] << 16) | (rgb[1] << 8) | rgb[2]);
 }
 
 t_jobject	*get_jobject(t_jobject *obj, const char *key)
@@ -193,7 +193,7 @@ void	*fill_customobject(t_jobject *jobj, t_param *param)
 	tmp = get_jobject(jobj, "name");
 	if (!(cust = get_custom_ptr(tmp->value, param->customs)))
 		return (NULL);//ERROR can't find this custom object
-	obj = cust->objects;//COPY?
+	obj = cust->objects;//COPY? TODO
 	fill_vector(&(obj->org), (t_jarray*)(get_jobject(jobj, "center")->value));
 	fill_vector(&tr, (t_jarray*)(get_jobject(jobj, "translation")->value));
 	obj->org[0] += tr[0];

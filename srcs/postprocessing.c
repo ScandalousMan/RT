@@ -25,9 +25,9 @@ int		sepiacer(int color)
 {
 
 	return (
-		MIN((int)255, (int)((float)(color & 0xFF) * 0.393 + (float)((color >> 8) & 0xFF) * 0.769 + (float)((color >> 16) & 0xFF) * 0.189)) |
-		(MIN((int)255, (int)((float)(color & 0xFF) * 0.349 + (float)((color >> 8) & 0xFF) * 0.686 + (float)((color >> 16) & 0xFF) * 0.168)) << 8) |
-		(MIN((int)255, (int)((float)(color & 0xFF) * 0.272 + (float)((color >> 8) & 0xFF) * 0.534 + (float)((color >> 16) & 0xFF) * 0.131)) << 16)
+		(MIN((int)255, (int)((float)((color >> 16) & 0xFF) * 0.393 + (float)((color >> 8) & 0xFF) * 0.769 + (float)((color) & 0xFF) * 0.189)) << 16) |
+		(MIN((int)255, (int)((float)((color >> 16) & 0xFF) * 0.349 + (float)((color >> 8) & 0xFF) * 0.686 + (float)((color) & 0xFF) * 0.168)) << 8) |
+		(MIN((int)255, (int)((float)((color >> 16) & 0xFF) * 0.272 + (float)((color >> 8) & 0xFF) * 0.534 + (float)((color) & 0xFF) * 0.131)))
 	);
 }
 
