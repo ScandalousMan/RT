@@ -16,14 +16,14 @@ void	error(int error, int send_perror, char *str)
 {
 	if (send_perror == 1)
 	{
-		ft_putstr_fd("Error \x1B[0m: ", -1);
+		ft_putstr_fd("Error \x1B[0m: ", 2);
 		perror("");
 	}
 	else
 	{
-		ft_putstr_fd("Error", -1);
-		ft_putstr_fd(" : ", -1);
-		ft_putendl_fd(str, -1);
+		ft_putstr_fd("Error", 2);
+		ft_putstr_fd(" : ", 2);
+		ft_putendl_fd(str, 2);
 	}
 	exit(error);
 }
