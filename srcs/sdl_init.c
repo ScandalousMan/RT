@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sdl_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/25 11:06:38 by malexand          #+#    #+#             */
-/*   Updated: 2017/10/24 01:35:02 by alex             ###   ########.fr       */
+/*   Updated: 2017/11/14 17:02:49 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,14 +71,15 @@ void			sdl_init(t_sdl *graph)
 
 void			sdl_quit(t_sdl *graph)
 {
-	// int		count;
+	int		count;
 
-	// count = 0;
-	// while (count < NB_THREAD)
-	// {
-	// 	SDL_FreeSurface(graph->surfs[count]);
-	// 	count++;
-	// }
+	count = 0;
+	while (count < NB_THREAD)
+	{
+		SDL_FreeSurface(graph->surfs[count]);
+		SDL_FreeSurface(graph->tmp_surfs[count]);
+		count++;
+	}
 	ft_strdel(&graph->input);
 	nk_sdl_shutdown();
 	SDL_GL_DeleteContext(graph->gl_context);
