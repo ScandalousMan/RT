@@ -6,18 +6,33 @@
 #    By: malexand <malexand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/14 15:27:27 by malexand          #+#    #+#              #
-#    Updated: 2017/11/14 15:35:04 by malexand         ###   ########.fr        #
+#    Updated: 2017/11/14 16:47:54 by malexand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 .PHONY: all, clean, fclean, re
+
 NAME = libjson.a
+
+ifndef CC
+CC 					= gcc
+endif
+ifndef DEBUG
+DEBUG 				= no
+endif
+
 SRC = json_parse.c json_type.c parse_key_value.c parse_number.c parse_string.c stringify.c free.c
 DIR_SRC = sources/
 DIR_OBJ = objects/
 OBJ = $(addprefix $(DIR_OBJ),$($(sort SRC):.c=.o))
 CFLAGS = -Wall -Wextra -Werror -O3 -Ofast
 INCLUDES = -I. -Iincludes -I../libft
+
+ifeq ($(DEBUG), yes)
+	CFLAGS = -std=c99 -pedantic -g -ggdb -Wall -Wextra -Werror -O3 -Ofast
+else
+	CFLAGS =  -Wall -Werror -Wextra -O3 -Ofast
+endif
 
 all: $(NAME)
 
