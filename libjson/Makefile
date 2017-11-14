@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: malexand <malexand@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2017/11/14 15:27:27 by malexand          #+#    #+#              #
+#    Updated: 2017/11/14 15:35:04 by malexand         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 .PHONY: all, clean, fclean, re
 NAME = libjson.a
 SRC = json_parse.c json_type.c parse_key_value.c parse_number.c parse_string.c stringify.c free.c
