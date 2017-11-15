@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_string.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbouille <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 00:55:04 by jbouille          #+#    #+#             */
-/*   Updated: 2017/11/14 17:58:46 by jbouille         ###   ########.fr       */
+/*   Updated: 2017/11/15 12:30:37 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ char	*parse_jstring(char *json, void **value)
 					exit(EXIT_FAILURE);
 				}
 				json[i] = tmp;
-				printf("%zu: %s\n", ft_strlen(*value), *value);
+				printf("%zu: %p\n", ft_strlen(*value), *value);
 				*value = escape_chars(*value);
 				return (json + i + 1);
 			}
