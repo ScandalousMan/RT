@@ -6,7 +6,7 @@
 /*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 16:48:16 by malexand          #+#    #+#             */
-/*   Updated: 2017/11/14 19:50:13 by jbouille         ###   ########.fr       */
+/*   Updated: 2017/11/15 18:13:14 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	putpxl(t_param *param, int y, int x, Uint32 pixel)
 {
 	int		num_surf;
-	int		bpp;
 	Uint8	*p;
 
 	if (y != 0) {
@@ -25,44 +24,17 @@ void	putpxl(t_param *param, int y, int x, Uint32 pixel)
 	} else if (y == 0) {
 		num_surf = 0;
 	}
-pixel = pixel | 0xFF000000;
+	pixel = pixel | 0xFF000000;
 	if (y < 0 || y > WINDOW_SDL_HEIGHT / NB_THREAD || x < 0 || x > WINDOW_SDL_WIDTH)
 		return;
 	if (param->graph->show_tmp == 0) {
-//		pixel =	SDL_MapRGBA(param->graph->surfs[num_surf]->format,
-//			(pixel >> 16) & 0xFF, (pixel >> 8) & 0xFF, (pixel) & 0xFF, 0xFF);
-		bpp = param->graph->surfs[num_surf]->format->BytesPerPixel; 
-		p = (Uint8 *)param->graph->surfs[num_surf]->pixels + y * param->graph->surfs[num_surf]->pitch + x *
-			bpp;
+		p = (Uint8 *)param->graph->surfs[num_surf]->pixels + y *
+			param->graph->surfs[num_surf]->pitch + x * 4;
 	} else {
-//		pixel =	SDL_MapRGBA(param->graph->tmp_surfs[num_surf]->format,
-//			((pixel >> 16) & 0xFF), (pixel >> 8) & 0xFF, (pixel) & 0xFF, 0xFF);
-		bpp = param->graph->tmp_surfs[num_surf]->format->BytesPerPixel;
-		p = (Uint8 *)param->graph->tmp_surfs[num_surf]->pixels + y * param->graph->tmp_surfs[num_surf]->pitch + x *
-			bpp;
+		p = (Uint8 *)param->graph->tmp_surfs[num_surf]->pixels + y *
+			param->graph->tmp_surfs[num_surf]->pitch + x * 4;
 	}
-	//BPP is always 4 ..
-	if (bpp == 1)
-		*p = pixel;
-	else if (bpp == 2)
-		*(Uint16 *)p = pixel;
-	else if (bpp == 3)
-	{
-		if (SDL_BYTEORDER == SDL_BIG_ENDIAN)
-		{
-			p[0] = (pixel >> 16) & 0xFF;
-			p[1] = (pixel >> 8) & 0xFF;
-			p[2] = pixel & 0xFF;
-		}
-		else
-		{
-			p[0] = pixel & 0xFF;
-			p[1] = (pixel >> 8) & 0xFF;
-			p[2] = (pixel >> 16) & 0xFF;
-		}
-	}
-	else if (bpp == 4)
-		*(Uint32 *)p = pixel;
+	*(Uint32 *)p = pixel;
 }
 
 Uint32 getpxl(t_param *param, int y, int x)
