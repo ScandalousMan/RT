@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: malexand <malexand@student.42.fr>          +#+  +:+       +#+         #
+#    By: alex <alex@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/08/21 18:23:32 by malexand          #+#    #+#              #
-#    Updated: 2017/11/14 15:42:44 by malexand         ###   ########.fr        #
+#    Updated: 2017/11/15 17:26:05 by alex             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,11 +36,11 @@ LIBJSON_DEP = $(LIBJSON_PATH)/sources/*
 # Link lib : "-L FOLDER -lXXX" where XXX = libXXX.a
 
 ifeq ($(OS), Linux)
-	LFLAGS = -L./libft -lft -Llibjson -ljson `pkg-config --libs glew` `pkg-config --libs sdl2` -lGL -lm -lGLU
-	INCLUDE = -I./incs -I./libft -I./libjson
+	LFLAGS = -L./libjson -ljson -L./libft -lft `pkg-config --libs glew` `pkg-config --libs sdl2` -lGL -lm -lGLU
+	INCLUDE = -I./incs -I./libft/incs -I./libjson
 else
-	LFLAGS = -L./libft -lft -Llibjson -ljson `pkg-config --libs glew` `pkg-config --libs sdl2` -framework OpenGL -lm
-	INCLUDE = -I./incs -I./libft -I./libjson
+	LFLAGS = -L./libft -lft -L./libjson -ljson `pkg-config --libs glew` `pkg-config --libs sdl2` -framework OpenGL -lm
+	INCLUDE = -I./incs -I./libft/incs -I./libjson
 endif
 
 OUT_DIR = objs
@@ -87,7 +87,6 @@ ifeq ($(OS), Linux)
 	$(CC) $(CFLAGS) -o $@ $(OBCC) $(INCLUDE) $(LFLAGS)
 	@echo -e "\x1b[36m  + Compile program:\x1B[0m $@"
 else
-	@make -C libjson
 	@echo "\x1B[34m$(EXEC):\x1B[0m"
 	@$(CC) $(CFLAGS) -o $@ $(OBCC) $(INCLUDE) $(LFLAGS)
 	@echo "\x1b[36m  + Compile program:\x1B[0m $@"

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/01 18:36:27 by alex              #+#    #+#             */
-/*   Updated: 2017/10/23 18:40:44 by jbouille         ###   ########.fr       */
+/*   Updated: 2017/11/15 13:47:32 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void				error(int error, int send_perror, char *str);
 int					ft_max(int a, int b);
 int					ft_min(int a, int b);
 
+int					ft_isspace(int c);
 int					ft_isalpha(int c);
 int					ft_isdigit(int c);
 int					ft_isalnum(int c);
@@ -114,6 +115,7 @@ void				ft_swap(size_t *a, size_t *b);
 void				ft_swap_int(int *a, int *b);
 void				ft_swap_char(char *a, char *b);
 void				ft_bzero(void *s, size_t n);
+double				ft_atod(const char *str);
 
 int					ft_memcmp(const void *s1, const void *s2, size_t n);
 void				ft_memdel(void **ap);

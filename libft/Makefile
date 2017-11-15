@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: malexand <malexand@student.42.fr>          +#+  +:+       +#+         #
+#    By: alex <alex@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/08/21 18:23:32 by malexand          #+#    #+#              #
-#    Updated: 2017/11/14 15:39:29 by malexand         ###   ########.fr        #
+#    Updated: 2017/11/15 15:52:54 by alex             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 ifndef CC
-CC 					= gcc
+CC 					= clang
 endif
 ifndef DEBUG
 DEBUG 				= no
@@ -61,11 +61,11 @@ all: directories $(EXEC)
 
 $(EXEC): $(OBCC)
 ifeq ($(OS), Linux)
-	@ar rc libft.a $(OBCC)
+	@ar rc $(EXEC) $(OBCC)
 	@ranlib $@
 	@echo -e "\x1b[36m  + Compile program:\x1B[0m $@"
 else
-	@ar rc libft.a $(OBCC)
+	@ar rc $(EXEC) $(OBCC)
 	@ranlib $@
 	@echo "\x1b[36m  + Compile program:\x1B[0m $@"
 	@echo "\x1B[31m\c"
