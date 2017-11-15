@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_key_value.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbouille <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 00:28:41 by jbouille          #+#    #+#             */
-/*   Updated: 2017/10/29 16:51:40 by jbouille         ###   ########.fr       */
+/*   Updated: 2017/11/15 12:31:13 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ char	*get_value(char *json, t_jtype *type, void **value)
 	if (*value)
 	{
 	if (*type == JSTRING)
-		printf("%s\n", *value);
+		printf("%p\n", *value);
 	else if (*type == JINT)
 		printf("%i\n", (int)(((int*)(*value))[0]));
 	else if (*type == JDOUBLE)
@@ -94,7 +94,7 @@ char	*get_value(char *json, t_jtype *type, void **value)
 	else if (*type == JBOOL)
 		printf("%d\n", (t_jbool)(((t_jbool*)(*value))[0]));
 	else if (*type == JNULL)
-		printf("%s\n", *value);
+		printf("%p\n", *value);
 	}
 	printf("%s\n", json);
 	return (json);
