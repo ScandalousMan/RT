@@ -6,7 +6,7 @@
 /*   By: jbouille <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 15:43:31 by jbouille          #+#    #+#             */
-/*   Updated: 2017/11/14 18:30:56 by jbouille         ###   ########.fr       */
+/*   Updated: 2017/11/15 17:02:41 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,17 +183,18 @@ void	*fill_cylinder(t_jobject *jobj, t_param *param)
 	return (obj);
 }
 
+#include <libft.h>
 void	*fill_customobject(t_jobject *jobj, t_param *param)
 {
-	t_custom		*cust;
-	t_custom_obj	*obj;
+	t_custom		*obj;
+//	t_custom_obj	*obj;
 	t_jobject		*tmp;
 	double			tr[VEC_SIZE];
 
 	tmp = get_jobject(jobj, "name");
-	if (!(cust = get_custom_ptr(tmp->value, param->customs)))
-		return (NULL);//ERROR can't find this custom object
-	obj = cust->objects;//COPY? TODO
+	if (!(obj = get_custom_ptr(tmp->value, param->customs)))
+		error(0, 0, "Can't find one custom object");//ERROR can't find this custom object
+//	obj = cust->objects;//COPY? TODO
 	fill_vector(&(obj->org), (t_jarray*)(get_jobject(jobj, "center")->value));
 	fill_vector(&tr, (t_jarray*)(get_jobject(jobj, "translation")->value));
 	obj->org[0] += tr[0];
@@ -297,24 +298,43 @@ int	fill_custom_obj(t_custom_obj *custom_obj, t_jobject *jobj, t_param *param)
 	return (fill_object(custom_obj->object, tmp->value, 1, param));
 }
 
-t_custom_obj	*get_custom_obj(t_jarray *array, t_param *param)
+t_custom_obj	*get_custom_obj(t_jarray *array, t_param *param, t_custom_obj *custom_obj)
 {
-	t_custom_obj	*custom_obj;
-
-	if (array == NULL)
+//	t_custom_obj	*custom_obj;
+//
+	if (array == NULL || custom_obj == NULL)
 		return (NULL);
 	if (!(custom_obj = (t_custom_obj*)malloc(sizeof(t_custom_obj))))
 		return (NULL);
 	if (fill_custom_obj(custom_obj, array->value, param) == 0)
 		return (NULL);
-	custom_obj->next = get_custom_obj(array->next, param);
+	custom_obj->next = get_custom_obj(array->next, param, custom_obj->next);
 	return (custom_obj);
 }
 
 int	fill_custom(t_custom *custom, t_jobject *jobj, int num, t_param *param)
 {
 	t_jobject	*tmp;
-	
+(void)num;	
+(void)param;	
+//	custom->id = num;
+//	tmp = get_jobject(jobj, "name");
+//	printf("TEST: %s\n", tmp->value);
+///
+//	custom->name = ft_strdup(tmp->value);
+///	if (custom->name == NULL)
+//		return (0);
+//	(void)param;
+//	printf("SET: %s\n", custom->name);
+	tmp = get_jobject(jobj, "objects");
+	custom->objects = get_custom_obj(tmp->value, param, custom->objects);
+	return (1);
+}
+
+int	fill_custom_name(t_custom *custom, t_jobject *jobj, int num, t_param *param)
+{
+	t_jobject	*tmp;
+(void)param;	
 	custom->id = num;
 	tmp = get_jobject(jobj, "name");
 	printf("TEST: %s\n", tmp->value);
@@ -322,12 +342,27 @@ int	fill_custom(t_custom *custom, t_jobject *jobj, int num, t_param *param)
 	custom->name = ft_strdup(tmp->value);
 	if (custom->name == NULL)
 		return (0);
-	tmp = get_jobject(jobj, "objects");
-	custom->objects = get_custom_obj(tmp->value, param);
 	return (1);
 }
 
-t_custom	*get_custom(t_jarray *array, int num, t_param *param)
+t_custom	*get_custom(t_jarray *array, int num, t_param *param, t_custom *custom)
+{
+//	t_custom	*custom;
+//
+	if (array == NULL || custom == NULL)
+		return (NULL);
+//	if (!(custom = (t_custom*)malloc(sizeof(t_custom))))
+//		return (NULL);
+	if (fill_custom(custom, array->value, num, param) == 0)
+		return (NULL);
+	custom->next = get_custom(array->next, num + 1, param, custom->next);
+//	param->customs = custom;
+//	if (fill_custom(custom, array->value, num, param) == 0)
+//		return (NULL);
+	return (custom);
+}
+
+t_custom	*get_custom_name(t_jarray *array, int num, t_param *param)
 {
 	t_custom	*custom;
 
@@ -335,9 +370,11 @@ t_custom	*get_custom(t_jarray *array, int num, t_param *param)
 		return (NULL);
 	if (!(custom = (t_custom*)malloc(sizeof(t_custom))))
 		return (NULL);
-	if (fill_custom(custom, array->value, num, param) == 0)
+//	if (!(custom->objects = (t_custom_obj*)malloc(sizeof(t_custom_obj))))
+//		return (NULL);
+	if (fill_custom_name(custom, array->value, num, param) == 0)
 		return (NULL);
-	custom->next = get_custom(array->next, num + 1, param);
+	custom->next = get_custom_name(array->next, num + 1, param);
 	return (custom);
 }
 
@@ -366,5 +403,7 @@ t_object	*objects_storage(t_jobject *obj, t_param *param)
 
 t_custom	*customs_storage(t_jobject *obj, t_param *param)
 {
-	return (get_custom(get_jobject(obj, CUSTOMS_KEY)->value, 1, param));
+	param->customs = get_custom_name(get_jobject(obj, CUSTOMS_KEY)->value, 1, param);
+	param->customs = get_custom(get_jobject(obj, CUSTOMS_KEY)->value, 1, param, param->customs);
+	return (param->customs);
 }

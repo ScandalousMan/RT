@@ -6,7 +6,7 @@
 /*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 16:39:54 by aguemy            #+#    #+#             */
-/*   Updated: 2017/11/14 12:32:07 by jbouille         ###   ########.fr       */
+/*   Updated: 2017/11/15 16:10:00 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@
 # define WINDOW_SDL_WIDTH 800
 # define WINDOW_SDL_HEIGHT 800
 
-# define NB_THREAD 32
+# define NB_THREAD 50
 
 # define MAX_VERTEX_MEMORY 512 * 1024
 # define MAX_ELEMENT_MEMORY 128 * 1024
@@ -198,9 +198,6 @@ typedef struct	s_state
 
 typedef struct			s_custom_obj
 {
-	double				org[VEC_SIZE];//todo change
-	double				u[VEC_SIZE];//todo change
-
 	char				op;
 	t_object			*object;
 	struct s_custom_obj	*next;
@@ -208,6 +205,9 @@ typedef struct			s_custom_obj
 
 typedef struct	s_custom
 {
+	double				org[VEC_SIZE];//todo change
+	double				u[VEC_SIZE];//todo change
+
 	int					id;
 	char				*name;
 	struct s_custom_obj	*objects;

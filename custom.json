@@ -20,6 +20,57 @@
 
 	"custom_objects": [
 		{
+			"name": "test0",
+			"objects": [
+				{
+					"intersection": "+",
+					"object": {
+						"type": "sphere",
+						"color": [0, 0, 255],
+						"kd": 0.55,
+						"ks": 0.25,
+						"texture":
+							{
+								"type": "file",
+								"name": "path/to/texture_2.ext"
+							},			
+						"transparency": 0.2,
+						"reflection": 0.2,
+						"n": 1,
+						"thickness": 0.5,
+						"translation": [0, 0, 0],
+						"rotation": [0, 0, 0],
+	
+						"center": [15, 0, -15],
+						"radius": 7.0
+					}
+				},
+				{
+					"intersection": "+",
+					"object": {
+						"type": "custom",
+						"color": [0, 0, 255],
+						"kd": 0.55,
+						"ks": 0.25,
+						"texture":
+							{
+								"type": "file",
+								"name": "path/to/texture_2.ext"
+							},			
+						"transparency": 0.2,
+						"reflection": 0.2,
+						"n": 1,
+						"thickness": 0.5,
+						"translation": [0, 0, 0],
+						"rotation": [0, 0, 0],
+	
+						"center": [15, 0, -15],
+						"name": "test0"
+					}
+				}
+			]
+		},
+		{
 			"name": "test",
 			"objects": [
 				{
@@ -45,6 +96,31 @@
 						"radius": 7.0
 					}
 				},
+			
+				{
+					"intersection": "+",
+					"object": {
+						"type": "custom",
+						"color": [0, 0, 255],
+						"kd": 0.55,
+						"ks": 0.25,
+						"texture":
+							{
+								"type": "file",
+								"name": "path/to/texture_2.ext"
+							},			
+						"transparency": 0.2,
+						"reflection": 0.2,
+						"n": 1,
+						"thickness": 0.5,
+						"translation": [0, 0, 0],
+						"rotation": [0, 0, 0],
+	
+						"center": [15, 0, -15],
+						"name": "test0"
+					}
+				},
+
 				{
 					"intersection": "-",
 					"object": {
@@ -93,6 +169,48 @@
 	
 			"center": [15, 0, -15],
 			"radius": 57.0
+		},
+
+		{
+			"type": "sphere",
+			"color": [51, 51, 255],
+			"kd": 0.55,
+			"ks": 0.25,
+			"texture":
+				{
+					"type": "file",
+					"name": "path/to/texture_2.ext"
+				},			
+			"transparency": 0.2,
+			"reflection": 0.2,
+			"n": 1,
+			"thickness": 0.5,
+			"translation": [0, 0, 0],
+			"rotation": [0, 0, 0],
+	
+			"center": [15, 0, -15],
+			"radius": 857.0
+		},
+
+		{
+			"type": "sphere",
+			"color": [255, 0, 0],
+			"kd": 0.55,
+			"ks": 0.25,
+			"texture":
+				{
+					"type": "file",
+					"name": "path/to/texture_2.ext"
+				},			
+			"transparency": 0.2,
+			"reflection": 0.2,
+			"n": 1,
+			"thickness": 0.5,
+			"translation": [10, 0, 80],
+			"rotation": [0, 0, 0],
+	
+			"center": [15, 0, -15],
+			"radius": 50.0
 		},
 
 		{
