@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   constructor.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/27 14:57:42 by aguemy            #+#    #+#             */
-/*   Updated: 2017/11/13 16:14:20 by jbouille         ###   ########.fr       */
+/*   Updated: 2017/11/20 00:26:53 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ t_path			*path_create(int index)
 	if (!(path = (t_path*)malloc(sizeof(t_path))))
 		return (NULL);
 	path->current_object = NULL;
-	path->reflected = index < MAX_RECURSION ? path_create(index + 1) : NULL;
-	path->transmitted = index < MAX_RECURSION ? path_create(index + 1) : NULL;
+	path->reflected = index < RECURSION ? path_create(index + 1) : NULL;
+	path->transmitted = index < RECURSION ? path_create(index + 1) : NULL;
 	return (path);
 }
 
