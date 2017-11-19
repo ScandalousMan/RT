@@ -6,7 +6,7 @@
 /*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 16:39:54 by aguemy            #+#    #+#             */
-/*   Updated: 2017/11/20 00:28:22 by alex             ###   ########.fr       */
+/*   Updated: 2017/11/20 00:30:37 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # define PARSING_PRECISION 10
 # define FOCAL_VALUE 40.0
 # define ABS(Value) ((Value < 0) ? -1 * Value : Value)
-# define RGB(r, g, b)(256 * 256 * (int)(r) + 256 * (int)(g) + (int)(b))
 # ifdef __linux__
 #  define M_PI 3.141592653589793238462643383279
 # endif
@@ -106,8 +105,8 @@ typedef struct					s_sdl
 	SDL_Surface					*surfs[NB_THREAD];
 	SDL_Surface					*tmp_surfs[NB_THREAD];
 
-	char								*input;
-	int									show_tmp;
+	char						*input;
+	int							show_tmp;
 
 	t_nk_context				*ctx;
 }								t_sdl;
@@ -263,11 +262,9 @@ typedef struct	s_param
 /*
 **----------------------------------components----------------------------------
 */
-double			ft_pow(double x, int n);
 int				rgb_color(unsigned char r, unsigned char g, unsigned char b);
 int				rgb_ratio(int color, double a);
 void			display_info(t_param *param);
-double			ft_atod(const char *str);
 int				color_summer(int col1, int col2);
 /*
 **------------------------------------create------------------------------------
