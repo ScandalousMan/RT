@@ -6,7 +6,7 @@
 #    By: alex <alex@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/08/21 18:23:32 by malexand          #+#    #+#              #
-#    Updated: 2017/11/15 17:26:05 by alex             ###   ########.fr        #
+#    Updated: 2017/11/20 00:08:12 by alex             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,10 +36,10 @@ LIBJSON_DEP = $(LIBJSON_PATH)/sources/*
 # Link lib : "-L FOLDER -lXXX" where XXX = libXXX.a
 
 ifeq ($(OS), Linux)
-	LFLAGS = -L./libjson -ljson -L./libft -lft `pkg-config --libs glew` `pkg-config --libs sdl2` -lGL -lm -lGLU
+	LFLAGS = -L./libjson -ljson -L./libft -lft `pkg-config --libs glew` `pkg-config --libs sdl2` -lSDL2_image -lGL -lm -lGLU
 	INCLUDE = -I./incs -I./libft/incs -I./libjson
 else
-	LFLAGS = -L./libft -lft -L./libjson -ljson `pkg-config --libs glew` `pkg-config --libs sdl2` -framework OpenGL -lm
+	LFLAGS = -L./libft -lft -L./libjson -ljson `pkg-config --libs glew` `pkg-config --libs sdl2` -lSDL2_image -framework OpenGL -lm
 	INCLUDE = -I./incs -I./libft/incs -I./libjson
 endif
 

@@ -6,13 +6,16 @@
 /*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/25 09:46:28 by malexand          #+#    #+#             */
-/*   Updated: 2017/10/24 21:37:03 by alex             ###   ########.fr       */
+/*   Updated: 2017/11/19 23:58:20 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-void	evts_handler(t_param *param)
+/*
+** Function to handle keyboard input
+*/
+void	handle_keyboard(t_param *param)
 {
 	if (param->graph->input[SDL_SCANCODE_R] == TRUE) {
 		param->graph->show_tmp = 0;
@@ -31,6 +34,9 @@ void	evts_handler(t_param *param)
 	}
 }
 
+/*
+** Handle clic input
+*/
 void	handle_clic(SDL_MouseButtonEvent evt)
 {
 	if (evt.button == SDL_BUTTON_LEFT) {
@@ -65,7 +71,7 @@ void	sdl_pull_evts(t_param *param)
 		if (evt.window.windowID == SDL_GetWindowID(param->graph->win_sdl) &&
 		evt.button.type == SDL_MOUSEBUTTONDOWN)
 			handle_clic(evt.button);
-		evts_handler(param);
+		handle_keyboard(param);
 	}
 	nk_input_end(param->graph->ctx);
 }

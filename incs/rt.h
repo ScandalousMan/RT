@@ -6,7 +6,7 @@
 /*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 16:39:54 by aguemy            #+#    #+#             */
-/*   Updated: 2017/11/15 17:27:40 by alex             ###   ########.fr       */
+/*   Updated: 2017/11/20 00:03:58 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@
 
 # include <GL/glew.h>
 # include <SDL.h>
+# include <SDL_image.h>
 # include <SDL_opengl.h>
 
 # include <libft.h>
@@ -98,8 +99,8 @@ typedef struct					s_sdl
 	SDL_Surface					*surfs[NB_THREAD];
 	SDL_Surface					*tmp_surfs[NB_THREAD];
 
-	char								*input;
-	int									show_tmp;
+	char						*input;
+	int							show_tmp;
 
 	t_nk_context				*ctx;
 }								t_sdl;

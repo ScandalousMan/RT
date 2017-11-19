@@ -6,7 +6,7 @@
 /*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/25 14:46:21 by malexand          #+#    #+#             */
-/*   Updated: 2017/11/08 14:31:37 by jbouille         ###   ########.fr       */
+/*   Updated: 2017/11/19 23:56:46 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	sdl_draw(t_sdl *graph)
 {
+	int				count;
 	SDL_Rect		dest;
 	SDL_Texture		*text;
-	int				count;
 
 	count = 0;
 	dest.x = 0;
