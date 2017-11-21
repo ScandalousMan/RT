@@ -3,13 +3,14 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: alex <alex@student.42.fr>                  +#+  +:+       +#+         #
+#    By: malexand <malexand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/08/21 18:23:32 by malexand          #+#    #+#              #
-#    Updated: 2017/11/20 00:22:46 by alex             ###   ########.fr        #
+#    Updated: 2017/11/21 16:48:27 by malexand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+EXEC = libft.a
 
 ifndef CC
 CC 					= clang
@@ -18,22 +19,20 @@ ifndef DEBUG
 DEBUG 				= no
 endif
 
-EXEC = libft.a
+CC = clang
+OS := $(shell uname -s)
 
-OS 					= $(shell uname -s)
-MKDIR_P 			= mkdir -p
+ifeq ($(DEBUG), yes)
+	CFLAGS = -std=c99 -pedantic -g -ggdb
+else
+	CFLAGS =  -Wall -Werror -Wextra
+endif
+
+INCLUDE = -I./incs
+
 OUT_DIR 			= objs
 SRC_DIR 			= srcs
 INC_DIR				= incs
-FIRST				= yes
-
-INC		 			= -I./incs
-
-ifeq ($(DEBUG), yes)
-	CFLAGS = 		-Wall -Werror -Wextra -g -ggdb
-else
-	CFLAGS = 		-Wall -Werror -Wextra -O3 -Ofast
-endif
 
 SDIR =				srcs/
 SRCS =				ft_atoi.c ft_bzero.c ft_error.c ft_freetab.c ft_isalnum.c \
@@ -69,12 +68,12 @@ else
 	@ranlib $@
 	@echo "\x1b[36m  + Compile program:\x1B[0m $@"
 	@echo "\x1B[31m\c"
-# @norminette srcs/* incs/* | grep -B 1 "Error" || true
+	@# @norminette srcs/* incs/* | grep -B 1 "Error" || true
 	@echo "\x1B[0m\c"
 endif
 
 $(ODIR)%.o: $(SDIR)%.c
-	@$(CC) $^ $(CFLAG) -c -o $@ $(INC)
+	@$(CC) $^ $(CFLAGS) -c -o $@ $(INCLUDE)
 ifeq ($(OS), Linux)
 	@echo -e "\x1B[32m  + Compile:\x1B[0m $(notdir $^)"
 else
@@ -84,20 +83,20 @@ endif
 directories: $(OUT_DIR) $(SRC_DIR) $(INC_DIR)
 
 $(OUT_DIR):
-	@$(MKDIR_P) $(OUT_DIR)
+	@mkdir -p $(OUT_DIR)
 
 $(SRC_DIR):
-	@$(MKDIR_P) $(SRC_DIR)
+	@mkdir -p $(SRC_DIR)
 
 $(INC_DIR):
-	@$(MKDIR_P) $(INC_DIR)
+	@mkdir -p $(INC_DIR)
 
 clean:
 	@rm -rf $(OUT_DIR)
 ifeq ($(OS), Linux)
-	@echo -e "\x1B[31m  - Remove:\x1B[0m libft objs"
+	@echo -e "\x1B[31m  - Remove:\x1B[0m $(EXEC) objs"
 else
-	@echo "\x1B[31m  - Remove:\x1B[0m libft objs"
+	@echo "\x1B[31m  - Remove:\x1B[0m $(EXEC) objs"
 endif
 
 fclean: clean
@@ -111,4 +110,4 @@ endif
 re: fclean
 	make
 
-.PHONY: all clean fclean re run directories cleanlib delete
+.PHONY: all clean fclean re run directories
