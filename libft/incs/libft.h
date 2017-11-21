@@ -6,7 +6,7 @@
 /*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/01 18:36:27 by alex              #+#    #+#             */
-/*   Updated: 2017/11/15 13:47:32 by alex             ###   ########.fr       */
+/*   Updated: 2017/11/20 00:22:24 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ size_t				ft_strlcat(char *dst, const char *src, size_t size);
 int					ft_atoi(const char *str);
 char				*ft_itoa(int value);
 char				*ft_itoa_base(int value, int base);
+double				ft_pow(double a, int n);
 void				ft_swap(size_t *a, size_t *b);
 void				ft_swap_int(int *a, int *b);
 void				ft_swap_char(char *a, char *b);

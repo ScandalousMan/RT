@@ -6,7 +6,7 @@
 #    By: alex <alex@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/08/21 18:23:32 by malexand          #+#    #+#              #
-#    Updated: 2017/11/20 00:08:12 by alex             ###   ########.fr        #
+#    Updated: 2017/11/20 00:23:47 by alex             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,7 @@ INC_DIR = incs
 SDIR =		./srcs/
 SRCS =		closest.c components.c cone.c cone_tools.c constructor.c \
 			cylindre.c cylindre_tools.c display.c distance.c ellipsoide.c \
-			ft_atod.c graph_init.c key_func.c light.c main.c \
+			graph_init.c key_func.c light.c main.c \
 			new_functions.c nukl_gui.c object_parser.c \
 			plane.c postprocessing.c sdl_draw.c sdl_evts.c sdl_init.c \
 			sdl_utils.c sphere.c threads.c vec_tools.c vec_tools2.c \

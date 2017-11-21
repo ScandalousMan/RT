@@ -16,7 +16,6 @@
 # define PARSING_PRECISION 10
 # define FOCAL_VALUE 40.0
 # define ABS(Value) ((Value < 0) ? -1 * Value : Value)
-# define RGB(r, g, b)(256 * 256 * (int)(r) + 256 * (int)(g) + (int)(b))
 # ifdef __linux__
 #  define M_PI 3.141592653589793238462643383279
 # endif
@@ -32,8 +31,18 @@
 # define BRIGHTNESS 11
 # define EPSILON 0.001
 # define ROTATION 30.0
-# define MAX_RECURSION 1
+
+# define RECURSION 1
+# define MAX_RECURSION 0
+# define MIN_RECURSION 10
 # define ANTI_ALIASING 2
+# define MAX_ANTI_ALIASING 1
+# define MIN_ANTI_ALIASING 10
+# define CARTOON_FACTOR 25
+# define MAX_CARTOON_FACTOR 5
+# define MIN_CARTOON_FACTOR 50
+# define MIN_BLUR_RADIUS 0
+# define MAX_BLUR_RADIUS 50
 
 # include <fcntl.h>
 # include <stdlib.h>
@@ -81,8 +90,6 @@
 
 # define TRUE '1'
 # define FALSE '0'
-
-# define CARTOON_FACTOR 25
 
 typedef struct nk_context		t_nk_context;
 typedef struct nk_font_atlas	t_nk_font_atlas;
@@ -256,11 +263,9 @@ typedef struct	s_param
 /*
 **----------------------------------components----------------------------------
 */
-double			ft_pow(double x, int n);
 int				rgb_color(unsigned char r, unsigned char g, unsigned char b);
 int				rgb_ratio(int color, double a);
 void			display_info(t_param *param);
-double			ft_atod(const char *str);
 int				color_summer(int col1, int col2);
 /*
 **------------------------------------create------------------------------------

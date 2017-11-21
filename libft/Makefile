@@ -6,7 +6,7 @@
 #    By: alex <alex@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/08/21 18:23:32 by malexand          #+#    #+#              #
-#    Updated: 2017/11/15 15:52:54 by alex             ###   ########.fr        #
+#    Updated: 2017/11/20 00:22:46 by alex             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,7 @@ SRCS =				ft_atoi.c ft_bzero.c ft_error.c ft_freetab.c ft_isalnum.c \
 					ft_strlcat.c ft_strlen.c ft_strmap.c ft_strmapi.c ft_strncat.c ft_strncmp.c \
 					ft_strncpy.c ft_strnequ.c ft_strnew.c ft_strnstr.c ft_strrchr.c ft_strrev.c \
 					ft_strsplit.c ft_strstr.c ft_strsub.c ft_strtrim.c ft_swap.c ft_tolower.c \
-					ft_toupper.c get_next_line.c ft_atod.c ft_isspace.c
+					ft_toupper.c get_next_line.c ft_atod.c ft_isspace.c ft_pow.c
 SRCC =				$(addprefix $(SDIR),$(SRCS))
 
 ODIR =				objs/
