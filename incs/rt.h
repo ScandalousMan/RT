@@ -6,7 +6,7 @@
 /*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 16:39:54 by aguemy            #+#    #+#             */
-/*   Updated: 2017/11/20 00:30:37 by alex             ###   ########.fr       */
+/*   Updated: 2017/11/20 00:03:58 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@
 
 # include <GL/glew.h>
 # include <SDL.h>
+# include <SDL_image.h>
 # include <SDL_opengl.h>
 
 # include <libft.h>

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sdl_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/25 11:06:38 by malexand          #+#    #+#             */
-/*   Updated: 2017/11/14 19:47:18 by jbouille         ###   ########.fr       */
+/*   Updated: 2017/11/20 00:05:05 by alex             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ static void		init_win_gui(t_sdl *graph)
 	glewExperimental = 1;
 	SDL_SetHint(SDL_HINT_VIDEO_HIGHDPI_DISABLED, "0");
 	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS);
+	IMG_Init(IMG_INIT_JPG);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_FLAGS,
 		SDL_GL_CONTEXT_FORWARD_COMPATIBLE_FLAG);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK,
@@ -86,5 +87,6 @@ void			sdl_quit(t_sdl *graph)
 	SDL_DestroyWindow(graph->win_gl);
 	SDL_DestroyWindow(graph->win_sdl);
 	free(graph);
+	IMG_Quit();
 	SDL_Quit();
 }
