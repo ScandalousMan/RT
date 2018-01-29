@@ -2,7 +2,7 @@
 Ray Tracing group project for School 42
 
 # Requirements
-Install `sdl2` and `sdl2_images`
+Install `pkg-config`, `glew`, `sdl2` and `sdl2_images`
 
 # How-to
 
