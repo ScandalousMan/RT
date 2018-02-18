@@ -37,7 +37,7 @@
 # define RECURSION 1
 # define MAX_RECURSION 0
 # define MIN_RECURSION 10
-# define ANTI_ALIASING 1
+# define ANTI_ALIASING 2
 # define MAX_ANTI_ALIASING 1
 # define MIN_ANTI_ALIASING 10
 # define CARTOON_FACTOR 25
@@ -45,7 +45,7 @@
 # define MIN_CARTOON_FACTOR 50
 # define MIN_BLUR_RADIUS 0
 # define MAX_BLUR_RADIUS 50
-# define BLUR_RADIUS 10
+# define BLUR_RADIUS 4
 
 # include <fcntl.h>
 # include <stdlib.h>

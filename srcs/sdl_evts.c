@@ -45,15 +45,18 @@ void	handle_clic(t_param *param, SDL_MouseButtonEvent evt)
 {
 	int test;
 	int type;
+	int third;
 
 	test = -1;
 	type = -1;
+	third = -1;
 	if (evt.button == SDL_BUTTON_LEFT) {
-		if (param->pxl_infos[evt.x][evt.y]->object) {
-			test = param->pxl_infos[evt.x][evt.y]->col;
-			type = param->pxl_infos[evt.x][evt.y]->calc_col;
+		if (param->pxl_infos[evt.y][evt.x]->object) {
+			test = param->pxl_infos[evt.y][evt.x]->col;
+			type = param->pxl_infos[evt.y][evt.x]->calc_col;
+			third = param->pxl_infos[evt.y][evt.x]->object->type;
 		}
-		mprintf(1, "Mouse LEFT button pressed at : x=[%d], y=[%d], col=[%d], calc_col=[%d]\n", evt.x, evt.y, test, type);
+		mprintf(1, "Mouse LEFT button pressed at : x=[%d], y=[%d], type=[%d], col=[%d], calc_col=[%d]\n", evt.x, evt.y, third, test, type);
 	} else if (evt.button == SDL_BUTTON_MIDDLE) {
 		ft_putendl("Mouse MIDDLE button pressed");
 	} else if (evt.button == SDL_BUTTON_RIGHT) {

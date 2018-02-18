@@ -68,102 +68,68 @@ void	cartoon(t_param *param)
 	}
 }
 
-
-int 	*boxes_for_gauss(double sigma, int n)
-{
-	int wl;
-	int m;
-	int *sizes;
-	int i;
-
-  wl = floor(sqrt((12 * sigma * sigma / (double)n) + 1));
-  if (wl % 2 == 0)
-  	wl--;
-  m = (12 * sigma * sigma - n * wl * wl - 4 * n * wl - 3 * n) / (-4.0 * (double)wl - 4.0);
-  if (m - floor(m) >= 0.5)
-  	m = ceil(m);
-  else
-  	m = floor(m);
-  if (!(sizes = (int*)malloc(sizeof(int) * n)))
-  	return NULL;
-  i = 0;
-  while (i < n)
-  {
-  	if (i < m)
-			sizes[i] = wl;
-		else
-			sizes[i] = wl + 2;
-		i++;
-  }
-  return sizes;
-}
-
-// scl, tcl, w, h, r
-void boxBlurH_4(t_param *param, float r)
-{
-	// iarr;
-	// ti;
-	// fv;
-	if (!param && !r)
-		mprintf(1, "boxblurH");
- //  var iarr = 1 / (r+r+1);
- //  for(var i=0; i<h; i++) {
- //      var ti = i*w, li = ti, ri = ti+r;
- //      var fv = scl[ti], lv = scl[ti+w-1], val = (r+1)*fv;
- //      for(var j=0; j<r; j++) val += scl[ti+j];
- //      for(var j=0  ; j<=r ; j++) { val += scl[ri++] - fv       ;   tcl[ti++] = Math.round(val*iarr); }
- //      for(var j=r+1; j<w-r; j++) { val += scl[ri++] - scl[li++];   tcl[ti++] = Math.round(val*iarr); }
- //      for(var j=w-r; j<w  ; j++) { val += lv        - scl[li++];   tcl[ti++] = Math.round(val*iarr); }
- //  }
-}
-
-// scl, tcl, w, h, r
-void boxBlurT_4(t_param *param, float r)
-{
-	if (!param && !r)
-		mprintf(1, "boxBlurT");
-    // var iarr = 1 / (r+r+1);
-    // for(var i=0; i<w; i++) {
-    //     var ti = i, li = ti, ri = ti+r*w;
-    //     var fv = scl[ti], lv = scl[ti+w*(h-1)], val = (r+1)*fv;
-    //     for(var j=0; j<r; j++) val += scl[ti+j*w];
-    //     for(var j=0  ; j<=r ; j++) { val += scl[ri] - fv     ;  tcl[ti] = Math.round(val*iarr);  ri+=w; ti+=w; }
-    //     for(var j=r+1; j<h-r; j++) { val += scl[ri] - scl[li];  tcl[ti] = Math.round(val*iarr);  li+=w; ri+=w; ti+=w; }
-    //     for(var j=h-r; j<h  ; j++) { val += lv      - scl[li];  tcl[ti] = Math.round(val*iarr);  li+=w; ti+=w; }
-    // }
-}
-
-// scl, tcl, w, h, r
-void	box_blur(t_param *param, float r)
-{
-	param->i[0] = 0;
-	while (param->i[0] < WINDOW_SDL_HEIGHT)
-	{
-		param->i[1] = 0;
-		while (param->i[1] < WINDOW_SDL_WIDTH)
-		{
-			param->pxl_infos[param->i[1]][param->i[0]]->calc_col = param->pxl_infos[param->i[1]][param->i[0]]->col;
-			param->i[1]++;
-		}
-		param->i[0]++;
-	}
-
-  // boxBlurH_4(tcl, scl, w, h, r);
-  // boxBlurT_4(scl, tcl, w, h, r);
-  boxBlurH_4(param, r);
-  boxBlurT_4(param, r);
-}
-
-// scl, tcl, w, h, double r
 void	blur(t_param *param)
 {
-	int	*bxs;
+	double 	res[3];
+	int			rs;
+	double	wsum;
+	double	wght;
+	double	dsq;
+	int			x;
+	int			y;
+	int 		ix;
+	int 		iy;
 
-  bxs = boxes_for_gauss(BLUR_RADIUS, 3);
-  // boxBlur_4(scl, tcl, w, h, (bxs[0] - 1) / 2);
-  // boxBlur_4(tcl, scl, w, h, (bxs[1] - 1) / 2);
-  // boxBlur_4(scl, tcl, w, h, (bxs[2] - 1) / 2);
-  box_blur(param, (float)(bxs[0] - 1) / 2);
-  // box_blur(param, (float)(bxs[1] - 1) / 2);
-  // box_blur(param, (float)(bxs[2] - 1) / 2);
+  rs = (int)ceil((double)BLUR_RADIUS * 2.57);
+  param->i[0] = 0;
+  while (param->i[0] < WINDOW_SDL_HEIGHT)
+  {
+  	param->i[1] = 0;
+  	while (param->i[1] < WINDOW_SDL_WIDTH)
+  	{
+  		res[0] = 0;
+  		res[1] = 0;
+  		res[2] = 0;
+  		wsum = 0.0;
+  		iy = param->i[0] - rs;
+  		while (iy < param->i[0] + rs + 1)
+  		{
+  			ix = param->i[1] - rs;
+  			while (ix < param->i[1] + rs + 1)
+  			{
+  				x = ft_min(WINDOW_SDL_WIDTH - 1, ft_max(0, ix));
+  				y = ft_min(WINDOW_SDL_HEIGHT - 1, ft_max(0, iy));
+  				dsq = (double)((param->i[1] - ix) * (ix - param->i[1]) + (iy - param->i[0]) * (param->i[0] - iy));
+  				wght = exp(dsq / (double)(2 * BLUR_RADIUS * BLUR_RADIUS)) / M_PI / (double)(2 * BLUR_RADIUS * BLUR_RADIUS);
+  				res[0] += ((param->pxl_infos[y][x]->col >> 16) & 0xFF) * wght;
+  				res[1] += ((param->pxl_infos[y][x]->col >> 8) & 0xFF) * wght;
+  				res[2] += ((param->pxl_infos[y][x]->col) & 0xFF) * wght;
+  				wsum += wght;
+  				ix++;
+  			}
+  			iy++;
+  		}
+  		res[0] = res[0] / wsum;
+  		res[1] = res[1] / wsum;
+  		res[2] = res[2] / wsum;
+			putpxl(param, param->i[0], param->i[1], rgb_color((unsigned char)res[0], (unsigned char)res[1], (unsigned char)res[2]));
+
+  		param->i[1]++;
+  	}
+  	param->i[0]++;
+  }
+
+  // for(var i=0; i<h; i++)
+  //     for(var j=0; j<w; j++) {
+  //         var val = 0, wsum = 0;
+  //         for(var iy = i-rs; iy<i+rs+1; iy++)
+  //             for(var ix = j-rs; ix<j+rs+1; ix++) {
+  //                 var x = Math.min(w-1, Math.max(0, ix));
+  //                 var y = Math.min(h-1, Math.max(0, iy));
+  //                 var dsq = (ix-j)*(ix-j)+(iy-i)*(iy-i);
+  //                 var wght = Math.exp( -dsq / (2*r*r) ) / (Math.PI*2*r*r);
+  //                 val += scl[y*w+x] * wght;  wsum += wght;
+  //             }
+  //         tcl[i*w+j] = Math.round(val/wsum);            
+  //     }
 }

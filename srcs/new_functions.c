@@ -59,14 +59,14 @@ int		ray_color(t_param *param, double *from, double *to, int index, t_path *path
 	find_intersection(param, from, to, path);
 	if (!path->current_object)
 	{
-		if (!param->pxl_infos[param->i[1]][param->i[0]]->object)
-			param->pxl_infos[param->i[1]][param->i[0]]->object = NULL;
+		if (!param->pxl_infos[param->i[0]][param->i[1]]->object)
+			param->pxl_infos[param->i[0]][param->i[1]]->object = NULL;
 		return 0;
 	}
 	else
 	{
 		if (!index)
-			param->pxl_infos[param->i[1]][param->i[0]]->object = path->current_object;
+			param->pxl_infos[param->i[0]][param->i[1]]->object = path->current_object;
 		if (index < RECURSION)
 		{
 			vec_copy(path->v, path->transmitted->v);
