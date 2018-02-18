@@ -24,6 +24,27 @@ t_path			*path_create(int index)
 	return (path);
 }
 
+t_param			*pxl_infos_create(t_param *param)
+{
+	if (!(param->pxl_infos = (t_pxl_info***)malloc(sizeof(t_pxl_info**) * WINDOW_SDL_HEIGHT)))
+		return (NULL);
+	param->i[0] = 0;
+	while (param->i[0] < WINDOW_SDL_HEIGHT)
+	{
+		if (!(param->pxl_infos[param->i[0]] = (t_pxl_info**)malloc(sizeof(t_pxl_info*) * WINDOW_SDL_WIDTH)))
+			return (NULL);
+		param->i[1] = 0;
+		while (param->i[1] < WINDOW_SDL_WIDTH)
+		{
+			if (!(param->pxl_infos[param->i[0]][param->i[1]] = (t_pxl_info*)malloc(sizeof(t_pxl_info))))
+				return (NULL);
+			param->i[1]++;
+		}
+		param->i[0]++;
+	}
+	return (param);
+}
+
 t_param			*struct_create(void)
 {
 	t_param		*param;
@@ -46,5 +67,7 @@ t_param			*struct_create(void)
 	param->num_lights = 0;
 	param->refresh = 1;
 	param->current_thread = 0;
+	if (!pxl_infos_create(param))
+		return (NULL);
 	return (param);
 }

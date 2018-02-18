@@ -37,7 +37,7 @@
 # define RECURSION 1
 # define MAX_RECURSION 0
 # define MIN_RECURSION 10
-# define ANTI_ALIASING 2
+# define ANTI_ALIASING 1
 # define MAX_ANTI_ALIASING 1
 # define MIN_ANTI_ALIASING 10
 # define CARTOON_FACTOR 25
@@ -45,6 +45,7 @@
 # define MIN_CARTOON_FACTOR 50
 # define MIN_BLUR_RADIUS 0
 # define MAX_BLUR_RADIUS 50
+# define BLUR_RADIUS 10
 
 # include <fcntl.h>
 # include <stdlib.h>
@@ -107,7 +108,6 @@ typedef struct					s_sdl
 	SDL_Renderer				*render_sdl;
 	SDL_Surface					*surfs[NB_THREAD];
 	SDL_Surface					*tmp_surfs[NB_THREAD];
-
 	char						*input;
 	int							show_tmp;
 
@@ -207,12 +207,6 @@ typedef struct	s_path
 	struct s_path	*transmitted;
 }				t_path;
 
-typedef struct	s_state
-{
-	double			d;
-	t_object		*obj_num;
-}				t_state;
-
 typedef struct			s_custom_obj
 {
 	char				op;
@@ -230,6 +224,13 @@ typedef struct	s_custom
 	struct s_custom_obj	*objects;
 	struct s_custom		*next;
 }				t_custom;
+
+typedef struct s_pxl_info
+{
+	t_object		*object;
+	int					col;
+	int					calc_col;
+}				t_pxl_info;
 
 typedef struct	s_param
 {
@@ -257,14 +258,13 @@ typedef struct	s_param
 	int				i[2];
 	double			rot[VEC_SIZE][VEC_SIZE];
 	double			epsilon;
-	t_state			**state;
 
 	t_sdl			*graph;
 	SDL_Thread		**thread;
 	
 	int				current_thread;
 	int				refresh;
-
+	t_pxl_info	***pxl_infos;
 	double			ia;//intensité de la lumiere ambiante
 	double			m[VEC_SIZE];//triplet intermediaire pour calculs ombres
 
@@ -390,6 +390,7 @@ void	display_lights(t_param *param);
 void	greyscale(t_param *param);
 void 	sepia(t_param *param);
 void	cartoon(t_param *param);
+void	blur(t_param *param);
 
 /*
 ** NK_API SDL Prototypes

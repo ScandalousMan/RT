@@ -32,15 +32,28 @@ void	handle_keyboard(t_param *param)
 		param->graph->show_tmp = 1;
 		greyscale(param);
 	}
+	if (param->graph->input[SDL_SCANCODE_B] == TRUE) {
+		param->graph->show_tmp = 1;
+		blur(param);
+	}
 }
 
 /*
 ** Handle clic input
 */
-void	handle_clic(SDL_MouseButtonEvent evt)
+void	handle_clic(t_param *param, SDL_MouseButtonEvent evt)
 {
+	int test;
+	int type;
+
+	test = -1;
+	type = -1;
 	if (evt.button == SDL_BUTTON_LEFT) {
-		mprintf(1, "Mouse LEFT button pressed at : x=[%d], y=[%d]\n", evt.x, evt.y);
+		if (param->pxl_infos[evt.x][evt.y]->object) {
+			test = param->pxl_infos[evt.x][evt.y]->col;
+			type = param->pxl_infos[evt.x][evt.y]->calc_col;
+		}
+		mprintf(1, "Mouse LEFT button pressed at : x=[%d], y=[%d], col=[%d], calc_col=[%d]\n", evt.x, evt.y, test, type);
 	} else if (evt.button == SDL_BUTTON_MIDDLE) {
 		ft_putendl("Mouse MIDDLE button pressed");
 	} else if (evt.button == SDL_BUTTON_RIGHT) {
@@ -71,7 +84,7 @@ void	sdl_pull_evts(t_param *param)
 			nk_sdl_handle_event(&evt);
 		if (evt.window.windowID == SDL_GetWindowID(param->graph->win_sdl) &&
 		evt.button.type == SDL_MOUSEBUTTONDOWN)
-			handle_clic(evt.button);
+			handle_clic(param, evt.button);
 		handle_keyboard(param);
 	}
 	nk_input_end(param->graph->ctx);
