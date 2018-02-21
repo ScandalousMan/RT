@@ -20,14 +20,14 @@
 #  define M_PI 3.141592653589793238462643383279
 # endif
 # define SPECULAR_EXP 8
-# define ESCAPE 53
-# define REFRESH 15
-# define RIGHT 124
-# define LEFT 123
-# define TOP 126
-# define BOTTOM 125
-# define ZOOM_IN 44
-# define ZOOM_OUT 24
+// # define ESCAPE 53
+// # define REFRESH 15
+// # define RIGHT 124
+// # define LEFT 123
+// # define TOP 126
+// # define BOTTOM 125
+// # define ZOOM_IN 44
+// # define ZOOM_OUT 24
 # define BRIGHTNESS 11
 # define EPSILON 0.001
 # define ROTATION 10.0
@@ -355,7 +355,6 @@ double			cylindre_second_term(t_object *tmp, double *to);
 double			cylindre_third_term(t_object *tmp);
 
 void			ft_putvec(double *x);
-int				my_key_func(int keycode, t_param *param);
 void			eye_rotation(double alpha, double beta, double gamma, t_param *param);
 void			rotation_matrice(double alpha, double beta, double gamma, t_param *param);
 /*
