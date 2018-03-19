@@ -6,7 +6,7 @@
 /*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/21 17:02:46 by malexand          #+#    #+#             */
-/*   Updated: 2017/11/08 18:37:30 by jbouille         ###   ########.fr       */
+/*   Updated: 2018/03/19 18:03:36 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ int		main(int ac, char **av)
 		filename = "rtv1.json";
 	if (!(param = struct_create()))
 		return (-1);
+	param->to_pix = 0;//todo change
+	param->last_mv = clock();//todo change
 	param->start = clock();//TODO delete
 	if ((param->graph = graph_init()) == NULL)
 		error(0, 0, "Can't allocate graph struct");
@@ -64,9 +66,15 @@ int		main(int ac, char **av)
 	while (param->graph->input[SDL_SCANCODE_ESCAPE] == FALSE)
 	{
 		sdl_pull_evts(param);
+		if (param->to_pix && ((double)(clock() - param->last_mv) / (double)CLOCKS_PER_SEC) > 0.4)
+		{
+			param->to_pix = 0;
+			param->refresh = 1;
+		}
 		nukl_gui(param->graph);
 		if (param->refresh == 1)
 		{
+			lauch_threads(param);
 			sdl_draw(param->graph);
 			param->end = clock();//TODO delete
 			printf("Render %.5lf secondes...\n", (double)(param->end - param->start) / CLOCKS_PER_SEC);

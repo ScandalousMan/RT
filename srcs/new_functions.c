@@ -88,9 +88,11 @@ int		ray_color(t_param *param, double *from, double *to, int index, t_path *path
 
 void	rt_tracer(t_param *param)
 {
-	int		col[3];
-	int		tmp_col;
-	int 	alias[2];
+	int			col[3];
+	int			tmp_col;
+	int 		alias[2];
+	const int	pixelisation = (param->to_pix) ? PIXELISATION : 1;
+	const int	db_antialiasing = 2 * ANTI_ALIASING;
 
 	param->i[0] = param->current_thread * WINDOW_SDL_HEIGHT / NB_THREAD;
 	while (param->i[0] < (param->current_thread + 1) * WINDOW_SDL_HEIGHT / NB_THREAD)
@@ -98,9 +100,7 @@ void	rt_tracer(t_param *param)
 		param->i[1] = 0;
 		while (param->i[1] < WINDOW_SDL_WIDTH)
 		{
-			col[0] = 0;
-			col[1] = 0;
-			col[2] = 0;
+			ft_bzero(col, sizeof(int) * 3);
 			alias[0] = 0;
 			while (alias[0] < ANTI_ALIASING)
 			{
@@ -114,15 +114,28 @@ void	rt_tracer(t_param *param)
 					col[0] += (tmp_col >> 16) & 0xFF;
 					col[1] += (tmp_col >> 8) & 0xFF;
 					col[2] += (tmp_col) & 0xFF;
-					alias[1]++;
+					++alias[1];
 				}
-				alias[0]++;
+				++alias[0];
 			}
-			putpxl(param, param->i[0], param->i[1], rgb_color((unsigned char)(col[0] / ANTI_ALIASING / ANTI_ALIASING),
-				(unsigned char)(col[1] / ANTI_ALIASING / ANTI_ALIASING),
-				(unsigned char)(col[2] / ANTI_ALIASING / ANTI_ALIASING)));
-			param->i[1]++;
+			int y;
+			y = 0;
+			while (y < pixelisation)
+			{
+				int	x;
+				x = 0;
+				while (x < pixelisation)
+				{
+					putpxl(param, param->i[0] + x, param->i[1] + y, rgb_color(
+						(unsigned char)(col[0] / db_antialiasing),
+						(unsigned char)(col[1] / db_antialiasing),
+						(unsigned char)(col[2] / db_antialiasing)));
+					++x;
+				}
+			++y;
+			}
+			param->i[1] += pixelisation;
 		}
-		param->i[0]++;
+		param->i[0] += pixelisation;
 	}
 }

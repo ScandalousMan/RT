@@ -6,7 +6,7 @@
 /*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/25 09:46:28 by malexand          #+#    #+#             */
-/*   Updated: 2017/11/19 23:58:20 by alex             ###   ########.fr       */
+/*   Updated: 2018/03/16 15:29:47 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void	sdl_pull_evts(t_param *param)
 			param->graph->input[SDL_SCANCODE_ESCAPE] = TRUE;
 		if (evt.type == SDL_KEYDOWN) {
 			param->graph->input[evt.key.keysym.scancode] = TRUE;
+			my_key_func(evt.key.keysym.sym, param);
 			param->refresh = 1;
 		}
 		if (evt.type == SDL_KEYUP)

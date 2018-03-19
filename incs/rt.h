@@ -6,7 +6,7 @@
 /*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 16:39:54 by aguemy            #+#    #+#             */
-/*   Updated: 2017/11/20 00:03:58 by alex             ###   ########.fr       */
+/*   Updated: 2018/03/19 17:30:46 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,9 @@
 # define ZOOM_OUT 24
 # define BRIGHTNESS 11
 # define EPSILON 0.001
-# define ROTATION 30.0
+# define ROTATION 10.0
+
+# define PIXELISATION	8
 
 # define RECURSION 1
 # define MAX_RECURSION 0
@@ -258,6 +260,9 @@ typedef struct	s_param
 
 	double			ia;//intensité de la lumiere ambiante
 	double			m[VEC_SIZE];//triplet intermediaire pour calculs ombres
+
+	int				to_pix;
+	clock_t			last_mv;
 }				t_param;
 
 /*

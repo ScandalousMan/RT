@@ -6,7 +6,7 @@
 /*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/26 16:48:16 by malexand          #+#    #+#             */
-/*   Updated: 2017/11/20 00:15:55 by alex             ###   ########.fr       */
+/*   Updated: 2018/03/16 15:42:10 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	putpxl(t_param *param, int y, int x, Uint32 pixel)
 	int		num_surf;
 	Uint8	*p;
 
+	if (x >= WINDOW_SDL_WIDTH || y >= WINDOW_SDL_HEIGHT)
+		return;
 	if (y != 0) {
 		num_surf = y / (WINDOW_SDL_HEIGHT / NB_THREAD);
 		if (num_surf != 0)

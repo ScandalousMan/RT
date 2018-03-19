@@ -6,7 +6,7 @@
 /*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 16:38:39 by aguemy            #+#    #+#             */
-/*   Updated: 2017/10/29 18:55:24 by jbouille         ###   ########.fr       */
+/*   Updated: 2018/03/19 19:24:54 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,28 +19,20 @@ void	free_objects(t_param *param)
 	while (param && param->objects)
 	{
 		tmp = param->objects->next;
-//		free(param->objects->tmp_vec);
 		if (param->objects->type == 1)
 		{
-//			free (((t_sphere*)(param->objects->dim))->center);
 			free ((t_sphere*)(param->objects->dim));
 		}
 		else if (param->objects->type == 2)
 		{
-//			free (((t_plane*)(param->objects->dim))->n);
-//			free (((t_plane*)(param->objects->dim))->ref);
 			free ((t_plane*)(param->objects->dim));
 		}
 		else if (param->objects->type == 3)
 		{
-//			free (((t_cone*)(param->objects->dim))->org);
-//			free (((t_cone*)(param->objects->dim))->u);
 			free ((t_cone*)(param->objects->dim));
 		}
 		else if (param->objects->type == 4)
 		{
-//			free (((t_cylindre*)(param->objects->dim))->org);
-//			free (((t_cylindre*)(param->objects->dim))->u);
 			free ((t_cylindre*)(param->objects->dim));
 		}
 		free(param->objects);
@@ -55,7 +47,6 @@ void	free_lights(t_param *param)
 	while (param && param->lights)
 	{
 		tmp = param->lights->next;
-//		free(param->lights->src);
 		free(param->lights);
 		param->lights = tmp;
 	}
@@ -65,13 +56,6 @@ void	free_path(t_path *path)
 {
 	if (path)
 	{
-//		free(path->from);
-//		free(path->v);
-//		free(path->x);
-//		free(path->n);
-//		free(path->l);
-//		free(path->r);
-//		free(path->t);
 		free_path(path->reflected);
 		free_path(path->transmitted);
 		free(path);
@@ -80,16 +64,6 @@ void	free_path(t_path *path)
 
 void	end_program(t_param *param)
 {
-//	free(param->eye);
-//	free(param->look);
-//	free(param->align);
-//	free(param->third);
-//	free(param->tmp_vec);
-//	free(param->i);
-//	free(param->rot[0]);
-//	free(param->rot[1]);
-//	free(param->rot[2]);
-//	free(param->rot);
 	free_objects(param);
 	free_lights(param);
 	free_path(param->path);
@@ -102,6 +76,35 @@ void	rotation_matrice(double alpha, double beta, double gamma, t_param *param)
 	alpha = alpha * M_PI / 180.0;
 	beta = beta * M_PI / 180.0;
 	gamma = gamma * M_PI / 180.0;
+/*
+	if (alpha != 0.0)
+	{
+		ft_putendl("alpha");
+		param->rot[0][0] = 1.0;
+		param->rot[1][1] = cos(alpha);
+		param->rot[1][2] = sin(alpha);
+		param->rot[2][1] = -sin(alpha);
+		param->rot[2][2] = cos(alpha);
+	}
+	if (beta != 0.0)
+	{
+		ft_putendl("beta");
+		param->rot[0][0] = cos(beta);
+		param->rot[0][2] = -sin(beta);
+		param->rot[1][1] = 1.0;
+		param->rot[2][0] = sin(beta);
+		param->rot[2][2] = cos(beta);
+	}
+	if (gamma != 0.0)
+	{
+		ft_putendl("gamma");
+		param->rot[0][0] = cos(gamma);
+		param->rot[0][1] = sin(gamma);
+		param->rot[1][0] = -sin(gamma);
+		param->rot[1][1] = cos(gamma);
+		param->rot[2][2] = 1.0;
+	}
+*/
 	param->rot[0][0] = cos(beta) * cos(gamma);
 	param->rot[0][1] = -1.0 * cos(beta) * sin(gamma);
 	param->rot[0][2] = sin(beta);
@@ -129,60 +132,64 @@ void	eye_rotation(double alpha, double beta, double gamma, t_param *param)
 	ft_putvec(param->look);
 	ft_putstr("\nalign:\n");
 	ft_putvec(param->align);
+	ft_putstr("\nthird:\n");
+	ft_putvec(param->third);
 	ft_putchar('\n');
 	matrice_product(param->rot, param->align, param->align);
+//	matrice_product(param->rot, param->third, param->third);
 	vec_to_unit_norm(vector_product(param->align, param->look, param->third));
 }
 
 int		my_key_func(int keycode, t_param *param)
 {
+	param->to_pix = 1;
 	if (keycode == ESCAPE)
 		end_program(param);
-	else if (keycode == RIGHT) //droite
+	else if (keycode == SDLK_RIGHT) //droite
 	{
 		param->eye[0] += 10;
 	}
-	else if (keycode == LEFT) //gauche
+	else if (keycode == SDLK_LEFT) //gauche
 	{
 		param->eye[0] -= 10;
 	}
-	else if (keycode == TOP) //haut
+	else if (keycode == SDLK_UP) //haut
 	{
 		param->eye[2] += 10;
 	}
-	else if (keycode == BOTTOM) //bas
+	else if (keycode == SDLK_DOWN) //bas
 	{
 		param->eye[2] -= 10;
 	}
-	else if (keycode == ZOOM_IN) //zoom in
+	else if (keycode == SDLK_KP_PLUS) //zoom in
 	{
 		param->eye[1] += 10;
 	}
-	else if (keycode == ZOOM_OUT) //zoom out
+	else if (keycode == SDLK_KP_MINUS) //zoom out
 	{
 		param->eye[1] -= 10;
 	}
-	else if (keycode == 0)
+	else if (keycode == SDLK_a)
 	{
 		eye_rotation(0.0, 0.0, ROTATION, param);
 	}
-	else if (keycode == 13)
+	else if (keycode == SDLK_q)
 	{
 		eye_rotation(ROTATION, 0.0, 0.0, param);
 	}
-	else if (keycode == 1)
+	else if (keycode == SDLK_w)
 	{
 		eye_rotation(-ROTATION, 0.0, 0.0, param);
 	}
-	else if (keycode == 2)
+	else if (keycode == SDLK_s)
 	{
 		eye_rotation(0.0, 0.0, -ROTATION, param);
 	}
-	else if (keycode == 6)
+	else if (keycode == SDLK_z)
 	{
 		eye_rotation(0.0, -ROTATION, 0.0, param);
 	}
-	else if (keycode == 7)
+	else if (keycode == SDLK_x)
 	{
 		eye_rotation(0.0, ROTATION, 0.0, param);
 	}
@@ -211,5 +218,6 @@ int		my_key_func(int keycode, t_param *param)
 	{
 		rt_tracer(param);
 	}
+	param->last_mv = clock();
 	return (0);
 }

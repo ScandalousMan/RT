@@ -6,7 +6,7 @@
 /*   By: aguemy <aguemy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/19 11:06:30 by aguemy            #+#    #+#             */
-/*   Updated: 2017/11/06 14:52:07 by jbouille         ###   ########.fr       */
+/*   Updated: 2018/03/19 19:02:59 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 
 double	vec_norm(double *v)
 {
-	if (v)
-		return (sqrt(v[0] * v[0] + v[1] * v[1] + v[2] * v[2]));
-	return (0.0);
+	return (sqrt(v[0] * v[0] + v[1] * v[1] + v[2] * v[2]));
 }
 
 double	*vec_to_unit_norm(double *v)
 {
-	if (vec_norm(v) == 0.0)
+	const double	norm = vec_norm(v);
+
+	if (norm == 0.0)
 		return (v);
-	return (vec_multiply(1.0 / vec_norm(v), v, v));
+	return (vec_multiply(1.0 / norm, v, v));
 }
 
 //TODO delete? replace pt_dist by pt_dist_root: pt_dist_root = pt_dist * pt_dist
@@ -57,12 +57,8 @@ double	*vec_multiply(double a, double *vec, double *container)
 
 double	*vec_soustraction(double *x, double *y, double *container)
 {
-	if (x && y && container)
-	{
-		container[0] = x[0] - y[0];
-		container[1] = x[1] - y[1];
-		container[2] = x[2] - y[2];
-		return (container);
-	}
-	return (NULL);
+	container[0] = x[0] - y[0];
+	container[1] = x[1] - y[1];
+	container[2] = x[2] - y[2];
+	return (container);
 }

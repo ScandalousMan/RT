@@ -6,7 +6,7 @@
 /*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/27 15:05:21 by malexand          #+#    #+#             */
-/*   Updated: 2017/11/08 14:31:12 by jbouille         ###   ########.fr       */
+/*   Updated: 2018/03/16 15:53:24 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ t_param		*param_cpy(t_param *param, int count)
 	
 	if (!(param_cpy = struct_create()))
 			error(0, 0, "Init param for multi thread failed!");
+	param_cpy->to_pix = param->to_pix;
+	param_cpy->last_mv = param->last_mv;
 	param_cpy->graph = param->graph;
 	param_cpy->current_thread = count;
 	ft_memcpy(&(param_cpy->eye), &(param->eye), VEC_SIZE * sizeof(double));
@@ -50,12 +52,12 @@ void		lauch_threads(t_param *param)
 	int			count;
 	int			threadReturnValue;
 	char		*name;
-	t_param		**params;
+	t_param		*params[NB_THREAD];
 
 	count = 0;
 	name = ft_strdup("Thread0");
-	if (!(params = (t_param**)malloc(sizeof(t_param*) * NB_THREAD)))
-		error(0, 0, "Alloc all thread not work");
+//	if (!(params = (t_param**)malloc(sizeof(t_param*) * NB_THREAD)))
+//		error(0, 0, "Alloc all thread not work");
 	while (count < NB_THREAD)
 	{
 		params[count] = param_cpy(param, count);
@@ -72,7 +74,7 @@ void		lauch_threads(t_param *param)
 		count++;
 	}
 	param->end = clock();//TODO delete
-	printf("Create threads %.5lf secondes...\n", (double)(param->end - start) / CLOCKS_PER_SEC);
+//	printf("Create threads %.5lf secondes...\n", (double)(param->end - start) / CLOCKS_PER_SEC);
 	start = clock();//TODO delete
 	count = 0;
 	while (count < NB_THREAD)
@@ -84,5 +86,5 @@ void		lauch_threads(t_param *param)
 	}
 	ft_strdel(&name);
 	param->end = clock();//TODO delete
-	printf("Calculs %.5lf secondes...\n", (double)(param->end - start) / CLOCKS_PER_SEC);
+//	printf("Calculs %.5lf secondes...\n", (double)(param->end - start) / CLOCKS_PER_SEC);
 }
