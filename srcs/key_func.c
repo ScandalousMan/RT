@@ -6,7 +6,7 @@
 /*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 16:38:39 by aguemy            #+#    #+#             */
-/*   Updated: 2018/03/19 19:24:54 by jbouille         ###   ########.fr       */
+/*   Updated: 2018/03/20 20:15:21 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	free_objects(t_param *param)
 {
 	t_object	*tmp;
+	t_limit		*l_tmp;
 
 	while (param && param->objects)
 	{
@@ -34,6 +35,15 @@ void	free_objects(t_param *param)
 		else if (param->objects->type == 4)
 		{
 			free ((t_cylindre*)(param->objects->dim));
+		}
+		if (param->objects->limit)
+		{
+			l_tmp = param->objects->limit->next;
+			while (l_tmp)
+			{
+				free(param->objects->limit);
+				param->objects->limit = l_tmp;
+			}
 		}
 		free(param->objects);
 		param->objects = tmp;

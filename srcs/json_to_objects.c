@@ -6,7 +6,7 @@
 /*   By: jbouille <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 17:32:22 by jbouille          #+#    #+#             */
-/*   Updated: 2017/11/13 18:34:41 by jbouille         ###   ########.fr       */
+/*   Updated: 2018/03/20 19:27:27 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,9 @@ int	is_type(void* value, t_jtype jtype, t_rt_type type, t_rt_type subtype)
 				&& is_object((t_jobject*)value, g_customobj_keys, RT_KEYS_SIZE(g_customobj_keys), 0));
 	else if (type == RTSIGN)
 		return (jtype == JSTRING && ft_strlen((char*)value) == 1 && (((char*)value)[0] == '-' || ((char*)value)[0] == '+'));
+	else if (type == RTLIMIT)
+		return (jtype == JOBJECT
+				&& is_object((t_jobject*)value, g_plan_keys, RT_KEYS_SIZE(g_plan_keys), 0));
 	return (0);
 }
 

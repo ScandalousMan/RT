@@ -6,7 +6,7 @@
 /*   By: jbouille <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 15:43:31 by jbouille          #+#    #+#             */
-/*   Updated: 2017/11/15 17:02:41 by jbouille         ###   ########.fr       */
+/*   Updated: 2018/03/20 20:05:52 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #include <rt_objects.h>
 #include <libft.h>
 #include <stdlib.h>
+
+void	fill_vector(double vector[1][VEC_SIZE], t_jarray *array);
 
 t_custom	*get_custom_ptr(char *name, t_custom *list)
 {
@@ -80,6 +82,31 @@ double	get_double(t_jtype type, void *value)
 {
 	return ((type == JINT) ?
 			(double)(*(int*)(value)) : (double)(*((double*)value)));
+}
+
+t_limit	*get_limits(t_jarray *array)
+{
+	t_limit		*limits;
+	t_limit		*new;
+	t_jarray	*tmp;
+	t_jobject	*obj;
+
+	limits = NULL;
+	tmp = array;
+	while (tmp)
+	{
+		if (!(new = (t_limit*)malloc(sizeof(t_limit))))
+			return (NULL);//error;
+		obj = get_jobject(tmp->value, "normal");
+		fill_vector(&new->plane.n, obj->value);
+		obj = get_jobject(tmp->value, "point");
+		fill_vector(&new->plane.ref, obj->value);
+		printf("REF: %f, %f, %f\n", new->plane.ref[0], new->plane.ref[1], new->plane.ref[2]);
+		new->next = limits;
+		limits = new;
+		tmp = tmp->next;
+	}
+	return (limits);
 }
 
 void	fill_vector(double vector[1][VEC_SIZE], t_jarray *array)
@@ -234,6 +261,9 @@ int	fill_object(t_object *obj, t_jobject *jobj, int num, t_param *param)
 	obj->index = get_double(tmp->type, tmp->value);
 	tmp = get_jobject(jobj, "thickness");
 	obj->thickness = get_double(tmp->type, tmp->value);
+
+	tmp = get_jobject(jobj, "limits");
+	obj->limit = get_limits(tmp->value);
 	
 	tmp = get_jobject(jobj, "texture");//JSON_OBJECT
 //	obj->texture = ;//NOT EXISTS FOR THE MOMENT

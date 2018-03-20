@@ -6,7 +6,7 @@
 /*   By: jbouille <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 14:13:11 by jbouille          #+#    #+#             */
-/*   Updated: 2017/11/14 12:25:36 by jbouille         ###   ########.fr       */
+/*   Updated: 2018/03/20 19:27:47 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ typedef enum			e_rt_type
 	RTN,
 	RTCUSTOM,
 	RTCUSTOMOBJ,
-	RTSIGN
+	RTSIGN,
+	RTLIMIT
 }						t_rt_type;
 
 typedef struct			s_key
@@ -85,7 +86,8 @@ const t_key				g_common_keys[] = {
 	{"n", RTN, RTNULL},
 	{"thickness", RTCOEF, RTNULL},
 	{"translation", RTVECTOR, RTDOUBLE},
-	{"rotation", RTVECTOR, RTDOUBLE}
+	{"rotation", RTVECTOR, RTDOUBLE},
+	{"limits", RTARRAY, RTLIMIT}
 };
 
 const t_key				g_plan_keys[] = {
@@ -171,9 +173,9 @@ const t_object_def		g_objects[] = {
 #else
 
 extern const t_object_def		g_objects[6];
-extern const t_key				g_common_keys[11];
+extern const t_key				g_common_keys[12];
 extern const t_key				g_sphere_keys[];
-extern const t_key				g_plan_keys[];
+extern const t_key				g_plan_keys[2];
 extern const t_key				g_cone_keys[];
 extern const t_key				g_cylinder_keys[];
 extern const t_key				g_quadric_keys[];
