@@ -6,7 +6,7 @@
 /*   By: jbouille <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/23 10:13:19 by jbouille          #+#    #+#             */
-/*   Updated: 2017/10/26 01:44:30 by jbouille         ###   ########.fr       */
+/*   Updated: 2018/03/20 17:54:28 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,15 +66,5 @@ typedef struct			s_func_type
 	t_jtype				type;
 	char				*(*f)(char*, void**);
 }						t_func_type;
-/*
-const t_func_type		g_func_parse[] = {
-	{JSTRING, &parse_jstring},
-	{JOBJECT, &parse_jobject},
-	{JARRAY, &parse_jarray},
-	{JINT, &parse_jint},
-	{JDOUBLE, &parse_jdouble},
-	{JBOOL, &parse_jbool},
-	{JNULL, &parse_jnull}
-};
-*/
+
 #endif

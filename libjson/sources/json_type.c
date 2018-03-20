@@ -6,7 +6,7 @@
 /*   By: jbouille <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 00:40:09 by jbouille          #+#    #+#             */
-/*   Updated: 2017/10/26 00:46:34 by jbouille         ###   ########.fr       */
+/*   Updated: 2018/03/20 19:05:37 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ int		ft_isjint(char *json)
 	int	i;
 
 	i = 0;
-	while (json && json[i] != '\0' && json[i] != ',' && json[i] != ']' && json[i] != '}')
+	while (json && json[i] != '\0' && json[i] != ','
+			&& json[i] != ']' && json[i] != '}')
 	{
 		if (i == 0 && json[i] == '-')
 			;
@@ -31,27 +32,28 @@ int		ft_isjint(char *json)
 	return (i);
 }
 
-int		ft_isjdouble(char *json)
+int		ft_isjdouble(char *j)
 {
 	int	i;
 
 	i = 0;
-	while (json && json[i] != '\0' && json[i] != '.' && json[i] != ',' && json[i] != ']' && json[i] != '}')
+	while (j && j[i] != '\0' && j[i] != '.'
+			&& j[i] != ',' && j[i] != ']' && j[i] != '}')
 	{
-		if (i == 0 && json[i] == '-')
+		if (i == 0 && j[i] == '-')
 			;
-		else if (ft_isdigit(json[i]) == 0)
+		else if (ft_isdigit(j[i]) == 0)
 			return (0);
 		++i;
 	}
-	if (json && i == 1 && json[0] == '-')
+	if (j && i == 1 && j[0] == '-')
 		return (0);
-	if (json && json[i] == '.')
+	if (j && j[i] == '.')
 	{
 		++i;
-		while (json && json[i] != '\0' && json[i] != ',' && json[i] != ']' && json[i] != '}')
+		while (j && j[i] != '\0' && j[i] != ',' && j[i] != ']' && j[i] != '}')
 		{
-			if (ft_isdigit(json[i]) == 0)
+			if (ft_isdigit(j[i]) == 0)
 				return (0);
 			++i;
 		}
@@ -59,7 +61,7 @@ int		ft_isjdouble(char *json)
 	return (i);
 }
 
-t_jtype		get_type(char *json)
+t_jtype	get_type(char *json)
 {
 	if (json)
 	{

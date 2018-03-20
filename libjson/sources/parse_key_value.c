@@ -6,7 +6,7 @@
 /*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 00:28:41 by jbouille          #+#    #+#             */
-/*   Updated: 2017/11/15 12:31:13 by alex             ###   ########.fr       */
+/*   Updated: 2018/03/20 18:55:20 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <libft.h>
-
 #include <parse_number.h>
 #include <parse_string.h>
 #include <parse_array_object.h>
+
 const t_func_type		g_func_parse[] = {
 	{JSTRING, &parse_jstring},
 	{JOBJECT, &parse_jobject},
@@ -29,7 +29,19 @@ const t_func_type		g_func_parse[] = {
 	{JNULL, &parse_jnull}
 };
 
-char	*get_key(char *json, t_jstring *key)
+char					*extract_string(char *s)
+{
+	char	*str;
+
+	if ((str = ft_strdup(s)) == NULL)
+	{
+		perror(NULL);
+		exit(EXIT_FAILURE);
+	}
+	return (str);
+}
+
+char					*get_key(char *json, t_jstring *key)
 {
 	char	tmp;
 	int		i;
@@ -46,11 +58,7 @@ char	*get_key(char *json, t_jstring *key)
 			{
 				tmp = json[i];
 				json[i] = '\0';
-				if ((*key = ft_strdup(json + 1)) == NULL)
-				{
-					perror(NULL);
-					exit(EXIT_FAILURE);
-				}
+				*key = extract_string(json + 1);
 				json[i] = tmp;
 				*key = escape_chars(*key);
 				return (json + i + 1);
@@ -61,7 +69,25 @@ char	*get_key(char *json, t_jstring *key)
 	return (NULL);
 }
 
-char	*get_value(char *json, t_jtype *type, void **value)
+void					debug(char *json, t_jtype *type, void **value)
+{
+	if (*value)
+	{
+		if (*type == JSTRING)
+			printf("%p\n", *value);
+		else if (*type == JINT)
+			printf("%i\n", (int)(((int*)(*value))[0]));
+		else if (*type == JDOUBLE)
+			printf("%f\n", (double)(((double*)(*value))[0]));
+		else if (*type == JBOOL)
+			printf("%d\n", (t_jbool)(((t_jbool*)(*value))[0]));
+		else if (*type == JNULL)
+			printf("%p\n", *value);
+	}
+	printf("%s\n", json);
+}
+
+char					*get_value(char *json, t_jtype *type, void **value)
 {
 	size_t	i;
 
@@ -76,31 +102,16 @@ char	*get_value(char *json, t_jtype *type, void **value)
 		if (g_func_parse[i].type == *type)
 		{
 			json = (g_func_parse[i].f)(json, value);
-			printf("get_value: %s\n", json);
+			printf("get_value: %s\n", json);//todo delete
 			break ;
 		}
 		++i;
 	}
-
-	//DEBUG
-	if (*value)
-	{
-	if (*type == JSTRING)
-		printf("%p\n", *value);
-	else if (*type == JINT)
-		printf("%i\n", (int)(((int*)(*value))[0]));
-	else if (*type == JDOUBLE)
-		printf("%f\n", (double)(((double*)(*value))[0]));
-	else if (*type == JBOOL)
-		printf("%d\n", (t_jbool)(((t_jbool*)(*value))[0]));
-	else if (*type == JNULL)
-		printf("%p\n", *value);
-	}
-	printf("%s\n", json);
+	debug(json, type, value);//todo delete
 	return (json);
 }
 
-char	*parse_key_value(char *json, t_jobject **obj)
+char					*parse_key_value(char *json, t_jobject **obj)
 {
 	if (json == NULL)
 		return (NULL);
@@ -111,7 +122,6 @@ char	*parse_key_value(char *json, t_jobject **obj)
 	}
 	(*obj)->next = NULL;
 	(*obj)->value = NULL;
-//	printf("avant get key: %s\n", json);
 	json = get_key(json, &((*obj)->key));
 	printf("%s\n", (char*)((*obj)->key));
 	if (json && json[0] == ':')
