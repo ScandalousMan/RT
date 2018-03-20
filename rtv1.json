@@ -37,6 +37,7 @@
 			"thickness": 0.5,
 			"translation": [0, 0, 0],
 			"rotation": [0, 0, 0],
+			"limits": [],
 	
 			"center": [15, 0, -15],
 			"radius": 7.0
@@ -57,6 +58,7 @@
 			"thickness": 0.5,
 			"translation": [0, 0, 0],
 			"rotation": [0, 0, 0],
+			"limits": [],
 	
 			"center": [-20, -30, -15],
 			"radius": 5.0
@@ -77,6 +79,7 @@
 			"thickness": 0.5,
 			"translation": [0, 0, 0],
 			"rotation": [0, 0, 0],
+			"limits": [],
 	
 			"center": [30, -10, 40],
 			"radius": 4.0
@@ -97,6 +100,7 @@
 			"thickness": 0.5,
 			"translation": [0, 0, 0],
 			"rotation": [0, 0, 0],
+			"limits": [],
 	
 			"center": [60, -70, -50],
 			"radius": 11.0
@@ -118,6 +122,7 @@
 			"thickness": 0.5,
 			"translation": [0, 100, 0],
 			"rotation": [0, 0, 0],
+			"limits": [],
 
 			"normal": [0, 1, 0],
 			"point": [0, 100, 0]
@@ -138,6 +143,7 @@
 			"thickness": 0.5,
 			"translation": [0, 0, 0],
 			"rotation": [0, 0, 0],
+			"limits": [],
 
 			"normal": [1, 0, 0],
 			"point": [100, 0, 0]
@@ -158,6 +164,7 @@
 			"thickness": 0.5,
 			"translation": [0, 0, 0],
 			"rotation": [0, 0, 0],
+			"limits": [],
 
 			"normal": [1, 0, 0],
 			"point": [-100, 0, 0]
@@ -178,6 +185,7 @@
 			"thickness": 0.5,
 			"translation": [0, 0, 0],
 			"rotation": [0, 45, 0],
+			"limits": [],
 
 			"normal": [0, 0, 1],
 			"point": [0, 0, 100]
@@ -198,6 +206,7 @@
 			"thickness": 0.5,
 			"translation": [0, 0, 0],
 			"rotation": [0, 0, 0],
+			"limits": [],
 
 			"normal": [0, 0, 1],
 			"point": [0, 0, -100]
@@ -219,6 +228,7 @@
 			"thickness": 0.5,
 			"translation": [10, 0, 0],
 			"rotation": [0, 45, 0],
+			"limits": [],
 
 			"center": [-50, -70, 50],
 			"vector": [0, 0, 1],
@@ -241,6 +251,7 @@
 			"thickness": 0.5,
 			"translation": [0, 30, 0],
 			"rotation": [60, 0, 0],
+			"limits": [],
 
 			"center": [50, -30, 0],
 			"vector": [0, 0, 1],

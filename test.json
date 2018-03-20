@@ -37,6 +37,7 @@
 			"thickness": 0,
 			"translation": [0, 0, 0],
 			"rotation": [0, 0, 0],
+			"limits": [],
 	
 			"center": [15, 0, -15],
 			"radius": 57.0

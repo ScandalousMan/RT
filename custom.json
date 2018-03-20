@@ -40,6 +40,7 @@
 						"thickness": 0.5,
 						"translation": [0, 0, 0],
 						"rotation": [0, 0, 0],
+						"limits": [],
 	
 						"center": [15, 0, -15],
 						"radius": 7.0
@@ -63,6 +64,7 @@
 						"thickness": 0.5,
 						"translation": [0, 0, 0],
 						"rotation": [0, 0, 0],
+						"limits": [],
 	
 						"center": [15, 0, -15],
 						"name": "test0"
@@ -91,6 +93,7 @@
 						"thickness": 0.5,
 						"translation": [0, 0, 0],
 						"rotation": [0, 0, 0],
+						"limits": [],
 	
 						"center": [15, 0, -15],
 						"radius": 7.0
@@ -115,6 +118,7 @@
 						"thickness": 0.5,
 						"translation": [0, 0, 0],
 						"rotation": [0, 0, 0],
+						"limits": [],
 	
 						"center": [15, 0, -15],
 						"name": "test0"
@@ -139,6 +143,7 @@
 						"thickness": 0.5,
 						"translation": [10, 0, 0],
 						"rotation": [0, 45, 0],
+						"limits": [],
 
 						"center": [-50, -70, 50],
 						"vector": [0, 0, 1],
@@ -166,6 +171,16 @@
 			"thickness": 0.5,
 			"translation": [0, 0, 0],
 			"rotation": [0, 0, 0],
+			"limits": [
+				{
+					"point": [1.5, 9, 3],
+					"normal": [34, 7.8, 4]
+				},
+				{
+					"point": [3.5, 5, 1],
+					"normal": [56, 4.2, 6]
+				}
+			],
 	
 			"center": [15, 0, -15],
 			"radius": 57.0
@@ -187,6 +202,7 @@
 			"thickness": 0.5,
 			"translation": [0, 0, 0],
 			"rotation": [0, 0, 0],
+			"limits": [],
 	
 			"center": [15, 0, -15],
 			"radius": 857.0
@@ -208,6 +224,7 @@
 			"thickness": 0.5,
 			"translation": [10, 0, 80],
 			"rotation": [0, 0, 0],
+			"limits": [],
 	
 			"center": [15, 0, -15],
 			"radius": 50.0
@@ -229,6 +246,7 @@
 			"thickness": 0.5,
 			"translation": [10, 0, 0],
 			"rotation": [0, 45, 0],
+			"limits": [],
 
 			"center": [-50, -70, 50],
 			"vector": [0, 0, 1],
@@ -251,6 +269,7 @@
 			"thickness": 0.5,
 			"translation": [10, 0, 0],
 			"rotation": [0, 45, 0],
+			"limits": [],
 
 			"center": [-50, -70, 50],
 			"name": "test"
@@ -272,6 +291,7 @@
 			"thickness": 0.5,
 			"translation": [0, 30, 0],
 			"rotation": [60, 0, 0],
+			"limits": [],
 
 			"center": [50, -30, 0],
 			"vector": [0, 0, 1],
