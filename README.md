@@ -1,4 +1,4 @@
-https://travis-ci.org/ScandalousMan/RT.svg?branch=master
+[![Build Status](https://travis-ci.org/ScandalousMan/RT.svg?branch=master)](https://travis-ci.org/ScandalousMan/RT)
 # RT
 Ray Tracing group project for School 42
 
