@@ -81,40 +81,29 @@ void	end_program(t_param *param)
 	exit(0);
 }
 
+void	rotation_axis_matrice(double angle, double *axis, t_param *param)
+{
+	double	c;
+	double	s;
+
+	c = cos(angle * M_PI / 180.0);
+	s = sin(angle * M_PI / 180.0);
+	param->rot[0][0] = axis[0] * axis[0] * (1.0 - c) + c;
+	param->rot[0][1] = axis[0] * axis[1] * (1.0 - c) - axis[2] * s;
+	param->rot[0][2] = axis[0] * axis[2] * (1.0 - c) + axis[1] * s;
+	param->rot[1][0] = axis[0] * axis[1] * (1.0 - c) + axis[2] * s;
+	param->rot[1][1] = axis[1] * axis[1] * (1.0 - c) + c;
+	param->rot[1][2] = axis[1] * axis[2] * (1.0 - c) - axis[0] * s;
+	param->rot[2][0] = axis[0] * axis[2] * (1.0 - c) - axis[1] * s;
+	param->rot[2][1] = axis[1] * axis[2] * (1.0 - c) + axis[0] * s;
+	param->rot[2][2] = axis[2] * axis[2] * (1.0 - c) + c;
+}
+
 void	rotation_matrice(double alpha, double beta, double gamma, t_param *param)
 {
 	alpha = alpha * M_PI / 180.0;
 	beta = beta * M_PI / 180.0;
 	gamma = gamma * M_PI / 180.0;
-/*
-	if (alpha != 0.0)
-	{
-		ft_putendl("alpha");
-		param->rot[0][0] = 1.0;
-		param->rot[1][1] = cos(alpha);
-		param->rot[1][2] = sin(alpha);
-		param->rot[2][1] = -sin(alpha);
-		param->rot[2][2] = cos(alpha);
-	}
-	if (beta != 0.0)
-	{
-		ft_putendl("beta");
-		param->rot[0][0] = cos(beta);
-		param->rot[0][2] = -sin(beta);
-		param->rot[1][1] = 1.0;
-		param->rot[2][0] = sin(beta);
-		param->rot[2][2] = cos(beta);
-	}
-	if (gamma != 0.0)
-	{
-		ft_putendl("gamma");
-		param->rot[0][0] = cos(gamma);
-		param->rot[0][1] = sin(gamma);
-		param->rot[1][0] = -sin(gamma);
-		param->rot[1][1] = cos(gamma);
-		param->rot[2][2] = 1.0;
-	}
-*/
 	param->rot[0][0] = cos(beta) * cos(gamma);
 	param->rot[0][1] = -1.0 * cos(beta) * sin(gamma);
 	param->rot[0][2] = sin(beta);
@@ -128,25 +117,14 @@ void	rotation_matrice(double alpha, double beta, double gamma, t_param *param)
 
 void	eye_rotation(double alpha, double beta, double gamma, t_param *param)
 {
-	rotation_matrice(alpha, beta, gamma, param);
-	ft_putstr("\n1st line - rot\n");
-	ft_putvec(param->rot[0]);
-	ft_putstr("\n2nd line - rot\n");
-	ft_putvec(param->rot[1]);
-	ft_putstr("\n3rd line - rot\n");
-	ft_putvec(param->rot[2]);
-	ft_putstr("\nlook1:\n");
-	ft_putvec(param->look);
+	if (alpha)
+		rotation_axis_matrice(alpha, param->third, param);
+	else if (beta)
+		rotation_axis_matrice(beta, param->align, param);
+	else
+		rotation_axis_matrice(gamma, param->look, param);
 	matrice_product(param->rot, param->look, param->look);
-	ft_putstr("\nlook2:\n");
-	ft_putvec(param->look);
-	ft_putstr("\nalign:\n");
-	ft_putvec(param->align);
-	ft_putstr("\nthird:\n");
-	ft_putvec(param->third);
-	ft_putchar('\n');
 	matrice_product(param->rot, param->align, param->align);
-//	matrice_product(param->rot, param->third, param->third);
 	vec_to_unit_norm(vector_product(param->align, param->look, param->third));
 }
 
