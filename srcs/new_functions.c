@@ -43,11 +43,11 @@ int		object_color(t_param *param, t_path *path)
 double	*ray_direction(t_param *param, int i, int j)
 {
 	vec_multiply(param->f, param->look, param->path->v);
-	vec_multiply(((double)WINDOW_SDL_HEIGHT * ANTI_ALIASING / 2.0 - (double)i) * 40.0 /
-		(double)WINDOW_SDL_HEIGHT / ANTI_ALIASING, param->third, param->tmp_vec);
+	vec_multiply(((double)WINDOW_SDL_HEIGHT * param->macro.anti_aliasing / 2.0 - (double)i) * 40.0 /
+		(double)WINDOW_SDL_HEIGHT / param->macro.anti_aliasing, param->third, param->tmp_vec);
 	pt_translated(param->path->v, param->tmp_vec, param->path->v);
-	vec_multiply(((double)j - (double)WINDOW_SDL_WIDTH * ANTI_ALIASING / 2.0) * 40.0 /
-		(double)WINDOW_SDL_WIDTH / ANTI_ALIASING, param->align, param->tmp_vec);
+	vec_multiply(((double)j - (double)WINDOW_SDL_WIDTH * param->macro.anti_aliasing / 2.0) * 40.0 /
+		(double)WINDOW_SDL_WIDTH / param->macro.anti_aliasing, param->align, param->tmp_vec);
 	pt_translated(param->path->v, param->tmp_vec, param->path->v);
 	vec_to_unit_norm(param->path->v);
 	return (param->path->v);
@@ -93,7 +93,7 @@ void	rt_tracer(t_param *param)
 	int			tmp_col;
 	int 		alias[2];
 	const int	pixelisation = (param->to_pix) ? PIXELISATION : 1;
-	const int	db_antialiasing = 2 * ANTI_ALIASING;
+	const int	db_antialiasing = 2 * param->macro.anti_aliasing;
 
 	param->i[0] = param->current_thread * WINDOW_SDL_HEIGHT / NB_THREAD;
 	while (param->i[0] < (param->current_thread + 1) * WINDOW_SDL_HEIGHT / NB_THREAD)
@@ -103,14 +103,14 @@ void	rt_tracer(t_param *param)
 		{
 			ft_bzero(col, sizeof(int) * 3);
 			alias[0] = 0;
-			while (alias[0] < ANTI_ALIASING)
+			while (alias[0] < param->macro.anti_aliasing)
 			{
 				alias[1] = 0;
-				while (alias[1] < ANTI_ALIASING)
+				while (alias[1] < param->macro.anti_aliasing)
 				{
 					ray_direction(param,
-						ANTI_ALIASING * param->i[0] + alias[0],
-						ANTI_ALIASING * param->i[1] + alias[1]);
+						param->macro.anti_aliasing * param->i[0] + alias[0],
+						param->macro.anti_aliasing * param->i[1] + alias[1]);
 					tmp_col = ray_color(param, param->eye, param->path->v, 0, param->path);
 					col[0] += (tmp_col >> 16) & 0xFF;
 					col[1] += (tmp_col >> 8) & 0xFF;

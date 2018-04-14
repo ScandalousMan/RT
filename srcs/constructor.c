@@ -67,6 +67,7 @@ t_param			*struct_create(void)
 	param->num_lights = 0;
 	param->refresh = 1;
 	param->current_thread = 0;
+	param->macro.anti_aliasing = 2;
 	if (!pxl_infos_create(param))
 		return (NULL);
 	return (param);

@@ -20,14 +20,6 @@
 #  define M_PI 3.141592653589793238462643383279
 # endif
 # define SPECULAR_EXP 8
-// # define ESCAPE 53
-// # define REFRESH 15
-// # define RIGHT 124
-// # define LEFT 123
-// # define TOP 126
-// # define BOTTOM 125
-// # define ZOOM_IN 44
-// # define ZOOM_OUT 24
 # define BRIGHTNESS 11
 # define EPSILON 0.001
 # define ROTATION 10.0
@@ -37,7 +29,6 @@
 # define RECURSION 1
 # define MAX_RECURSION 0
 # define MIN_RECURSION 10
-# define ANTI_ALIASING 2
 # define MAX_ANTI_ALIASING 1
 # define MIN_ANTI_ALIASING 10
 # define CARTOON_FACTOR 25
@@ -76,7 +67,7 @@
 # include "nuklear.h"
 # include "nuklear_sdl_gl3.h"
 
-# define WINDOW_GUI_WIDTH 200
+# define WINDOW_GUI_WIDTH 600
 # define WINDOW_GUI_HEIGHT 800
 # define WINDOW_SDL_WIDTH 800
 # define WINDOW_SDL_HEIGHT 800
@@ -115,14 +106,7 @@ typedef struct					s_sdl
 }								t_sdl;
 
 # define VEC_SIZE 3
-/*
-typedef struct  s_parse
-{
-	char			*str;
-	int 			list_len;
-	struct s_parse	*next;
-}				t_parse;
-*/
+
 typedef struct	s_sphere
 {
 	double			center[VEC_SIZE];
@@ -225,14 +209,26 @@ typedef struct	s_custom
 	struct s_custom		*next;
 }				t_custom;
 
-typedef struct s_pxl_info
+typedef struct	s_pxl_info
 {
 	t_object		*object;
 	int					col;
 	int					calc_col;
 }				t_pxl_info;
 
-typedef struct	s_param
+typedef struct		s_macro
+{
+	float			anti_aliasing;
+	float			cartoon_factor;
+	float			blur_radius;
+	float 			k_ambient;
+	float			specular_exp;
+	float			brightness;
+	float			rotation_angle;
+	float			recursion;
+}					t_macro;
+
+typedef struct		s_param
 {
 	clock_t			start;//TODO delete
 	clock_t			end;//TODO delete
@@ -270,6 +266,8 @@ typedef struct	s_param
 
 	int				to_pix;
 	clock_t			last_mv;
+
+	t_macro			macro;
 }				t_param;
 
 /*

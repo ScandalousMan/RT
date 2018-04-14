@@ -21,6 +21,13 @@ void	nukl_gui(t_sdl *graph)
 		nk_layout_space_push(graph->ctx, nk_rect(15, 0, 160, 20));
 		if (nk_button_label(graph->ctx, "REFRESH"))
 			mprintf(1, "Refresh engaged\n");
+		// nk_layout_row_begin(graph->ctx, NK_STATIC, 30, 2);
+		// {
+		// 	nk_layout_row_push(graph->ctx, 50);
+		// 	nk_label(graph->ctx, "Volume:", NK_TEXT_LEFT);
+		// 	nk_layout_row_push(graph->ctx, 110);
+		// 	nk_slider_float(graph->ctx, 0, &, 1.0f, 0.1f);
+		// }
 		nk_layout_space_end(graph->ctx);
 	}
 	nk_end(graph->ctx);
