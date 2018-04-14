@@ -125,6 +125,7 @@ else
 endif
 
 fclean: clean
+	@pkill -9 RT | true
 	@make -C ./libft fclean
 	@make -C ./libjson fclean
 	@rm -f $(EXEC)
