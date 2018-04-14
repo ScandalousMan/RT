@@ -20,14 +20,14 @@
 #  define M_PI 3.141592653589793238462643383279
 # endif
 # define SPECULAR_EXP 8
-# define ESCAPE 53
-# define REFRESH 15
-# define RIGHT 124
-# define LEFT 123
-# define TOP 126
-# define BOTTOM 125
-# define ZOOM_IN 44
-# define ZOOM_OUT 24
+// # define ESCAPE 53
+// # define REFRESH 15
+// # define RIGHT 124
+// # define LEFT 123
+// # define TOP 126
+// # define BOTTOM 125
+// # define ZOOM_IN 44
+// # define ZOOM_OUT 24
 # define BRIGHTNESS 11
 # define EPSILON 0.001
 # define ROTATION 10.0
@@ -45,6 +45,7 @@
 # define MIN_CARTOON_FACTOR 50
 # define MIN_BLUR_RADIUS 0
 # define MAX_BLUR_RADIUS 50
+# define BLUR_RADIUS 4
 
 # include <fcntl.h>
 # include <stdlib.h>
@@ -107,7 +108,6 @@ typedef struct					s_sdl
 	SDL_Renderer				*render_sdl;
 	SDL_Surface					*surfs[NB_THREAD];
 	SDL_Surface					*tmp_surfs[NB_THREAD];
-
 	char						*input;
 	int							show_tmp;
 
@@ -207,12 +207,6 @@ typedef struct	s_path
 	struct s_path	*transmitted;
 }				t_path;
 
-typedef struct	s_state
-{
-	double			d;
-	t_object		*obj_num;
-}				t_state;
-
 typedef struct			s_custom_obj
 {
 	char				op;
@@ -230,6 +224,13 @@ typedef struct	s_custom
 	struct s_custom_obj	*objects;
 	struct s_custom		*next;
 }				t_custom;
+
+typedef struct s_pxl_info
+{
+	t_object		*object;
+	int					col;
+	int					calc_col;
+}				t_pxl_info;
 
 typedef struct	s_param
 {
@@ -257,14 +258,13 @@ typedef struct	s_param
 	int				i[2];
 	double			rot[VEC_SIZE][VEC_SIZE];
 	double			epsilon;
-	t_state			**state;
 
 	t_sdl			*graph;
 	SDL_Thread		**thread;
 	
 	int				current_thread;
 	int				refresh;
-
+	t_pxl_info	***pxl_infos;
 	double			ia;//intensité de la lumiere ambiante
 	double			m[VEC_SIZE];//triplet intermediaire pour calculs ombres
 
@@ -355,7 +355,6 @@ double			cylindre_second_term(t_object *tmp, double *to);
 double			cylindre_third_term(t_object *tmp);
 
 void			ft_putvec(double *x);
-int				my_key_func(int keycode, t_param *param);
 void			eye_rotation(double alpha, double beta, double gamma, t_param *param);
 void			rotation_matrice(double alpha, double beta, double gamma, t_param *param);
 /*
@@ -383,13 +382,15 @@ void	update_normal_cone(t_object *tmp, t_path *path);
 void	update_normal_cylindre(t_object *tmp, t_path *path);
 void	update_normal_ellipsoide(t_object *tmp, t_path *path);
 void	display_lights(t_param *param);
+int 	my_key_func(int keycode, t_param *param);
 
-/*
+	/*
 **POST PROCESSING FUNCTIONS
 */
-void	greyscale(t_param *param);
+	void greyscale(t_param *param);
 void 	sepia(t_param *param);
 void	cartoon(t_param *param);
+void	blur(t_param *param);
 
 /*
 ** NK_API SDL Prototypes

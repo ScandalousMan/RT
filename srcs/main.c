@@ -14,33 +14,6 @@
 #include "rt.h"
 #include <rt_parser.h>
 
-/*utiliser la fonction error pour toute erreur*/
-
-t_state	**state_init()
-{
-	t_state **state;
-	int 	i;
-	int 	j;
-
-	i = 0;
-	if (!(state = (t_state**)malloc(sizeof(t_state*) * WINDOW_SDL_HEIGHT)))
-		return NULL;
-	while (i < WINDOW_SDL_HEIGHT)
-	{
-		j = 0;
-		if (!(state[i] = (t_state*)malloc(sizeof(t_state) * WINDOW_SDL_WIDTH)))
-			return NULL;
-		while (j < WINDOW_SDL_WIDTH)
-		{
-				state[i][j].d = 0;
-				state[i][j].obj_num = NULL;
-			j++;
-		}
-		i++;
-	}
-	return state;
-}
-
 int		main(int ac, char **av)
 {
 	t_param	*param;
@@ -57,12 +30,11 @@ int		main(int ac, char **av)
 	param->start = clock();//TODO delete
 	if ((param->graph = graph_init()) == NULL)
 		error(0, 0, "Can't allocate graph struct");
-	if (!(param->state = state_init()))
-		return (-1);
 	if (!rt_parser(param, filename))
 		return (1);
 	sdl_init(param->graph);
 	lauch_threads(param);
+	mprintf(1, "\nPI = %d, %d, %d, %d\n", M_PI, (int)M_PI, ft_max(4, (int)M_PI), ft_min(3, (int)M_PI));
 	while (param->graph->input[SDL_SCANCODE_ESCAPE] == FALSE)
 	{
 		sdl_pull_evts(param);

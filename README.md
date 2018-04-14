@@ -41,3 +41,53 @@ double      distance_to_forme(t_object *tmp, double *from, double *to);
 void        update_normal_forme(t_object *tmp, t_path *path);
 ```
 - ajouter la forme avec son numéro dans l'aiguillage `rt_object_parser`
+
+# GUI
+
+## interface standard
+
+Interface composée de 2 zones :
+* valeurs générales la scène
+* Onglet lights et onglet objects
+
+### Valeurs générales de la scène
+
+Input text pour sélectionner:
+* SPECULAR_EXP (entier entre 1 et 16) param->specular_exp
+* BRIGHTNESS (entier entre 1 et 16) param->brightness
+* ROTATION (entier entre 1 et 45) param->rotation_angle
+* RECURSION (entier entre 0 et 10) param->recursion
+* ANTI_ALIASING (entier entre 1 et 10) param->anti_aliasing
+* CARTOON_FACTOR (entier entre 5 et 50) param->cartoon_factor
+* BLUR_RADIUS (entier entre 1 et 12) param->blur_radius
+
+les valeurs param ci-dessous sont initialisées aux valeurs des MACROs (pas encore déclaré ou fait)
+
+Bouton pour :
+-> rafraichir la scène et revenir aux valeurs initiales du parser
+
+Input select pour :
+-> appliquer un filtre (none (par défaut) / cartoon / greyscale / sepia / blur)
+-> sélectionner la scène initiale à parser (liste de fichiers contenus dans un répertoire spécifique)
+
+### onglet lights
+
+Input select pour sélectionner une lumière parmi toutes celles de la scène
+Bouton + pour ajouter une lumière
+Bouton _ pour supprimer une lumière
+
+Au clic sur une option du select,
+afficher les données de la lumière et permettre leur modification (cf structure t_light)
+
+### onglet objects
+
+Input select pour sélectionner un objet parmi tous ceux de la scène
+Bouton + pour ajouter un objet
+Bouton - pour supprimer un objet
+
+Au clic sur une option du select (ou sur un pixel de l'image)
+afficher les données de l'objet sélectionné et permettre leur modification (cf structure t_object)
+
+### divers
+
+Pour les boutons, commencer par générer un mprintf(1, "event") à l'event clic et ensuite on cablera

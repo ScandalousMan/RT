@@ -27,13 +27,9 @@ t_param		*param_cpy(t_param *param, int count)
 	ft_memcpy(&(param_cpy->look), &(param->look), VEC_SIZE * sizeof(double));
 	ft_memcpy(&(param_cpy->align), &(param->align), VEC_SIZE * sizeof(double));
 	ft_memcpy(&(param_cpy->third), &(param->third), VEC_SIZE * sizeof(double));
-//	param_cpy->eye = vec_dup(param->eye);
-//	param_cpy->look = vec_dup(param->look);
-//	param_cpy->align = vec_dup(param->align);
-//	param_cpy->third = vec_dup(param->third);
 	param_cpy->objects = object_copy(param->objects);
 	param_cpy->lights = light_copy(param->lights);
-	param_cpy->state = param->state;
+	param_cpy->pxl_infos = param->pxl_infos;
 
 	return (param_cpy);
 }
