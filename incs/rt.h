@@ -382,11 +382,12 @@ void	update_normal_cone(t_object *tmp, t_path *path);
 void	update_normal_cylindre(t_object *tmp, t_path *path);
 void	update_normal_ellipsoide(t_object *tmp, t_path *path);
 void	display_lights(t_param *param);
+int 	my_key_func(int keycode, t_param *param);
 
-/*
+	/*
 **POST PROCESSING FUNCTIONS
 */
-void	greyscale(t_param *param);
+	void greyscale(t_param *param);
 void 	sepia(t_param *param);
 void	cartoon(t_param *param);
 void	blur(t_param *param);

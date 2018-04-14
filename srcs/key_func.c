@@ -153,7 +153,7 @@ void	eye_rotation(double alpha, double beta, double gamma, t_param *param)
 int		my_key_func(int keycode, t_param *param)
 {
 	param->to_pix = 1;
-	if (keycode == ESCAPE)
+	if (keycode == SDLK_ESCAPE)
 		end_program(param);
 	else if (keycode == SDLK_RIGHT) //droite
 	{
@@ -210,7 +210,7 @@ int		my_key_func(int keycode, t_param *param)
 		ft_putnbr(param->bright);
 		ft_putstr("\n");
 	}
-	else if (keycode == REFRESH)
+	else if (keycode == SDLK_r)
 	{
 		free_objects(param);
 		free_lights(param);
@@ -224,7 +224,7 @@ int		my_key_func(int keycode, t_param *param)
 		ft_putnbr(keycode);
 		ft_putstr("\n_---_\n");
 	}
-	if (keycode != REFRESH)
+	if (keycode != SDLK_r)
 	{
 		rt_tracer(param);
 	}
