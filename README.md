@@ -1,28 +1,33 @@
+https://travis-ci.org/ScandalousMan/RT.svg?branch=master
 # RT
 Ray Tracing group project for School 42
 
-# Requirements
+## Requirements
 Install `pkg-config`, `glew`, `sdl2` and `sdl2_images`
 
-# How-to
+## How-to
 
-## Compile
+### Compile
+
 ```
 $ make
 ```
 
-## Recompile and run
+### Recompile and run
+
 ```
 $ make run
 ```
 
-## Check norm
+### Check norm
+
 You need to be at 42
 ```
 $ make norm
 ```
 
-## Clean
+### Clean
+
 ```
 $ make clean
 ```
