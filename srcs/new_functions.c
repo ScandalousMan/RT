@@ -67,7 +67,7 @@ int		ray_color(t_param *param, double *from, double *to, int index, t_path *path
 	{
 		if (!index)
 			param->pxl_infos[param->i[0]][param->i[1]]->object = path->current_object;
-		if (index < RECURSION)
+		if (index < param->macro.recursion)
 		{
 			vec_copy(path->v, path->transmitted->v);
 			vec_copy(path->x, path->transmitted->from);

@@ -43,7 +43,7 @@ t_object		*add_ellipsoide(t_param *param, double *center, double a, double b, do
 		tmp->type = 5;
 		tmp->kd = 0.55;
 		tmp->ks = 0.25;
-		tmp->phong = SPECULAR_EXP;
+		tmp->phong = param->macro.specular_exp;
 		if (!(tmp->dim = ((t_ellipsoide*)malloc(sizeof(t_ellipsoide)))))
 			return (NULL);
 		ft_memcpy(&(((t_ellipsoide*)tmp->dim)->center), center, VEC_SIZE * sizeof(double));

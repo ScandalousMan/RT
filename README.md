@@ -54,7 +54,6 @@ Interface composée de 2 zones :
 
 Input text pour sélectionner:
 * SPECULAR_EXP (entier entre 1 et 16) param->specular_exp
-* BRIGHTNESS (entier entre 1 et 16) param->brightness
 * ROTATION (entier entre 1 et 45) param->rotation_angle
 * RECURSION (entier entre 0 et 10) param->recursion
 * ANTI_ALIASING (entier entre 1 et 10) param->anti_aliasing

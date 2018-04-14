@@ -20,23 +20,37 @@
 #  define M_PI 3.141592653589793238462643383279
 # endif
 # define SPECULAR_EXP 8
-# define BRIGHTNESS 11
 # define EPSILON 0.001
-# define ROTATION 10.0
 
 # define PIXELISATION	8
 
-# define RECURSION 1
-# define MAX_RECURSION 0
-# define MIN_RECURSION 10
+# define STEP_ANTI_ALIASING 1
 # define MAX_ANTI_ALIASING 1
 # define MIN_ANTI_ALIASING 10
-# define CARTOON_FACTOR 25
-# define MAX_CARTOON_FACTOR 5
-# define MIN_CARTOON_FACTOR 50
+
+# define STEP_RECURSION 1
+# define MAX_RECURSION 0
+# define MIN_RECURSION 10
+
+# define STEP_SPECULAR_EXP 1
+# define MAX_SPECULAR_EXP 1
+# define MIN_SPECULAR_EXP 16
+
+# define STEP_ROTATION_ANGLE 1
+# define MAX_ROTATION_ANGLE 1
+# define MIN_ROTATION_ANGLE 90
+
+# define STEP_K_AMBIENCE 1
+# define MAX_K_AMBIENCE 1
+# define MIN_K_AMBIENCE 16
+
+# define STEP_CARTOON_FACTOR 1
+# define MIN_CARTOON_FACTOR 5
+# define MAX_CARTOON_FACTOR 50
+
+# define STEP_BLUR_RADIUS 1
 # define MIN_BLUR_RADIUS 0
 # define MAX_BLUR_RADIUS 50
-# define BLUR_RADIUS 4
 
 # include <fcntl.h>
 # include <stdlib.h>
@@ -67,7 +81,7 @@
 # include "nuklear.h"
 # include "nuklear_sdl_gl3.h"
 
-# define WINDOW_GUI_WIDTH 600
+# define WINDOW_GUI_WIDTH 500
 # define WINDOW_GUI_HEIGHT 800
 # define WINDOW_SDL_WIDTH 800
 # define WINDOW_SDL_HEIGHT 800
@@ -218,14 +232,13 @@ typedef struct	s_pxl_info
 
 typedef struct		s_macro
 {
-	float			anti_aliasing;
-	float			cartoon_factor;
-	float			blur_radius;
-	float 			k_ambient;
-	float			specular_exp;
-	float			brightness;
-	float			rotation_angle;
-	float			recursion;
+	int				anti_aliasing;
+	int				recursion;
+	int				cartoon_factor;
+	int				blur_radius;
+	int				specular_exp;
+	int	 			k_ambience;
+	int				rotation_angle;
 }					t_macro;
 
 typedef struct		s_param
@@ -415,7 +428,7 @@ void							nk_sdl_device_create(void);
 ** Nuklear function
 */
 
-void							nukl_gui(t_sdl *graph);
+void							nukl_gui(t_param *param);
 
 /*
 ** SDL2 Prototypes
