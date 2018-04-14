@@ -81,7 +81,6 @@ void			sdl_quit(t_sdl *graph)
 		SDL_FreeSurface(graph->tmp_surfs[count]);
 		count++;
 	}
-	ft_strdel(&graph->input);
 	nk_sdl_shutdown();
 	SDL_GL_DeleteContext(graph->gl_context);
 	SDL_DestroyWindow(graph->win_gl);

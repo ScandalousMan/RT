@@ -96,8 +96,8 @@
 # define MAX(a,b) ((a) < (b) ? (b) : (a))
 # define LEN(a) (sizeof(a)/sizeof(a)[0])
 
-# define TRUE '1'
-# define FALSE '0'
+# define TRUE 1
+# define FALSE 0
 
 typedef struct nk_context		t_nk_context;
 typedef struct nk_font_atlas	t_nk_font_atlas;
@@ -113,7 +113,7 @@ typedef struct					s_sdl
 	SDL_Renderer				*render_sdl;
 	SDL_Surface					*surfs[NB_THREAD];
 	SDL_Surface					*tmp_surfs[NB_THREAD];
-	char						*input;
+	char						input[SDL_NUM_SCANCODES];
 	int							show_tmp;
 
 	t_nk_context				*ctx;
