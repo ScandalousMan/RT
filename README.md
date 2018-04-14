@@ -52,14 +52,6 @@ Interface composée de 2 zones :
 
 ### Valeurs générales de la scène
 
-Input text pour sélectionner:
-* SPECULAR_EXP (entier entre 1 et 16) param->specular_exp
-* ROTATION (entier entre 1 et 45) param->rotation_angle
-* RECURSION (entier entre 0 et 10) param->recursion
-* ANTI_ALIASING (entier entre 1 et 10) param->anti_aliasing
-* CARTOON_FACTOR (entier entre 5 et 50) param->cartoon_factor
-* BLUR_RADIUS (entier entre 1 et 12) param->blur_radius
-
 les valeurs param ci-dessous sont initialisées aux valeurs des MACROs (pas encore déclaré ou fait)
 
 Bouton pour :
