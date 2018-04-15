@@ -15,6 +15,7 @@ EXEC = RT
 DEBUG = no
 CC = clang
 OS := $(shell uname -s)
+DEPEND_FRAGMENT = Make.depend
 MAKEFLAGS += --silent
 
 export
@@ -61,7 +62,7 @@ ODIR =		./objs/
 OBJS =		$(SRCS:.c=.o)
 OBCC =		$(addprefix $(ODIR),$(OBJS))
 
-all: directories $(EXEC)
+all: directories $(EXEC) $(DEPEND_FRAGMENT)
 
 $(LIBFT_FILE): $(LIBFT_DEP)
 ifeq ($(OS), Linux)
@@ -103,6 +104,12 @@ else
 	@echo "\r\x1B[32m  + Compile:\x1B[0m $(notdir $^)"
 endif
 
+$(DEPEND_FRAGMENT): $(SRCC)
+	@touch $(DEPEND_FRAGMENT)
+	@makedepend -f $(DEPEND_FRAGMENT) -- -Y -O -DHACK $(CFLAGS) $(INCLUDE) -- $(SRCC) >& /dev/null
+	@sed 's/.\/srcs/.\/objs/g' $(DEPEND_FRAGMENT) > $(DEPEND_FRAGMENT).bak
+	@mv $(DEPEND_FRAGMENT).bak $(DEPEND_FRAGMENT)
+
 directories: ${OUT_DIR} ${SRC_DIR} ${INC_DIR}
 
 ${OUT_DIR}:
@@ -117,7 +124,7 @@ ${INC_DIR}:
 clean:
 	@make -C ./libft clean
 	@make -C ./libjson clean
-	@rm -rf $(OUT_DIR)
+	@rm -rf $(OUT_DIR) $(DEPEND_FRAGMENT)
 ifeq ($(OS), Linux)
 	@echo -e "\x1B[31m  - Remove:\x1B[0m RT objs"
 else
@@ -149,74 +156,4 @@ norm:
 	@norminette srcs/* incs/* | grep -B 1 "Error" || true
 	@echo "\x1B[0m\c"
 
-
 .PHONY: all clean fclean re run directories cleanlib norm
-# DO NOT DELETE
-
-./srcs/closest.o: ./incs/rt.h ./libft/incs/libft.h ./incs/nuklear.h
-./srcs/closest.o: ./incs/nuklear_sdl_gl3.h
-./srcs/components.o: ./incs/rt.h ./libft/incs/libft.h ./incs/nuklear.h
-./srcs/components.o: ./incs/nuklear_sdl_gl3.h
-./srcs/cone.o: ./incs/rt.h ./libft/incs/libft.h ./incs/nuklear.h
-./srcs/cone.o: ./incs/nuklear_sdl_gl3.h
-./srcs/cone_tools.o: ./incs/rt.h ./libft/incs/libft.h ./incs/nuklear.h
-./srcs/cone_tools.o: ./incs/nuklear_sdl_gl3.h
-./srcs/constructor.o: ./incs/rt.h ./libft/incs/libft.h ./incs/nuklear.h
-./srcs/constructor.o: ./incs/nuklear_sdl_gl3.h
-./srcs/cylindre.o: ./incs/rt.h ./libft/incs/libft.h ./incs/nuklear.h
-./srcs/cylindre.o: ./incs/nuklear_sdl_gl3.h
-./srcs/cylindre_tools.o: ./incs/rt.h ./libft/incs/libft.h ./incs/nuklear.h
-./srcs/cylindre_tools.o: ./incs/nuklear_sdl_gl3.h
-./srcs/display.o: ./incs/rt.h ./libft/incs/libft.h ./incs/nuklear.h
-./srcs/display.o: ./incs/nuklear_sdl_gl3.h
-./srcs/distance.o: ./incs/rt.h ./libft/incs/libft.h ./incs/nuklear.h
-./srcs/distance.o: ./incs/nuklear_sdl_gl3.h
-./srcs/ellipsoide.o: ./incs/rt.h ./libft/incs/libft.h ./incs/nuklear.h
-./srcs/ellipsoide.o: ./incs/nuklear_sdl_gl3.h
-./srcs/graph_init.o: ./incs/rt.h ./libft/incs/libft.h ./incs/nuklear.h
-./srcs/graph_init.o: ./incs/nuklear_sdl_gl3.h
-./srcs/key_func.o: ./incs/rt.h ./libft/incs/libft.h ./incs/nuklear.h
-./srcs/key_func.o: ./incs/nuklear_sdl_gl3.h
-./srcs/light.o: ./incs/rt.h ./libft/incs/libft.h ./incs/nuklear.h
-./srcs/light.o: ./incs/nuklear_sdl_gl3.h
-./srcs/main.o: ./incs/implementation.h ./incs/rt.h ./libft/incs/libft.h
-./srcs/main.o: ./incs/nuklear.h ./incs/nuklear_sdl_gl3.h ./incs/rt_parser.h
-./srcs/new_functions.o: ./incs/rt.h ./libft/incs/libft.h ./incs/nuklear.h
-./srcs/new_functions.o: ./incs/nuklear_sdl_gl3.h
-./srcs/nukl_gui.o: ./incs/rt.h ./libft/incs/libft.h ./incs/nuklear.h
-./srcs/nukl_gui.o: ./incs/nuklear_sdl_gl3.h
-./srcs/object_parser.o: ./incs/rt.h ./libft/incs/libft.h ./incs/nuklear.h
-./srcs/object_parser.o: ./incs/nuklear_sdl_gl3.h
-./srcs/plane.o: ./incs/rt.h ./libft/incs/libft.h ./incs/nuklear.h
-./srcs/plane.o: ./incs/nuklear_sdl_gl3.h
-./srcs/postprocessing.o: ./incs/rt.h ./libft/incs/libft.h ./incs/nuklear.h
-./srcs/postprocessing.o: ./incs/nuklear_sdl_gl3.h
-./srcs/sdl_draw.o: ./incs/rt.h ./libft/incs/libft.h ./incs/nuklear.h
-./srcs/sdl_draw.o: ./incs/nuklear_sdl_gl3.h
-./srcs/sdl_evts.o: ./incs/rt.h ./libft/incs/libft.h ./incs/nuklear.h
-./srcs/sdl_evts.o: ./incs/nuklear_sdl_gl3.h
-./srcs/sdl_init.o: ./incs/rt.h ./libft/incs/libft.h ./incs/nuklear.h
-./srcs/sdl_init.o: ./incs/nuklear_sdl_gl3.h
-./srcs/sdl_utils.o: ./incs/rt.h ./libft/incs/libft.h ./incs/nuklear.h
-./srcs/sdl_utils.o: ./incs/nuklear_sdl_gl3.h
-./srcs/sphere.o: ./incs/rt.h ./libft/incs/libft.h ./incs/nuklear.h
-./srcs/sphere.o: ./incs/nuklear_sdl_gl3.h
-./srcs/threads.o: ./incs/rt.h ./libft/incs/libft.h ./incs/nuklear.h
-./srcs/threads.o: ./incs/nuklear_sdl_gl3.h
-./srcs/vec_tools.o: ./incs/rt.h ./libft/incs/libft.h ./incs/nuklear.h
-./srcs/vec_tools.o: ./incs/nuklear_sdl_gl3.h
-./srcs/vec_tools2.o: ./incs/rt.h ./libft/incs/libft.h ./incs/nuklear.h
-./srcs/vec_tools2.o: ./incs/nuklear_sdl_gl3.h
-./srcs/vec_tools3.o: ./incs/rt.h ./libft/incs/libft.h ./incs/nuklear.h
-./srcs/vec_tools3.o: ./incs/nuklear_sdl_gl3.h
-./srcs/file.o: ./libft/incs/libft.h ./libjson/json.h ./libjson/json_parse.h
-./srcs/json_to_objects.o: ./libjson/json.h ./incs/rt_objects.h ./incs/rt.h
-./srcs/json_to_objects.o: ./libft/incs/libft.h ./incs/nuklear.h
-./srcs/json_to_objects.o: ./incs/nuklear_sdl_gl3.h ./incs/objects_storage.h
-./srcs/objects_storage.o: ./incs/objects_storage.h ./libjson/json.h
-./srcs/objects_storage.o: ./incs/rt.h ./libft/incs/libft.h ./incs/nuklear.h
-./srcs/objects_storage.o: ./incs/nuklear_sdl_gl3.h ./incs/rt_objects.h
-./srcs/rt_parser.o: ./libjson/json_parse.h ./libjson/json.h
-./srcs/rt_parser.o: ./libjson/json_free.h ./incs/rt.h ./libft/incs/libft.h
-./srcs/rt_parser.o: ./incs/nuklear.h ./incs/nuklear_sdl_gl3.h ./incs/file.h
-./srcs/rt_parser.o: ./incs/rt_objects.h
