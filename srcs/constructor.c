@@ -12,15 +12,15 @@
 
 #include <rt.h>
 
-t_path			*path_create(int index)
+t_path			*path_create(int index, t_param *param)
 {
 	t_path		*path;
 
 	if (!(path = (t_path*)malloc(sizeof(t_path))))
 		return (NULL);
 	path->current_object = NULL;
-	path->reflected = index < RECURSION ? path_create(index + 1) : NULL;
-	path->transmitted = index < RECURSION ? path_create(index + 1) : NULL;
+	path->reflected = index < RECURSION ? path_create(index + 1, param) : NULL;
+	path->transmitted = index < RECURSION ? path_create(index + 1, param) : NULL;
 	return (path);
 }
 
@@ -51,7 +51,7 @@ t_param			*struct_create(void)
 
 	if (!(param = (t_param*)malloc(sizeof(t_param))))
 		return (NULL);
-	param->path = path_create(0);
+	param->path = path_create(0, param);
 	if (!(param->thread = (SDL_Thread**)malloc(sizeof(SDL_Thread*) * NB_THREAD)))
 		return (NULL);
 	param->brightness = 1;

@@ -34,7 +34,6 @@ int		main(int ac, char **av)
 		return (1);
 	sdl_init(param->graph);
 	lauch_threads(param);
-	mprintf(1, "\nPI = %d, %d, %d, %d\n", M_PI, (int)M_PI, ft_max(4, (int)M_PI), ft_min(3, (int)M_PI));
 	while (param->graph->input[SDL_SCANCODE_ESCAPE] == FALSE)
 	{
 		sdl_pull_evts(param);

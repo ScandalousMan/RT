@@ -1,16 +1,5 @@
 #include "rt.h"
 
-void	find_intersection(t_param *param, double *from, double *to, t_path *path)
-{
-	path->current_object = closest_object(param, from, to, path);
-	if (path->current_object)
-	{
-		vec_multiply(param->obj_d - param->epsilon, path->v, path->x);
-		pt_translated(from, path->x, path->x);
-		update_normal_vector(path->current_object, path);
-	}
-}
-
 int		object_color(t_param *param, t_path *path)
 {
 	if (param && path && path->current_object)
@@ -25,7 +14,10 @@ int		object_color(t_param *param, t_path *path)
 			vec_multiply(-2.0 * scalar_product(path->n, path->v), path->n, path->r);
 			pt_translated(path->r, path->v, path->r);
 			vec_to_unit_norm(path->r);
-			if (!object_intersection(param, path->x, param->tmp_light->src, path))
+			if (param->i[0] == 390 && param->i[1] == 397) {
+				printf("=========\n start light #%d\nfrom=[%f,%f,%f]\nto=[%f,%f,%f]\n", param->tmp_light->num, path->x[0], path->x[1], path->x[2], param->tmp_light->src[0], param->tmp_light->src[1], param->tmp_light->src[2]);
+			}
+			if (!light_masked(param, path->x, param->tmp_light->src, path))
 			{
 				if (scalar_product(path->l, path->n) * param->tmp_light->i > 0.0)
 					param->diffuse += scalar_product(path->l, path->n) * param->tmp_light->i;
@@ -56,7 +48,8 @@ double	*ray_direction(t_param *param, int i, int j)
 int		ray_color(t_param *param, double *from, double *to, int index, t_path *path)
 {
 	path->current_object = NULL;
-	find_intersection(param, from, to, path);
+	param->is_for_light = 0;
+	path->current_object = closest_object(param, from, to, path);
 	if (!path->current_object)
 	{
 		if (!param->pxl_infos[param->i[0]][param->i[1]]->object)

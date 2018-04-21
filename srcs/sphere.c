@@ -25,3 +25,10 @@ void	update_normal_sphere(t_object *tmp, t_path *path)
 {
 	vec_soustraction(path->x, ((t_sphere*)(tmp->dim))->center, path->n);
 }
+
+int		is_inside_sphere(double *pt, t_object *obj)
+{
+	if (pt_dist_root(pt, ((t_sphere*)(obj->dim))->center) > ((t_sphere*)(obj->dim))->radius * ((t_sphere*)(obj->dim))->radius)
+		return 0;
+	return 1;
+}

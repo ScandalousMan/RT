@@ -17,3 +17,8 @@ void	update_normal_cone(t_object *tmp, t_path *path)
 	vec_multiply(1.0 / scalar_product(path->n, ((t_cone*)(tmp->dim))->u) * norm * norm, ((t_cone*)(tmp->dim))->u, tmp->tmp_vec);
 	vec_soustraction(path->n, tmp->tmp_vec, path->n);
 }
+
+int		is_inside_cone(double *pt, t_object *obj)
+{
+	return (pt && obj) ? 1 : 0;
+}

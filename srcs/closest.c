@@ -4,23 +4,72 @@ t_object	*closest_object(t_param *param, double *from, double *to, t_path *path)
 {
 	param->obj_d= -1.0;
 	t_object *objs = param->objects;
+	t_limit	*limits;
 
 	while (objs)
 	{
-		if (path->current_object && objs->num == path->current_object->num)
-			objs = objs->next;
-		if (objs)
-		{
+		// if (!path->current_object || path->current_object->num != objs->num)
+		// {
+			param->is_cut = 0;
 			param->tmp_d = distance_calc(objs, param, from, to);
+			// on compute ici la distance en prenant en compte le plan de coupe
 			if (param->tmp_d > 0.0 && (param->obj_d < 0.0 || param->tmp_d < param->obj_d))
 			{
-				param->obj_d = param->tmp_d;
-					param->intersect_object = objs;
+				/* on parcourt les limites */
+				limits = objs->limits;
+				while (limits && param->tmp_d > 0.0)
+				{
+					param->tmp_d_cut = plane_distance(from, to, limits->plane.n, limits->plane.ref);
+					if ((param->tmp_d_cut - param->tmp_d) * scalar_product(to, limits->plane.n) < 0.0)
+					{
+						vec_multiply(param->tmp_d_cut - param->epsilon, to, path->tmp_x);
+						pt_translated(from, path->tmp_x, path->tmp_x);
+						if (is_inside_object(path->tmp_x, objs))
+						{
+							param->is_cut = 1;
+							param->tmp_d = param->tmp_d_cut;
+							if (!param->is_for_light)
+							{
+								vec_copy(path->tmp_x, path->x);
+								vec_copy(limits->plane.n, path->n);
+							}
+						}
+						else
+						{
+							param->tmp_d = -1.0;
+						}
+					}
+					limits = limits->next;
+				}
+				if (param->tmp_d > 0.0 && (param->obj_d < 0.0 || param->tmp_d < param->obj_d))
+				{
+					if (!param->is_cut && !param->is_for_light)
+					{
+						vec_multiply(param->tmp_d - param->epsilon, to, path->x);
+						pt_translated(from, path->x, path->x);
+						update_normal_vector(objs, path);
+					}
+					param->obj_d = param->tmp_d;
+						param->intersect_object = objs;
+				}
 			}
-			objs = objs->next;
-		}
+		// }
+		objs = objs->next;
 	}
 	return (param->intersect_object);
+}
+
+int			is_inside_object(double *pt, t_object *obj)
+{
+	if (obj->type == 1)
+		return is_inside_sphere(pt, obj);
+	else if (obj->type == 2)
+		return is_inside_plane(pt, obj);
+	else if (obj->type == 3)
+		return is_inside_cone(pt, obj);
+	else if (obj->type == 4)
+		return is_inside_cylindre(pt, obj);
+	return 0;
 }
 
 void		update_normal_vector(t_object *tmp, t_path *path)
@@ -34,26 +83,4 @@ void		update_normal_vector(t_object *tmp, t_path *path)
 	else if (tmp->type == 4)
 		update_normal_cylindre(tmp, path);
 	vec_to_unit_norm(path->n);
-}
-
-t_object	*object_intersection(t_param *param, double *from, double *to, t_path *path)
-{
-	param->intersect_object = NULL;
-	if (path->current_object)
-	{
-		closest_object(param, from, path->l, path);
-		if (param->obj_d * param->obj_d > pt_dist_root(from, param->tmp_light->src))
-			param->intersect_object = NULL;
-	}
-	else
-	{
-		path->current_object = closest_object(param, from, to, path);
-		if (path->current_object)
-		{
-			vec_multiply(param->obj_d - param->epsilon, path->v, path->x);
-			pt_translated(from, path->x, path->x);
-			update_normal_vector(path->current_object, path);
-		}
-	}
-	return (param->intersect_object);
 }

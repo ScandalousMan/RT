@@ -102,6 +102,7 @@ t_limit	*get_limits(t_jarray *array)
 		obj = get_jobject(tmp->value, "point");
 		fill_vector(&new->plane.ref, obj->value);
 		printf("REF: %f, %f, %f\n", new->plane.ref[0], new->plane.ref[1], new->plane.ref[2]);
+		printf("N: %f, %f, %f\n", new->plane.n[0], new->plane.n[1], new->plane.n[2]);
 		new->next = limits;
 		limits = new;
 		tmp = tmp->next;
@@ -263,7 +264,7 @@ int	fill_object(t_object *obj, t_jobject *jobj, int num, t_param *param)
 	obj->thickness = get_double(tmp->type, tmp->value);
 
 	tmp = get_jobject(jobj, "limits");
-	obj->limit = get_limits(tmp->value);
+	obj->limits = get_limits(tmp->value);
 	
 	tmp = get_jobject(jobj, "texture");//JSON_OBJECT
 //	obj->texture = ;//NOT EXISTS FOR THE MOMENT

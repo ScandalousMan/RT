@@ -36,13 +36,13 @@ void	free_objects(t_param *param)
 		{
 			free ((t_cylindre*)(param->objects->dim));
 		}
-		if (param->objects->limit)
+		if (param->objects->limits)
 		{
-			l_tmp = param->objects->limit->next;
+			l_tmp = param->objects->limits->next;
 			while (l_tmp)
 			{
-				free(param->objects->limit);
-				param->objects->limit = l_tmp;
+				free(param->objects->limits);
+				param->objects->limits = l_tmp;
 			}
 		}
 		free(param->objects);
