@@ -11,6 +11,7 @@ void	find_intersection(t_param *param, double *from, double *to, t_path *path)
 	}
 }
 
+#include <rt_objects.h>
 int		object_color(t_param *param, t_path *path)
 {
 	if (param && path && path->current_object)
@@ -20,7 +21,14 @@ int		object_color(t_param *param, t_path *path)
 		param->tmp_light = param->lights;
 		while (param->tmp_light)
 		{
+			if (param->tmp_light->type == RTSPOT)
+			{
 			vec_soustraction(param->tmp_light->src, path->x, path->l);
+			}
+			else
+			{
+				vec_copy(param->tmp_light->src, path->l);
+			}
 			vec_to_unit_norm(path->l);
 			vec_multiply(-2.0 * scalar_product(path->n, path->v), path->n, path->r);
 			pt_translated(path->r, path->v, path->r);

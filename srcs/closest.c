@@ -35,14 +35,15 @@ void		update_normal_vector(t_object *tmp, t_path *path)
 		update_normal_cylindre(tmp, path);
 	vec_to_unit_norm(path->n);
 }
-
-t_object	*object_intersection(t_param *param, double *from, double *to, t_path *path)
+#include <rt_objects.h>
+t_object	*object_intersection(t_param *param, double *from, double *to,
+t_path *path)
 {
 	param->intersect_object = NULL;
 	if (path->current_object)
 	{
 		closest_object(param, from, path->l, path);
-		if (param->obj_d * param->obj_d > pt_dist_root(from, param->tmp_light->src))
+		if (param->tmp_light->type == RTSPOT && param->obj_d * param->obj_d > pt_dist_root(from, param->tmp_light->src))
 			param->intersect_object = NULL;
 	}
 	else
