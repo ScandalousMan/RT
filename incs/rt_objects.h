@@ -29,7 +29,7 @@ typedef enum			e_object_type
 
 typedef enum			e_light_type
 {
-	RTSPOT,
+	RTSPOT=0,
 	RTPARALLEL
 }						t_light_type;
 

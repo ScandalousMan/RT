@@ -29,6 +29,7 @@ t_param		*param_cpy(t_param *param, int count)
 	ft_memcpy(&(param_cpy->third), &(param->third), VEC_SIZE * sizeof(double));
 	param_cpy->objects = object_copy(param->objects);
 	param_cpy->lights = light_copy(param->lights);
+	param_cpy->num_objects = param->num_objects;
 	param_cpy->pxl_infos = param->pxl_infos;
 
 	return (param_cpy);

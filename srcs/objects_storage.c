@@ -101,7 +101,9 @@ t_limit	*get_limits(t_jarray *array)
 		fill_vector(&new->plane.n, obj->value);
 		obj = get_jobject(tmp->value, "point");
 		fill_vector(&new->plane.ref, obj->value);
+		vec_to_unit_norm(new->plane.n);
 		printf("REF: %f, %f, %f\n", new->plane.ref[0], new->plane.ref[1], new->plane.ref[2]);
+		printf("N: %f, %f, %f\n", new->plane.n[0], new->plane.n[1], new->plane.n[2]);
 		new->next = limits;
 		limits = new;
 		tmp = tmp->next;
@@ -163,6 +165,7 @@ void	*fill_plane(t_jobject *jobj, t_param *param)
 	fill_vector(&tr, (t_jarray*)(get_jobject(jobj, "rotation")->value));
 	rotation_matrice(tr[0], tr[1], tr[2], param);
 	matrice_product(param->rot, obj->n, obj->n);
+	vec_to_unit_norm(obj->n);
 	return (obj);
 }
 
@@ -185,6 +188,7 @@ void	*fill_cone(t_jobject *jobj, t_param *param)
 	fill_vector(&tr, (t_jarray*)(get_jobject(jobj, "rotation")->value));
 	rotation_matrice(tr[0], tr[1], tr[2], param);
 	matrice_product(param->rot, obj->u, obj->u);
+	vec_to_unit_norm(obj->u);
 	return (obj);
 }
 
@@ -207,6 +211,7 @@ void	*fill_cylinder(t_jobject *jobj, t_param *param)
 	fill_vector(&tr, (t_jarray*)(get_jobject(jobj, "rotation")->value));
 	rotation_matrice(tr[0], tr[1], tr[2], param);
 	matrice_product(param->rot, obj->u, obj->u);
+	vec_to_unit_norm(obj->u);
 	return (obj);
 }
 
@@ -230,6 +235,7 @@ void	*fill_customobject(t_jobject *jobj, t_param *param)
 	fill_vector(&tr, (t_jarray*)(get_jobject(jobj, "rotation")->value));
 	rotation_matrice(tr[0], tr[1], tr[2], param);
 	matrice_product(param->rot, obj->u, obj->u);
+	vec_to_unit_norm(obj->u);
 	return (obj);
 }
 
@@ -263,7 +269,7 @@ int	fill_object(t_object *obj, t_jobject *jobj, int num, t_param *param)
 	obj->thickness = get_double(tmp->type, tmp->value);
 
 	tmp = get_jobject(jobj, "limits");
-	obj->limit = get_limits(tmp->value);
+	obj->limits = get_limits(tmp->value);
 	
 	tmp = get_jobject(jobj, "texture");//JSON_OBJECT
 //	obj->texture = ;//NOT EXISTS FOR THE MOMENT

@@ -15,3 +15,18 @@ t_light	*light_copy(t_light *src)
 	}
 	return (copy);
 }
+
+t_object	*light_masked(t_param *param, double *from, double *to, t_path *path)
+{
+	param->intersect_object = NULL;
+	param->is_for_light = 1;
+	closest_object(param, from, to, path);
+	// mieux gérer parallel ou spot ici
+	if (point_display(param) && param->intersect_object)
+		printf("lumiere maybe Masked by object type %d\n", param->intersect_object->type);
+	if (param->obj_d * param->obj_d > pt_dist_root(from, param->tmp_light->src))
+		param->intersect_object = NULL;
+	if (point_display(param) && !param->intersect_object)
+		printf("lumiere NOT MASKED\n");
+	return (param->intersect_object);
+}

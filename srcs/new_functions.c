@@ -1,17 +1,5 @@
-#include "rt.h"
+#include "rt_objects.h"
 
-void	find_intersection(t_param *param, double *from, double *to, t_path *path)
-{
-	path->current_object = closest_object(param, from, to, path);
-	if (path->current_object)
-	{
-		vec_multiply(param->obj_d - param->epsilon, path->v, path->x);
-		pt_translated(from, path->x, path->x);
-		update_normal_vector(path->current_object, path);
-	}
-}
-
-#include <rt_objects.h>
 int		object_color(t_param *param, t_path *path)
 {
 	if (param && path && path->current_object)
@@ -21,27 +9,34 @@ int		object_color(t_param *param, t_path *path)
 		param->tmp_light = param->lights;
 		while (param->tmp_light)
 		{
-			if (param->tmp_light->type == RTSPOT)
-			{
-			vec_soustraction(param->tmp_light->src, path->x, path->l);
-			}
-			else
-			{
-				vec_copy(param->tmp_light->src, path->l);
-			}
+			// if (param->tmp_light->type == RTSPOT)
+				vec_soustraction(param->tmp_light->src, path->x, path->l);
+			// else
+			// 	vec_multiply(-1.0, param->tmp_light->src, path->l);
+			if (point_display(param))
+				printf("# before light: normale: [%f,%f,%f]\n", path->n[0], path->n[1], path->n[2]);
 			vec_to_unit_norm(path->l);
 			vec_multiply(-2.0 * scalar_product(path->n, path->v), path->n, path->r);
 			pt_translated(path->r, path->v, path->r);
 			vec_to_unit_norm(path->r);
-			if (!object_intersection(param, path->x, param->tmp_light->src, path))
+			if (!light_masked(param, path->x, path->l, path))
 			{
-				if (scalar_product(path->l, path->n) * param->tmp_light->i > 0.0)
+				if (point_display(param))
+					printf("== light not masked\n");
+				if (scalar_product(path->l, path->n) > 0.0)
 					param->diffuse += scalar_product(path->l, path->n) * param->tmp_light->i;
-				if (param->brightness && ft_pow(scalar_product(path->l, path->r), param->brightness) * param->tmp_light->i > 0.0)
+				if (param->brightness && ft_pow(scalar_product(path->l, path->r), param->brightness) > 0.0)
 					param->bright += ft_pow(scalar_product(path->l, path->r), path->current_object->phong) * param->tmp_light->i;
+			}
+			else
+			{
+				if (point_display(param))
+					printf("++ object masked - type %d\n", path->current_object->type);
 			}
 			param->tmp_light = param->tmp_light->next;
 		}
+		if (point_display(param))
+			printf(">> current object type: %d\n", path->current_object->type);
 		return color_summer(rgb_ratio(path->current_object->col, 0.2 + path->current_object->kd * param->diffuse),
 			rgb_ratio(16777215, path->current_object->ks * (param->bright > 1.0 ? 1.0 : param->bright)));
 	}
@@ -64,7 +59,8 @@ double	*ray_direction(t_param *param, int i, int j)
 int		ray_color(t_param *param, double *from, double *to, int index, t_path *path)
 {
 	path->current_object = NULL;
-	find_intersection(param, from, to, path);
+	param->is_for_light = 0;
+	path->current_object = closest_object(param, from, to, path);
 	if (!path->current_object)
 	{
 		if (!param->pxl_infos[param->i[0]][param->i[1]]->object)
@@ -73,6 +69,8 @@ int		ray_color(t_param *param, double *from, double *to, int index, t_path *path
 	}
 	else
 	{
+		if (point_display(param))
+			printf("object found: %d\n", path->current_object->type);
 		if (!index)
 			param->pxl_infos[param->i[0]][param->i[1]]->object = path->current_object;
 		if (index < param->macro.recursion)
