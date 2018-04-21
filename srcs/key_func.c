@@ -160,34 +160,27 @@ int		my_key_func(int keycode, t_param *param)
 	}
 	else if (keycode == SDLK_a)
 	{
-		eye_rotation(0.0, 0.0, ROTATION, param);
+		eye_rotation(0.0, 0.0, param->macro.rotation_angle, param);
 	}
 	else if (keycode == SDLK_q)
 	{
-		eye_rotation(ROTATION, 0.0, 0.0, param);
+		eye_rotation(param->macro.rotation_angle, 0.0, 0.0, param);
 	}
 	else if (keycode == SDLK_w)
 	{
-		eye_rotation(-ROTATION, 0.0, 0.0, param);
+		eye_rotation(-param->macro.rotation_angle, 0.0, 0.0, param);
 	}
 	else if (keycode == SDLK_s)
 	{
-		eye_rotation(0.0, 0.0, -ROTATION, param);
+		eye_rotation(0.0, 0.0, -param->macro.rotation_angle, param);
 	}
 	else if (keycode == SDLK_z)
 	{
-		eye_rotation(0.0, -ROTATION, 0.0, param);
+		eye_rotation(0.0, -param->macro.rotation_angle, 0.0, param);
 	}
 	else if (keycode == SDLK_x)
 	{
-		eye_rotation(0.0, ROTATION, 0.0, param);
-	}
-	else if (keycode == BRIGHTNESS)
-	{
-		param->bright = 1 - param->bright;
-		ft_putstr("new param->bright: ");
-		ft_putnbr(param->bright);
-		ft_putstr("\n");
+		eye_rotation(0.0, param->macro.rotation_angle, 0.0, param);
 	}
 	else if (keycode == SDLK_r)
 	{

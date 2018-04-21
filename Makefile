@@ -15,6 +15,7 @@ EXEC = RT
 DEBUG = no
 CC = clang
 OS := $(shell uname -s)
+DEPEND_FRAGMENT = Make.depend
 MAKEFLAGS += --silent
 
 export
@@ -61,7 +62,7 @@ ODIR =		./objs/
 OBJS =		$(SRCS:.c=.o)
 OBCC =		$(addprefix $(ODIR),$(OBJS))
 
-all: directories $(EXEC)
+all: directories $(EXEC) $(DEPEND_FRAGMENT)
 
 $(LIBFT_FILE): $(LIBFT_DEP)
 ifeq ($(OS), Linux)
@@ -103,6 +104,12 @@ else
 	@echo "\r\x1B[32m  + Compile:\x1B[0m $(notdir $^)"
 endif
 
+$(DEPEND_FRAGMENT): $(SRCC)
+	@touch $(DEPEND_FRAGMENT)
+	@makedepend -f $(DEPEND_FRAGMENT) -- -Y -O -DHACK $(CFLAGS) $(INCLUDE) -- $(SRCC) >& /dev/null
+	@sed 's/.\/srcs/.\/objs/g' $(DEPEND_FRAGMENT) > $(DEPEND_FRAGMENT).bak
+	@mv $(DEPEND_FRAGMENT).bak $(DEPEND_FRAGMENT)
+
 directories: ${OUT_DIR} ${SRC_DIR} ${INC_DIR}
 
 ${OUT_DIR}:
@@ -117,7 +124,7 @@ ${INC_DIR}:
 clean:
 	@make -C ./libft clean
 	@make -C ./libjson clean
-	@rm -rf $(OUT_DIR)
+	@rm -rf $(OUT_DIR) $(DEPEND_FRAGMENT)
 ifeq ($(OS), Linux)
 	@echo -e "\x1B[31m  - Remove:\x1B[0m RT objs"
 else
@@ -125,6 +132,7 @@ else
 endif
 
 fclean: clean
+	@pkill -9 RT | true
 	@make -C ./libft fclean
 	@make -C ./libjson fclean
 	@rm -f $(EXEC)
@@ -140,10 +148,12 @@ re: fclean
 run: re
 	@./$(EXEC)
 
+depend:
+	@makedepend -- -Y -O -DHACK $(INCLUDE) -- $(SRCC) >& /dev/null
+
 norm:
 	@echo "\x1B[31m\c"
 	@norminette srcs/* incs/* | grep -B 1 "Error" || true
 	@echo "\x1B[0m\c"
-
 
 .PHONY: all clean fclean re run directories cleanlib norm

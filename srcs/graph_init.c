@@ -20,9 +20,7 @@ t_sdl	*graph_init(void)
 	count = -1;
 	if ((graph = (t_sdl*)malloc(sizeof(t_sdl))) == NULL)
 		return (NULL);
-	if ((graph->input = (char*)malloc(sizeof(char) * SDL_NUM_SCANCODES))
-	== NULL)
-		return (NULL);
+	ft_bzero((void*)graph->input, sizeof(char) * SDL_NUM_SCANCODES);
 	while (++count < SDL_NUM_SCANCODES)
 		graph->input[count] = FALSE;
 	graph->input[count - 1] = '\0';

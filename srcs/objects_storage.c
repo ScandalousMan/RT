@@ -246,7 +246,7 @@ int	fill_object(t_object *obj, t_jobject *jobj, int num, t_param *param)
 	obj->tmp_vec[0] = 0;//TODO CHANGE THIS BEURK !
 	obj->tmp_vec[1] = 0;
 	obj->tmp_vec[2] = 0;
-	obj->phong = SPECULAR_EXP;//TODO
+	obj->phong = param->macro.specular_exp;
 	tmp = get_jobject(jobj, "color");
 	obj->col = get_color((t_jarray*)(tmp->value));
 	tmp = get_jobject(jobj, "kd");

@@ -1,28 +1,33 @@
+[![Build Status](https://travis-ci.org/ScandalousMan/RT.svg?branch=master)](https://travis-ci.org/ScandalousMan/RT)
 # RT
 Ray Tracing group project for School 42
 
-# Requirements
+## Requirements
 Install `pkg-config`, `glew`, `sdl2` and `sdl2_images`
 
-# How-to
+## How-to
 
-## Compile
+### Compile
+
 ```
 $ make
 ```
 
-## Recompile and run
+### Recompile and run
+
 ```
 $ make run
 ```
 
-## Check norm
+### Check norm
+
 You need to be at 42
 ```
 $ make norm
 ```
 
-## Clean
+### Clean
+
 ```
 $ make clean
 ```
@@ -51,15 +56,6 @@ Interface composée de 2 zones :
 * Onglet lights et onglet objects
 
 ### Valeurs générales de la scène
-
-Input text pour sélectionner:
-* SPECULAR_EXP (entier entre 1 et 16) param->specular_exp
-* BRIGHTNESS (entier entre 1 et 16) param->brightness
-* ROTATION (entier entre 1 et 45) param->rotation_angle
-* RECURSION (entier entre 0 et 10) param->recursion
-* ANTI_ALIASING (entier entre 1 et 10) param->anti_aliasing
-* CARTOON_FACTOR (entier entre 5 et 50) param->cartoon_factor
-* BLUR_RADIUS (entier entre 1 et 12) param->blur_radius
 
 les valeurs param ci-dessous sont initialisées aux valeurs des MACROs (pas encore déclaré ou fait)
 

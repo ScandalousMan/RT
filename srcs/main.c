@@ -43,7 +43,7 @@ int		main(int ac, char **av)
 			param->to_pix = 0;
 			param->refresh = 1;
 		}
-		nukl_gui(param->graph);
+		nukl_gui(param);
 		if (param->refresh == 1)
 		{
 			lauch_threads(param);

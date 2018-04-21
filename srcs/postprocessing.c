@@ -46,11 +46,11 @@ void	sepia(t_param *param)
 	}
 }
 
-int		cartooner(int color)
+int		cartooner(t_param *param, int color)
 {
-	return (((int)((color & 0xFF) / CARTOON_FACTOR) * CARTOON_FACTOR) |
-		((int)(((color >> 8) & 0xFF) / CARTOON_FACTOR) * CARTOON_FACTOR << 8) |
-		((int)(((color >> 16) & 0xFF) / CARTOON_FACTOR) * CARTOON_FACTOR << 16));
+	return (((int)((color & 0xFF) / param->macro.cartoon_factor) * param->macro.cartoon_factor) |
+		((int)(((color >> 8) & 0xFF) / param->macro.cartoon_factor) * param->macro.cartoon_factor << 8) |
+		((int)(((color >> 16) & 0xFF) / param->macro.cartoon_factor) * param->macro.cartoon_factor << 16));
 }
 
 void	cartoon(t_param *param)
@@ -61,7 +61,7 @@ void	cartoon(t_param *param)
 		param->i[1] = 0;
 		while (param->i[1] < WINDOW_SDL_WIDTH)
 		{
-			putpxl(param, param->i[0], param->i[1], cartooner(getpxl(param, param->i[0], param->i[1])));
+			putpxl(param, param->i[0], param->i[1], cartooner(param, getpxl(param, param->i[0], param->i[1])));
 			param->i[1]++;
 		}
 		param->i[0]++;
@@ -80,7 +80,7 @@ void	blur(t_param *param)
 	int 		ix;
 	int 		iy;
 
-  rs = (int)ceil((double)BLUR_RADIUS * 2.57);
+  rs = (int)ceil((double)param->macro.blur_radius * 2.57);
   param->i[0] = 0;
   while (param->i[0] < WINDOW_SDL_HEIGHT)
   {
@@ -100,7 +100,7 @@ void	blur(t_param *param)
   				x = ft_min(WINDOW_SDL_WIDTH - 1, ft_max(0, ix));
   				y = ft_min(WINDOW_SDL_HEIGHT - 1, ft_max(0, iy));
   				dsq = (double)((param->i[1] - ix) * (ix - param->i[1]) + (iy - param->i[0]) * (param->i[0] - iy));
-  				wght = exp(dsq / (double)(2 * BLUR_RADIUS * BLUR_RADIUS)) / M_PI / (double)(2 * BLUR_RADIUS * BLUR_RADIUS);
+  				wght = exp(dsq / (double)(2 * param->macro.blur_radius * param->macro.blur_radius)) / M_PI / (double)(2 * param->macro.blur_radius * param->macro.blur_radius);
   				res[0] += ((param->pxl_infos[y][x]->col >> 16) & 0xFF) * wght;
   				res[1] += ((param->pxl_infos[y][x]->col >> 8) & 0xFF) * wght;
   				res[2] += ((param->pxl_infos[y][x]->col) & 0xFF) * wght;

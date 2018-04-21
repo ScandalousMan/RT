@@ -20,32 +20,37 @@
 #  define M_PI 3.141592653589793238462643383279
 # endif
 # define SPECULAR_EXP 8
-// # define ESCAPE 53
-// # define REFRESH 15
-// # define RIGHT 124
-// # define LEFT 123
-// # define TOP 126
-// # define BOTTOM 125
-// # define ZOOM_IN 44
-// # define ZOOM_OUT 24
-# define BRIGHTNESS 11
 # define EPSILON 0.001
-# define ROTATION 10.0
 
 # define PIXELISATION	8
 
-# define RECURSION 1
-# define MAX_RECURSION 0
-# define MIN_RECURSION 10
-# define ANTI_ALIASING 2
+# define STEP_ANTI_ALIASING 1
 # define MAX_ANTI_ALIASING 1
 # define MIN_ANTI_ALIASING 10
-# define CARTOON_FACTOR 25
-# define MAX_CARTOON_FACTOR 5
-# define MIN_CARTOON_FACTOR 50
+
+# define STEP_RECURSION 1
+# define MAX_RECURSION 0
+# define MIN_RECURSION 10
+
+# define STEP_SPECULAR_EXP 1
+# define MAX_SPECULAR_EXP 1
+# define MIN_SPECULAR_EXP 16
+
+# define STEP_ROTATION_ANGLE 1
+# define MAX_ROTATION_ANGLE 1
+# define MIN_ROTATION_ANGLE 90
+
+# define STEP_K_AMBIENCE 1
+# define MAX_K_AMBIENCE 1
+# define MIN_K_AMBIENCE 16
+
+# define STEP_CARTOON_FACTOR 1
+# define MIN_CARTOON_FACTOR 5
+# define MAX_CARTOON_FACTOR 50
+
+# define STEP_BLUR_RADIUS 1
 # define MIN_BLUR_RADIUS 0
 # define MAX_BLUR_RADIUS 50
-# define BLUR_RADIUS 4
 
 # include <fcntl.h>
 # include <stdlib.h>
@@ -76,7 +81,7 @@
 # include "nuklear.h"
 # include "nuklear_sdl_gl3.h"
 
-# define WINDOW_GUI_WIDTH 200
+# define WINDOW_GUI_WIDTH 500
 # define WINDOW_GUI_HEIGHT 800
 # define WINDOW_SDL_WIDTH 800
 # define WINDOW_SDL_HEIGHT 800
@@ -91,8 +96,8 @@
 # define MAX(a,b) ((a) < (b) ? (b) : (a))
 # define LEN(a) (sizeof(a)/sizeof(a)[0])
 
-# define TRUE '1'
-# define FALSE '0'
+# define TRUE 1
+# define FALSE 0
 
 typedef struct nk_context		t_nk_context;
 typedef struct nk_font_atlas	t_nk_font_atlas;
@@ -108,21 +113,14 @@ typedef struct					s_sdl
 	SDL_Renderer				*render_sdl;
 	SDL_Surface					*surfs[NB_THREAD];
 	SDL_Surface					*tmp_surfs[NB_THREAD];
-	char						*input;
+	char						input[SDL_NUM_SCANCODES];
 	int							show_tmp;
 
 	t_nk_context				*ctx;
 }								t_sdl;
 
 # define VEC_SIZE 3
-/*
-typedef struct  s_parse
-{
-	char			*str;
-	int 			list_len;
-	struct s_parse	*next;
-}				t_parse;
-*/
+
 typedef struct	s_sphere
 {
 	double			center[VEC_SIZE];
@@ -226,14 +224,25 @@ typedef struct	s_custom
 	struct s_custom		*next;
 }				t_custom;
 
-typedef struct s_pxl_info
+typedef struct	s_pxl_info
 {
 	t_object		*object;
 	int					col;
 	int					calc_col;
 }				t_pxl_info;
 
-typedef struct	s_param
+typedef struct		s_macro
+{
+	int				anti_aliasing;
+	int				recursion;
+	int				cartoon_factor;
+	int				blur_radius;
+	int				specular_exp;
+	int	 			k_ambience;
+	int				rotation_angle;
+}					t_macro;
+
+typedef struct		s_param
 {
 	clock_t			start;//TODO delete
 	clock_t			end;//TODO delete
@@ -271,6 +280,8 @@ typedef struct	s_param
 
 	int				to_pix;
 	clock_t			last_mv;
+
+	t_macro			macro;
 }				t_param;
 
 /*
@@ -418,7 +429,7 @@ void							nk_sdl_device_create(void);
 ** Nuklear function
 */
 
-void							nukl_gui(t_sdl *graph);
+void							nukl_gui(t_param *param);
 
 /*
 ** SDL2 Prototypes

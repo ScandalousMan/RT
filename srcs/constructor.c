@@ -12,15 +12,15 @@
 
 #include <rt.h>
 
-t_path			*path_create(int index)
+t_path			*path_create(t_param *param, int index)
 {
 	t_path		*path;
 
 	if (!(path = (t_path*)malloc(sizeof(t_path))))
 		return (NULL);
 	path->current_object = NULL;
-	path->reflected = index < RECURSION ? path_create(index + 1) : NULL;
-	path->transmitted = index < RECURSION ? path_create(index + 1) : NULL;
+	path->reflected = index < param->macro.recursion ? path_create(param, index + 1) : NULL;
+	path->transmitted = index < param->macro.recursion ? path_create(param, index + 1) : NULL;
 	return (path);
 }
 
@@ -51,7 +51,6 @@ t_param			*struct_create(void)
 
 	if (!(param = (t_param*)malloc(sizeof(t_param))))
 		return (NULL);
-	param->path = path_create(0);
 	if (!(param->thread = (SDL_Thread**)malloc(sizeof(SDL_Thread*) * NB_THREAD)))
 		return (NULL);
 	param->brightness = 1;
@@ -67,6 +66,14 @@ t_param			*struct_create(void)
 	param->num_lights = 0;
 	param->refresh = 1;
 	param->current_thread = 0;
+	param->macro.anti_aliasing = 2;
+	param->macro.recursion = 2;
+	param->macro.cartoon_factor = 25;
+	param->macro.blur_radius = 4;
+	param->macro.specular_exp = 1;
+	param->macro.rotation_angle = 30;
+	param->macro.k_ambience = 1;
+	param->path = path_create(param, 0);
 	if (!pxl_infos_create(param))
 		return (NULL);
 	return (param);
