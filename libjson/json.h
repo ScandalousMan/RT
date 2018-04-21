@@ -6,7 +6,7 @@
 /*   By: jbouille <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/23 10:13:19 by jbouille          #+#    #+#             */
-/*   Updated: 2018/03/20 17:54:28 by jbouille         ###   ########.fr       */
+/*   Updated: 2018/04/14 17:19:43 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ typedef struct			s_jarray
 
 typedef enum			e_jbool
 {
-	FALSE = 0,
-	TRUE = 1
+	JFALSE = 0,
+	JTRUE = 1
 }						t_jbool;
 
 typedef char*			t_jstring;

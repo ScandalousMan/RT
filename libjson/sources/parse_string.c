@@ -6,7 +6,7 @@
 /*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 00:55:04 by jbouille          #+#    #+#             */
-/*   Updated: 2018/03/20 19:00:14 by jbouille         ###   ########.fr       */
+/*   Updated: 2018/04/14 17:21:15 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,13 +104,13 @@ char		*parse_jbool(char *json, void **value)
 		}
 		if (ft_strnequ("true", json, 4))
 		{
-			*b = TRUE;
+			*b = JTRUE;
 			*value = b;
 			return (json + 4);
 		}
 		if (ft_strnequ("false", json, 5))
 		{
-			*b = FALSE;
+			*b = JFALSE;
 			*value = b;
 			return (json + 5);
 		}
