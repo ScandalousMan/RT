@@ -6,7 +6,7 @@
 /*   By: jbouille <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 14:13:11 by jbouille          #+#    #+#             */
-/*   Updated: 2018/03/20 19:27:47 by jbouille         ###   ########.fr       */
+/*   Updated: 2018/04/14 15:32:55 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,12 @@ typedef enum			e_object_type
 	RTQUADRIC,
 	RTCUSTOMOBJECT
 }						t_object_type;
+
+typedef enum			e_light_type
+{
+	RTSPOT,
+	RTPARALLEL
+}						t_light_type;
 
 typedef enum			e_rt_type
 {
@@ -47,7 +53,8 @@ typedef enum			e_rt_type
 	RTCUSTOM,
 	RTCUSTOMOBJ,
 	RTSIGN,
-	RTLIMIT
+	RTLIMIT,
+	RTLIGHTTYPE
 }						t_rt_type;
 
 typedef struct			s_key
@@ -128,7 +135,8 @@ const t_key				g_camera_keys[] = {
 };
 
 const t_key				g_light_keys[] = {
-	{"center", RTVECTOR, RTDOUBLE},
+	{"type", RTLIGHTTYPE, RTNULL},
+	{"u", RTVECTOR, RTDOUBLE},
 	{"color", RTVECTOR, RTCHAR},
 	{"intensity", RTCOEF, RTNULL},
 };
@@ -181,7 +189,7 @@ extern const t_key				g_cylinder_keys[];
 extern const t_key				g_quadric_keys[];
 extern const t_key				g_customobject_keys[];
 extern const t_key				g_camera_keys[3];
-extern const t_key				g_light_keys[3];
+extern const t_key				g_light_keys[4];
 extern const t_key				g_main_object_keys[4];
 extern const t_key				g_texture_keys[2];
 extern const t_key				g_custom_keys[2];

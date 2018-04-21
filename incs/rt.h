@@ -6,7 +6,7 @@
 /*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 16:39:54 by aguemy            #+#    #+#             */
-/*   Updated: 2018/03/20 19:41:52 by jbouille         ###   ########.fr       */
+/*   Updated: 2018/04/14 17:12:46 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,6 +186,7 @@ typedef struct	s_object
 
 typedef struct	s_light
 {
+	int				type;
 	int							num;
 	int							col;
 	double					src[VEC_SIZE];//position de la source lumineuse

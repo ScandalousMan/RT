@@ -70,6 +70,8 @@ void	display_lights(t_param *param)
 		ft_putstr("light detected,#");
 		ft_putnbr(param->tmp_light->num);
 		ft_putchar('\n');
+		ft_putnbr(param->tmp_light->type);
+		ft_putendl("");
 		ft_putvec(param->tmp_light->src);
 		ft_putstr("\n**************\n");
 		param->tmp_light = param->tmp_light->next;

@@ -6,7 +6,7 @@
 /*   By: jbouille <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 17:32:22 by jbouille          #+#    #+#             */
-/*   Updated: 2018/03/20 19:27:27 by jbouille         ###   ########.fr       */
+/*   Updated: 2018/04/14 15:36:37 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,9 @@ int	is_type(void* value, t_jtype jtype, t_rt_type type, t_rt_type subtype)
 	else if (type == RTLIMIT)
 		return (jtype == JOBJECT
 				&& is_object((t_jobject*)value, g_plan_keys, RT_KEYS_SIZE(g_plan_keys), 0));
+	else if (type == RTLIGHTTYPE)
+		return (jtype == JSTRING
+		&& (ft_strequ((char*)value, "spot") || ft_strequ((char*)value, "parallel")));
 	return (0);
 }
 
