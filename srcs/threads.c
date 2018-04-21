@@ -15,7 +15,6 @@
 t_param		*param_cpy(t_param *param, int count)
 {
 	t_param		*param_cpy;
-
 	
 	if (!(param_cpy = struct_create()))
 			error(0, 0, "Init param for multi thread failed!");

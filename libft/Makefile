@@ -59,6 +59,7 @@ OBCC =				$(addprefix $(ODIR),$(OBJS))
 all: directories $(EXEC)
 
 $(EXEC): $(OBCC)
+	echo $(DEBUG)
 ifeq ($(OS), Linux)
 	@ar rc $(EXEC) $(OBCC)
 	@ranlib $@

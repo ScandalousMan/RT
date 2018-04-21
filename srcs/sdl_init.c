@@ -65,6 +65,15 @@ void			sdl_init(t_sdl *graph)
 		printf("Erreur lors de la creation d'un renderer : %s", SDL_GetError());
 		exit(0);
 	}
+	SDL_SetWindowTitle(graph->win_sdl, "RT");
+	graph->ctx->style.button.normal = nk_style_item_color(nk_rgba(0, 0, 0, 0));
+	graph->ctx->style.button.hover = nk_style_item_color(nk_rgb(255, 165, 0));
+	graph->ctx->style.button.active = nk_style_item_color(nk_rgb(220, 10, 0));
+	graph->ctx->style.button.border_color = nk_rgb(255, 165, 0);
+	graph->ctx->style.button.text_background = nk_rgb(0, 0, 0);
+	graph->ctx->style.button.text_normal = nk_rgb(255, 165, 0);
+	graph->ctx->style.button.text_hover = nk_rgb(28, 48, 62);
+	graph->ctx->style.button.text_active = nk_rgb(28, 48, 62);
 	while (count < NB_THREAD)
 	{
 		if ((graph->surfs[count] = SDL_CreateRGBSurfaceWithFormat(0,

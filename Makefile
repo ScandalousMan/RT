@@ -12,8 +12,12 @@
 
 EXEC = RT
 
-DEBUG = no
-CC = clang
+ifndef CC
+CC 					= gcc
+endif
+ifndef DEBUG
+DEBUG 				= no
+endif
 OS := $(shell uname -s)
 DEPEND_FRAGMENT = Make.depend
 MAKEFLAGS += --silent
@@ -65,6 +69,7 @@ OBCC =		$(addprefix $(ODIR),$(OBJS))
 all: directories $(EXEC) $(DEPEND_FRAGMENT)
 
 $(LIBFT_FILE): $(LIBFT_DEP)
+	echo $(DEBUG)
 ifeq ($(OS), Linux)
 	@echo -e "\x1B[34mLibft:\x1B[0m"
 	@make -C ./libft
@@ -132,7 +137,6 @@ else
 endif
 
 fclean: clean
-	@pkill -9 RT | true
 	@make -C ./libft fclean
 	@make -C ./libjson fclean
 	@rm -f $(EXEC)

@@ -81,7 +81,7 @@
 # include "nuklear.h"
 # include "nuklear_sdl_gl3.h"
 
-# define WINDOW_GUI_WIDTH 500
+# define WINDOW_GUI_WIDTH 400
 # define WINDOW_GUI_HEIGHT 800
 # define WINDOW_SDL_WIDTH 800
 # define WINDOW_SDL_HEIGHT 800
