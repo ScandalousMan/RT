@@ -12,32 +12,47 @@ t_object	*closest_object(t_param *param, double *from, double *to, t_path *path)
 		param->is_cut = 0;
 		param->tmp_d_cut = -1.0;
 		param->tmp_d = distance_calc(objs, param, from, to);
-		// on compute ici la distance en prenant en compte le plan de coupe
 		if (param->tmp_d > 0.0 && (param->obj_d < 0.0 || param->tmp_d < param->obj_d))
 		{
-			/* on parcourt les limites */
 			limits = objs->limits;
 			while (limits && param->tmp_d > 0.0)
 			{
 				param->tmp_d_cut = plane_distance(from, to, limits->plane.n, limits->plane.ref);
-				if ((param->tmp_d_cut - param->tmp_d) * scalar_product(to, limits->plane.n) < 0.0)
+				if (param->tmp_d_cut < 0)
 				{
-					vec_multiply(param->tmp_d_cut - param->epsilon, to, path->tmp_x);
-					pt_translated(from, path->tmp_x, path->tmp_x);
-					if (is_inside_object(path->tmp_x, objs))
+					vec_soustraction(from, limits->plane.ref, path->tmp_x);
+				}
+				if ((param->tmp_d_cut - param->tmp_d) * scalar_product(to, limits->plane.n) <= 0.0)
+				{
+					if (param->tmp_d_cut < 0 && scalar_product(limits->plane.n, path->tmp_x))
 					{
-						param->is_cut = 1;
-						is_cut_limit = limits;
-						param->tmp_d = param->tmp_d_cut;
-						if (!param->is_for_light)
-						{
-							vec_copy(path->tmp_x, path->final_x);
-							vec_copy(limits->plane.n, path->final_n);
-						}
+						param->tmp_d = -1.0;
 					}
 					else
 					{
-						param->tmp_d = -1.0;
+						vec_multiply(param->tmp_d_cut - param->epsilon, to, path->tmp_x);
+						pt_translated(from, path->tmp_x, path->tmp_x);
+						if (point_display(param))
+							printf("inside cone ?\n");
+						if (is_inside_object(path->tmp_x, objs))
+						{
+							param->is_cut = 1;
+							is_cut_limit = limits;
+							param->tmp_d = param->tmp_d_cut;
+							if (!param->is_for_light)
+							{
+								vec_copy(path->tmp_x, path->final_x);
+								vec_copy(limits->plane.n, path->final_n);
+							}
+						}
+						else
+						{
+							if (point_display(param))
+							{
+								printf("évidé\n");
+							}
+							param->tmp_d = -1.0;
+						}
 					}
 				}
 				limits = limits->next;
