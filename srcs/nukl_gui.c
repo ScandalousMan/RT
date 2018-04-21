@@ -14,6 +14,18 @@
 
 void	nukl_gui(t_param *param)
 {
+	const struct nk_vec2 sizeButton = {
+		470.0,
+		150.0
+	};
+	const char *filter[5] = {
+		"None",
+		"Cartoon",
+		"Greyscale",
+		"Sepia",
+		"Blur"
+	};
+	
 	if (nk_begin(param->graph->ctx, "RT UI", nk_rect(0, 0, WINDOW_GUI_WIDTH,
 		WINDOW_GUI_HEIGHT), NK_WINDOW_SCALE_LEFT))
 	{
@@ -79,6 +91,11 @@ void	nukl_gui(t_param *param)
 			nk_slider_int(param->graph->ctx, MIN_K_AMBIENCE, &param->macro.k_ambience, MAX_K_AMBIENCE, STEP_K_AMBIENCE);
 			nk_layout_row_push(param->graph->ctx, 100);
 			nk_label(param->graph->ctx, ft_itoa(param->macro.k_ambience), NK_TEXT_CENTERED);
+		}
+		nk_layout_row_begin(param->graph->ctx, NK_STATIC, 30, 1);
+		{
+			nk_layout_row_push(param->graph->ctx, 400);
+			param->macro.filter = nk_combo(param->graph->ctx, filter, 5, param->macro.filter, 20, sizeButton);
 		}
 		nk_layout_space_begin(param->graph->ctx, NK_STATIC, 20, INT_MAX);
 		nk_layout_space_push(param->graph->ctx, nk_rect(15, 0, 40, 20));

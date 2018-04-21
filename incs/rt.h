@@ -240,6 +240,8 @@ typedef struct		s_macro
 	int				specular_exp;
 	int	 			k_ambience;
 	int				rotation_angle;
+
+	int				filter;
 }					t_macro;
 
 typedef struct		s_param
