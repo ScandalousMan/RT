@@ -14,9 +14,6 @@ int		object_color(t_param *param, t_path *path)
 			vec_multiply(-2.0 * scalar_product(path->n, path->v), path->n, path->r);
 			pt_translated(path->r, path->v, path->r);
 			vec_to_unit_norm(path->r);
-			if (param->i[0] == 390 && param->i[1] == 397) {
-				printf("=========\n start light #%d\nfrom=[%f,%f,%f]\nto=[%f,%f,%f]\n", param->tmp_light->num, path->x[0], path->x[1], path->x[2], param->tmp_light->src[0], param->tmp_light->src[1], param->tmp_light->src[2]);
-			}
 			if (!light_masked(param, path->x, param->tmp_light->src, path))
 			{
 				if (scalar_product(path->l, path->n) * param->tmp_light->i > 0.0)

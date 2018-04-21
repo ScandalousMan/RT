@@ -200,6 +200,8 @@ typedef struct	s_path
 	double			r[VEC_SIZE];//rayon réfléchi
 	double			t[VEC_SIZE];//rayon transmis
 	double			tmp_x[VEC_SIZE];//use for cut objects tmp points
+	double			final_x[VEC_SIZE];//to store final cut intersection
+	double			final_n[VEC_SIZE];//to store final cut normal
 	t_object		*current_object;
 	struct s_path	*reflected;
 	struct s_path	*transmitted;
