@@ -1,6 +1,6 @@
 {
 	"camera": {
-		"eye": [100, -200, -50],
+		"eye": [40, -50, -30],
 		"look": [0, 1, 0],
 		"align": [1, 0, 0]
 	},
@@ -15,6 +15,11 @@
 		{
 			"type": "spot",
 			"u": [-100, -250, 100],
+			"color": [255, 255, 255],
+			"intensity": 1
+		},
+		{
+			"center": [0, 0, -200],
 			"color": [255, 255, 255],
 			"intensity": 1
 		}
@@ -44,7 +49,32 @@
 			"normal": [0, 1, 0],
 			"point": [0, 100, 0]
 		},
-
+		{
+			"type": "cone",
+			"color": [50, 255, 50],
+			"kd": 0.55,
+			"ks": 0.0,
+			"texture":
+				{
+					"type": "native",
+					"name": "texture_1"
+				},
+			"transparency": 0.2,
+			"reflection": 0.2,
+			"n": 1,
+			"thickness": 0.5,
+			"translation": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"limits": [
+				{
+					"normal": [0, 0, -1],
+					"point": [40, 0, -10]
+				}
+			],
+			"center": [40, 0, 0],
+			"vector": [0, 0, 1],
+			"angle": 10
+		},
 		{
 			"type": "sphere",
 			"color": [255, 0, 255],
