@@ -6,7 +6,7 @@
 /*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 16:38:39 by aguemy            #+#    #+#             */
-/*   Updated: 2018/03/20 20:15:21 by jbouille         ###   ########.fr       */
+/*   Updated: 2018/04/21 15:10:13 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,11 @@ void	free_path(t_path *path)
 
 void	end_program(t_param *param)
 {
-	free_objects(param);
-	free_lights(param);
-	free_path(param->path);
-	free(param);
+	UNUSED(param);
+//	free_objects(param);
+//	free_lights(param);
+//	free_path(param->path);
+//	free(param);
 	exit(0);
 }
 
