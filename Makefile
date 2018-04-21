@@ -12,8 +12,12 @@
 
 EXEC = RT
 
-DEBUG = no
-CC = clang
+ifndef CC
+CC 					= clang
+endif
+ifndef DEBUG
+DEBUG 				= no
+endif
 OS := $(shell uname -s)
 DEPEND_FRAGMENT = Make.depend
 MAKEFLAGS += --silent
