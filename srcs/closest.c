@@ -7,8 +7,6 @@ t_object	*closest_object(t_param *param, double *from, double *to, t_path *path)
 	t_limit	*limits;
 	// t_limit *is_cut_limit;
 
-	if (point_display(param))
-		printf("- closest -\n");
 	while (objs)
 	{
 		if (!param->is_for_light || objs != path->current_object)
@@ -141,7 +139,7 @@ t_object	*closest_object(t_param *param, double *from, double *to, t_path *path)
 			// 			}
 			// 		}
 			// 	}
-			}	
+			}
 		}
 		objs = objs->next;
 	}

@@ -2,8 +2,6 @@
 
 int		object_color(t_param *param, t_path *path)
 {
-	if (point_display(param))
-		printf("object_color - light + color\n");
 	if (param && path && path->current_object)
 	{
 		param->bright = 0.0;
