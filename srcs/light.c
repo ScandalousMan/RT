@@ -23,7 +23,14 @@ t_object	*light_masked(t_param *param, double *from, double *to, t_path *path)
 	closest_object(param, from, path->l, path);
 	if (param->obj_d * param->obj_d > pt_dist_root(from, param->tmp_light->src))
 		param->intersect_object = NULL;
-	if (point_display(param) && param->intersect_object)
-		printf("intersection trouée avec objet #%d\n", param->intersect_object->num);
+	// if (point_display(param) && param->intersect_object)
+	// 	printf("intersection trouée avec objet #%d\n", param->intersect_object->num);
+	if(point_display(param))
+	{
+		if (param->intersect_object)
+			printf("lumière masquée ? OUI\n");
+		else
+			printf("lumière masquée ? NON\n");
+	}
 	return (param->intersect_object);
 }

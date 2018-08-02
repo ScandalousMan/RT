@@ -2,6 +2,8 @@
 
 int		object_color(t_param *param, t_path *path)
 {
+	if (point_display(param))
+		printf("object_color - light + color\n");
 	if (param && path && path->current_object)
 	{
 		param->bright = 0.0;
@@ -14,23 +16,23 @@ int		object_color(t_param *param, t_path *path)
 			vec_multiply(-2.0 * scalar_product(path->n, path->v), path->n, path->r);
 			pt_translated(path->r, path->v, path->r);
 			vec_to_unit_norm(path->r);
-			if (point_display(param))
-			{
-				printf("== light #%d avec n=[%f,%f,%f] et l=[%f,%f,%f]\n", param->tmp_light->num, path->n[0], path->n[1], path->n[2], path->l[0], path->l[1], path->l[2]);
-			}
+			// if (point_display(param))
+			// {
+			// 	printf("== light #%d avec n=[%f,%f,%f] et l=[%f,%f,%f]\n", param->tmp_light->num, path->n[0], path->n[1], path->n[2], path->l[0], path->l[1], path->l[2]);
+			// }
 			if (!light_masked(param, path->x, param->tmp_light->src, path))
 			{
 				if (point_display(param))
-				{
 					printf(">> illuminated avec n=[%f,%f,%f] et l=[%f,%f,%f]\n", path->n[0], path->n[1], path->n[2], path->l[0], path->l[1], path->l[2]);
-				}
-				if (scalar_product(path->l, path->n) * param->tmp_light->i > 0.0)
+				if (scalar_product(path->l, path->n) > 0.0)
 					param->diffuse += scalar_product(path->l, path->n) * param->tmp_light->i;
 				if (param->brightness && ft_pow(scalar_product(path->l, path->r), param->brightness) * param->tmp_light->i > 0.0)
 					param->bright += ft_pow(scalar_product(path->l, path->r), path->current_object->phong) * param->tmp_light->i;
 			}
 			param->tmp_light = param->tmp_light->next;
 		}
+		if (point_display(param))
+			printf("bright: %f ; diffuse: %f\n", param->bright, param->diffuse);
 		return color_summer(rgb_ratio(path->current_object->col, 0.2 + path->current_object->kd * param->diffuse),
 			rgb_ratio(16777215, path->current_object->ks * (param->bright > 1.0 ? 1.0 : param->bright)));
 	}
@@ -52,6 +54,8 @@ double	*ray_direction(t_param *param, int i, int j)
 
 int		ray_color(t_param *param, double *from, double *to, int index, t_path *path)
 {
+	if (point_display(param))
+		printf("INDEX : %d\n", index);
 	path->current_object = NULL;
 	param->is_for_light = 0;
 	path->current_object = closest_object(param, from, to, path);
@@ -63,10 +67,10 @@ int		ray_color(t_param *param, double *from, double *to, int index, t_path *path
 	}
 	else
 	{
-		if (point_display(param))
-		{
-			printf("#%d avec n=[%f,%f,%f] et x=[%f,%f,%f] et O=[%f,%f,%f]\n", path->current_object->num, path->n[0], path->n[1], path->n[2], path->x[0], path->x[1], path->x[2], path->current_object->tmp_vec[0], path->current_object->tmp_vec[1], path->current_object->tmp_vec[2]);
-		}
+		// if (point_display(param))
+		// {
+		// 	printf("#%d avec n=[%f,%f,%f] et x=[%f,%f,%f] et O=[%f,%f,%f]\n", path->current_object->num, path->n[0], path->n[1], path->n[2], path->x[0], path->x[1], path->x[2], path->current_object->tmp_vec[0], path->current_object->tmp_vec[1], path->current_object->tmp_vec[2]);
+		// }
 		if (!index)
 			param->pxl_infos[param->i[0]][param->i[1]]->object = path->current_object;
 		if (index < RECURSION)
@@ -117,9 +121,9 @@ void	rt_tracer(t_param *param)
 					col[0] += (tmp_col >> 16) & 0xFF;
 					col[1] += (tmp_col >> 8) & 0xFF;
 					col[2] += (tmp_col) & 0xFF;
-					++alias[1];
+					alias[1]++;
 				}
-				++alias[0];
+				alias[0]++;
 			}
 			int y;
 			y = 0;

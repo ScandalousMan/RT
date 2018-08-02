@@ -7,6 +7,8 @@ t_object	*closest_object(t_param *param, double *from, double *to, t_path *path)
 	t_limit	*limits;
 	t_limit *is_cut_limit;
 
+	if (point_display(param))
+		printf("- closest -\n");
 	while (objs)
 	{
 		// param->is_cut = 0;
@@ -14,11 +16,15 @@ t_object	*closest_object(t_param *param, double *from, double *to, t_path *path)
 		if (param->tmp_d > 0.0 && (param->obj_d < 0.0 || param->tmp_d < param->obj_d))
 		{
 			param->obj_d = param->tmp_d;
-			vec_multiply(param->tmp_d - param->epsilon, to, path->tmp_x);
-			pt_translated(from, path->tmp_x, path->tmp_x);
-			vec_copy(path->tmp_x, path->x);
-			update_normal_vector(objs, path);
 			param->intersect_object = objs;
+			if (!param->is_for_light) {
+				vec_multiply(param->tmp_d - param->epsilon, to, path->tmp_x);
+				pt_translated(from, path->tmp_x, path->tmp_x);
+				vec_copy(path->tmp_x, path->x);
+				update_normal_vector(objs, path);
+				if (point_display(param))
+					printf("normal= [%f, %f, %f]\n", path->n[0], path->n[1], path->n[2]);
+			}
 
 			// limits = objs->limits;
 			// vec_multiply(param->tmp_d, to, path->tmp_x);

@@ -78,5 +78,5 @@ void	display_lights(t_param *param)
 
 int		point_display(t_param *param)
 {
-	return (param->i[0] == 304 && param->i[1] == 485);
+	return (param->i[0] == 542 && param->i[1] == 593);
 }
