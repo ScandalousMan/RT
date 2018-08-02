@@ -2,8 +2,6 @@
 
 int		object_color(t_param *param, t_path *path)
 {
-	if (point_display(param))
-		printf("object_color - light + color\n");
 	if (param && path && path->current_object)
 	{
 		param->bright = 0.0;
@@ -31,8 +29,6 @@ int		object_color(t_param *param, t_path *path)
 			}
 			param->tmp_light = param->tmp_light->next;
 		}
-		if (point_display(param))
-			printf("bright: %f ; diffuse: %f\n", param->bright, param->diffuse);
 		return color_summer(rgb_ratio(path->current_object->col, 0.2 + path->current_object->kd * param->diffuse),
 			rgb_ratio(16777215, path->current_object->ks * (param->bright > 1.0 ? 1.0 : param->bright)));
 	}
