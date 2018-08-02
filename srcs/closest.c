@@ -23,7 +23,7 @@ t_object	*closest_object(t_param *param, double *from, double *to, t_path *path)
 				vec_copy(path->tmp_x, path->x);
 				update_normal_vector(objs, path);
 				if (point_display(param))
-					printf("normal= [%f, %f, %f]\n", path->n[0], path->n[1], path->n[2]);
+					printf("x= [%f, %f, %f] || normal= [%f, %f, %f]\n", path->x[0], path->x[1], path->x[2], path->n[0], path->n[1], path->n[2]);
 			}
 
 			// limits = objs->limits;
