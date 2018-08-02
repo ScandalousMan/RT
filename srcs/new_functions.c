@@ -2,6 +2,8 @@
 
 int		object_color(t_param *param, t_path *path)
 {
+	if (point_display(param))
+		printf("object_color - light + color\n");
 	if (param && path && path->current_object)
 	{
 		param->bright = 0.0;
@@ -58,6 +60,8 @@ double	*ray_direction(t_param *param, int i, int j)
 
 int		ray_color(t_param *param, double *from, double *to, int index, t_path *path)
 {
+	if (point_display(param))
+		printf("INDEX : %d\n", index);
 	path->current_object = NULL;
 	param->is_for_light = 0;
 	path->current_object = closest_object(param, from, to, path);
@@ -121,9 +125,9 @@ void	rt_tracer(t_param *param)
 					col[0] += (tmp_col >> 16) & 0xFF;
 					col[1] += (tmp_col >> 8) & 0xFF;
 					col[2] += (tmp_col) & 0xFF;
-					++alias[1];
+					alias[1]++;
 				}
-				++alias[0];
+				alias[0]++;
 			}
 			int y;
 			y = 0;
