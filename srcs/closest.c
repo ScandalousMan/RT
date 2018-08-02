@@ -87,7 +87,6 @@ t_object	*closest_object(t_param *param, double *from, double *to, t_path *path)
 					if (point_display(param))
 						printf("object ignored because CUT\n");
 
-
 			// 	limits = objs->limits;
 			// 	vec_multiply(param->tmp_d, to, path->tmp_x);
 			// 	pt_translated(from, path->tmp_x, path->tmp_x);
