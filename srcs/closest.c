@@ -9,84 +9,83 @@ t_object	*closest_object(t_param *param, double *from, double *to, t_path *path)
 
 	while (objs)
 	{
-		param->is_cut = 0;
-		param->tmp_d_cut = -1.0;
+		// param->is_cut = 0;
 		param->tmp_d = distance_calc(objs, param, from, to);
 		if (param->tmp_d > 0.0 && (param->obj_d < 0.0 || param->tmp_d < param->obj_d))
 		{
-			limits = objs->limits;
-			while (limits && param->tmp_d > 0.0)
-			{
-				param->tmp_d_cut = plane_distance(from, to, limits->plane.n, limits->plane.ref);
-				if (param->tmp_d_cut < 0)
-				{
-					vec_soustraction(from, limits->plane.ref, path->tmp_x);
-				}
-				if ((param->tmp_d_cut - param->tmp_d) * scalar_product(to, limits->plane.n) <= 0.0)
-				{
-					if (param->tmp_d_cut < 0 && scalar_product(limits->plane.n, path->tmp_x))
-					{
-						param->tmp_d = -1.0;
-					}
-					else
-					{
-						vec_multiply(param->tmp_d_cut - param->epsilon, to, path->tmp_x);
-						pt_translated(from, path->tmp_x, path->tmp_x);
-						if (point_display(param))
-							printf("inside cone ?\n");
-						if (is_inside_object(path->tmp_x, objs))
-						{
-							param->is_cut = 1;
-							is_cut_limit = limits;
-							param->tmp_d = param->tmp_d_cut;
-							if (!param->is_for_light)
-							{
-								vec_copy(path->tmp_x, path->final_x);
-								vec_copy(limits->plane.n, path->final_n);
-							}
-						}
-						else
-						{
-							if (point_display(param))
-							{
-								printf("évidé\n");
-							}
-							param->tmp_d = -1.0;
-						}
-					}
-				}
-				limits = limits->next;
-			}
-			if (param->tmp_d > 0.0 && (param->obj_d < 0.0 || param->tmp_d < param->obj_d))
-			{
-				if (!param->is_cut && !param->is_for_light)
-				{
-					vec_multiply(param->tmp_d - param->epsilon, to, path->x);
-					pt_translated(from, path->x, path->x);
-					update_normal_vector(objs, path);
-				} else if (!param->is_for_light) {
-					limits = objs->limits;
-					while (limits && param->tmp_d > 0)
-					{
-						vec_soustraction(path->final_x, limits->plane.ref, path->tmp_x);
-						if (limits != is_cut_limit && scalar_product(path->tmp_x, limits->plane.n) > 0)
-						{
-							param->tmp_d = -1.0;
-						}
-						limits = limits->next;
-					}
-					if (param->tmp_d > 0)
-					{
-						vec_copy(path->final_x, path->x);
-						vec_copy(path->final_n, path->n);	
-					}
-				}
-				if (param->tmp_d > 0)
-				{
-					param->obj_d = param->tmp_d;
-						param->intersect_object = objs;
-				}
-			}
+			param->obj_d = param->tmp_d;
+			vec_multiply(param->tmp_d - param->epsilon, to, path->tmp_x);
+			pt_translated(from, path->tmp_x, path->tmp_x);
+			vec_copy(path->tmp_x, path->x);
+			update_normal_vector(objs, path);
+			param->intersect_object = objs;
+
+			// limits = objs->limits;
+			// vec_multiply(param->tmp_d, to, path->tmp_x);
+			// pt_translated(from, path->tmp_x, path->tmp_x);
+			// while (limits && param->tmp_d > 0)
+			// {
+			// 	if (!is_in_limit(path->tmp_x, limits))
+			// 		param->tmp_d = -1;				
+			// 	limits = limits->next;
+			// }
+			// if (param->tmp_d < 0)
+			// {
+			// 	if (point_display(param))
+			// 	{
+			// 		printf("object cut #%d\n", objs->num);
+			// 	}
+			// 	limits = objs->limits;
+			// 	while (limits)
+			// 	{
+			// 		//point d'intersection avec la limite
+			// 		param->tmp_d_cut = plane_distance(from, to, limits->plane.n, limits->plane.ref);
+			// 		vec_multiply(param->tmp_d_cut - param->epsilon, to, path->tmp_x);
+			// 		pt_translated(from, path->tmp_x, path->tmp_x);
+			// 		is_cut_limit = objs->limits;
+			// 		while (is_cut_limit && param->tmp_d_cut > 0)
+			// 		{
+			// 			if (is_cut_limit != limits && !is_in_limit(path->tmp_x, is_cut_limit))
+			// 				param->tmp_d_cut = -1;
+			// 			is_cut_limit = is_cut_limit->next;
+			// 		}
+			// 		if (point_display(param) && param->tmp_d_cut > 0)
+			// 		{
+			// 			printf("cut included dans toutes les limites\n");
+			// 		}
+			// 		if (param->tmp_d_cut > 0 && is_inside_object(path->tmp_x, objs) && (param->tmp_d < 0 || param->tmp_d_cut < param->tmp_d))
+			// 		{
+			// 			param->is_cut = 1;
+			// 			vec_copy(path->tmp_x, path->final_x);
+			// 			vec_copy(limits->plane.n, path->final_n);
+			// 			param->tmp_d = param->tmp_d_cut;
+			// 			if (point_display(param))
+			// 			{
+			// 				printf("cut considéré comme final\n");
+			// 			}
+			// 		}
+			// 		limits = limits->next;
+			// 	}
+			// }
+			// if (param->tmp_d > 0.0 && (param->obj_d < 0.0 || param->tmp_d < param->obj_d))
+			// {
+			// 	param->obj_d = param->tmp_d;
+			// 	param->intersect_object = objs;
+			// 	if (!param->is_for_light)
+			// 	{
+			// 		if (param->is_cut)
+			// 		{
+			// 			vec_copy(path->final_x, path->x);
+			// 			vec_copy(path->final_n, path->n);	
+			// 		}
+			// 		else
+			// 		{
+			// 			vec_multiply(param->tmp_d - param->epsilon, to, path->x);
+			// 			pt_translated(from, path->x, path->x);
+			// 			update_normal_vector(objs, path);
+			// 		}
+			// 	}
+			// }
 		}
 		objs = objs->next;
 	}

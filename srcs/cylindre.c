@@ -16,5 +16,10 @@ void	update_normal_cylindre(t_object *tmp, t_path *path)
 
 int		is_inside_cylindre(double *pt, t_object *obj)
 {
-	return (pt && obj) ? 1 : 0;
+	double	tmp[3];
+
+	vec_soustraction(pt, ((t_cylindre*)(obj->dim))->org, tmp);
+	if (vec_norm(vector_product(tmp, ((t_cylindre*)(obj->dim))->u, obj->tmp_vec)) > ABS(((t_cylindre*)(obj->dim))->radius))
+		return 0;
+	return 1;
 }

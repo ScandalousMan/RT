@@ -385,6 +385,7 @@ int 	rt_init(t_param *param, char *line, int count);
 
 void			rt_tracer(t_param *param);
 t_object	*closest_object(t_param *param, double *from, double *to, t_path *path);
+int				is_in_limit(double *pt, t_limit *limit);
 void			update_normal_vector(t_object *tmp, t_path *path);
 int				is_inside_object(double *pt, t_object *obj);
 t_object	*object_constructor(t_param *param);

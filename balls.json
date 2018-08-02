@@ -1,23 +1,13 @@
 {
 	"camera": {
-		"eye": [40, -50, -30],
+		"eye": [40, -150, -30],
 		"look": [0, 1, 0],
 		"align": [1, 0, 0]
 	},
 
 	"lights": [
 		{
-			"center": [0, -200, 0],
-			"color": [255, 255, 255],
-			"intensity": 1
-		},
-		{
 			"center": [300, -200, 0],
-			"color": [255, 255, 255],
-			"intensity": 1
-		},
-		{
-			"center": [0, 0, -200],
 			"color": [255, 255, 255],
 			"intensity": 1
 		}
@@ -118,6 +108,33 @@
 	
 			"center": [0, 50, 0],
 			"radius": 30.0
+		},
+		{
+			"type": "cylinder",
+			"color": [255, 255, 0],
+			"kd": 0.55,
+			"ks": 0.25,
+			"texture":
+				{
+					"type": "native",
+					"name": "texture_1"
+				},
+			"transparency": 0.2,
+			"reflection": 0.2,
+			"n": 1,
+			"thickness": 0.5,
+			"translation": [0, 0, 0],
+			"rotation": [0, 0, 0],
+			"limits": [
+				{
+					"normal": [1, -1, -1],
+					"point": [50, 10, -30]
+				}
+			],
+
+			"center": [40, 20, -20],
+			"vector": [-1, 1, 1],
+			"radius": 10.0
 		}
 
 	]
