@@ -9,34 +9,23 @@ int		object_color(t_param *param, t_path *path)
 		param->tmp_light = param->lights;
 		while (param->tmp_light)
 		{
-			// if (param->tmp_light->type == RTSPOT)
+			if (param->tmp_light->type == RTSPOT)
 				vec_soustraction(param->tmp_light->src, path->x, path->l);
-			// else
-			// 	vec_multiply(-1.0, param->tmp_light->src, path->l);
-			if (point_display(param))
-				printf("# before light: normale: [%f,%f,%f]\n", path->n[0], path->n[1], path->n[2]);
+			else
+				vec_multiply(-1.0, param->tmp_light->src, path->l);
 			vec_to_unit_norm(path->l);
 			vec_multiply(-2.0 * scalar_product(path->n, path->v), path->n, path->r);
 			pt_translated(path->r, path->v, path->r);
 			vec_to_unit_norm(path->r);
 			if (!light_masked(param, path->x, path->l, path))
 			{
-				if (point_display(param))
-					printf("== light not masked\n");
 				if (scalar_product(path->l, path->n) > 0.0)
 					param->diffuse += scalar_product(path->l, path->n) * param->tmp_light->i;
 				if (param->brightness && ft_pow(scalar_product(path->l, path->r), param->brightness) > 0.0)
 					param->bright += ft_pow(scalar_product(path->l, path->r), path->current_object->phong) * param->tmp_light->i;
 			}
-			else
-			{
-				if (point_display(param))
-					printf("++ object masked - type %d\n", path->current_object->type);
-			}
 			param->tmp_light = param->tmp_light->next;
 		}
-		if (point_display(param))
-			printf(">> current object type: %d\n", path->current_object->type);
 		return color_summer(rgb_ratio(path->current_object->col, 0.2 + path->current_object->kd * param->diffuse),
 			rgb_ratio(16777215, path->current_object->ks * (param->bright > 1.0 ? 1.0 : param->bright)));
 	}
@@ -58,9 +47,8 @@ double	*ray_direction(t_param *param, int i, int j)
 
 int		ray_color(t_param *param, double *from, double *to, int index, t_path *path)
 {
-	if (point_display(param))
-		printf("INDEX : %d\n", index);
 	path->current_object = NULL;
+	param->intersect_object = NULL;
 	param->is_for_light = 0;
 	path->current_object = closest_object(param, from, to, path);
 	if (!path->current_object)
@@ -71,8 +59,6 @@ int		ray_color(t_param *param, double *from, double *to, int index, t_path *path
 	}
 	else
 	{
-		if (point_display(param))
-			printf("object found: %d\n", path->current_object->type);
 		if (!index)
 			param->pxl_infos[param->i[0]][param->i[1]]->object = path->current_object;
 		if (index < param->macro.recursion)
@@ -101,7 +87,7 @@ void	rt_tracer(t_param *param)
 	int			tmp_col;
 	int 		alias[2];
 	const int	pixelisation = (param->to_pix) ? PIXELISATION : 1;
-	const int	db_antialiasing = 2 * param->macro.anti_aliasing;
+	const int	db_antialiasing = param->macro.anti_aliasing * param->macro.anti_aliasing;
 
 	param->i[0] = param->current_thread * WINDOW_SDL_HEIGHT / NB_THREAD;
 	while (param->i[0] < (param->current_thread + 1) * WINDOW_SDL_HEIGHT / NB_THREAD)

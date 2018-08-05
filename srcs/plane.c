@@ -28,7 +28,8 @@ void	update_normal_plane(t_object *tmp, t_path *path)
 
 int		is_inside_plane(t_object *tmp, t_path *path)
 {
-	return (tmp && path) ? 1 : 0;
+	vec_soustraction(path->valid_x, ((t_plane*)(tmp->dim))->ref, tmp->tmp_vec);
+	return scalar_product(tmp->tmp_vec, ((t_plane*)(tmp->dim))->n) == 0.0 ? 1 : 0;
 }
 
 int		is_in_limit(double *pt, t_limit *limit)
