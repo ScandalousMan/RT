@@ -297,6 +297,7 @@ int				color_summer(int col1, int col2);
 **------------------------------------create------------------------------------
 */
 t_param			*struct_create(void);
+t_param			*stereoscopy_cpy(t_param *param1);
 t_param			*new_content(t_param *param);
 //t_light			*add_light(t_light **lights, double *src, double i, int col);
 t_light			*light_copy(t_light *src);
@@ -401,10 +402,11 @@ int 	my_key_func(int keycode, t_param *param);
 	/*
 **POST PROCESSING FUNCTIONS
 */
-	void greyscale(t_param *param);
+void	greyscale(t_param *param);
 void 	sepia(t_param *param);
 void	cartoon(t_param *param);
 void	blur(t_param *param);
+void	stereoscopy(t_param *param);
 
 /*
 ** NK_API SDL Prototypes
@@ -453,6 +455,6 @@ void							sdl_draw(t_sdl *graph);
 
 t_sdl							*graph_init(void);
 
-void							lauch_threads(t_param *param);
+void							launch_threads(t_param *param);
 
 #endif

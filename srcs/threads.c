@@ -43,7 +43,7 @@ static int	calc(void *ptr)
   return (0);
 }
 
-void		lauch_threads(t_param *param)
+void		launch_threads(t_param *param)
 {
 	int			count;
 	int			threadReturnValue;

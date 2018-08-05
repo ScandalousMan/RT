@@ -45,6 +45,37 @@ t_param			*pxl_infos_create(t_param *param)
 	return (param);
 }
 
+t_param			*stereoscopy_cpy(t_param *param1)
+{
+	t_param		*param;
+
+	if (!(param = (t_param*)malloc(sizeof(t_param))))
+		return (NULL);
+
+	param->f = param1->f;
+	pt_translated(param1->eye, param1->align, param->eye);
+	vec_copy(param1->look, param->look);
+	vec_copy(param1->align, param->align);
+	vec_copy(param1->third, param->third);
+	param->path = param1->path;
+	param->customs = param1->customs;
+	param->objects = param1->objects;
+	param->lights = param1->lights;
+	param->num_lights = param1->num_lights;
+	param->intersect_object = param1->intersect_object;
+	param->tmp_light = param1->tmp_light;
+	param->brightness = param1->brightness;
+	param->epsilon = param1->epsilon;
+	param->graph = param1->graph;
+	param->thread = param1->thread;
+	param->current_thread = param1->current_thread;
+	param->refresh = param1->refresh;
+	param->ia = param1->ia;
+	param->macro = param1->macro;
+	param->pxl_infos = param1->pxl_infos;
+	return (param);
+}
+
 t_param			*struct_create(void)
 {
 	t_param		*param;
