@@ -54,3 +54,18 @@ Uint32 getpxl(t_param *param, int y, int x)
 		return 0;
     return *(Uint32 *)(param->graph->surfs[num_surf]->pixels + y * param->graph->surfs[num_surf]->pitch + x * 4);
 }
+
+// void	surf_copy(t_param *src_param, t_param *dest_param)
+// {
+//   src_param->i[0] = 0;
+//   while (src_param->i[0] < WINDOW_SDL_HEIGHT)
+//   {
+//   	src_param->i[1] = 0;
+//   	while (src_param->i[1] < WINDOW_SDL_WIDTH)
+//   	{
+//   		putpxl(dest_param, src_param->i[0], src_param->i[1], getpxl(src_param, src_param->i[0], src_param->i[1]));
+//   		src_param->i[1]++;
+//   	}
+//   	src_param->i[0]++;
+//   }
+// }

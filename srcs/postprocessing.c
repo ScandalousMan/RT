@@ -127,5 +127,8 @@ void	stereoscopy(t_param *param)
 	if ((stereo_param = stereoscopy_cpy(param)))
 	{
 		launch_threads(stereo_param);
+		// faire la somme des deux visuels
+		param = stereo_param;
+		// sdl_draw(stereo_param->graph);
 	}
 }

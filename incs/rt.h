@@ -441,6 +441,7 @@ void							nukl_gui(t_param *param);
 
 void							putpxl(t_param *param, int y, int x, Uint32 pixel);
 Uint32 						getpxl(t_param *param, int y, int x);
+// void	surf_copy(t_param *src_param, t_param *dest_param);
 Uint32						format_Uint32(Uint32 pixel, SDL_PixelFormat *fmt);
 int								convert_Uint32_to_int(Uint32 pixel, SDL_PixelFormat *fmt);
 void							sdl_init(t_sdl *graph);

@@ -100,6 +100,7 @@ void	rt_tracer(t_param *param)
 	int			col[3];
 	int			tmp_col;
 	int 		alias[2];
+	printf("<> putpxl using %d\n", param->graph->show_tmp);
 	const int	pixelisation = (param->to_pix) ? PIXELISATION : 1;
 	const int	db_antialiasing = 2 * param->macro.anti_aliasing;
 
