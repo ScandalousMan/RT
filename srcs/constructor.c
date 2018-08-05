@@ -101,7 +101,6 @@ t_param			*stereoscopy_cpy(t_param *param1)
 	param->epsilon = param1->epsilon;
 	param->thread = param1->thread;
 	param->current_thread = 0;
-	param->refresh = param1->refresh;
 	param->ia = param1->ia;
 	param->macro = param1->macro;
 	param->pxl_infos = param1->pxl_infos;
