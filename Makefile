@@ -12,7 +12,6 @@
 
 EXEC = RT
 
-<<<<<<< HEAD
 ifndef CC
 CC 					= clang
 endif
@@ -20,10 +19,6 @@ ifndef DEBUG
 DEBUG 				= no
 endif
 
-=======
-DEBUG = yes
-CC = clang
->>>>>>> a243e22ef8c08a183d55afe9645cc9896b8cdebe
 OS := $(shell uname -s)
 DEPEND_FRAGMENT = Make.depend
 MAKEFLAGS += --silent

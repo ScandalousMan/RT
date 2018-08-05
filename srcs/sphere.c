@@ -32,10 +32,3 @@ int		is_inside_sphere(t_object *tmp, t_path *path)
 		return 0;
 	return 1;
 }
-
-int		is_inside_sphere(double *pt, t_object *obj)
-{
-	if (pt_dist_root(pt, ((t_sphere*)(obj->dim))->center) > ((t_sphere*)(obj->dim))->radius * ((t_sphere*)(obj->dim))->radius)
-		return 0;
-	return 1;
-}
