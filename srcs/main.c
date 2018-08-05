@@ -33,6 +33,8 @@ int		main(int ac, char **av)
 	if (!rt_parser(param, filename))
 		return (1);
 	sdl_init(param->graph);
+	launch_threads(param);
+	mprintf(1, "\nPI = %d, %d, %d, %d\n", M_PI, (int)M_PI, ft_max(4, (int)M_PI), ft_min(3, (int)M_PI));
 	while (param->graph->input[SDL_SCANCODE_ESCAPE] == FALSE)
 	{
 		sdl_pull_evts(param);
@@ -44,7 +46,6 @@ int		main(int ac, char **av)
 		nukl_gui(param);
 		if (param->refresh == 1)
 		{
-			lauch_threads(param);
 			sdl_draw(param->graph);
 			param->end = clock();//TODO delete
 			printf("Render %.5lf secondes...\n", (double)(param->end - param->start) / CLOCKS_PER_SEC);
