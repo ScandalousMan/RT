@@ -119,3 +119,13 @@ void	blur(t_param *param)
   	param->i[0]++;
   }
 }
+
+void	stereoscopy(t_param *param)
+{
+	t_param *stereo_param;
+
+	if ((stereo_param = stereoscopy_cpy(param)))
+	{
+		launch_threads(stereo_param);
+	}
+}
