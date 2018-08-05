@@ -25,3 +25,11 @@ int		is_inside_cone(t_object *tmp, t_path *path)
 	vec_soustraction(path->valid_n, tmp->tmp_vec, path->valid_n);
 	return tan(((t_cone*)(tmp->dim))->angle) * tan(((t_cone*)(tmp->dim))->angle) * vec_norm(tmp->tmp_vec) * vec_norm(tmp->tmp_vec) > vec_norm(path->valid_n) * vec_norm(path->valid_n) ? 1 : 0;
 }
+
+int		is_inside_cone(double *pt, t_object *obj)
+{
+	vec_soustraction(pt, ((t_cone*)(obj->dim))->org, obj->tmp_vec);
+	if (vec_norm(obj->tmp_vec) == 0 || acos(ABS(scalar_product(obj->tmp_vec, ((t_cone*)(obj->dim))->u)) / vec_norm(obj->tmp_vec)) <= ((t_cone*)(obj->dim))->angle)
+		return 1;
+	return 0;
+}

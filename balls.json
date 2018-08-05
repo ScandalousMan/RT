@@ -16,7 +16,7 @@
 			"type": "spot",
 			"u": [-100, -250, 100],
 			"color": [255, 255, 255],
-			"intensity": 1
+			"intensity": 1			
 		}
 	],
 

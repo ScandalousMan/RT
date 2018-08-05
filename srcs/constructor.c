@@ -12,15 +12,24 @@
 
 #include <rt.h>
 
+<<<<<<< HEAD
 t_path			*path_create(t_param *param, int index)
+=======
+t_path			*path_create(int index, t_param *param)
+>>>>>>> a243e22ef8c08a183d55afe9645cc9896b8cdebe
 {
 	t_path		*path;
 
 	if (!(path = (t_path*)malloc(sizeof(t_path))))
 		return (NULL);
 	path->current_object = NULL;
+<<<<<<< HEAD
 	path->reflected = index < param->macro.recursion ? path_create(param, index + 1) : NULL;
 	path->transmitted = index < param->macro.recursion ? path_create(param, index + 1) : NULL;
+=======
+	path->reflected = index < RECURSION ? path_create(index + 1, param) : NULL;
+	path->transmitted = index < RECURSION ? path_create(index + 1, param) : NULL;
+>>>>>>> a243e22ef8c08a183d55afe9645cc9896b8cdebe
 	return (path);
 }
 
