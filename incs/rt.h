@@ -161,22 +161,22 @@ typedef struct s_ellipsoide
 typedef struct s_quadric
 {
 	double			center[VEC_SIZE];
-	double			A;
-	double			B;
-	double			C;
-	double			D;
-	double			E;
-	double			F;
-	double			G;
-	double			H;
-	double			I;
+	double			a;
+	double			b;
+	double			c;
+	double			d;
+	double			e;
+	double			f;
+	double			g;
+	double			h;
+	double			i;
 }				t_quadric;
 
 typedef struct s_tore
 {
 	double			center[VEC_SIZE];
-	double			R;
-	double			r;
+	double			r1;
+	double			r2;
 }				t_tore;
 
 typedef struct	s_limit
