@@ -44,7 +44,6 @@ int		main(int ac, char **av)
 		nukl_gui(param);
 		if (param->refresh == 1)
 		{
-			lauch_threads(param);
 			sdl_draw(param->graph);
 			param->end = clock();//TODO delete
 			printf("Render %.5lf secondes...\n", (double)(param->end - param->start) / CLOCKS_PER_SEC);
