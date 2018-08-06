@@ -158,17 +158,47 @@ typedef struct s_ellipsoide
 	double			c;
 }				t_ellipsoide;
 
+typedef struct s_quadric
+{
+	double			center[VEC_SIZE];
+	double			A;
+	double			B;
+	double			C;
+	double			D;
+	double			E;
+	double			F;
+	double			G;
+	double			H;
+	double			I;
+}				t_quadric;
+
+typedef struct s_tore
+{
+	double			center[VEC_SIZE];
+	double			R;
+	double			r;
+}				t_tore;
+
 typedef struct	s_limit
 {
 	t_plane			plane;
 	struct s_limit	*next;
 }				t_limit;
 
+typedef struct s_reference
+{
+	double		i[VEC_SIZE];
+	double		j[VEC_SIZE];
+}				t_reference;
+
 typedef struct	s_object
 {
 	void				*dim;
 	int					num;
 	int					type;//1 for sphere, 2 for plane, 3 for cone, 4 for cylindre
+
+//	double			shadow;
+	t_reference	ref;
 	double			tmp_vec[VEC_SIZE];
 	int					col;//couleur de surface de l'objet
 	double			kd;//coefficient de réflexion diffuse de l'objet
