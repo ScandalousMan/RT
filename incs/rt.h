@@ -397,8 +397,9 @@ double			distance_to_plane(t_object *tmp, double *from,
 int					is_inside_plane(t_object *tmp, t_path *path);
 double			distance_to_cone(t_object *tmp, double *from, double *to);
 double			distance_to_cylindre(t_object *tmp, double *from, double *to);
-double			distance_to_ellipsoide(t_object *tmp, double *from,
-				double *to);
+double			distance_to_quadric(t_object *tmp, double *from, double *to);
+// double			distance_to_ellipsoide(t_object *tmp, double *from,
+// 				double *to);
 /*
 **-------------------------------------cone-------------------------------------
 */
@@ -413,6 +414,13 @@ double			cylindre_first_term(t_object *tmp, double *to);
 double			cylindre_second_term(t_object *tmp, double *to);
 double			cylindre_third_term(t_object *tmp);
 int					is_inside_cylindre(t_object *tmp, t_path *path);
+/*
+**------------------------------------quadric-----------------------------------
+*/
+double			quadric_first_term(t_object *tmp, double *to);
+double			quadric_second_term(t_object *tmp, double *to);
+double			quadric_third_term(t_object *tmp);
+int					is_inside_quadric(t_object *tmp, t_path *path);
 
 void			ft_putvec(double *x);
 void			eye_rotation(double alpha, double beta, double gamma, t_param *param);
@@ -442,7 +450,7 @@ void			update_normal_sphere(t_object *tmp, t_path *path);
 void			update_normal_plane(t_object *tmp, t_path *path);
 void			update_normal_cone(t_object *tmp, t_path *path);
 void			update_normal_cylindre(t_object *tmp, t_path *path);
-void			update_normal_ellipsoide(t_object *tmp, t_path *path);
+void			update_normal_quadric(t_object *tmp, t_path *path);
 void			display_lights(t_param *param);
 int 			my_key_func(int keycode, t_param *param);
 
