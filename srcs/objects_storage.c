@@ -6,7 +6,7 @@
 /*   By: jbouille <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 15:43:31 by jbouille          #+#    #+#             */
-/*   Updated: 2018/04/14 15:52:46 by jbouille         ###   ########.fr       */
+/*   Updated: 2018/08/06 16:03:44 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -290,6 +290,12 @@ t_object	*get_object(t_jarray *array, int num, t_param *param)
 		return (NULL);//EXIT
 	if (fill_object(new, array->value, num, param) == 0)
 		return (NULL);
+	param->num_objects++;
+	if (param->num_objects >= 256)
+	{
+		ft_putendl_fd("Warning: 256 objects maximum.", STDERR_FILENO);
+		return (new);
+	}
 	new->next = get_object(array->next, num + 1, param);
 	return (new);
 }
