@@ -6,7 +6,7 @@
 /*   By: jbouille <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 15:43:31 by jbouille          #+#    #+#             */
-/*   Updated: 2018/08/06 16:03:44 by jbouille         ###   ########.fr       */
+/*   Updated: 2018/08/06 17:39:51 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,6 +212,64 @@ void	*fill_cylinder(t_jobject *jobj, t_param *param)
 	rotation_matrice(tr[0], tr[1], tr[2], param);
 	matrice_product(param->rot, obj->u, obj->u);
 	vec_to_unit_norm(obj->u);
+	return (obj);
+}
+
+void	*fill_quadric(t_jobject *jobj, t_param *param)
+{
+	t_quadric	*obj;
+	t_jobject	*tmp;
+	double		tr[VEC_SIZE];
+
+	if (!(obj = (t_quadric *)malloc(sizeof(t_quadric))))
+		return (NULL);//EXIT
+	fill_vector(&(obj->center), (t_jarray*)(get_jobject(jobj, "center")->value));
+	tmp = get_jobject(jobj, "a");
+	obj->a = get_double(tmp->type, tmp->value);
+	tmp = get_jobject(jobj, "b");
+	obj->b = get_double(tmp->type, tmp->value);
+	tmp = get_jobject(jobj, "c");
+	obj->c = get_double(tmp->type, tmp->value);
+	tmp = get_jobject(jobj, "d");
+	obj->d = get_double(tmp->type, tmp->value);
+	tmp = get_jobject(jobj, "e");
+	obj->e = get_double(tmp->type, tmp->value);
+	tmp = get_jobject(jobj, "f");
+	obj->f = get_double(tmp->type, tmp->value);
+	tmp = get_jobject(jobj, "g");
+	obj->g = get_double(tmp->type, tmp->value);
+	tmp = get_jobject(jobj, "h");
+	obj->h = get_double(tmp->type, tmp->value);
+	tmp = get_jobject(jobj, "i");
+	obj->i = get_double(tmp->type, tmp->value);
+	fill_vector(&tr, (t_jarray*)(get_jobject(jobj, "translation")->value));
+	obj->center[0] += tr[0];
+	obj->center[1] += tr[1];
+	obj->center[2] += tr[2];
+	fill_vector(&tr, (t_jarray*)(get_jobject(jobj, "rotation")->value));
+	rotation_matrice(tr[0], tr[1], tr[2], param);
+	return (obj);
+}
+
+void	*fill_tore(t_jobject *jobj, t_param *param)
+{
+	t_tore		*obj;
+	t_jobject	*tmp;
+	double		tr[VEC_SIZE];
+
+	if (!(obj = (t_tore *)malloc(sizeof(t_tore))))
+		return (NULL);//EXIT
+	fill_vector(&(obj->center), (t_jarray*)(get_jobject(jobj, "center")->value));
+	tmp = get_jobject(jobj, "R");
+	obj->r1 = get_double(tmp->type, tmp->value);
+	tmp = get_jobject(jobj, "r");
+	obj->r2 = get_double(tmp->type, tmp->value);
+	fill_vector(&tr, (t_jarray*)(get_jobject(jobj, "translation")->value));
+	obj->center[0] += tr[0];
+	obj->center[1] += tr[1];
+	obj->center[2] += tr[2];
+	fill_vector(&tr, (t_jarray*)(get_jobject(jobj, "rotation")->value));
+	rotation_matrice(tr[0], tr[1], tr[2], param);
 	return (obj);
 }
 
