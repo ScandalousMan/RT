@@ -307,6 +307,7 @@ int				color_summer(int col1, int col2);
 */
 t_param			*struct_create(void);
 t_param			*stereoscopy_cpy(t_param *param1);
+void				stereoscopy_free(t_param *param);
 t_param			*new_content(t_param *param);
 //t_light			*add_light(t_light **lights, double *src, double i, int col);
 t_light			*light_copy(t_light *src);
@@ -457,7 +458,6 @@ void							nukl_gui(t_param *param);
 
 void							putpxl(t_param *param, int y, int x, Uint32 pixel);
 Uint32 						getpxl(t_param *param, int y, int x);
-// void	surf_copy(t_param *src_param, t_param *dest_param);
 Uint32						format_Uint32(Uint32 pixel, SDL_PixelFormat *fmt);
 int								convert_Uint32_to_int(Uint32 pixel, SDL_PixelFormat *fmt);
 void							sdl_init(t_sdl *graph);
