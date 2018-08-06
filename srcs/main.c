@@ -52,5 +52,7 @@ int		main(int ac, char **av)
 		}
 	}
 	sdl_quit(param->graph);
+	while (1)
+	{}
 	return (0);
 }
