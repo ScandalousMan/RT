@@ -73,6 +73,8 @@ int			is_inside_object(t_object *obj, t_path *path)
 		return is_inside_cone(obj, path);
 	else if (obj->type == 4)
 		return is_inside_cylindre(obj, path);
+	else if (obj->type == 5)
+		return is_inside_quadric(obj, path);
 	return 0;
 }
 
@@ -86,5 +88,7 @@ void		update_normal_vector(t_object *tmp, t_path *path)
 		update_normal_cone(tmp, path);
 	else if (tmp->type == 4)
 		update_normal_cylindre(tmp, path);
+	else if (tmp->type == 5)
+		update_normal_quadric((t_quadric*)(tmp->dim), path);
 	vec_to_unit_norm(path->valid_n);
 }

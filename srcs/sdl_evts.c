@@ -85,7 +85,7 @@ void	sdl_pull_evts(t_param *param)
 			param->graph->input[SDL_SCANCODE_ESCAPE] = TRUE;
 		if (evt.type == SDL_KEYDOWN) {
 			param->graph->input[evt.key.keysym.scancode] = TRUE;
-			// my_key_func(evt.key.keysym.sym, param);
+			my_key_func(evt.key.keysym.sym, param);
 			param->refresh = 1;
 		}
 		if (evt.type == SDL_KEYUP)

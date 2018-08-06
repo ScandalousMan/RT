@@ -26,7 +26,7 @@ t_object	*object_copy(t_object *src)
 	else if (copy->type == 4)
 		copy->dim = duplicate(src->dim, sizeof(t_cylindre));
 	else if (copy->type == 5)
-		copy->dim = duplicate(src->dim, sizeof(t_ellipsoide));
+		copy->dim = duplicate(src->dim, sizeof(t_quadric));
 	if (copy->dim == NULL)
 		return (NULL);
 	if (src->next)

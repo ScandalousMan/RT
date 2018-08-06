@@ -23,6 +23,6 @@ double	distance_calc(t_object *tmp, t_param *param,double *from, double *to)
 	else if (tmp->type == 4)
 		return (distance_to_cylindre(tmp, from, to));
 	else if (tmp->type == 5)
-		return (distance_to_ellipsoide(tmp, from, to));
+		return (distance_to_quadric(tmp, from, to));
 	return (-1.0);
 }
