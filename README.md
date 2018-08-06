@@ -3,7 +3,18 @@
 Ray Tracing group project for School 42
 
 ## Requirements
-Install `pkg-config`, `glew`, `sdl2` and `sdl2_images`
+
+* `pkg-config`
+* `glew`
+* `sdl2`
+* `sdl2_images`
+* `makedepend`
+
+If you are on MacOSX with brew installed you can
+
+```
+$ brew bundle
+```
 
 ## How-to
 
