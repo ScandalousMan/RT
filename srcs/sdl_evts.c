@@ -30,7 +30,6 @@ void	handle_keyboard(t_param *param)
 	}
 	if (param->graph->input[SDL_SCANCODE_G] == TRUE) {
 		param->graph->show_tmp = 1;
-		printf("GREYSCALE\n");
 		greyscale(param);
 	}
 	if (param->graph->input[SDL_SCANCODE_B] == TRUE) {
