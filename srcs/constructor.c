@@ -149,7 +149,7 @@ t_param			*struct_create(void)
 	param->macro.anti_aliasing = 2;
 	param->macro.recursion = 2;
 	param->macro.cartoon_factor = 25;
-	param->macro.blur_radius = 4;
+	param->macro.blur_radius = BLUR_RADIUS;
 	param->macro.specular_exp = 1;
 	param->macro.rotation_angle = 30;
 	param->macro.k_ambience = 1;

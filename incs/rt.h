@@ -48,6 +48,7 @@
 # define MIN_CARTOON_FACTOR 5
 # define MAX_CARTOON_FACTOR 50
 
+# define BLUR_RADIUS 4
 # define STEP_BLUR_RADIUS 1
 # define MIN_BLUR_RADIUS 0
 # define MAX_BLUR_RADIUS 50
