@@ -6,7 +6,7 @@
 /*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 16:39:54 by aguemy            #+#    #+#             */
-/*   Updated: 2018/04/14 17:12:46 by jbouille         ###   ########.fr       */
+/*   Updated: 2018/08/06 17:10:32 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,25 +155,25 @@ typedef struct s_ellipsoide
 	double			c;
 }				t_ellipsoide;
 
-typedef struct s_quadric
+typedef struct	s_quadric
 {
 	double			center[VEC_SIZE];
-	double			A;
-	double			B;
-	double			C;
-	double			D;
-	double			E;
-	double			F;
-	double			G;
-	double			H;
-	double			I;
+	double			a;
+	double			b;
+	double			c;
+	double			d;
+	double			e;
+	double			f;
+	double			g;
+	double			h;
+	double			i;
 }				t_quadric;
 
-typedef struct s_tore
+typedef struct	s_tore
 {
 	double			center[VEC_SIZE];
-	double			R;
-	double			r;
+	double			r1;
+	double			r2;
 }				t_tore;
 
 typedef struct	s_limit
@@ -182,7 +182,7 @@ typedef struct	s_limit
 	struct s_limit	*next;
 }				t_limit;
 
-typedef struct s_reference
+typedef struct	s_reference
 {
 	double		i[VEC_SIZE];
 	double		j[VEC_SIZE];
