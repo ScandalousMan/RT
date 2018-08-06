@@ -6,7 +6,7 @@
 /*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/27 14:57:42 by aguemy            #+#    #+#             */
-/*   Updated: 2017/11/20 00:26:53 by alex             ###   ########.fr       */
+/*   Updated: 2018/08/06 16:00:02 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,12 +144,13 @@ t_param			*struct_create(void)
 	param->f = FOCAL_VALUE;
 	param->ia = 1.0;
 	param->num_lights = 0;
+	param->num_objects = 0;
 	param->refresh = 1;
 	param->current_thread = 0;
-	param->macro.anti_aliasing = 2;
-	param->macro.recursion = 2;
+	param->macro.anti_aliasing = ANTI_ALIASING;
+	param->macro.recursion = RECURSION;
 	param->macro.cartoon_factor = 25;
-	param->macro.blur_radius = 4;
+	param->macro.blur_radius = BLUR_RADIUS;
 	param->macro.specular_exp = 1;
 	param->macro.rotation_angle = 30;
 	param->macro.k_ambience = 1;

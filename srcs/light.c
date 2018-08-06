@@ -1,4 +1,4 @@
-#include <rt.h>
+#include "rt_objects.h"
 
 t_light	*light_copy(t_light *src)
 {
@@ -14,4 +14,14 @@ t_light	*light_copy(t_light *src)
 			return (NULL);
 	}
 	return (copy);
+}
+
+t_object	*light_masked(t_param *param, double *from, double *to, t_path *path)
+{
+	param->intersect_object = NULL;
+	param->is_for_light = 1;
+	closest_object(param, from, to, path);
+	if (param->tmp_light->type == RTSPOT && param->obj_d * param->obj_d > pt_dist_root(from, param->tmp_light->src))
+		param->intersect_object = NULL;
+	return (param->intersect_object);
 }

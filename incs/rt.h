@@ -6,7 +6,7 @@
 /*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 16:39:54 by aguemy            #+#    #+#             */
-/*   Updated: 2018/04/14 17:12:46 by jbouille         ###   ########.fr       */
+/*   Updated: 2018/08/06 17:10:32 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,16 @@
 #  define M_PI 3.141592653589793238462643383279
 # endif
 # define SPECULAR_EXP 8
-# define EPSILON 0.001
+# define EPSILON 0.000001
 
 # define PIXELISATION	8
 
+# define ANTI_ALIASING 2
 # define STEP_ANTI_ALIASING 1
 # define MAX_ANTI_ALIASING 1
 # define MIN_ANTI_ALIASING 10
 
+# define RECURSION 1
 # define STEP_RECURSION 1
 # define MAX_RECURSION 0
 # define MIN_RECURSION 10
@@ -48,6 +50,7 @@
 # define MIN_CARTOON_FACTOR 5
 # define MAX_CARTOON_FACTOR 50
 
+# define BLUR_RADIUS 4
 # define STEP_BLUR_RADIUS 1
 # define MIN_BLUR_RADIUS 0
 # define MAX_BLUR_RADIUS 50
@@ -70,6 +73,7 @@
 
 # include <libft.h>
 
+
 # define NK_INCLUDE_FIXED_TYPES
 # define NK_INCLUDE_STANDARD_IO
 # define NK_INCLUDE_STANDARD_VARARGS
@@ -86,7 +90,7 @@
 # define WINDOW_SDL_WIDTH 800
 # define WINDOW_SDL_HEIGHT 800
 
-# define NB_THREAD 50
+# define NB_THREAD 8
 
 # define MAX_VERTEX_MEMORY 512 * 1024
 # define MAX_ELEMENT_MEMORY 128 * 1024
@@ -155,7 +159,7 @@ typedef struct s_ellipsoide
 	double			c;
 }				t_ellipsoide;
 
-typedef struct s_quadric
+typedef struct	s_quadric
 {
 	double			center[VEC_SIZE];
 	double			a;
@@ -169,7 +173,7 @@ typedef struct s_quadric
 	double			i;
 }				t_quadric;
 
-typedef struct s_tore
+typedef struct	s_tore
 {
 	double			center[VEC_SIZE];
 	double			r1;
@@ -182,7 +186,7 @@ typedef struct	s_limit
 	struct s_limit	*next;
 }				t_limit;
 
-typedef struct s_reference
+typedef struct	s_reference
 {
 	double		i[VEC_SIZE];
 	double		j[VEC_SIZE];
@@ -205,13 +209,13 @@ typedef struct	s_object
 	double			thickness;//épaisseur de l'objet, 0 par défaut
 	double			index;//indice du matériaux constituant l'objet, 1 par défaut
 	int					phong;//exposant de Phong de l'objet
-	t_limit			*limit;
+	t_limit			*limits;
 	struct s_object	*next;//liste chainée
 }				t_object;
 
 typedef struct	s_light
 {
-	int				type;
+	int							type;
 	int							num;
 	int							col;
 	double					src[VEC_SIZE];//position de la source lumineuse
@@ -228,6 +232,9 @@ typedef struct	s_path
 	double			l[VEC_SIZE];//rayon de la lumiere
 	double			r[VEC_SIZE];//rayon réfléchi
 	double			t[VEC_SIZE];//rayon transmis
+	double			tmp_x[VEC_SIZE];//use for cut objects tmp points
+	double			valid_n[VEC_SIZE];//to store final cut normal
+	double			valid_x[VEC_SIZE];//to store final cut intersection
 	t_object		*current_object;
 	struct s_path	*reflected;
 	struct s_path	*transmitted;
@@ -282,13 +289,19 @@ typedef struct		s_param
 	double			third[VEC_SIZE];//third dimension in the referential
 	double			obj_d;//object's distance
 	double			tmp_d;//last distance used
+	double			tmp_d_cut;//used to detect cutting planes
 	t_path			*path;
 	t_custom		*customs;
 	t_object		*objects;
 	t_light			*lights;
 	int				num_lights;
 	t_object		*intersect_object;
-//	t_object		*tmp_object;
+	// convertir cet int* en unsigned char* avec l'introduction de la limite d'objets
+	// number of objects in the scene
+	int 				num_objects;
+	char				is_cut;
+	char				is_for_light;
+	//	t_object		*tmp_object;
 	t_light			*tmp_light;
 	double			tmp_vec[VEC_SIZE];
 	int 			brightness;
@@ -344,7 +357,7 @@ t_object		*object_copy(t_object *src);
 */
 t_param			*values_init(t_param *param);
 void			rt_filler(t_param *param);
-t_object		*object_intersection(t_param *param, double *from, double *to, t_path *path);
+t_object		*light_masked(t_param *param, double *from, double *to, t_path *path);
 void			print_obj_point(t_param *param);
 /*
 **------------------------------------tools-------------------------------------
@@ -378,8 +391,11 @@ double			distance_calc(t_object *tmp, t_param *param, double *from,
 				double *to);
 double			distance_to_sphere(t_object *tmp, double *from,
 				double *to);
+int					is_inside_sphere(t_object *tmp, t_path *path);
+double			plane_distance(double *from, double *to, double *n, double *ref);
 double			distance_to_plane(t_object *tmp, double *from,
 				double *to);
+int					is_inside_plane(t_object *tmp, t_path *path);
 double			distance_to_cone(t_object *tmp, double *from, double *to);
 double			distance_to_cylindre(t_object *tmp, double *from, double *to);
 double			distance_to_ellipsoide(t_object *tmp, double *from,
@@ -390,12 +406,14 @@ double			distance_to_ellipsoide(t_object *tmp, double *from,
 double			cone_first_term(t_object *tmp, double *to);
 double			cone_second_term(t_object *tmp, double *to, double *x);
 double			cone_third_term(t_object *tmp, double *x);
+int					is_inside_cone(t_object *tmp, t_path *path);
 /*
 **-----------------------------------cylindre-----------------------------------
 */
 double			cylindre_first_term(t_object *tmp, double *to);
 double			cylindre_second_term(t_object *tmp, double *to);
 double			cylindre_third_term(t_object *tmp);
+int					is_inside_cylindre(t_object *tmp, t_path *path);
 
 void			ft_putvec(double *x);
 void			eye_rotation(double alpha, double beta, double gamma, t_param *param);
@@ -415,17 +433,19 @@ int 	rt_init(t_param *param, char *line, int count);
 //int 	rt_cylindre_parser(t_param *param, t_parse *config);
 //int		rt_ellipsoide_parser(t_param *param, t_parse *config);
 
-void	rt_tracer(t_param *param);
+void			rt_tracer(t_param *param);
 t_object	*closest_object(t_param *param, double *from, double *to, t_path *path);
-void		update_normal_vector(t_object *tmp, t_path *path);
-t_object		*object_constructor(t_param *param);
-void	update_normal_sphere(t_object *tmp, t_path *path);
-void	update_normal_plane(t_object *tmp, t_path *path);
-void	update_normal_cone(t_object *tmp, t_path *path);
-void	update_normal_cylindre(t_object *tmp, t_path *path);
-void	update_normal_ellipsoide(t_object *tmp, t_path *path);
-void	display_lights(t_param *param);
-int 	my_key_func(int keycode, t_param *param);
+int				is_in_limit(double *pt, t_limit *limit);
+void			update_normal_vector(t_object *tmp, t_path *path);
+int				is_inside_object(t_object *tmp, t_path *path);
+t_object	*object_constructor(t_param *param);
+void			update_normal_sphere(t_object *tmp, t_path *path);
+void			update_normal_plane(t_object *tmp, t_path *path);
+void			update_normal_cone(t_object *tmp, t_path *path);
+void			update_normal_cylindre(t_object *tmp, t_path *path);
+void			update_normal_ellipsoide(t_object *tmp, t_path *path);
+void			display_lights(t_param *param);
+int 			my_key_func(int keycode, t_param *param);
 
 	/*
 **POST PROCESSING FUNCTIONS

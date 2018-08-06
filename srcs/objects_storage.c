@@ -6,7 +6,7 @@
 /*   By: jbouille <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 15:43:31 by jbouille          #+#    #+#             */
-/*   Updated: 2018/04/14 15:52:46 by jbouille         ###   ########.fr       */
+/*   Updated: 2018/08/06 17:39:51 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,9 @@ t_limit	*get_limits(t_jarray *array)
 		fill_vector(&new->plane.n, obj->value);
 		obj = get_jobject(tmp->value, "point");
 		fill_vector(&new->plane.ref, obj->value);
+		vec_to_unit_norm(new->plane.n);
 		printf("REF: %f, %f, %f\n", new->plane.ref[0], new->plane.ref[1], new->plane.ref[2]);
+		printf("N: %f, %f, %f\n", new->plane.n[0], new->plane.n[1], new->plane.n[2]);
 		new->next = limits;
 		limits = new;
 		tmp = tmp->next;
@@ -163,6 +165,7 @@ void	*fill_plane(t_jobject *jobj, t_param *param)
 	fill_vector(&tr, (t_jarray*)(get_jobject(jobj, "rotation")->value));
 	rotation_matrice(tr[0], tr[1], tr[2], param);
 	matrice_product(param->rot, obj->n, obj->n);
+	vec_to_unit_norm(obj->n);
 	return (obj);
 }
 
@@ -185,6 +188,7 @@ void	*fill_cone(t_jobject *jobj, t_param *param)
 	fill_vector(&tr, (t_jarray*)(get_jobject(jobj, "rotation")->value));
 	rotation_matrice(tr[0], tr[1], tr[2], param);
 	matrice_product(param->rot, obj->u, obj->u);
+	vec_to_unit_norm(obj->u);
 	return (obj);
 }
 
@@ -207,6 +211,65 @@ void	*fill_cylinder(t_jobject *jobj, t_param *param)
 	fill_vector(&tr, (t_jarray*)(get_jobject(jobj, "rotation")->value));
 	rotation_matrice(tr[0], tr[1], tr[2], param);
 	matrice_product(param->rot, obj->u, obj->u);
+	vec_to_unit_norm(obj->u);
+	return (obj);
+}
+
+void	*fill_quadric(t_jobject *jobj, t_param *param)
+{
+	t_quadric	*obj;
+	t_jobject	*tmp;
+	double		tr[VEC_SIZE];
+
+	if (!(obj = (t_quadric *)malloc(sizeof(t_quadric))))
+		return (NULL);//EXIT
+	fill_vector(&(obj->center), (t_jarray*)(get_jobject(jobj, "center")->value));
+	tmp = get_jobject(jobj, "a");
+	obj->a = get_double(tmp->type, tmp->value);
+	tmp = get_jobject(jobj, "b");
+	obj->b = get_double(tmp->type, tmp->value);
+	tmp = get_jobject(jobj, "c");
+	obj->c = get_double(tmp->type, tmp->value);
+	tmp = get_jobject(jobj, "d");
+	obj->d = get_double(tmp->type, tmp->value);
+	tmp = get_jobject(jobj, "e");
+	obj->e = get_double(tmp->type, tmp->value);
+	tmp = get_jobject(jobj, "f");
+	obj->f = get_double(tmp->type, tmp->value);
+	tmp = get_jobject(jobj, "g");
+	obj->g = get_double(tmp->type, tmp->value);
+	tmp = get_jobject(jobj, "h");
+	obj->h = get_double(tmp->type, tmp->value);
+	tmp = get_jobject(jobj, "i");
+	obj->i = get_double(tmp->type, tmp->value);
+	fill_vector(&tr, (t_jarray*)(get_jobject(jobj, "translation")->value));
+	obj->center[0] += tr[0];
+	obj->center[1] += tr[1];
+	obj->center[2] += tr[2];
+	fill_vector(&tr, (t_jarray*)(get_jobject(jobj, "rotation")->value));
+	rotation_matrice(tr[0], tr[1], tr[2], param);
+	return (obj);
+}
+
+void	*fill_tore(t_jobject *jobj, t_param *param)
+{
+	t_tore		*obj;
+	t_jobject	*tmp;
+	double		tr[VEC_SIZE];
+
+	if (!(obj = (t_tore *)malloc(sizeof(t_tore))))
+		return (NULL);//EXIT
+	fill_vector(&(obj->center), (t_jarray*)(get_jobject(jobj, "center")->value));
+	tmp = get_jobject(jobj, "R");
+	obj->r1 = get_double(tmp->type, tmp->value);
+	tmp = get_jobject(jobj, "r");
+	obj->r2 = get_double(tmp->type, tmp->value);
+	fill_vector(&tr, (t_jarray*)(get_jobject(jobj, "translation")->value));
+	obj->center[0] += tr[0];
+	obj->center[1] += tr[1];
+	obj->center[2] += tr[2];
+	fill_vector(&tr, (t_jarray*)(get_jobject(jobj, "rotation")->value));
+	rotation_matrice(tr[0], tr[1], tr[2], param);
 	return (obj);
 }
 
@@ -230,6 +293,7 @@ void	*fill_customobject(t_jobject *jobj, t_param *param)
 	fill_vector(&tr, (t_jarray*)(get_jobject(jobj, "rotation")->value));
 	rotation_matrice(tr[0], tr[1], tr[2], param);
 	matrice_product(param->rot, obj->u, obj->u);
+	vec_to_unit_norm(obj->u);
 	return (obj);
 }
 
@@ -263,7 +327,7 @@ int	fill_object(t_object *obj, t_jobject *jobj, int num, t_param *param)
 	obj->thickness = get_double(tmp->type, tmp->value);
 
 	tmp = get_jobject(jobj, "limits");
-	obj->limit = get_limits(tmp->value);
+	obj->limits = get_limits(tmp->value);
 	
 	tmp = get_jobject(jobj, "texture");//JSON_OBJECT
 //	obj->texture = ;//NOT EXISTS FOR THE MOMENT
@@ -284,6 +348,12 @@ t_object	*get_object(t_jarray *array, int num, t_param *param)
 		return (NULL);//EXIT
 	if (fill_object(new, array->value, num, param) == 0)
 		return (NULL);
+	param->num_objects++;
+	if (param->num_objects >= 256)
+	{
+		ft_putendl_fd("Warning: 256 objects maximum.", STDERR_FILENO);
+		return (new);
+	}
 	new->next = get_object(array->next, num + 1, param);
 	return (new);
 }

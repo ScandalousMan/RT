@@ -6,7 +6,7 @@
 /*   By: jbouille <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 14:13:11 by jbouille          #+#    #+#             */
-/*   Updated: 2018/04/14 15:32:55 by jbouille         ###   ########.fr       */
+/*   Updated: 2018/08/06 17:30:41 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,13 @@ typedef enum			e_object_type
 	RTCONE,
 	RTCYLINDER,
 	RTQUADRIC,
+	RTTORE,
 	RTCUSTOMOBJECT
 }						t_object_type;
 
 typedef enum			e_light_type
 {
-	RTSPOT,
+	RTSPOT=0,
 	RTPARALLEL
 }						t_light_type;
 
@@ -120,7 +121,22 @@ const t_key				g_cylinder_keys[] = {
 };
 
 const t_key				g_quadric_keys[] = {
-	{"tmp", RTNULL, RTNULL}
+	{"center", RTVECTOR, RTDOUBLE},
+	{"a", RTDOUBLE, RTNULL},
+	{"b", RTDOUBLE, RTNULL},
+	{"c", RTDOUBLE, RTNULL},
+	{"d", RTDOUBLE, RTNULL},
+	{"e", RTDOUBLE, RTNULL},
+	{"f", RTDOUBLE, RTNULL},
+	{"g", RTDOUBLE, RTNULL},
+	{"h", RTDOUBLE, RTNULL},
+	{"i", RTDOUBLE, RTNULL}
+};
+
+const t_key				g_tore_keys[] = {
+	{"center", RTVECTOR, RTDOUBLE},
+	{"R", RTUDOUBLE, RTNULL},
+	{"r", RTUDOUBLE, RTNULL},
 };
 
 const t_key				g_customobject_keys[] = {
@@ -168,19 +184,22 @@ void	*fill_sphere		(t_jobject *jobj, t_param *param);
 void	*fill_plane			(t_jobject *jobj, t_param *param);
 void	*fill_cone			(t_jobject *jobj, t_param *param);
 void	*fill_cylinder		(t_jobject *jobj, t_param *param);
+void	*fill_quadric		(t_jobject *jobj, t_param *param);
+void	*fill_tore			(t_jobject *jobj, t_param *param);
 void	*fill_customobject	(t_jobject *jobj, t_param *param);
 const t_object_def		g_objects[] = {
 	{"sphere", RTSPHERE, g_sphere_keys, RT_KEYS_SIZE(g_sphere_keys), &fill_sphere},
 	{"plane", RTPLAN, g_plan_keys, RT_KEYS_SIZE(g_plan_keys), &fill_plane},
 	{"cone", RTCONE, g_cone_keys, RT_KEYS_SIZE(g_cone_keys), &fill_cone},
 	{"cylinder", RTCYLINDER, g_cylinder_keys, RT_KEYS_SIZE(g_cylinder_keys), &fill_cylinder},
-	{"quadric", RTQUADRIC, g_quadric_keys, RT_KEYS_SIZE(g_quadric_keys), NULL},
+	{"quadric", RTQUADRIC, g_quadric_keys, RT_KEYS_SIZE(g_quadric_keys), fill_quadric},
+	{"tore", RTTORE, g_tore_keys, RT_KEYS_SIZE(g_tore_keys), &fill_tore},
 	{"custom", RTCUSTOMOBJECT, g_customobject_keys, RT_KEYS_SIZE(g_customobject_keys), &fill_customobject}
 };
 
 #else
 
-extern const t_object_def		g_objects[6];
+extern const t_object_def		g_objects[7];
 extern const t_key				g_common_keys[12];
 extern const t_key				g_sphere_keys[];
 extern const t_key				g_plan_keys[2];

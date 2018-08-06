@@ -6,7 +6,7 @@
 /*   By: jbouille <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 01:40:48 by jbouille          #+#    #+#             */
-/*   Updated: 2017/11/14 14:31:49 by jbouille         ###   ########.fr       */
+/*   Updated: 2018/08/06 16:03:55 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	rt_parser(t_param *param, const char *file)
 	free(json);
 	if (!ret)
 		printf("json_to_objects: %d\n", json_to_objects(obj, param));
+	printf("num_objects: %i\n", param->num_objects);
 	free_jobject(obj);
 	return (1);
 }
