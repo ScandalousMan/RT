@@ -74,7 +74,7 @@ t_sdl				*copy_pxls(t_param *param)
 			error(0, 0, "Can't create all surface");
 		count++;
 	}
-	graph->show_tmp = 1;
+	graph->show_tmp = 0;
 	return graph;
 }
 
@@ -85,10 +85,10 @@ t_param			*stereoscopy_cpy(t_param *param1)
 	if (!(param = (t_param*)malloc(sizeof(t_param))))
 		return (NULL);
 	param->f = param1->f;
-	vec_multiply(10.0, param1->align, param1->tmp_vec);
+	vec_multiply(5.0, param1->align, param1->tmp_vec);
 	pt_translated(param1->eye, param1->tmp_vec, param->eye);
-	vec_multiply(-1.0, param1->align, param->align);
 	vec_copy(param1->look, param->look);
+	vec_copy(param1->align, param->align);
 	vec_to_unit_norm(vector_product(param->align, param->look, param->third));
 	param->path = param1->path;
 	param->customs = param1->customs;
@@ -108,6 +108,22 @@ t_param			*stereoscopy_cpy(t_param *param1)
 	if (!(param->graph = copy_pxls(param1)))
 		return (NULL);
 	return (param);
+}
+
+void				stereoscopy_free(t_param *param)
+{
+	int 	count;
+
+	count = 0;
+	while (count < NB_THREAD)
+	{
+		SDL_FreeSurface(param->graph->surfs[count]);
+		SDL_FreeSurface(param->graph->tmp_surfs[count]);
+		count++;
+	}
+	free(param->graph);
+	free(param->thread);
+	free(param);
 }
 
 t_param			*struct_create(void)

@@ -123,12 +123,26 @@ void	blur(t_param *param)
 void	stereoscopy(t_param *param)
 {
 	t_param *stereo_param;
+	Uint32 	pixel1;
+	Uint32	pixel2;
 
 	if ((stereo_param = stereoscopy_cpy(param)))
 	{
 		launch_threads(stereo_param);
-		// faire la somme des deux visuels
-		param = stereo_param;
-		// sdl_draw(stereo_param->graph);
+		param->i[0] = 0;
+	  while (param->i[0] < WINDOW_SDL_HEIGHT)
+	  {
+	  	param->i[1] = 0;
+	  	while (param->i[1] < WINDOW_SDL_WIDTH)
+	  	{
+	  		pixel1 = getpxl(stereo_param, param->i[0], param->i[1]);
+	  		pixel2 = getpxl(param, param->i[0], param->i[1]);
+	  		putpxl(param, param->i[0], param->i[1],
+	  			rgb_color((unsigned char)((pixel2 >> 16) & 0xFF), 0, (unsigned char)(pixel1 & 0xFF)));
+	  		param->i[1]++;
+			}
+			param->i[0]++;
+		}
+		stereoscopy_free(stereo_param);
 	}
 }
