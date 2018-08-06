@@ -12,8 +12,16 @@ void	update_normal_cone(t_object *tmp, t_path *path)
 {
 	double	norm;
 
-	vec_soustraction(path->x, ((t_cone*)(tmp->dim))->org, path->n);
-	norm = vec_norm(path->n);
-	vec_multiply(1.0 / scalar_product(path->n, ((t_cone*)(tmp->dim))->u) * norm * norm, ((t_cone*)(tmp->dim))->u, tmp->tmp_vec);
-	vec_soustraction(path->n, tmp->tmp_vec, path->n);
+	vec_soustraction(path->valid_x, ((t_cone*)(tmp->dim))->org, path->valid_n);
+	norm = vec_norm(path->valid_n);
+	vec_multiply(1.0 / scalar_product(path->valid_n, ((t_cone*)(tmp->dim))->u) * norm * norm, ((t_cone*)(tmp->dim))->u, tmp->tmp_vec);
+	vec_soustraction(path->valid_n, tmp->tmp_vec, path->valid_n);
+}
+
+int		is_inside_cone(t_object *tmp, t_path *path)
+{
+	vec_soustraction(path->valid_x, ((t_cone*)(tmp->dim))->org, path->valid_n);
+	vec_multiply(scalar_product(path->valid_n, ((t_cone*)(tmp->dim))->u), ((t_cone*)(tmp->dim))->u, tmp->tmp_vec);
+	vec_soustraction(path->valid_n, tmp->tmp_vec, path->valid_n);
+	return tan(((t_cone*)(tmp->dim))->angle) * tan(((t_cone*)(tmp->dim))->angle) * vec_norm(tmp->tmp_vec) * vec_norm(tmp->tmp_vec) > vec_norm(path->valid_n) * vec_norm(path->valid_n) ? 1 : 0;
 }

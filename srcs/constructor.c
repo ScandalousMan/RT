@@ -66,8 +66,8 @@ t_param			*struct_create(void)
 	param->num_lights = 0;
 	param->refresh = 1;
 	param->current_thread = 0;
-	param->macro.anti_aliasing = 2;
-	param->macro.recursion = 2;
+	param->macro.anti_aliasing = ANTI_ALIASING;
+	param->macro.recursion = RECURSION;
 	param->macro.cartoon_factor = 25;
 	param->macro.blur_radius = 4;
 	param->macro.specular_exp = 1;

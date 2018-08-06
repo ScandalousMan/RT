@@ -8,15 +8,9 @@
 	"lights": [
 		{
 			"type": "spot",
-			"u": [100, -250, -100],
+			"u": [100, -200, 80],
 			"color": [255, 255, 255],
 			"intensity": 1
-		},
-		{
-			"type": "spot",
-			"u": [-100, -250, 100],
-			"color": [255, 255, 255],
-			"intensity": 1			
 		}
 	],
 
@@ -43,32 +37,6 @@
 
 			"normal": [0, 1, 0],
 			"point": [0, 100, 0]
-		},
-		{
-			"type": "cone",
-			"color": [50, 255, 50],
-			"kd": 0.55,
-			"ks": 0.0,
-			"texture":
-				{
-					"type": "native",
-					"name": "texture_1"
-				},
-			"transparency": 0.2,
-			"reflection": 0.2,
-			"n": 1,
-			"thickness": 0.5,
-			"translation": [0, 0, 0],
-			"rotation": [0, 0, 0],
-			"limits": [
-				{
-					"normal": [0, 0, -1],
-					"point": [40, 0, -10]
-				}
-			],
-			"center": [40, 0, 0],
-			"vector": [0, 0, 1],
-			"angle": 10
 		},
 		{
 			"type": "sphere",
@@ -115,33 +83,6 @@
 	
 			"center": [0, 50, 0],
 			"radius": 30.0
-		},
-		{
-			"type": "cylinder",
-			"color": [255, 255, 0],
-			"kd": 0.55,
-			"ks": 0.25,
-			"texture":
-				{
-					"type": "native",
-					"name": "texture_1"
-				},
-			"transparency": 0.2,
-			"reflection": 0.2,
-			"n": 1,
-			"thickness": 0.5,
-			"translation": [0, 0, 0],
-			"rotation": [0, 0, 0],
-			"limits": [
-				{
-					"normal": [1, -1, -1],
-					"point": [50, 10, -30]
-				}
-			],
-
-			"center": [40, 20, -20],
-			"vector": [-1, 1, 1],
-			"radius": 10.0
 		}
 
 	]

@@ -34,6 +34,8 @@ int	rt_parser(t_param *param, const char *file)
 	free(json);
 	if (!ret)
 		printf("json_to_objects: %d\n", json_to_objects(obj, param));
+	/* introduire ici le nombre total d'objets dans la variable ret - balls.json */
+	param->num_objects = 9;
 	free_jobject(obj);
 	return (1);
 }

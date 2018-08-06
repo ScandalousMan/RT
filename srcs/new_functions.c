@@ -1,17 +1,5 @@
-#include "rt.h"
+#include "rt_objects.h"
 
-void	find_intersection(t_param *param, double *from, double *to, t_path *path)
-{
-	path->current_object = closest_object(param, from, to, path);
-	if (path->current_object)
-	{
-		vec_multiply(param->obj_d - param->epsilon, path->v, path->x);
-		pt_translated(from, path->x, path->x);
-		update_normal_vector(path->current_object, path);
-	}
-}
-
-#include <rt_objects.h>
 int		object_color(t_param *param, t_path *path)
 {
 	if (param && path && path->current_object)
@@ -22,22 +10,18 @@ int		object_color(t_param *param, t_path *path)
 		while (param->tmp_light)
 		{
 			if (param->tmp_light->type == RTSPOT)
-			{
-			vec_soustraction(param->tmp_light->src, path->x, path->l);
-			}
+				vec_soustraction(param->tmp_light->src, path->x, path->l);
 			else
-			{
-				vec_copy(param->tmp_light->src, path->l);
-			}
+				vec_multiply(-1.0, param->tmp_light->src, path->l);
 			vec_to_unit_norm(path->l);
 			vec_multiply(-2.0 * scalar_product(path->n, path->v), path->n, path->r);
 			pt_translated(path->r, path->v, path->r);
 			vec_to_unit_norm(path->r);
-			if (!object_intersection(param, path->x, param->tmp_light->src, path))
+			if (!light_masked(param, path->x, path->l, path))
 			{
-				if (scalar_product(path->l, path->n) * param->tmp_light->i > 0.0)
+				if (scalar_product(path->l, path->n) > 0.0)
 					param->diffuse += scalar_product(path->l, path->n) * param->tmp_light->i;
-				if (param->brightness && ft_pow(scalar_product(path->l, path->r), param->brightness) * param->tmp_light->i > 0.0)
+				if (param->brightness && ft_pow(scalar_product(path->l, path->r), param->brightness) > 0.0)
 					param->bright += ft_pow(scalar_product(path->l, path->r), path->current_object->phong) * param->tmp_light->i;
 			}
 			param->tmp_light = param->tmp_light->next;
@@ -64,7 +48,9 @@ double	*ray_direction(t_param *param, int i, int j)
 int		ray_color(t_param *param, double *from, double *to, int index, t_path *path)
 {
 	path->current_object = NULL;
-	find_intersection(param, from, to, path);
+	param->intersect_object = NULL;
+	param->is_for_light = 0;
+	path->current_object = closest_object(param, from, to, path);
 	if (!path->current_object)
 	{
 		if (!param->pxl_infos[param->i[0]][param->i[1]]->object)
@@ -101,7 +87,7 @@ void	rt_tracer(t_param *param)
 	int			tmp_col;
 	int 		alias[2];
 	const int	pixelisation = (param->to_pix) ? PIXELISATION : 1;
-	const int	db_antialiasing = 2 * param->macro.anti_aliasing;
+	const int	db_antialiasing = param->macro.anti_aliasing * param->macro.anti_aliasing;
 
 	param->i[0] = param->current_thread * WINDOW_SDL_HEIGHT / NB_THREAD;
 	while (param->i[0] < (param->current_thread + 1) * WINDOW_SDL_HEIGHT / NB_THREAD)
@@ -123,9 +109,9 @@ void	rt_tracer(t_param *param)
 					col[0] += (tmp_col >> 16) & 0xFF;
 					col[1] += (tmp_col >> 8) & 0xFF;
 					col[2] += (tmp_col) & 0xFF;
-					++alias[1];
+					alias[1]++;
 				}
-				++alias[0];
+				alias[0]++;
 			}
 			int y;
 			y = 0;
