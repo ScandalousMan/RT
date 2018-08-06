@@ -36,6 +36,10 @@ void	free_objects(t_param *param)
 		{
 			free ((t_cylindre*)(param->objects->dim));
 		}
+		else if (param->objects->type == 5)
+		{
+			free ((t_quadric*)(param->objects->dim));
+		}
 		while (param->objects->limits)
 		{
 			l_tmp = param->objects->limits->next;

@@ -55,7 +55,7 @@ INC_DIR = incs
 
 SDIR =		./srcs/
 SRCS =		closest.c components.c cone.c cone_tools.c constructor.c \
-			cylindre.c cylindre_tools.c display.c distance.c ellipsoide.c \
+			cylindre.c cylindre_tools.c display.c distance.c quadric.c quadric_tools.c \
 			graph_init.c key_func.c light.c main.c \
 			new_functions.c nukl_gui.c object_parser.c \
 			plane.c postprocessing.c sdl_draw.c sdl_evts.c sdl_init.c \

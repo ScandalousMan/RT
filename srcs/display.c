@@ -52,6 +52,40 @@ void	display_objects(t_param *param)
 			ft_putnbr(((t_cylindre*)(objs->dim))->radius);
 			ft_putchar('\n');
 		}
+		if (objs->type == 5)
+		{
+			ft_putstr("** nouvelle quadrique **\n");
+			ft_putstr("centre : ");
+			ft_putvec(((t_quadric*)(objs->dim))->center);
+			ft_putchar('\n');
+			ft_putstr("a: ");
+			ft_putdbl(((t_quadric*)(objs->dim))->a, 4);
+			ft_putchar('\n');
+			ft_putstr("b: ");
+			ft_putdbl(((t_quadric*)(objs->dim))->b, 4);
+			ft_putchar('\n');
+			ft_putstr("c: ");
+			ft_putdbl(((t_quadric*)(objs->dim))->c, 4);
+			ft_putchar('\n');
+			ft_putstr("d: ");
+			ft_putdbl(((t_quadric*)(objs->dim))->d, 4);
+			ft_putchar('\n');
+			ft_putstr("e: ");
+			ft_putdbl(((t_quadric*)(objs->dim))->e, 4);
+			ft_putchar('\n');
+			ft_putstr("f: ");
+			ft_putdbl(((t_quadric*)(objs->dim))->f, 4);
+			ft_putchar('\n');
+			ft_putstr("g: ");
+			ft_putdbl(((t_quadric*)(objs->dim))->g, 4);
+			ft_putchar('\n');
+			ft_putstr("h: ");
+			ft_putdbl(((t_quadric*)(objs->dim))->h, 4);
+			ft_putchar('\n');
+			ft_putstr("i: ");
+			ft_putdbl(((t_quadric*)(objs->dim))->i, 4);
+			ft_putchar('\n');
+		}
 		ft_putnbr(objs->num);
 		ft_putstr("\ncolor = ");
 		ft_putnbr(objs->col);

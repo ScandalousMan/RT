@@ -151,14 +151,6 @@ typedef struct s_cylindre
 	double			radius;
 }				t_cylindre;
 
-typedef struct s_ellipsoide
-{
-	double			center[VEC_SIZE];
-	double			a;
-	double			b;
-	double			c;
-}				t_ellipsoide;
-
 typedef struct	s_quadric
 {
 	double			center[VEC_SIZE];
@@ -171,6 +163,7 @@ typedef struct	s_quadric
 	double			g;
 	double			h;
 	double			i;
+	double			r;
 }				t_quadric;
 
 typedef struct	s_tore
@@ -350,8 +343,6 @@ t_light			*light_copy(t_light *src);
 t_object		*object_copy(t_object *src);
 //t_object		*add_cylindre(t_param *param, double *org, double *u,
 //				double radius);
-//t_object		*add_ellipsoide(t_param *param, double *org, double a, double b,
-//				double c);
 /*
 **-------------------------------------init-------------------------------------
 */
@@ -399,8 +390,6 @@ int					is_inside_plane(t_object *tmp, t_path *path);
 double			distance_to_cone(t_object *tmp, double *from, double *to);
 double			distance_to_cylindre(t_object *tmp, double *from, double *to);
 double			distance_to_quadric(t_object *tmp, double *from, double *to);
-// double			distance_to_ellipsoide(t_object *tmp, double *from,
-// 				double *to);
 /*
 **-------------------------------------cone-------------------------------------
 */
@@ -418,9 +407,9 @@ int					is_inside_cylindre(t_object *tmp, t_path *path);
 /*
 **------------------------------------quadric-----------------------------------
 */
-double			quadric_first_term(t_object *tmp, double *to);
-double			quadric_second_term(t_object *tmp, double *to);
-double			quadric_third_term(t_object *tmp);
+double			quadric_first_term(t_quadric *tmp, double *to);
+double			quadric_second_term(t_quadric *tmp, double *from, double *to);
+double			quadric_third_term(t_quadric *tmp, double *from);
 int					is_inside_quadric(t_object *tmp, t_path *path);
 
 void			ft_putvec(double *x);
@@ -439,7 +428,6 @@ int 	rt_init(t_param *param, char *line, int count);
 //int 	rt_plane_parser(t_param *param, t_parse *config);
 //int 	rt_cone_parser(t_param *param, t_parse *config);
 //int 	rt_cylindre_parser(t_param *param, t_parse *config);
-//int		rt_ellipsoide_parser(t_param *param, t_parse *config);
 
 void			rt_tracer(t_param *param);
 t_object	*closest_object(t_param *param, double *from, double *to, t_path *path);
@@ -451,7 +439,7 @@ void			update_normal_sphere(t_object *tmp, t_path *path);
 void			update_normal_plane(t_object *tmp, t_path *path);
 void			update_normal_cone(t_object *tmp, t_path *path);
 void			update_normal_cylindre(t_object *tmp, t_path *path);
-void			update_normal_quadric(t_object *tmp, t_path *path);
+void			update_normal_quadric(t_quadric *tmp, t_path *path);
 void			display_lights(t_param *param);
 int 			my_key_func(int keycode, t_param *param);
 

@@ -130,7 +130,8 @@ const t_key				g_quadric_keys[] = {
 	{"f", RTDOUBLE, RTNULL},
 	{"g", RTDOUBLE, RTNULL},
 	{"h", RTDOUBLE, RTNULL},
-	{"i", RTDOUBLE, RTNULL}
+	{"i", RTDOUBLE, RTNULL},
+	{"r", RTDOUBLE, RTNULL}
 };
 
 const t_key				g_tore_keys[] = {
