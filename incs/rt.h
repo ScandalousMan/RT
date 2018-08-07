@@ -410,7 +410,7 @@ int					is_inside_cylindre(t_object *tmp, t_path *path);
 double			quadric_first_term(t_quadric *tmp, double *to);
 double			quadric_second_term(t_quadric *tmp, double *from, double *to);
 double			quadric_third_term(t_quadric *tmp, double *from);
-int					is_inside_quadric(t_object *tmp, t_path *path);
+int					is_inside_quadric(t_quadric *tmp, t_path *path);
 
 void			ft_putvec(double *x);
 void			eye_rotation(double alpha, double beta, double gamma, t_param *param);

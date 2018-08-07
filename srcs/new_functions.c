@@ -59,6 +59,8 @@ int		ray_color(t_param *param, double *from, double *to, int index, t_path *path
 	}
 	else
 	{
+		if (point_display(param))
+			printf("intersect type: %d\n", path->current_object->type);
 		if (!index)
 			param->pxl_infos[param->i[0]][param->i[1]]->object = path->current_object;
 		if (index < param->macro.recursion)

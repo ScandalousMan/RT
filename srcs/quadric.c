@@ -19,7 +19,16 @@ void	update_normal_quadric(t_quadric *tmp, t_path *path)
 		(tmp->g + tmp->c) * (path->valid_x[0] - tmp->center[0]);
 }
 
-int		is_inside_quadric(t_object *tmp, t_path *path)
+int		is_inside_quadric(t_quadric *tmp, t_path *path)
 {
-	return tmp && path ? 1: 0;
+	return (
+		tmp->a * (path->valid_x[0] - tmp->center[0]) * (path->valid_x[0] - tmp->center[0]) +
+		// tmp->d * (path->valid_x[0] - tmp->center[0]) * (path->valid_x[1] - tmp->center[1]) + 
+		// tmp->g * (path->valid_x[0] - tmp->center[0]) * (path->valid_x[2] - tmp->center[2]) +
+		// tmp->b * (path->valid_x[1] - tmp->center[1]) * (path->valid_x[0] - tmp->center[0]) +
+		tmp->e * (path->valid_x[1] - tmp->center[1]) * (path->valid_x[1] - tmp->center[1]) +
+		// tmp->h * (path->valid_x[1] - tmp->center[1]) * (path->valid_x[2] - tmp->center[2]) +
+		// tmp->c * (path->valid_x[2] - tmp->center[2]) * (path->valid_x[0] - tmp->center[0]) +
+		// tmp->f * (path->valid_x[2] - tmp->center[2]) * (path->valid_x[1] - tmp->center[1]) +
+		tmp->i * (path->valid_x[2] - tmp->center[2]) * (path->valid_x[2] - tmp->center[2]) - tmp->r * tmp->r <= 0.0 ? 1 : 0);
 }

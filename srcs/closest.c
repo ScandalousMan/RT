@@ -12,10 +12,14 @@ t_object	*closest_object(t_param *param, double *from, double *to, t_path *path)
 		{
 			param->is_cut = 0;
 			param->tmp_d = distance_calc(objs, param, from, to);
+			if (point_display(param))
+				printf("\ntype: %d | tmp_d: %f\n", objs->type, param->tmp_d);
 			if (param->tmp_d > 0.0 && (param->obj_d < 0.0 || param->tmp_d < param->obj_d))
 			{
 				vec_multiply(param->tmp_d + param->epsilon, to, path->valid_x);
 				pt_translated(from, path->valid_x, path->valid_x);
+				if (point_display(param))
+					printf("()valid_x: [%f,%f,%f]\n", path->valid_x[0], path->valid_x[1], path->valid_x[2]);
 				update_normal_vector(objs, path);
 				limits = objs->limits;
 				while (limits && param->tmp_d > 0)
@@ -27,6 +31,8 @@ t_object	*closest_object(t_param *param, double *from, double *to, t_path *path)
 						pt_translated(from, path->valid_x, path->valid_x);
 						if (param->tmp_d > 0 && is_inside_object(objs, path))
 						{
+						if (point_display(param))
+							printf("point dans objet\n");
 							param->is_cut = 1;
 							vec_copy(limits->plane.n, path->valid_n);
 						}
@@ -35,7 +41,9 @@ t_object	*closest_object(t_param *param, double *from, double *to, t_path *path)
 					}
 					limits = limits->next;
 				}
-				if (param->is_cut)
+				if (point_display(param))
+					printf("objs final tmp_d: %f\n", param->tmp_d);
+				if (param->is_cut && param->tmp_d > 0.0)
 				{
 					limits = objs->limits;
 					while (limits && param->tmp_d > 0)
@@ -47,6 +55,8 @@ t_object	*closest_object(t_param *param, double *from, double *to, t_path *path)
 				}
 				if (param->tmp_d > 0.0)
 				{
+						if (point_display(param))
+							printf("object intersectant type %d\n", objs->type);	
 					param->intersect_object = objs;
 					param->obj_d = param->tmp_d;
 					if (!param->is_for_light)
@@ -74,7 +84,7 @@ int			is_inside_object(t_object *obj, t_path *path)
 	else if (obj->type == 4)
 		return is_inside_cylindre(obj, path);
 	else if (obj->type == 5)
-		return is_inside_quadric(obj, path);
+		return is_inside_quadric((t_quadric*)(obj->dim), path);
 	return 0;
 }
 
