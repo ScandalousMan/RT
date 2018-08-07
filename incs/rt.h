@@ -427,6 +427,7 @@ double			distance_to_cylindre(t_object *tmp, double *from, double *to);
 double			*cylindre_position(double *pt, t_object *object);
 double			distance_to_quadric(t_object *tmp, double *from, double *to);
 double			*quadric_position(double *pt, t_object *object);
+double			distance_to_tore(t_object *tmp, double *from, double *to);
 /*
 **-------------------------------------cone-------------------------------------
 */
@@ -448,6 +449,17 @@ double			quadric_first_term(t_quadric *tmp, double *to);
 double			quadric_second_term(t_quadric *tmp, double *from, double *to);
 double			quadric_third_term(t_quadric *tmp, double *from);
 int					is_inside_quadric(double *pt, t_quadric *tmp);
+
+/*
+**-----------------------------------tore-----------------------------------
+*/
+double			tore_first_term(double * to);
+double			tore_second_term(double *from, double *to);
+double			tore_third_term(t_tore *obj, double *from, double *to);
+double			tore_fourth_term(t_tore *obj, double *from, double *to);
+double			tore_fifth_term(t_tore *obj, double *from);
+int					is_inside_tore(double *pt, t_object *tmp);
+double			ferrari(double a, double b, double c, double d, double e);
 
 double			ft_absdbl(double a);
 int 				ft_absint(int a);
@@ -483,6 +495,7 @@ void			update_normal_plane(t_object *tmp, t_path *path);
 void			update_normal_cone(t_object *tmp, t_path *path);
 void			update_normal_cylindre(t_object *tmp, t_path *path);
 void			update_normal_quadric(t_quadric *tmp, t_path *path);
+void			update_normal_tore(t_object *tmp, t_path *path);
 void			display_lights(t_param *param);
 int 			my_key_func(int keycode, t_param *param);
 t_path			*path_create(t_param *param, int index);

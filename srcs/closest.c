@@ -84,6 +84,8 @@ int			is_inside_object(double *pt, t_object *obj, t_limit *limit)
 		return is_inside_cylindre(pt, obj);
 	else if (obj->type == RTQUADRIC)
 		return is_inside_quadric(pt, (t_quadric*)(obj->dim));
+	else if (obj->type == RTTORE)
+		return is_inside_tore(pt, obj);
 	return (0);
 }
 
@@ -99,6 +101,8 @@ void		update_normal_vector(t_object *tmp, t_path *path)
 		update_normal_cylindre(tmp, path);
 	else if (tmp->type == RTQUADRIC)
 		update_normal_quadric((t_quadric*)(tmp->dim), path);
+	else if (tmp->type == RTTORE)
+		update_normal_tore(tmp, path);
 	if (path->inside_obj)
 		vec_multiply(-1.0, path->valid_n, path->valid_n);
 	vec_to_unit_norm(path->valid_n);
