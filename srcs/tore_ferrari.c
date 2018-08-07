@@ -1,12 +1,12 @@
 #include "rt.h"
 
-int			ft_sign(double z)
+int			define_sign(double z)
 {
 	if (z > 0.0)
-		return (1);
+		return 1;
 	else if (z < 0.0)
-		return (-1);
-	return (0);
+		return -1;
+	return 0;
 }
 
 double	uv(int sign, double q, double delta)
@@ -14,7 +14,7 @@ double	uv(int sign, double q, double delta)
 	double z;
 
 	z = q / -2.0 + (double)sign * sqrt(delta);
-	return (double)ft_sign(z) * pow(ABS(z),1.0 / 3.0);
+	return (define_sign(z) * pow(ABS(z),1.0 / 3.0));
 }
 
 double	cardan_solver(double a, double b, double c, double d)
