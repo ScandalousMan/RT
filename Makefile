@@ -69,6 +69,8 @@ OBCC =		$(addprefix $(ODIR),$(OBJS))
 
 all: directories $(EXEC) $(DEPEND_FRAGMENT)
 
+-include $(DEPEND_FRAGMENT)
+
 $(LIBFT_FILE): $(LIBFT_DEP)
 ifeq ($(OS), Linux)
 	@echo -e "\x1B[34mLibft:\x1B[0m"
@@ -102,11 +104,11 @@ else
 endif
 
 $(ODIR)%.o: $(SDIR)%.c
-	$(CC) $^ $(CFLAGS) -c -o $@ $(INCLUDE)
+	$(CC) $< $(CFLAGS) -c -o $@ $(INCLUDE)
 ifeq ($(OS), Linux)
-	@echo -e "\r\x1B[32m  + Compile:\x1B[0m $(notdir $^)"
+	@echo -e "\r\x1B[32m  + Compile:\x1B[0m $(notdir $<)"
 else
-	@echo "\r\x1B[32m  + Compile:\x1B[0m $(notdir $^)"
+	@echo "\r\x1B[32m  + Compile:\x1B[0m $(notdir $<)"
 endif
 
 $(DEPEND_FRAGMENT): $(SRCC)
