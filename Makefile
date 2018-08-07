@@ -77,6 +77,7 @@ SRCS =		closest.c \
 			objects/quadric.c \
 			objects/sphere.c \
 			perlin.c \
+			tore.c \
 			postprocessing.c \
 			quadric_tools.c \
 			rt_parser.c \
@@ -87,6 +88,8 @@ SRCS =		closest.c \
 			sdl/keyboard.c \
 			sdl/utils.c \
 			threads.c \
+			tore_tools.c \
+			tore_ferrari.c \
 			vec_tools.c \
 			vec_tools2.c \
 			vec_tools3.c
