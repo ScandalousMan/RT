@@ -82,6 +82,7 @@ SRCS =		closest.c \
 			objects/sphere.c \
 			objects/tore.c \
 			perlin.c \
+			tore.c \
 			postprocessing.c \
 			quadric_tools.c \
 			refraction.c \
@@ -95,6 +96,7 @@ SRCS =		closest.c \
 			sdl/utils.c \
 			threads.c \
 			tore_tools.c \
+			tore_ferrari.c \
 			vec_tools.c \
 			vec_tools2.c \
 			vec_tools3.c

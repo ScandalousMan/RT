@@ -102,7 +102,7 @@ void		update_normal_vector(t_object *tmp, t_path *path)
 	else if (tmp->type == RTQUADRIC)
 		update_normal_quadric((t_quadric*)(tmp->dim), path);
 	else if (tmp->type == RTTORE)
-		update_normal_tore((t_tore*)(tmp->dim), path);
+		update_normal_tore(tmp, path);
 	if (path->inside_obj)
 		vec_multiply(-1.0, path->valid_n, path->valid_n);
 	vec_to_unit_norm(path->valid_n);

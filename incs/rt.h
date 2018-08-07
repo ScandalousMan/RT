@@ -431,7 +431,7 @@ double			distance_to_cylindre(t_object *tmp, double *from, double *to);
 double			*cylindre_position(double *pt, t_object *object);
 double			distance_to_quadric(t_object *tmp, double *from, double *to);
 double			*quadric_position(double *pt, t_object *object);
-double			distance_to_tore(t_object *tmp, double *from, double *to, t_param *param);
+double			distance_to_tore(t_object *tmp, double *from, double *to);
 /*
 **-------------------------------------cone-------------------------------------
 */
@@ -499,7 +499,7 @@ void			update_normal_plane(t_object *tmp, t_path *path);
 void			update_normal_cone(t_object *tmp, t_path *path);
 void			update_normal_cylindre(t_object *tmp, t_path *path);
 void			update_normal_quadric(t_quadric *tmp, t_path *path);
-void			update_normal_tore(t_tore *tmp, t_path *path);
+void			update_normal_tore(t_object *tmp, t_path *path);
 void			display_lights(t_param *param);
 int 			my_key_func(int keycode, t_param *param);
 t_path			*path_create(t_param *param, int index);
