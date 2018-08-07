@@ -31,8 +31,8 @@ t_object	*closest_object(t_param *param, double *from, double *to, t_path *path)
 						pt_translated(from, path->valid_x, path->valid_x);
 						if (param->tmp_d > 0 && is_inside_object(objs, path))
 						{
-						if (point_display(param))
-							printf("point dans objet\n");
+							if (point_display(param))
+								printf("point dans objet\n");
 							param->is_cut = 1;
 							vec_copy(limits->plane.n, path->valid_n);
 						}
@@ -55,8 +55,8 @@ t_object	*closest_object(t_param *param, double *from, double *to, t_path *path)
 				}
 				if (param->tmp_d > 0.0)
 				{
-						if (point_display(param))
-							printf("object intersectant type %d\n", objs->type);	
+					if (point_display(param))
+						printf("object intersectant type %d\n", objs->type);	
 					param->intersect_object = objs;
 					param->obj_d = param->tmp_d;
 					if (!param->is_for_light)
