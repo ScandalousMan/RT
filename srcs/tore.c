@@ -12,7 +12,7 @@ double	distance_to_tore(t_object *tmp, double *from, double *to)
 void	update_normal_tore(t_object *tmp, t_path *path)
 {
 	if (tmp && path)
-		vec_copy(path->valid_n, path->valid_n);
+		return;
 }
 
 int		is_inside_tore(double *pt, t_object *tmp)
