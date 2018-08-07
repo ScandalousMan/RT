@@ -1,6 +1,6 @@
 {
 	"camera": {
-		"eye": [0, -150, 90],
+		"eye": [0, -450, 190],
 		"look": [0, 1, 0],
 		"align": [1, 0, 0]
 	},
@@ -8,7 +8,7 @@
 	"lights": [
 		{
 			"type": "spot",
-			"u": [100, -200, 80],
+			"u": [100, -500, 80],
 			"color": [255, 255, 255],
 			"intensity": 1
 		}
@@ -19,7 +19,7 @@
 	"objects": [
 		{
 			"type": "tore",
-			"color": [100, 100, 100],
+			"color": [255, 127, 198],
 			"kd": 0.55,
 			"ks": 0.25,
 			"texture":
@@ -31,7 +31,7 @@
 			"reflection": 0.3,
 			"n": 1,
 			"thickness": 0.5,
-			"translation": [0, 100, 0],
+			"translation": [0, 0, 0],
 			"rotation": [0, 0, 0],
 			"limits": [],
 			"center": [0, 0, 0],

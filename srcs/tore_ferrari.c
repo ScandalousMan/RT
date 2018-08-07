@@ -19,9 +19,15 @@ double	uv(int sign, double q, double delta)
 
 double	cardan_solver(double a, double b, double c, double d)
 {
-	double p;
-	double q;
-	double delta;
+	double	p;
+	double	q;
+	double	delta;
+	double	kos;
+	double	r;
+	double	alpha;
+	double	res;
+	double	tmp_res;
+	double	k;
 
 	if (a == 0.0)
 		return second_level(b, c, d);
@@ -44,12 +50,20 @@ double	cardan_solver(double a, double b, double c, double d)
 		return pow(q / -2.0 + sqrt(delta), 1.0 / 3.0) + pow(q / -2.0 - sqrt(delta), 1.0 / 3.0);
 	else if (delta < 0.0)
 	{
-		// kos=-q/2/sqrt(-p*p*p/27);
-		// r=sqrt(-p/3)
+		kos = q / -2.0 / sqrt(p * p * p / -27.0);
+		r = sqrt(p / -3.0);
+		alpha = acos(kos);
 
-		// if (abs(abs(kos)-1)<1e-14){alpha=-pi*(kos-1)/2} else {alpha=acos(kos)}
-		// for(k=0;k<=2;k++){xk=2*r*cos((alpha+2*k*pi)/3)+vt;x[k]=arrondi(xk)}
-		return (0.0);
+		k = 0;
+		res = -1.0;
+		while (k < 3)
+		{
+			tmp_res = 2.0 * r * cos((alpha + 2.0 * k * M_PI) / 3.0) - b / 3.0 / a;
+			if (res < 0.0 || tmp_res < res)
+				res = tmp_res;
+			k++;
+		}
+		return (res);
 	}
 	else
 		return (uv(1, q, delta) + uv(-1, q, delta) - b / 4.0 / a);
