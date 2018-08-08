@@ -325,6 +325,7 @@ int				rgb_color(unsigned char r, unsigned char g, unsigned char b);
 int				rgb_ratio(int color, double a);
 void			display_info(t_param *param);
 int				color_summer(int col1, int col2);
+int 			color_absorber(int obj_col, int light_col);
 /*
 **------------------------------------create------------------------------------
 */

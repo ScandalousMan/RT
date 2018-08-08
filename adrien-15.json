@@ -9,13 +9,13 @@
 		{
 			"type": "spot",
 			"u": [100, -200, 80],
-			"color": [255, 255, 255],
+			"color": [0, 0, 255],
 			"intensity": 1
 		},
 		{
 			"type": "parallel",
 			"u": [100, 100, 80],
-			"color": [255, 255, 255],
+			"color": [255, 0, 0],
 			"intensity": 1
 		}
 	],

@@ -44,6 +44,14 @@ int		color_summer(int col1, int col2)
 		);
 }
 
+int 	color_absorber(int obj_col, int light_col)
+{
+	return (
+			ft_min(255, (int)trunc(((obj_col >> 16) & 0xFF) * ((light_col >> 16) & 0xFF) / 255)) << 16
+		| ft_min(255, (int)trunc(((obj_col >> 8) & 0xFF) * ((light_col >> 8) & 0xFF) / 255)) << 8
+		| ft_min(255, (int)trunc((obj_col & 0xFF) * (light_col & 0xFF) / 255))
+	);
+}
 
 void	display_info(t_param *param)
 {

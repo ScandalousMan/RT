@@ -2,11 +2,15 @@
 
 int		object_color(t_param *param, t_path *path)
 {
+	int final_col;
+
 	if (param && path && path->current_object)
 	{
 		param->bright = 0.0;
 		param->diffuse = 0.0;
 		param->tmp_light = param->lights;
+		// final_col = rgb_ratio(path->current_object->col, 0.2);
+		final_col = 0;
 		while (param->tmp_light)
 		{
 			if (point_display(param))
@@ -23,15 +27,25 @@ int		object_color(t_param *param, t_path *path)
 			{
 				if (point_display(param))
 					printf("-> illuminé\n");
-				if (scalar_product(path->l, path->n) > 0.0)
-					param->diffuse += scalar_product(path->l, path->n) * param->tmp_light->i;
-				if (param->brightness && ft_pow(scalar_product(path->l, path->r), param->brightness) > 0.0)
-					param->bright += ft_pow(scalar_product(path->l, path->r), path->current_object->phong) * param->tmp_light->i;
+				if (scalar_product(path->l, path->n) > 0.0){
+					if (point_display(param))
+						printf("color: %d, %d, %d\n", (color_absorber(param->tmp_light->col, path->current_object->col) >> 16) & 0xFF, (color_absorber(param->tmp_light->col, path->current_object->col) >> 8) & 0xFF, color_absorber(param->tmp_light->col, path->current_object->col) & 0xFF);
+					final_col = color_summer(final_col,
+						rgb_ratio(color_absorber(param->tmp_light->col, path->current_object->col),
+							path->current_object->kd * scalar_product(path->l, path->n) * param->tmp_light->i * 2.0));
+					// param->diffuse += scalar_product(path->l, path->n) * param->tmp_light->i;
+				}
+				if (param->brightness && ft_pow(scalar_product(path->l, path->r), param->brightness) > 0.0){
+					final_col = color_summer(final_col,
+						rgb_ratio(param->tmp_light->col, path->current_object->ks * ft_pow(scalar_product(path->l, path->r), path->current_object->phong) * param->tmp_light->i));
+					// param->bright += ft_pow(scalar_product(path->l, path->r), path->current_object->phong) * param->tmp_light->i;
+				}
 			}
 			param->tmp_light = param->tmp_light->next;
 		}
-		return color_summer(rgb_ratio(path->current_object->col, 0.2 + path->current_object->kd * param->diffuse),
-			rgb_ratio(16777215, path->current_object->ks * (param->bright > 1.0 ? 1.0 : param->bright)));
+		return final_col;
+		// return color_summer(rgb_ratio(path->current_object->col, 0.2 + path->current_object->kd * param->diffuse),
+		// 	rgb_ratio(16777215, path->current_object->ks * (param->bright > 1.0 ? 1.0 : param->bright)));
 	}
 	return (0);
 }
