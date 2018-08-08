@@ -152,7 +152,7 @@ t_param			*struct_create(void)
 	param->macro.blur_radius = BLUR_RADIUS;
 	param->macro.specular_exp = 1;
 	param->macro.rotation_angle = 30;
-	param->macro.k_ambience = 1;
+	param->macro.k_ambience = K_AMBIENCE;
 	param->macro.filter = 0;
 	param->path = path_create(param, 0);
 	if (!pxl_infos_create(param))

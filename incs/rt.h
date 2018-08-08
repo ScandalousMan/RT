@@ -42,9 +42,10 @@
 # define MAX_ROTATION_ANGLE 1
 # define MIN_ROTATION_ANGLE 90
 
-# define STEP_K_AMBIENCE 1
-# define MAX_K_AMBIENCE 1
-# define MIN_K_AMBIENCE 16
+# define K_AMBIENCE 0.2
+# define STEP_K_AMBIENCE 0.05
+# define MAX_K_AMBIENCE 1.0
+# define MIN_K_AMBIENCE 0.0
 
 # define STEP_CARTOON_FACTOR 1
 # define MIN_CARTOON_FACTOR 5
@@ -264,7 +265,7 @@ typedef struct		s_macro
 	int				cartoon_factor;
 	int				blur_radius;
 	int				specular_exp;
-	int	 			k_ambience;
+	float	 		k_ambience;
 	int				rotation_angle;
 
 	int				filter;

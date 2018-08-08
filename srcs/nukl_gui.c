@@ -88,7 +88,7 @@ void	nukl_gui(t_param *param)
 			nk_layout_row_push(param->graph->ctx, 100);
 			nk_label(param->graph->ctx, "K Ambience:", NK_TEXT_RIGHT);
 			nk_layout_row_push(param->graph->ctx, 200);
-			nk_slider_int(param->graph->ctx, MIN_K_AMBIENCE, &param->macro.k_ambience, MAX_K_AMBIENCE, STEP_K_AMBIENCE);
+			nk_slider_float(param->graph->ctx, MIN_K_AMBIENCE, &param->macro.k_ambience, MAX_K_AMBIENCE, STEP_K_AMBIENCE);
 			nk_layout_row_push(param->graph->ctx, 100);
 			nk_label(param->graph->ctx, ft_itoa(param->macro.k_ambience), NK_TEXT_CENTERED);
 		}
