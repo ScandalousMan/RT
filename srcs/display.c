@@ -103,7 +103,7 @@ void	display_lights(t_param *param)
 	{
 		ft_putstr("light detected,#");
 		ft_putnbr(param->tmp_light->num);
-		ft_putchar('\n');
+		ft_putstr("\ntype: ");
 		ft_putnbr(param->tmp_light->type);
 		ft_putendl("");
 		ft_putvec(param->tmp_light->src);
@@ -114,5 +114,5 @@ void	display_lights(t_param *param)
 
 int		point_display(t_param *param)
 {
-	return (param->i[0] == 327 && param->i[1] == 270); //
+	return (param->i[0] == 154 && param->i[1] == 87); //
 }

@@ -9,6 +9,8 @@ int		object_color(t_param *param, t_path *path)
 		param->tmp_light = param->lights;
 		while (param->tmp_light)
 		{
+			if (point_display(param))
+				printf("light type in new function: num %d, type %d\n$$$\n", param->tmp_light->num, param->tmp_light->type);
 			if (param->tmp_light->type == RTSPOT)
 				vec_soustraction(param->tmp_light->src, path->x, path->l);
 			else
@@ -19,6 +21,8 @@ int		object_color(t_param *param, t_path *path)
 			vec_to_unit_norm(path->r);
 			if (!light_masked(param, path->x, path->l, path))
 			{
+				if (point_display(param))
+					printf("-> illuminé\n");
 				if (scalar_product(path->l, path->n) > 0.0)
 					param->diffuse += scalar_product(path->l, path->n) * param->tmp_light->i;
 				if (param->brightness && ft_pow(scalar_product(path->l, path->r), param->brightness) > 0.0)
