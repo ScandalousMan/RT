@@ -48,6 +48,7 @@ int		main(int ac, char **av)
 			sdl_draw(param->graph);
 			param->end = clock();//TODO delete
 			printf("Render %.5lf secondes...\n", (double)(param->end - param->start) / CLOCKS_PER_SEC);
+			save_img(param);
 			param->refresh = 0;
 		}
 	}

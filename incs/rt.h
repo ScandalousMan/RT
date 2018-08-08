@@ -93,6 +93,8 @@
 
 # define NB_THREAD 8
 
+# define SAVED_IMG_NAME "test.png"
+
 # define MAX_VERTEX_MEMORY 512 * 1024
 # define MAX_ELEMENT_MEMORY 128 * 1024
 
@@ -493,7 +495,7 @@ void							sdl_quit(t_sdl *graph);
 void							sdl_pull_evts(t_param *param);
 void							sdl_draw(t_sdl *graph);
 
-
+void							save_img(t_param *param);
 /*
 ** Graph prototype
 */
