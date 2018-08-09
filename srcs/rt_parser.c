@@ -21,7 +21,7 @@ int	json_to_objects(t_jobject *obj, t_param* param);
 
 #define MY_GLOBALS
 #include <rt_objects.h>
-int	rt_parser(t_param *param, const char *file)
+int	rt_parser(t_param *param, char *file)
 {
 	char		*json;
 	t_jobject	*obj;
@@ -36,5 +36,6 @@ int	rt_parser(t_param *param, const char *file)
 		printf("json_to_objects: %d\n", json_to_objects(obj, param));
 	printf("num_objects: %i\n", param->num_objects);
 	free_jobject(obj);
+	free(file);
 	return (1);
 }

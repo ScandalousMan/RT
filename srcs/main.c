@@ -14,15 +14,37 @@
 #include "rt.h"
 #include <rt_parser.h>
 
+char	*concat_filename(int ac, char* str)
+{
+	char	*filename;
+	int		len;
+
+	if (ac == 2)
+	{
+		len = ft_strlen("scenes/");
+		if (!(filename = (char*)malloc(sizeof(char) * (len + ft_strlen(str) + 1))))
+			return (NULL);
+		ft_memcpy((void*)filename, (void*)"scenes/", len);
+		filename[len] = '\0';
+		ft_strcat(filename, str);
+	}
+	else
+	{
+		len = ft_strlen("scenes/rtv1.json");
+		if (!(filename = (char*)malloc(sizeof(char) * (len + 1))))
+			return (NULL);
+		ft_memcpy((void*)filename, (void*)"scenes/rtv1.json", len);
+		filename[len] = '\0';
+	}
+	return (filename);
+}
+
 int		main(int ac, char **av)
 {
 	t_param	*param;
 	char	*filename;
 
-	if (ac == 2)
-		filename = av[1];
-	else
-		filename = "rtv1.json";
+	filename = concat_filename(ac, av[1]);
 	if (!(param = struct_create()))
 		return (-1);
 	param->to_pix = 0;//todo change
