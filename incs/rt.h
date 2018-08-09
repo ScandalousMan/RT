@@ -24,12 +24,12 @@
 
 # define PIXELISATION	8
 
-# define ANTI_ALIASING 2
+# define ANTI_ALIASING 1
 # define STEP_ANTI_ALIASING 1
 # define MAX_ANTI_ALIASING 1
 # define MIN_ANTI_ALIASING 10
 
-# define RECURSION 1
+# define RECURSION 2
 # define STEP_RECURSION 1
 # define MAX_RECURSION 0
 # define MIN_RECURSION 10
@@ -231,6 +231,7 @@ typedef struct	s_path
 	double			valid_n[VEC_SIZE];//to store final cut normal
 	double			valid_x[VEC_SIZE];//to store final cut intersection
 	t_object		*current_object;
+	double 			inside_obj_n;
 	struct s_path	*reflected;
 	struct s_path	*transmitted;
 }				t_path;
@@ -291,17 +292,13 @@ typedef struct		s_param
 	t_light			*lights;
 	int				num_lights;
 	t_object		*intersect_object;
-	// convertir cet int* en unsigned char* avec l'introduction de la limite d'objets
-	// number of objects in the scene
 	int 				num_objects;
 	char				is_cut;
 	char				is_for_light;
-	//	t_object		*tmp_object;
 	t_light			*tmp_light;
 	double			tmp_vec[VEC_SIZE];
 	int 			brightness;
-	double			bright;
-	double			diffuse;
+	int				final_col;
 	int				i[2];
 	double			rot[VEC_SIZE][VEC_SIZE];
 	double			epsilon;
@@ -445,7 +442,7 @@ void			update_normal_cylindre(t_object *tmp, t_path *path);
 void			update_normal_quadric(t_quadric *tmp, t_path *path);
 void			display_lights(t_param *param);
 int 			my_key_func(int keycode, t_param *param);
-
+int				snell_descartes(t_path *path1, t_path *path2);
 	/*
 **POST PROCESSING FUNCTIONS
 */

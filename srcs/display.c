@@ -86,9 +86,12 @@ void	display_objects(t_param *param)
 			ft_putdbl(((t_quadric*)(objs->dim))->i, 4);
 			ft_putchar('\n');
 		}
+		ft_putchar('#');
 		ft_putnbr(objs->num);
 		ft_putstr("\ncolor = ");
 		ft_putnbr(objs->col);
+		ft_putstr("\nindice = ");
+		ft_putdbl(objs->index, 2);
 		ft_putstr("\nmiroir:");
 		ft_putdbl(objs->reflection, 4);
 		ft_putstr("\n***************\n");
@@ -114,5 +117,5 @@ void	display_lights(t_param *param)
 
 int		point_display(t_param *param)
 {
-	return (param->i[0] == 487 && param->i[1] == 553); //
+	return (param->i[0] == 333 && param->i[1] == 294); //
 }

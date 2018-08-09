@@ -56,6 +56,7 @@ SRC_DIR = srcs
 INC_DIR = incs
 
 SDIR =		./srcs/
+
 SRCS =		closest.c \
 			components.c \
 			cone_tools.c \
@@ -70,6 +71,7 @@ SRCS =		closest.c \
 			light.c \
 			main.c \
 			new_functions.c \
+			refraction.c \
 			nukl_gui.c \
 			object_parser.c \
 			objects_storage.c \
@@ -90,6 +92,7 @@ SRCS =		closest.c \
 			vec_tools.c \
 			vec_tools2.c \
 			vec_tools3.c
+
 SRCC =		$(addprefix $(SDIR),$(SRCS))
 
 ODIR =		./objs/
