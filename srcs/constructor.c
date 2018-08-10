@@ -21,7 +21,6 @@ t_path			*path_create(t_param *param, int index)
 	path->current_object = NULL;
 	path->reflected = index < param->macro.recursion ? path_create(param, index + 1) : NULL;
 	path->transmitted = index < param->macro.recursion ? path_create(param, index + 1) : NULL;
-	path->inside_obj_n = 1.0;
 	return (path);
 }
 

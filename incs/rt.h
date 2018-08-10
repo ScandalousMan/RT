@@ -231,7 +231,7 @@ typedef struct	s_path
 	double			valid_n[VEC_SIZE];//to store final cut normal
 	double			valid_x[VEC_SIZE];//to store final cut intersection
 	t_object		*current_object;
-	double 			inside_obj_n;
+	t_object		*inside_obj;
 	struct s_path	*reflected;
 	struct s_path	*transmitted;
 }				t_path;
@@ -412,9 +412,11 @@ double			quadric_second_term(t_quadric *tmp, double *from, double *to);
 double			quadric_third_term(t_quadric *tmp, double *from);
 int					is_inside_quadric(double *pt, t_quadric *tmp);
 
-void			ft_putvec(double *x);
-void			eye_rotation(double alpha, double beta, double gamma, t_param *param);
-void			rotation_matrice(double alpha, double beta, double gamma, t_param *param);
+double			ft_absdbl(double a);
+int 				ft_absint(int a);
+void				ft_putvec(double *x);
+void				eye_rotation(double alpha, double beta, double gamma, t_param *param);
+void				rotation_matrice(double alpha, double beta, double gamma, t_param *param);
 /*
 **------------------------------------parser------------------------------------
 */
@@ -443,7 +445,12 @@ void			update_normal_cylindre(t_object *tmp, t_path *path);
 void			update_normal_quadric(t_quadric *tmp, t_path *path);
 void			display_lights(t_param *param);
 int 			my_key_func(int keycode, t_param *param);
-int				snell_descartes(t_path *path1, t_path *path2);
+/*
+**REFRACTION
+*/
+void			define_refracted_n(t_path *path1, t_path *path2);
+double		get_index_n(t_path *path);
+int				snell_descartes(double n1, double n2, t_path *path1, t_path *path2);
 	/*
 **POST PROCESSING FUNCTIONS
 */

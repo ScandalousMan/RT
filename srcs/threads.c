@@ -31,7 +31,7 @@ t_param		*param_cpy(t_param *param, int count)
 	param_cpy->lights = light_copy(param->lights);
 	param_cpy->num_objects = param->num_objects;
 	param_cpy->pxl_infos = param->pxl_infos;
-
+	param_cpy->path->inside_obj = param->path->inside_obj;
 	return (param_cpy);
 }
 

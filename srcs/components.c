@@ -11,6 +11,15 @@
 /* ************************************************************************** */
 
 #include "rt.h"
+double	ft_absdbl(double a)
+{
+	return a < 0.0 ? -1.0 * a : a;
+}
+
+int 		ft_absint(int a)
+{
+	return a < 0 ? -1 * a : a;
+}
 
 void		ft_putvec(double *x)
 {

@@ -56,6 +56,12 @@ double	*ray_direction(t_param *param, int i, int j)
 
 int		ray_color(t_param *param, double *from, double *to, int index, t_path *path)
 {
+	// int a;
+	// int b;
+	// int c;
+
+	// if (point_display(param))
+	// 	printf("index: %d\n", index);
 	path->current_object = NULL;
 	param->intersect_object = NULL;
 	param->is_for_light = 0;
@@ -68,27 +74,41 @@ int		ray_color(t_param *param, double *from, double *to, int index, t_path *path
 	}
 	else
 	{
-		if (point_display(param))
-			printf("intersect num: %d\n", path->current_object->num);
+		// if (point_display(param))
+		// 	printf("obj intersected: #%d en x:[%f,%f,%f]\n", path->current_object->num, path->x[0], path->x[1], path->x[2]);
 		if (!index)
 			param->pxl_infos[param->i[0]][param->i[1]]->object = path->current_object;
 		if (index < param->macro.recursion)
 		{
 			// REFLECTED
-			path->reflected->inside_obj_n = path->inside_obj_n;
+			path->reflected->inside_obj = path->inside_obj;
 			vec_copy(path->r, path->reflected->v);
 			vec_copy(path->x, path->reflected->from);
 			// TRANSMITTED
-			path->transmitted->inside_obj_n = path->current_object->index;
-			if (point_display(param))
-				printf("*** test réfraction avec index %f to %f\n", path->inside_obj_n, path->transmitted->inside_obj_n);
-			if ((snell_descartes(path, path->transmitted)))
+			define_refracted_n(path, path->transmitted);
+			// if (point_display(param))
+			// 	printf("indice from: %f, to: %f\n", get_index_n(path), get_index_n(path->transmitted));
+			if ((snell_descartes(get_index_n(path), get_index_n(path->transmitted), path, path->transmitted)))
 			{
-				if (point_display(param))
-					printf("refraction OK:\n - v1: [%f,%f,%f]\n - v2: [%f,%f,%f]\n - n: [%f,%f,%f]\n\n", path->v[0], path->v[1], path->v[2], path->transmitted->v[0], path->transmitted->v[1], path->transmitted->v[2], path->n[0], path->n[1], path->n[2]);
+				// if (point_display(param))
+				// 	printf("refraction OK:\n - v1: [%f,%f,%f]\n - v2: [%f,%f,%f]\n - n: [%f,%f,%f]\n\n", path->v[0], path->v[1], path->v[2], path->transmitted->v[0], path->transmitted->v[1], path->transmitted->v[2], path->n[0], path->n[1], path->n[2]);
 				vec_copy(path->x, path->transmitted->from);
-				vec_multiply(2.0 * EPSILON, path->v, param->tmp_vec); // 1 epsilon vers path->v et 1 epsilon vers path->transmitted->v ?
+				vec_multiply(EPSILON, path->v, param->tmp_vec);
 				pt_translated(path->transmitted->from, param->tmp_vec, path->transmitted->from);
+				vec_multiply(EPSILON, path->transmitted->v, param->tmp_vec);
+				pt_translated(path->transmitted->from, param->tmp_vec, path->transmitted->from);
+				// if (point_display(param))
+				// 	printf("new x:[%f,%f,%f]\n", path->transmitted->from[0], path->transmitted->from[1], path->transmitted->from[2]);
+				// a = rgb_ratio(object_color(param, path), (1.0 - path->current_object->transparency - path->current_object->reflection));
+				// if (point_display(param))
+				// 	printf("\n\n == REFRACTED == \n");
+				// b = rgb_ratio(ray_color(param, path->transmitted->from, path->transmitted->v, index + 1, path->transmitted), path->current_object->transparency);
+				// if (point_display(param))
+				// 	printf("\n == ENDRACTED == \n");
+				// c = rgb_ratio(ray_color(param, path->reflected->from, path->reflected->v, index + 1, path->reflected), path->current_object->reflection);
+				// if (point_display(param))
+				// 	printf("a: %d, b: %d, c: %d\n", a, b, c);
+				// return (color_summer(color_summer(a, b), c));
 				return (
 					color_summer(color_summer(rgb_ratio(object_color(param, path), (1.0 - path->current_object->transparency - path->current_object->reflection)),
 					rgb_ratio(ray_color(param, path->transmitted->from, path->transmitted->v, index + 1, path->transmitted), path->current_object->transparency)),
@@ -97,8 +117,14 @@ int		ray_color(t_param *param, double *from, double *to, int index, t_path *path
 			}
 			else
 			{
-				if (point_display(param))
-					printf("refraction KO:\n - v1: [%f,%f,%f]\n - n: [%f,%f,%f]\n", path->v[0], path->v[1], path->v[2], path->n[0], path->n[1], path->n[2]);
+				// if (point_display(param))
+				// 	printf("refraction KO:\n - v1: [%f,%f,%f]\n - n: [%f,%f,%f]\n", path->v[0], path->v[1], path->v[2], path->n[0], path->n[1], path->n[2]);
+				// a = rgb_ratio(object_color(param, path), (1.0 - path->current_object->transparency - path->current_object->reflection));
+				// c = rgb_ratio(ray_color(param, path->reflected->from, path->reflected->v, index + 1, path->reflected), path->current_object->reflection + path->current_object->transparency);
+				// if (point_display(param))
+				// 	printf("a: %d & c: %d\n", a, c);
+				// return (color_summer(a, c));
+
 				return (
 					color_summer(rgb_ratio(object_color(param, path), (1.0 - path->current_object->transparency - path->current_object->reflection)),
 					rgb_ratio(ray_color(param, path->reflected->from, path->reflected->v, index + 1, path->reflected), path->current_object->reflection + path->current_object->transparency))
@@ -115,6 +141,7 @@ void	rt_tracer(t_param *param)
 	int			col[3];
 	int			tmp_col;
 	int 		alias[2];
+
 	const int	pixelisation = (param->to_pix) ? PIXELISATION : 1;
 	const int	db_antialiasing = param->macro.anti_aliasing * param->macro.anti_aliasing;
 

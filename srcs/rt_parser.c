@@ -21,7 +21,22 @@ int	json_to_objects(t_jobject *obj, t_param* param);
 
 #define MY_GLOBALS
 #include <rt_objects.h>
-int	rt_parser(t_param *param, char *file)
+
+void	update_eye_n(t_param *param)
+{
+	t_object *obj;
+
+	obj = param->objects;
+	while (obj)
+	{
+		if (is_inside_object(param->eye, obj, NULL))
+			param->path->inside_obj = obj;
+		obj = obj->next;
+	}
+	printf("eye is in index %f\n", param->path->inside_obj ? param->path->inside_obj->index : 1.0);
+}
+
+int		rt_parser(t_param *param, char *file)
 {
 	char		*json;
 	t_jobject	*obj;
@@ -34,6 +49,7 @@ int	rt_parser(t_param *param, char *file)
 	free(json);
 	if (!ret)
 		printf("json_to_objects: %d\n", json_to_objects(obj, param));
+	update_eye_n(param);
 	printf("num_objects: %i\n", param->num_objects);
 	free_jobject(obj);
 	free(file);

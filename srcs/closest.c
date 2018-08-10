@@ -1,4 +1,4 @@
-#include "rt.h"
+#include "rt_objects.h"
 
 t_object	*closest_object(t_param *param, double *from, double *to, t_path *path)
 {
@@ -67,30 +67,32 @@ int			is_inside_object(double *pt, t_object *obj, t_limit *limit)
 {
 	if (!(is_in_limits(pt, obj, limit)))
 		return (0);
-	if (obj->type == 1)
+	if (obj->type == RTSPHERE)
 		return is_inside_sphere(pt, obj);
-	else if (obj->type == 2)
+	else if (obj->type == RTPLAN)
 		return is_inside_plane(pt, obj);
-	else if (obj->type == 3)
+	else if (obj->type == RTCONE)
 		return is_inside_cone(pt, obj);
-	else if (obj->type == 4)
+	else if (obj->type == RTCYLINDER)
 		return is_inside_cylindre(pt, obj);
-	else if (obj->type == 5)
+	else if (obj->type == RTQUADRIC)
 		return is_inside_quadric(pt, (t_quadric*)(obj->dim));
 	return (0);
 }
 
 void		update_normal_vector(t_object *tmp, t_path *path)
 {
-	if (tmp->type == 1)
+	if (tmp->type == RTSPHERE)
 		update_normal_sphere(tmp, path);
-	else if (tmp->type == 2)
+	else if (tmp->type == RTPLAN)
 		update_normal_plane(tmp, path);
-	else if (tmp->type == 3)
+	else if (tmp->type == RTCONE)
 		update_normal_cone(tmp, path);
-	else if (tmp->type == 4)
+	else if (tmp->type == RTCYLINDER)
 		update_normal_cylindre(tmp, path);
-	else if (tmp->type == 5)
+	else if (tmp->type == RTQUADRIC)
 		update_normal_quadric((t_quadric*)(tmp->dim), path);
+	if (path->inside_obj)
+		vec_multiply(-1.0, path->valid_n, path->valid_n);
 	vec_to_unit_norm(path->valid_n);
 }
