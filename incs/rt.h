@@ -382,11 +382,11 @@ double			distance_calc(t_object *tmp, t_param *param, double *from,
 				double *to);
 double			distance_to_sphere(t_object *tmp, double *from,
 				double *to);
-int					is_inside_sphere(t_object *tmp, t_path *path);
+int					is_inside_sphere(double *pt, t_object *tmp);
 double			plane_distance(double *from, double *to, double *n, double *ref);
 double			distance_to_plane(t_object *tmp, double *from,
 				double *to);
-int					is_inside_plane(t_object *tmp, t_path *path);
+int					is_inside_plane(double *pt, t_object *tmp);
 double			distance_to_cone(t_object *tmp, double *from, double *to);
 double			distance_to_cylindre(t_object *tmp, double *from, double *to);
 double			distance_to_quadric(t_object *tmp, double *from, double *to);
@@ -396,21 +396,21 @@ double			distance_to_quadric(t_object *tmp, double *from, double *to);
 double			cone_first_term(t_object *tmp, double *to);
 double			cone_second_term(t_object *tmp, double *to, double *x);
 double			cone_third_term(t_object *tmp, double *x);
-int					is_inside_cone(t_object *tmp, t_path *path);
+int					is_inside_cone(double *pt, t_object *tmp);
 /*
 **-----------------------------------cylindre-----------------------------------
 */
 double			cylindre_first_term(t_object *tmp, double *to);
 double			cylindre_second_term(t_object *tmp, double *to);
 double			cylindre_third_term(t_object *tmp);
-int					is_inside_cylindre(t_object *tmp, t_path *path);
+int					is_inside_cylindre(double *pt, t_object *tmp);
 /*
 **------------------------------------quadric-----------------------------------
 */
 double			quadric_first_term(t_quadric *tmp, double *to);
 double			quadric_second_term(t_quadric *tmp, double *from, double *to);
 double			quadric_third_term(t_quadric *tmp, double *from);
-int					is_inside_quadric(t_quadric *tmp, t_path *path);
+int					is_inside_quadric(double *pt, t_quadric *tmp);
 
 void			ft_putvec(double *x);
 void			eye_rotation(double alpha, double beta, double gamma, t_param *param);
@@ -432,8 +432,9 @@ int 	rt_init(t_param *param, char *line, int count);
 void			rt_tracer(t_param *param);
 t_object	*closest_object(t_param *param, double *from, double *to, t_path *path);
 int				is_in_limit(double *pt, t_limit *limit);
+int				is_in_limits(double *pt, t_object *obj, t_limit *limit);
 void			update_normal_vector(t_object *tmp, t_path *path);
-int				is_inside_object(t_object *tmp, t_path *path);
+int				is_inside_object(double *pt, t_object *tmp, t_limit *limit);
 t_object	*object_constructor(t_param *param);
 void			update_normal_sphere(t_object *tmp, t_path *path);
 void			update_normal_plane(t_object *tmp, t_path *path);

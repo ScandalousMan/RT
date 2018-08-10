@@ -14,8 +14,11 @@ void	update_normal_cylindre(t_object *tmp, t_path *path)
 	vec_soustraction(path->valid_n, tmp->tmp_vec, path->valid_n);
 }
 
-int		is_inside_cylindre(t_object *tmp, t_path *path)
+int		is_inside_cylindre(double *pt, t_object *tmp)
 {
-	update_normal_cylindre(tmp, path);
-	return (vec_norm(path->valid_n) > ((t_cylindre*)(tmp->dim))->radius) ? 0 : 1;
+	vec_soustraction(pt, ((t_cylindre*)(tmp->dim))->org, tmp->tmp_vec);
+	vec_multiply(scalar_product(((t_cylindre*)(tmp->dim))->u, tmp->tmp_vec), ((t_cylindre*)(tmp->dim))->u, tmp->tmp_vec);
+	vec_soustraction(tmp->tmp_vec, pt, tmp->tmp_vec);
+	pt_translated(tmp->tmp_vec, ((t_cylindre*)(tmp->dim))->org, tmp->tmp_vec);
+	return (vec_norm(tmp->tmp_vec) > ((t_cylindre*)(tmp->dim))->radius ? 0 : 1);
 }

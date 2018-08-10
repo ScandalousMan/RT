@@ -18,10 +18,9 @@ void	update_normal_cone(t_object *tmp, t_path *path)
 	vec_soustraction(path->valid_n, tmp->tmp_vec, path->valid_n);
 }
 
-int		is_inside_cone(t_object *tmp, t_path *path)
+int		is_inside_cone(double *pt, t_object *tmp)
 {
-	vec_soustraction(path->valid_x, ((t_cone*)(tmp->dim))->org, path->valid_n);
-	vec_multiply(scalar_product(path->valid_n, ((t_cone*)(tmp->dim))->u), ((t_cone*)(tmp->dim))->u, tmp->tmp_vec);
-	vec_soustraction(path->valid_n, tmp->tmp_vec, path->valid_n);
-	return tan(((t_cone*)(tmp->dim))->angle) * tan(((t_cone*)(tmp->dim))->angle) * vec_norm(tmp->tmp_vec) * vec_norm(tmp->tmp_vec) > vec_norm(path->valid_n) * vec_norm(path->valid_n) ? 1 : 0;
+	vec_soustraction(pt, ((t_cone*)(tmp->dim))->org, tmp->tmp_vec);
+	vec_to_unit_norm(tmp->tmp_vec);
+	return (acos(ABS(scalar_product(((t_cone*)(tmp->dim))->u, tmp->tmp_vec))) < ((t_cone*)(tmp->dim))->angle ? 1 : 0);
 }
