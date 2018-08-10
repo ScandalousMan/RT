@@ -50,17 +50,46 @@ else
 endif
 
 OUT_DIR = objs
+OUT_OBJECT_DIR = $(OUT_DIR)/objects
+OUT_SDL_DIR = $(OUT_DIR)/sdl2
 SRC_DIR = srcs
 INC_DIR = incs
 
 SDIR =		./srcs/
-SRCS =		closest.c components.c cone.c cone_tools.c constructor.c \
-			cylindre.c cylindre_tools.c display.c distance.c quadric.c quadric_tools.c \
-			graph_init.c key_func.c light.c main.c save_img.c \
-			new_functions.c nukl_gui.c object_parser.c \
-			plane.c postprocessing.c sdl_draw.c sdl_evts.c sdl_init.c \
-			sdl_utils.c sphere.c threads.c vec_tools.c vec_tools2.c \
-			vec_tools3.c file.c json_to_objects.c objects_storage.c rt_parser.c
+SRCS =		closest.c \
+			components.c \
+			cone_tools.c \
+			constructor.c \
+			cylindre_tools.c \
+			display.c \
+			distance.c \
+			file.c \
+			graph_init.c \
+			json_to_objects.c \
+			key_func.c \
+			light.c \
+			main.c \
+			new_functions.c \
+			nukl_gui.c \
+			object_parser.c \
+			objects_storage.c \
+			objects/cone.c \
+			objects/cylindre.c \
+			objects/plane.c \
+			objects/quadric.c \
+			objects/sphere.c \
+			postprocessing.c \
+			quadric_tools.c \
+			rt_parser.c \
+			save_img.c \
+			sdl2/sdl_draw.c \
+			sdl2/sdl_evts.c \
+			sdl2/sdl_init.c \
+			sdl2/sdl_utils.c \
+			threads.c \
+			vec_tools.c \
+			vec_tools2.c \
+			vec_tools3.c
 SRCC =		$(addprefix $(SDIR),$(SRCS))
 
 ODIR =		./objs/
@@ -117,7 +146,7 @@ $(DEPEND_FRAGMENT): $(SRCC)
 	@sed 's/.\/srcs/.\/objs/g' $(DEPEND_FRAGMENT) > $(DEPEND_FRAGMENT).bak
 	@mv $(DEPEND_FRAGMENT).bak $(DEPEND_FRAGMENT)
 
-directories: ${OUT_DIR} ${SRC_DIR} ${INC_DIR}
+directories: ${OUT_DIR} ${SRC_DIR} ${INC_DIR} ${OUT_OBJECT_DIR} ${OUT_SDL_DIR}
 
 ${OUT_DIR}:
 	@mkdir -p ${OUT_DIR}
@@ -127,6 +156,12 @@ ${SRC_DIR}:
 
 ${INC_DIR}:
 	@mkdir -p ${INC_DIR}
+
+${OUT_OBJECT_DIR}:
+	@mkdir -p ${OUT_OBJECT_DIR}
+
+${OUT_SDL_DIR}:
+	@mkdir -p ${OUT_SDL_DIR}
 
 clean:
 	@make -C ./libft clean
@@ -154,9 +189,6 @@ re: fclean
 
 run: re
 	@./$(EXEC)
-
-depend:
-	@makedepend -- -Y -O -DHACK $(INCLUDE) -- $(SRCC) >& /dev/null
 
 norm:
 	@echo "\x1B[31m\c"
