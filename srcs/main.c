@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: itsalex <itsalex@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/21 17:02:46 by malexand          #+#    #+#             */
-/*   Updated: 2018/03/19 18:03:36 by jbouille         ###   ########.fr       */
+/*   Updated: 2018/08/12 19:01:58 by itsalex          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int		main(int ac, char **av)
 		return (1);
 	sdl_init(param->graph);
 	launch_threads(param);
-	while (param->graph->input[SDL_SCANCODE_ESCAPE] == FALSE)
+	while (param->quit == FALSE)
 	{
 		sdl_pull_evts(param);
 		if (param->to_pix && ((double)(clock() - param->last_mv) / (double)CLOCKS_PER_SEC) > 0.4)
@@ -67,6 +67,7 @@ int		main(int ac, char **av)
 		nukl_gui(param);
 		if (param->refresh == 1)
 		{
+			launch_threads(param);
 			sdl_draw(param->graph);
 			param->end = clock();//TODO delete
 			printf("Render %.5lf secondes...\n", (double)(param->end - param->start) / CLOCKS_PER_SEC);
@@ -75,5 +76,6 @@ int		main(int ac, char **av)
 		}
 	}
 	sdl_quit(param->graph);
+	end_program(param);
 	return (0);
 }

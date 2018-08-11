@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: itsalex <itsalex@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 16:39:54 by aguemy            #+#    #+#             */
-/*   Updated: 2018/08/06 17:10:32 by jbouille         ###   ########.fr       */
+/*   Updated: 2018/08/12 19:12:07 by itsalex          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,6 @@ typedef struct					s_sdl
 	SDL_Renderer				*render_sdl;
 	SDL_Surface					*surfs[NB_THREAD];
 	SDL_Surface					*tmp_surfs[NB_THREAD];
-	char						input[SDL_NUM_SCANCODES];
 	int							show_tmp;
 
 	t_nk_context				*ctx;
@@ -263,15 +262,14 @@ typedef struct	s_pxl_info
 
 typedef struct		s_macro
 {
+	float			k_ambience;
 	int				anti_aliasing;
-	int				recursion;
-	int				cartoon_factor;
 	int				blur_radius;
-	int				specular_exp;
-	float	 		k_ambience;
-	int				rotation_angle;
-
+	int				cartoon_factor;
 	int				filter;
+	int				recursion;
+	int				rotation_angle;
+	int				specular_exp;
 }					t_macro;
 
 typedef struct		s_param
@@ -315,66 +313,68 @@ typedef struct		s_param
 	int				to_pix;
 	clock_t			last_mv;
 
-	t_macro			macro;
+	t_macro			macro; // Contain all global variable across program
+
+	char			quit; // Used to know if program must exit
 }				t_param;
 
 /*
 **----------------------------------components----------------------------------
 */
-int				rgb_color(unsigned char r, unsigned char g, unsigned char b);
-int				rgb_ratio(int color, double a);
-void			display_info(t_param *param);
-int				color_summer(int col1, int col2);
-int 			color_absorber(int obj_col, int light_col);
+int								rgb_color(unsigned char r, unsigned char g, unsigned char b);
+int								rgb_ratio(int color, double a);
+void							display_info(t_param *param);
+int								color_summer(int col1, int col2);
+int 							color_absorber(int obj_col, int light_col);
 /*
 **------------------------------------create------------------------------------
 */
-t_param			*struct_create(void);
-t_param			*stereoscopy_cpy(t_param *param1);
-void				stereoscopy_free(t_param *param);
-t_param			*new_content(t_param *param);
-//t_light			*add_light(t_light **lights, double *src, double i, int col);
-t_light			*light_copy(t_light *src);
-//t_object		*add_sphere(t_param *param, double *center, double radius);
-//t_object		*add_cube(t_param *param, double *center, double side);
-//t_object		*add_plane(t_param *param, double *n, double *ref);
-//t_object		*add_cone(t_param *param, double *org, double *u,
-//				double angle);
-t_object		*object_copy(t_object *src);
-//t_object		*add_cylindre(t_param *param, double *org, double *u,
-//				double radius);
+t_param							*struct_create(void);
+t_param							*stereoscopy_cpy(t_param *param1);
+void								stereoscopy_free(t_param *param);
+t_param							*new_content(t_param *param);
+//t_light							*add_light(t_light **lights, double *src, double i, int col);
+t_light							*light_copy(t_light *src);
+//t_object						*add_sphere(t_param *param, double *center, double radius);
+//t_object						*add_cube(t_param *param, double *center, double side);
+//t_object						*add_plane(t_param *param, double *n, double *ref);
+//t_object						*add_cone(t_param *param, double *org, double *u,
+//								double angle);
+t_object						*object_copy(t_object *src);
+//t_object						*add_cylindre(t_param *param, double *org, double *u,
+//								double radius);
 /*
 **-------------------------------------init-------------------------------------
 */
-t_param			*values_init(t_param *param);
-void			rt_filler(t_param *param);
-t_object		*light_masked(t_param *param, double *from, double *to, t_path *path);
-void			print_obj_point(t_param *param);
+t_param							*values_init(t_param *param);
+void							rt_filler(t_param *param);
+t_object						*light_masked(t_param *param, double *from, double *to, t_path *path);
+void							print_obj_point(t_param *param);
 /*
 **------------------------------------tools-------------------------------------
 */
-void			*duplicate(void *src, size_t size);
-//double			ft_atod(const char *str);
-double			second_level(double a, double b, double c);
-double			vec_norm(double *v);
-double			*vec_to_unit_norm(double *v);
-//double			pt_dist(double *x, double *y);//TODO delete?
-double			pt_dist_root(double *x, double *y);
-double			*vec_multiply(double a, double *vec, double *container);
-double			*pt_translated(double *pt, double *vec, double *container);
-void			vec_copy(double *src, double *des);
-double			*coord_copy(double *des, double x, double y, double z);
-double			scalar_product(double *x, double *y);
-double			*vector_product(double *x, double *y, double *container);
-double			*vec_soustraction(double *x, double *y, double *container);
-int				is_in_list(t_param *param, t_light *light);
-void			matrice_product(double matrice[VEC_SIZE][VEC_SIZE], double *col, double *dest);
-double			*vec_dup(double *vec);
+void							*duplicate(void *src, size_t size);
+//double							ft_atod(const char *str);
+double							second_level(double a, double b, double c);
+double							vec_norm(double *v);
+double							*vec_to_unit_norm(double *v);
+//double							pt_dist(double *x, double *y);//TODO delete?
+double							pt_dist_root(double *x, double *y);
+double							*vec_multiply(double a, double *vec, double *container);
+double							*pt_translated(double *pt, double *vec, double *container);
+void							vec_copy(double *src, double *des);
+double							*coord_copy(double *des, double x, double y, double z);
+double							scalar_product(double *x, double *y);
+double							*vector_product(double *x, double *y, double *container);
+double							*vec_soustraction(double *x, double *y, double *container);
+int								is_in_list(t_param *param, t_light *light);
+void							matrice_product(double matrice[VEC_SIZE][VEC_SIZE], double *col, double *dest);
+double							*vec_dup(double *vec);
 /*
 **------------------------------------display-----------------------------------
 */
-void			display_objects(t_param *param);
-int				point_display(t_param *param);
+void							display_objects(t_param *param);
+int								point_display(t_param *param);
 /*
 **-----------------------------------distance-----------------------------------
 */
@@ -454,11 +454,11 @@ int				snell_descartes(double n1, double n2, t_path *path1, t_path *path2);
 	/*
 **POST PROCESSING FUNCTIONS
 */
-void	greyscale(t_param *param);
-void 	sepia(t_param *param);
-void	cartoon(t_param *param);
-void	blur(t_param *param);
-void	stereoscopy(t_param *param);
+void 							greyscale(t_param *param);
+void						 	sepia(t_param *param);
+void							cartoon(t_param *param);
+void							blur(t_param *param);
+void							stereoscopy(t_param *param);
 
 /*
 ** NK_API SDL Prototypes
@@ -491,22 +491,37 @@ void							nukl_gui(t_param *param);
 ** SDL2 Prototypes
 */
 
-void							putpxl(t_param *param, int y, int x, Uint32 pixel);
-Uint32 						getpxl(t_param *param, int y, int x);
-Uint32						format_Uint32(Uint32 pixel, SDL_PixelFormat *fmt);
 int								convert_Uint32_to_int(Uint32 pixel, SDL_PixelFormat *fmt);
-void							sdl_init(t_sdl *graph);
-void							sdl_quit(t_sdl *graph);
-void							sdl_pull_evts(t_param *param);
-void							sdl_draw(t_sdl *graph);
-
+Uint32							format_Uint32(Uint32 pixel, SDL_PixelFormat *fmt);
+Uint32 							getpxl(t_param *param, int y, int x);
+void							putpxl(t_param *param, int y, int x, Uint32 pixel);
 void							save_img(t_param *param);
+void							sdl_draw(t_sdl *graph);
+void							sdl_init(t_sdl *graph);
+void							sdl_pull_evts(t_param *param);
+void							sdl_quit(t_sdl *graph);
+
+/**
+ * SDL_Event protos
+**/
+
+void 							handle_keyboard(int keycode, t_param *param);
+void 							handle_keyboard_caps(int keycode, t_param *param);
+
 /*
 ** Graph prototype
 */
 
 t_sdl							*graph_init(void);
-
 void							launch_threads(t_param *param);
+
+/*
+** Free functions
+*/
+
+void 							free_objects(t_param *param);
+void 							free_lights(t_param *param);
+void 							free_path(t_path *path);
+void 							end_program(t_param *param);
 
 #endif

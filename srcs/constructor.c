@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   constructor.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: itsalex <itsalex@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/27 14:57:42 by aguemy            #+#    #+#             */
-/*   Updated: 2018/08/06 16:00:02 by jbouille         ###   ########.fr       */
+/*   Updated: 2018/08/12 18:58:38 by itsalex          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,6 @@ t_sdl				*copy_pxls(t_param *param)
 	count = -1;
 	if (!(graph = (t_sdl*)malloc(sizeof(t_sdl))))
 		return (NULL);
-	ft_bzero((void*)graph->input, sizeof(char) * SDL_NUM_SCANCODES);
-	while (++count < SDL_NUM_SCANCODES)
-		graph->input[count] = FALSE;
-	graph->input[count - 1] = '\0';
 	graph->win_gl = param->graph->win_gl;
 	graph->gl_context = param->graph->gl_context;
 	graph->win_sdl = param->graph->win_sdl;
@@ -85,6 +81,7 @@ t_param			*stereoscopy_cpy(t_param *param1)
 	if (!(param = (t_param*)malloc(sizeof(t_param))))
 		return (NULL);
 	param->f = param1->f;
+	param->quit = FALSE;
 	vec_multiply(5.0, param1->align, param1->tmp_vec);
 	pt_translated(param1->eye, param1->tmp_vec, param->eye);
 	vec_copy(param1->look, param->look);
@@ -134,6 +131,7 @@ t_param			*struct_create(void)
 	if (!(param->thread = (SDL_Thread**)malloc(sizeof(SDL_Thread*) * NB_THREAD)))
 		return (NULL);
 	param->brightness = 1;
+	param->quit = FALSE;
 	param->epsilon = EPSILON;
 	param->customs = NULL;
 	param->objects = NULL;

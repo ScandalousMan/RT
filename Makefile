@@ -51,7 +51,7 @@ endif
 
 OUT_DIR = objs
 OUT_OBJECT_DIR = $(OUT_DIR)/objects
-OUT_SDL_DIR = $(OUT_DIR)/sdl2
+OUT_SDL_DIR = $(OUT_DIR)/sdl
 SRC_DIR = srcs
 INC_DIR = incs
 
@@ -84,10 +84,11 @@ SRCS =		closest.c \
 			quadric_tools.c \
 			rt_parser.c \
 			save_img.c \
-			sdl2/sdl_draw.c \
-			sdl2/sdl_evts.c \
-			sdl2/sdl_init.c \
-			sdl2/sdl_utils.c \
+			sdl/draw.c \
+			sdl/events.c \
+			sdl/init.c \
+			sdl/keyboard.c \
+			sdl/utils.c \
 			threads.c \
 			vec_tools.c \
 			vec_tools2.c \

@@ -1,46 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sdl_evts.c                                         :+:      :+:    :+:   */
+/*   events.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: itsalex <itsalex@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/25 09:46:28 by malexand          #+#    #+#             */
-/*   Updated: 2018/03/16 15:29:47 by jbouille         ###   ########.fr       */
+/*   Updated: 2018/08/12 19:17:13 by itsalex          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
-
-/*
-** Function to handle keyboard input
-*/
-void	handle_keyboard(t_param *param)
-{
-	if (param->graph->input[SDL_SCANCODE_R] == TRUE) {
-		param->graph->show_tmp = 0;
-	}
-	if (param->graph->input[SDL_SCANCODE_S] == TRUE) {
-		param->graph->show_tmp = 1;
-		sepia(param);
-	}
-	if (param->graph->input[SDL_SCANCODE_C] == TRUE) {
-		param->graph->show_tmp = 1;
-		cartoon(param);
-	}
-	if (param->graph->input[SDL_SCANCODE_G] == TRUE) {
-		param->graph->show_tmp = 1;
-		greyscale(param);
-	}
-	if (param->graph->input[SDL_SCANCODE_B] == TRUE) {
-		param->graph->show_tmp = 1;
-		blur(param);
-	}
-	if (param->graph->input[SDL_SCANCODE_H] == TRUE) {
-		param->graph->show_tmp = 1;
-		stereoscopy(param);
-	}
-}
 
 /*
 ** Handle clic input
@@ -81,22 +51,24 @@ void	sdl_pull_evts(t_param *param)
 	nk_input_begin(param->graph->ctx);
 	while (SDL_PollEvent(&evt))
 	{
-		if (evt.window.event == SDL_WINDOWEVENT_CLOSE || evt.type == SDL_QUIT)
-			param->graph->input[SDL_SCANCODE_ESCAPE] = TRUE;
-		if (evt.type == SDL_KEYDOWN) {
-			param->graph->input[evt.key.keysym.scancode] = TRUE;
-			my_key_func(evt.key.keysym.sym, param);
-			param->refresh = 1;
-		}
-		if (evt.type == SDL_KEYUP)
-			param->graph->input[evt.key.keysym.scancode] = FALSE;
+		if (evt.window.event == SDL_WINDOWEVENT_CLOSE || evt.type == SDL_QUIT || evt.key.keysym.sym == SDLK_ESCAPE)
+			param->quit = TRUE;
 		if (evt.window.windowID == SDL_GetWindowID(param->graph->win_gl))
 			nk_sdl_handle_event(&evt);
 		if (evt.window.windowID == SDL_GetWindowID(param->graph->win_sdl) &&
 		evt.button.type == SDL_MOUSEBUTTONDOWN)
 			handle_clic(param, evt.button);
-		if (evt.key.state == SDL_PRESSED)
-			handle_keyboard(param);
+		if (evt.type == SDL_KEYDOWN && evt.key.repeat == 0)
+		{
+			param->to_pix = 1;
+			printf("Keycode: %d, Charac: %c\n", evt.key.keysym.sym, evt.key.keysym.sym);
+			if (SDL_GetModState() != KMOD_LSHIFT && SDL_GetModState() != KMOD_RSHIFT && SDL_GetModState() != KMOD_CAPS)
+				handle_keyboard(evt.key.keysym.sym, param);
+			else
+				handle_keyboard_caps(evt.key.keysym.sym, param);
+			param->last_mv = clock();
+			param->refresh = 1;
+		}
 	}
 	nk_input_end(param->graph->ctx);
 }
