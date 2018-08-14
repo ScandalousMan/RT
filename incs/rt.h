@@ -29,7 +29,7 @@
 # define MAX_ANTI_ALIASING 1
 # define MIN_ANTI_ALIASING 10
 
-# define RECURSION 2
+# define RECURSION 1
 # define STEP_RECURSION 1
 # define MAX_RECURSION 0
 # define MIN_RECURSION 10
@@ -214,6 +214,7 @@ typedef struct	s_light
 	int							col;
 	double					src[VEC_SIZE];//position de la source lumineuse
 	double					i;//intensité de la source lumineuse
+	int							tmp_col;//for times where light goes through transparent objects
 	struct s_light	*next;
 }				t_light;
 

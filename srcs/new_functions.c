@@ -8,8 +8,8 @@ int		object_color(t_param *param, t_path *path)
 		param->tmp_light = param->lights;
 		while (param->tmp_light)
 		{
-			// if (point_display(param))
-			// 	printf("light type in new function: num %d, type %d\n$$$\n", param->tmp_light->num, param->tmp_light->type);
+			if (point_display(param))
+				printf("light type in new function: num %d, type %d\n$$$\n", param->tmp_light->num, param->tmp_light->type);
 			if (param->tmp_light->type == RTSPOT)
 				vec_soustraction(param->tmp_light->src, path->x, path->l);
 			else
@@ -18,22 +18,23 @@ int		object_color(t_param *param, t_path *path)
 			vec_multiply(-2.0 * scalar_product(path->n, path->v), path->n, path->r);
 			pt_translated(path->r, path->v, path->r);
 			vec_to_unit_norm(path->r);
-			if (!light_masked(param, path->x, path->l, path))
-			{
-				// if (point_display(param))
-				// 	printf("-> illuminé\n");
+			param->tmp_light->tmp_col = param->tmp_light->col;
+			light_masked(param, path->x, path->l, path);
+
+			// if (!light_masked(param, path->x, path->l, path))
+			// {
 				if (scalar_product(path->l, path->n) > 0.0){
 					// if (point_display(param))
 					// 	printf("color: %d, %d, %d\n", (color_absorber(param->tmp_light->col, path->current_object->col) >> 16) & 0xFF, (color_absorber(param->tmp_light->col, path->current_object->col) >> 8) & 0xFF, color_absorber(param->tmp_light->col, path->current_object->col) & 0xFF);
 					param->final_col = color_summer(param->final_col,
-						rgb_ratio(color_absorber(param->tmp_light->col, path->current_object->col),
+						rgb_ratio(color_absorber(param->tmp_light->tmp_col, path->current_object->col),
 							path->current_object->kd * scalar_product(path->l, path->n) * param->tmp_light->i));
 				}
 				if (param->brightness && ft_pow(scalar_product(path->l, path->r), param->brightness) > 0.0){
 					param->final_col = color_summer(param->final_col,
-						rgb_ratio(param->tmp_light->col, path->current_object->ks * ft_pow(scalar_product(path->l, path->r), path->current_object->phong) * param->tmp_light->i));
+						rgb_ratio(param->tmp_light->tmp_col, path->current_object->ks * ft_pow(scalar_product(path->l, path->r), path->current_object->phong) * param->tmp_light->i));
 				}
-			}
+			// }
 			param->tmp_light = param->tmp_light->next;
 		}
 		return param->final_col;
@@ -61,7 +62,7 @@ int		ray_color(t_param *param, double *from, double *to, int index, t_path *path
 	// int c;
 
 	// if (point_display(param))
-	// 	printf("index: %d\n", index);
+	// 	printf("ray_color] index: %d\n", index);
 	path->current_object = NULL;
 	param->intersect_object = NULL;
 	param->is_for_light = 0;

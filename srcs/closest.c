@@ -55,6 +55,14 @@ t_object	*closest_object(t_param *param, double *from, double *to, t_path *path)
 						pt_translated(from, path->x, path->x);
 						vec_copy(path->valid_n, path->n);
 					}
+					else if (param->tmp_light->type != RTSPOT ||
+						param->obj_d * param->obj_d < pt_dist_root(from, param->tmp_light->src))
+					{
+						// update de la couleur temporaire de la lumière.
+						if (point_display(param))
+							printf("intersect with obj\n");
+						param->tmp_light->tmp_col = rgb_ratio(color_absorber(objs->col, param->tmp_light->tmp_col), objs->transparency);
+					}
 				}
 			}
 		}
