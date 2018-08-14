@@ -153,8 +153,8 @@
 					"type": "file",
 					"name": "path/to/texture_2.ext"
 				},			
-			"transparency": 0.8,
-			"reflection": 0.2,
+			"transparency": 1,
+			"reflection": 0,
 			"n": 1.2,
 			"thickness": 0.5,
 			"translation": [0, 0, 0],
@@ -183,7 +183,7 @@
 			"limits": [],
 	
 			"center": [48, 0, -8],
-			"radius": 3.0
+			"radius": 5.0
 		}
 
 	]

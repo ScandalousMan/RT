@@ -8,8 +8,8 @@ int		object_color(t_param *param, t_path *path)
 		param->tmp_light = param->lights;
 		while (param->tmp_light)
 		{
-			if (point_display(param))
-				printf("light type in new function: num %d, type %d\n$$$\n", param->tmp_light->num, param->tmp_light->type);
+			// if (point_display(param))
+			// 	printf("light type in new function: num %d, type %d\n$$$\n", param->tmp_light->num, param->tmp_light->type);
 			if (param->tmp_light->type == RTSPOT)
 				vec_soustraction(param->tmp_light->src, path->x, path->l);
 			else
@@ -18,7 +18,6 @@ int		object_color(t_param *param, t_path *path)
 			vec_multiply(-2.0 * scalar_product(path->n, path->v), path->n, path->r);
 			pt_translated(path->r, path->v, path->r);
 			vec_to_unit_norm(path->r);
-			param->tmp_light->tmp_col = param->tmp_light->col;
 			light_masked(param, path->x, path->l, path);
 
 			// if (!light_masked(param, path->x, path->l, path))
@@ -98,6 +97,7 @@ int		ray_color(t_param *param, double *from, double *to, int index, t_path *path
 				pt_translated(path->transmitted->from, param->tmp_vec, path->transmitted->from);
 				vec_multiply(EPSILON, path->transmitted->v, param->tmp_vec);
 				pt_translated(path->transmitted->from, param->tmp_vec, path->transmitted->from);
+
 				// if (point_display(param))
 				// 	printf("new x:[%f,%f,%f]\n", path->transmitted->from[0], path->transmitted->from[1], path->transmitted->from[2]);
 				// a = rgb_ratio(object_color(param, path), (1.0 - path->current_object->transparency - path->current_object->reflection));
@@ -109,11 +109,21 @@ int		ray_color(t_param *param, double *from, double *to, int index, t_path *path
 				// c = rgb_ratio(ray_color(param, path->reflected->from, path->reflected->v, index + 1, path->reflected), path->current_object->reflection);
 				// if (point_display(param))
 				// 	printf("a: %d, b: %d, c: %d\n", a, b, c);
-				// return (color_summer(color_summer(a, b), c));
+				// return (
+				// 	color_summer(
+				// 		color_summer(a, color_absorber(b, path->current_object->col)),
+				// 		color_absorber(c, path->current_object->col)
+				// 	)
+				// );
+				
 				return (
-					color_summer(color_summer(rgb_ratio(object_color(param, path), (1.0 - path->current_object->transparency - path->current_object->reflection)),
-					rgb_ratio(ray_color(param, path->transmitted->from, path->transmitted->v, index + 1, path->transmitted), path->current_object->transparency)),
-					rgb_ratio(ray_color(param, path->reflected->from, path->reflected->v, index + 1, path->reflected), path->current_object->reflection))
+					color_summer(
+						color_summer(
+							rgb_ratio(object_color(param, path), (1.0 - path->current_object->transparency - path->current_object->reflection)),
+							color_absorber(rgb_ratio(ray_color(param, path->transmitted->from, path->transmitted->v, index + 1, path->transmitted), path->current_object->transparency), path->current_object->col)
+						),
+						color_absorber(rgb_ratio(ray_color(param, path->reflected->from, path->reflected->v, index + 1, path->reflected), path->current_object->reflection), path->current_object->col)
+					)
 				);
 			}
 			else
@@ -127,8 +137,10 @@ int		ray_color(t_param *param, double *from, double *to, int index, t_path *path
 				// return (color_summer(a, c));
 
 				return (
-					color_summer(rgb_ratio(object_color(param, path), (1.0 - path->current_object->transparency - path->current_object->reflection)),
-					rgb_ratio(ray_color(param, path->reflected->from, path->reflected->v, index + 1, path->reflected), path->current_object->reflection + path->current_object->transparency))
+					color_summer(
+						rgb_ratio(object_color(param, path), (1.0 - path->current_object->transparency - path->current_object->reflection)),
+						color_absorber(rgb_ratio(ray_color(param, path->reflected->from, path->reflected->v, index + 1, path->reflected), path->current_object->reflection + path->current_object->transparency), path->current_object->col)
+					)
 				);
 			}
 		}

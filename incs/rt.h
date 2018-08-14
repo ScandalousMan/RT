@@ -29,7 +29,7 @@
 # define MAX_ANTI_ALIASING 1
 # define MIN_ANTI_ALIASING 10
 
-# define RECURSION 1
+# define RECURSION 2
 # define STEP_RECURSION 1
 # define MAX_RECURSION 0
 # define MIN_RECURSION 10

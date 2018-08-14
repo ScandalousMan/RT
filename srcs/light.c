@@ -22,6 +22,7 @@ t_object	*light_masked(t_param *param, double *from, double *to, t_path *path)
 	// 	printf("----- LIGHTS -----\n");
 	param->intersect_object = NULL;
 	param->is_for_light = 1;
+	param->tmp_light->tmp_col = param->tmp_light->col;
 	closest_object(param, from, to, path);
 	// if (point_display(param))
 	// 	printf("light type: %d\n", param->tmp_light->type);

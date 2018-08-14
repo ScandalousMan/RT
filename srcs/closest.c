@@ -14,7 +14,8 @@ t_object	*closest_object(t_param *param, double *from, double *to, t_path *path)
 			param->tmp_d = distance_calc(objs, param, from, to);
 			// if (point_display(param))
 			// 	printf("\ntype: %d | tmp_d: %f\n", objs->type, param->tmp_d);
-			if (param->tmp_d > 0.0 && (param->obj_d < 0.0 || param->tmp_d < param->obj_d))
+			if (param->tmp_d > 0.0 &&
+				(param->is_for_light || (param->obj_d < 0.0 || param->tmp_d < param->obj_d)))
 			{
 				vec_multiply(param->tmp_d + param->epsilon, to, path->valid_x);
 				pt_translated(from, path->valid_x, path->valid_x);
@@ -59,8 +60,6 @@ t_object	*closest_object(t_param *param, double *from, double *to, t_path *path)
 						param->obj_d * param->obj_d < pt_dist_root(from, param->tmp_light->src))
 					{
 						// update de la couleur temporaire de la lumière.
-						if (point_display(param))
-							printf("intersect with obj\n");
 						param->tmp_light->tmp_col = rgb_ratio(color_absorber(objs->col, param->tmp_light->tmp_col), objs->transparency);
 					}
 				}
