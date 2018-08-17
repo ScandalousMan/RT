@@ -91,6 +91,8 @@ int		ray_color(t_param *param, double *from, double *to, int index, t_path *path
 			if ((snell_descartes(get_index_n(path), get_index_n(path->transmitted), path, path->transmitted)))
 			{
 				// if (point_display(param))
+				// 	printf("== snell descartes OK\n");
+				// if (point_display(param))
 				// 	printf("refraction OK:\n - v1: [%f,%f,%f]\n - v2: [%f,%f,%f]\n - n: [%f,%f,%f]\n\n", path->v[0], path->v[1], path->v[2], path->transmitted->v[0], path->transmitted->v[1], path->transmitted->v[2], path->n[0], path->n[1], path->n[2]);
 				vec_copy(path->x, path->transmitted->from);
 				vec_multiply(EPSILON, path->v, param->tmp_vec);
@@ -175,6 +177,8 @@ void	rt_tracer(t_param *param)
 						param->macro.anti_aliasing * param->i[0] + alias[0],
 						param->macro.anti_aliasing * param->i[1] + alias[1]);
 					tmp_col = ray_color(param, param->eye, param->path->v, 0, param->path);
+					// if (point_display(param))
+					// 	printf("=> tmp_col:%d\n", tmp_col);
 					col[0] += (tmp_col >> 16) & 0xFF;
 					col[1] += (tmp_col >> 8) & 0xFF;
 					col[2] += (tmp_col) & 0xFF;
@@ -190,6 +194,12 @@ void	rt_tracer(t_param *param)
 				x = 0;
 				while (x < pixelisation)
 				{
+					// ajout de la couleur en info
+					param->pxl_infos[param->i[0] + x][param->i[1] + y]->col = rgb_color(
+						(unsigned char)(col[0] / db_antialiasing),
+						(unsigned char)(col[1] / db_antialiasing),
+						(unsigned char)(col[2] / db_antialiasing));
+
 					putpxl(param, param->i[0] + x, param->i[1] + y, rgb_color(
 						(unsigned char)(col[0] / db_antialiasing),
 						(unsigned char)(col[1] / db_antialiasing),

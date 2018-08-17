@@ -19,7 +19,7 @@ double	get_index_n(t_path *path)
 
 int			snell_descartes(double n1, double n2, t_path *path1, t_path *path2)
 {
-	if (n1 == n2)
+	if (n1 == n2 || ft_absdbl(scalar_product(path1->v, path1->n) + 1.0) < EPSILON)
 	{
 		vec_copy(path1->v, path2->v);
 		return (1);
