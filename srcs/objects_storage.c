@@ -128,13 +128,16 @@ void	fill_vector(double vector[1][VEC_SIZE], t_jarray *array)
 	}
 }
 
-void	fill_reference(t_reference *ref, t_jobject *jobj)
+void	fill_reference(t_reference *ref, t_jobject *jobj, t_param *param)
+// ajouter un controle sur la co-linéarité des deux vecteurs
 {
 	fill_vector(&(ref->i), (t_jarray*)(get_jobject(jobj, "i")->value));
-	fill_vector(&(ref->j), (t_jarray*)(get_jobject(jobj, "j")->value));
-	vector_product(ref->i, ref->j, ref->k);
 	vec_to_unit_norm(ref->i);
+	fill_vector(&(ref->j), (t_jarray*)(get_jobject(jobj, "j")->value));
+	vec_multiply(scalar_product(ref->i, ref->j), ref->i, param->tmp_vec);
+	vec_soustraction(ref->j, param->tmp_vec, ref->j);
 	vec_to_unit_norm(ref->j);
+	vector_product(ref->i, ref->j, ref->k);
 	vec_to_unit_norm(ref->k);
 }
 
@@ -343,7 +346,7 @@ int	fill_object(t_object *obj, t_jobject *jobj, int num, t_param *param)
 //	obj->texture = ;//NOT EXISTS FOR THE MOMENT
 	tmp = get_jobject(jobj, "reference");
 	if (tmp)
-		fill_reference(&(obj->ref), tmp->value);
+		fill_reference(&(obj->ref), tmp->value, param);
 	else
 	{
 		ft_bzero(&(obj->ref), sizeof(t_reference));
