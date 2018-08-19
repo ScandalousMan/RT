@@ -132,6 +132,10 @@ void	fill_reference(t_reference *ref, t_jobject *jobj)
 {
 	fill_vector(&(ref->i), (t_jarray*)(get_jobject(jobj, "i")->value));
 	fill_vector(&(ref->j), (t_jarray*)(get_jobject(jobj, "j")->value));
+	vector_product(ref->i, ref->j, ref->k);
+	vec_to_unit_norm(ref->i);
+	vec_to_unit_norm(ref->j);
+	vec_to_unit_norm(ref->k);
 }
 
 void	*fill_sphere(t_jobject *jobj, t_param *param)

@@ -106,6 +106,12 @@ void	display_objects(t_param *param)
 		ft_putdbl(objs->ref.j[1], 2);
 		ft_putstr(", ");
 		ft_putdbl(objs->ref.j[2], 2);
+		ft_putstr(" | ");
+		ft_putdbl(objs->ref.k[0], 2);
+		ft_putstr(", ");
+		ft_putdbl(objs->ref.k[1], 2);
+		ft_putstr(", ");
+		ft_putdbl(objs->ref.k[2], 2);
 		ft_putstr("\n***************\n");
 		objs = objs->next;
 	}

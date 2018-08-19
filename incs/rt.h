@@ -185,6 +185,7 @@ typedef struct	s_reference
 {
 	double		i[VEC_SIZE];
 	double		j[VEC_SIZE];
+	double		k[VEC_SIZE];
 }				t_reference;
 
 typedef struct	s_object
