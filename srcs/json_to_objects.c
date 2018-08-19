@@ -6,7 +6,7 @@
 /*   By: jbouille <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 17:32:22 by jbouille          #+#    #+#             */
-/*   Updated: 2018/04/14 15:36:37 by jbouille         ###   ########.fr       */
+/*   Updated: 2018/08/19 17:05:49 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,6 +154,8 @@ int	is_type(void* value, t_jtype jtype, t_rt_type type, t_rt_type subtype)
 	else if (type == RTLIGHTTYPE)
 		return (jtype == JSTRING
 		&& (ft_strequ((char*)value, "spot") || ft_strequ((char*)value, "parallel")));
+	else if (type == RTREFERENCE)
+		return (jtype == JOBJECT && is_object((t_jobject*)value, g_reference_keys, RT_KEYS_SIZE(g_reference_keys), 0));
 	return (0);
 }
 
@@ -179,10 +181,7 @@ int	is_object(t_jobject *obj, const t_key *keys, const size_t keys_size, int is_
 	size_t	common_size;
 	size_t	i;
 
-	if (is_common)
-		common_size = RT_KEYS_SIZE(g_common_keys);
-	else
-		common_size = 0;
+	common_size = (is_common) ? RT_KEYS_SIZE(g_common_keys) : 0;
 	if (keys_size + common_size != jobject_len(obj))
 		return (0);
 	i = 0;

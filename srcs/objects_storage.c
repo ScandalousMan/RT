@@ -6,7 +6,7 @@
 /*   By: jbouille <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 15:43:31 by jbouille          #+#    #+#             */
-/*   Updated: 2018/08/06 17:39:51 by jbouille         ###   ########.fr       */
+/*   Updated: 2018/08/19 17:43:40 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,19 @@ void	fill_vector(double vector[1][VEC_SIZE], t_jarray *array)
 		tmp = tmp->next;
 		++i;
 	}
+}
+
+void	fill_reference(t_reference *ref, t_jobject *jobj)
+{
+	if (!jobj)
+	{
+		ft_bzero(ref, sizeof(t_reference));
+		ref->i[0] = 1.0;
+		ref->j[1] = 1.0;
+		return ;
+	}
+	fill_vector(&(ref->i), (t_jarray*)(get_jobject(jobj, "i")->value));
+	fill_vector(&(ref->j), (t_jarray*)(get_jobject(jobj, "j")->value));
 }
 
 void	*fill_sphere(t_jobject *jobj, t_param *param)
@@ -333,6 +346,8 @@ int	fill_object(t_object *obj, t_jobject *jobj, int num, t_param *param)
 	
 	tmp = get_jobject(jobj, "texture");//JSON_OBJECT
 //	obj->texture = ;//NOT EXISTS FOR THE MOMENT
+
+	fill_reference(&(obj->ref), get_jobject(jobj, "reference")->value);
 	if (obj_def.fill)
 		obj->dim = obj_def.fill(jobj, param);
 	else
