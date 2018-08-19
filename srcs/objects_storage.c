@@ -248,8 +248,6 @@ void	*fill_quadric(t_jobject *jobj, t_param *param)
 	obj->h = get_double(tmp->type, tmp->value);
 	tmp = get_jobject(jobj, "i");
 	obj->i = get_double(tmp->type, tmp->value);
-	tmp = get_jobject(jobj, "r");
-	obj->r = get_double(tmp->type, tmp->value);
 	fill_vector(&tr, (t_jarray*)(get_jobject(jobj, "translation")->value));
 	obj->center[0] += tr[0];
 	obj->center[1] += tr[1];

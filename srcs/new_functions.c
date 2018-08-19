@@ -194,11 +194,11 @@ void	rt_tracer(t_param *param)
 				x = 0;
 				while (x < pixelisation)
 				{
-					// ajout de la couleur en info
-					param->pxl_infos[param->i[0] + x][param->i[1] + y]->col = rgb_color(
-						(unsigned char)(col[0] / db_antialiasing),
-						(unsigned char)(col[1] / db_antialiasing),
-						(unsigned char)(col[2] / db_antialiasing));
+					// ! ajout de la couleur en info segfault avec le recalcul du escape
+					// param->pxl_infos[param->i[0] + x][param->i[1] + y]->col = rgb_color(
+					// 	(unsigned char)(col[0] / db_antialiasing),
+					// 	(unsigned char)(col[1] / db_antialiasing),
+					// 	(unsigned char)(col[2] / db_antialiasing));
 
 					putpxl(param, param->i[0] + x, param->i[1] + y, rgb_color(
 						(unsigned char)(col[0] / db_antialiasing),

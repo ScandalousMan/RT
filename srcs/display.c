@@ -94,6 +94,18 @@ void	display_objects(t_param *param)
 		ft_putdbl(objs->index, 2);
 		ft_putstr("\nmiroir:");
 		ft_putdbl(objs->reflection, 4);
+		ft_putstr("\nreferentiel: ");
+		ft_putdbl(objs->ref.i[0], 2);
+		ft_putstr(", ");
+		ft_putdbl(objs->ref.i[1], 2);
+		ft_putstr(", ");
+		ft_putdbl(objs->ref.i[2], 2);
+		ft_putstr(" | ");
+		ft_putdbl(objs->ref.j[0], 2);
+		ft_putstr(", ");
+		ft_putdbl(objs->ref.j[1], 2);
+		ft_putstr(", ");
+		ft_putdbl(objs->ref.j[2], 2);
 		ft_putstr("\n***************\n");
 		objs = objs->next;
 	}
