@@ -205,6 +205,7 @@ typedef struct	s_object
 	double			index;//indice du matériaux constituant l'objet, 1 par défaut
 	int					phong;//exposant de Phong de l'objet
 	t_limit			*limits;
+	double			uv_map[2];
 	struct s_object	*next;//liste chainée
 }				t_object;
 
@@ -299,6 +300,7 @@ typedef struct		s_param
 	double			tmp_vec[VEC_SIZE];
 	int 			brightness;
 	int				final_col;
+	int				texture_col;
 	int				i[2];
 	double			rot[VEC_SIZE][VEC_SIZE];
 	double			epsilon;
@@ -372,6 +374,7 @@ double							*vec_soustraction(double *x, double *y, double *container);
 int								is_in_list(t_param *param, t_light *light);
 void							matrice_product(double matrice[VEC_SIZE][VEC_SIZE], double *col, double *dest);
 double							*vec_dup(double *vec);
+void							object_rotation(double mat[VEC_SIZE][VEC_SIZE], t_object *object);
 /*
 **------------------------------------display-----------------------------------
 */
@@ -385,13 +388,18 @@ double			distance_calc(t_object *tmp, t_param *param, double *from,
 double			distance_to_sphere(t_object *tmp, double *from,
 				double *to);
 int					is_inside_sphere(double *pt, t_object *tmp);
+double 			*sphere_position(double *pt, t_object *obj);
 double			plane_distance(double *from, double *to, double *n, double *ref);
 double			distance_to_plane(t_object *tmp, double *from,
 				double *to);
 int					is_inside_plane(double *pt, t_object *tmp);
+double			*plane_position(double *pt, t_object *obj);
 double			distance_to_cone(t_object *tmp, double *from, double *to);
+double			*cone_position(double *pt, t_object *object);
 double			distance_to_cylindre(t_object *tmp, double *from, double *to);
+double			*cylindre_position(double *pt, t_object *object);
 double			distance_to_quadric(t_object *tmp, double *from, double *to);
+double			*quadric_position(double *pt, t_object *object);
 /*
 **-------------------------------------cone-------------------------------------
 */
@@ -439,6 +447,9 @@ int				is_in_limit(double *pt, t_limit *limit);
 int				is_in_limits(double *pt, t_object *obj, t_limit *limit);
 void			update_normal_vector(t_object *tmp, t_path *path);
 int				is_inside_object(double *pt, t_object *tmp, t_limit *limit);
+void			object_position(double *pt, t_object *object);
+void 			object_color_changer(t_object *object, t_param *param);
+void			object_normal_changer(t_object *object, t_param *param);
 t_object	*object_constructor(t_param *param);
 void			update_normal_sphere(t_object *tmp, t_path *path);
 void			update_normal_plane(t_object *tmp, t_path *path);

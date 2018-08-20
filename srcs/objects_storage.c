@@ -177,8 +177,10 @@ void	*fill_plane(t_jobject *jobj, t_param *param)
 	obj->ref[2] += tr[2];
 	fill_vector(&tr, (t_jarray*)(get_jobject(jobj, "rotation")->value));
 	rotation_matrice(tr[0], tr[1], tr[2], param);
+
 	matrice_product(param->rot, obj->n, obj->n);
 	vec_to_unit_norm(obj->n);
+
 	return (obj);
 }
 
@@ -200,8 +202,10 @@ void	*fill_cone(t_jobject *jobj, t_param *param)
 	obj->org[2] += tr[2];
 	fill_vector(&tr, (t_jarray*)(get_jobject(jobj, "rotation")->value));
 	rotation_matrice(tr[0], tr[1], tr[2], param);
+
 	matrice_product(param->rot, obj->u, obj->u);
 	vec_to_unit_norm(obj->u);
+
 	return (obj);
 }
 
@@ -223,8 +227,10 @@ void	*fill_cylinder(t_jobject *jobj, t_param *param)
 	obj->org[2] += tr[2];
 	fill_vector(&tr, (t_jarray*)(get_jobject(jobj, "rotation")->value));
 	rotation_matrice(tr[0], tr[1], tr[2], param);
+
 	matrice_product(param->rot, obj->u, obj->u);
 	vec_to_unit_norm(obj->u);
+
 	return (obj);
 }
 
@@ -261,6 +267,7 @@ void	*fill_quadric(t_jobject *jobj, t_param *param)
 	obj->center[2] += tr[2];
 	fill_vector(&tr, (t_jarray*)(get_jobject(jobj, "rotation")->value));
 	rotation_matrice(tr[0], tr[1], tr[2], param);
+	//rotation quadrique
 	return (obj);
 }
 
@@ -283,6 +290,7 @@ void	*fill_tore(t_jobject *jobj, t_param *param)
 	obj->center[2] += tr[2];
 	fill_vector(&tr, (t_jarray*)(get_jobject(jobj, "rotation")->value));
 	rotation_matrice(tr[0], tr[1], tr[2], param);
+	//rotation tore
 	return (obj);
 }
 

@@ -22,3 +22,10 @@ int		is_inside_cylindre(double *pt, t_object *tmp)
 	pt_translated(tmp->tmp_vec, ((t_cylindre*)(tmp->dim))->org, tmp->tmp_vec);
 	return (vec_norm(tmp->tmp_vec) > ((t_cylindre*)(tmp->dim))->radius ? 0 : 1);
 }
+
+double *cylindre_position(double *pt, t_object *obj)
+{
+	if (pt)
+		return (obj->uv_map);
+	return (obj->uv_map);
+}

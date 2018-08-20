@@ -103,3 +103,33 @@ void		update_normal_vector(t_object *tmp, t_path *path)
 		vec_multiply(-1.0, path->valid_n, path->valid_n);
 	vec_to_unit_norm(path->valid_n);
 }
+
+void		object_position(double *pt, t_object *object)
+{
+	if (object->type == RTSPHERE)
+		sphere_position(pt, object);
+	else if (object->type == RTPLAN)
+		plane_position(pt, object);
+	else if (object->type == RTCONE)
+		cone_position(pt, object);
+	else if (object->type == RTCYLINDER)
+		cylindre_position(pt, object);
+	else if (object->type == RTQUADRIC)
+		quadric_position(pt, object);
+}
+
+void 		object_color_changer(t_object *object, t_param *param)
+{
+	// entre 0 et 1 pour u et v: object->uv_map
+	// 
+	// tester avec des booléens à terme pour chaque type de modification de couleur
+	param->texture_col = (int)(floor(object->uv_map[0] * 8.0) + floor(object->uv_map[1] * 8.0)) % 2 ? object->col : rgb_color(255, 255, 255);
+}
+
+void		object_normal_changer(t_object *object, t_param *param)
+{
+	if (!object && !param)
+		printf("ouille\n");
+}
+
+

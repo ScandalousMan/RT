@@ -55,3 +55,10 @@ int		is_in_limits(double *pt, t_object *obj, t_limit *limit)
 	}
 	return (1);
 }
+
+double *plane_position(double *pt, t_object *obj)
+{
+	if (pt)
+		return (obj->uv_map);
+	return (obj->uv_map);
+}

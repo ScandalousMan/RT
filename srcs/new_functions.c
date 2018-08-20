@@ -4,8 +4,15 @@ int		object_color(t_param *param, t_path *path)
 {
 	if (param && path && path->current_object)
 	{
-		param->final_col = rgb_ratio(path->current_object->col, (double)param->macro.k_ambience);
 		param->tmp_light = param->lights;
+		// A REMPLACER PAR OBJECT POSITION
+		object_position(path->x, path->current_object);
+		// if (point_display(param))
+		// 	printf("u=%f, v=%f\n", path->current_object->uv_map[0], path->current_object->uv_map[1]);
+		object_color_changer(path->current_object, param);
+		object_normal_changer(path->current_object, param);
+
+		param->final_col = rgb_ratio(param->texture_col, (double)param->macro.k_ambience);
 		while (param->tmp_light)
 		{
 			// if (point_display(param))
@@ -26,7 +33,7 @@ int		object_color(t_param *param, t_path *path)
 					// if (point_display(param))
 					// 	printf("color: %d, %d, %d\n", (color_absorber(param->tmp_light->col, path->current_object->col) >> 16) & 0xFF, (color_absorber(param->tmp_light->col, path->current_object->col) >> 8) & 0xFF, color_absorber(param->tmp_light->col, path->current_object->col) & 0xFF);
 					param->final_col = color_summer(param->final_col,
-						rgb_ratio(color_absorber(param->tmp_light->tmp_col, path->current_object->col),
+						rgb_ratio(color_absorber(param->tmp_light->tmp_col, param->texture_col),
 							path->current_object->kd * scalar_product(path->l, path->n) * param->tmp_light->i));
 				}
 				if (param->brightness && ft_pow(scalar_product(path->l, path->r), param->brightness) > 0.0){
