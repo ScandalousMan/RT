@@ -364,7 +364,7 @@ int	fill_object(t_object *obj, t_jobject *jobj, int num, t_param *param)
 	// AJOUT ADRIEN POUR INITIALISER LES OBJETS avec leur normale ou leur modifications de couleur
 	if (!(obj->effects = (t_effects*)malloc(sizeof(t_effects))))
 		return (0);
-	obj->effects->color = RT_C_CHESS;
+	obj->effects->color = RT_C_NONE;
 	obj->effects->normal = RT_N_NONE;
 	// FIN AJOUT ADRIEN
 	if (obj_def.fill)

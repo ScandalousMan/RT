@@ -137,7 +137,7 @@ void 		object_color_changer(t_object *object, t_param *param)
 {
 	char 	t;
 
-	if (object->type == RTQUADRIC)
+	if (object->type == RTQUADRIC || object->effects->color == RT_C_NONE)
 		param->texture_col = object->col;
 	else if (object->effects->color == RT_C_CHESS)
 		param->texture_col = (int)(floor(object->uv_map[0] * 8.0) + floor(object->uv_map[1] * 8.0)) % 2 ? object->col : rgb_color(255, 255, 255);
@@ -162,7 +162,7 @@ void 		object_color_changer(t_object *object, t_param *param)
 
 void		object_normal_changer(t_object *object, t_param *param, t_path *path)
 {
-	if (object->type == RTQUADRIC)
+	if (object->type == RTQUADRIC || object->effects->normal == RT_N_NONE)
 		return;
 	else if (object->effects->normal == RT_N_SINUS)
 	{
