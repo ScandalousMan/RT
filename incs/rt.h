@@ -484,6 +484,7 @@ void							stereoscopy(t_param *param);
 */
 double 		turbulence(double x, double y, double size, t_param *param);
 double		marble_ratio(double u, double v, double size, t_param *param);
+char			wood_ratio(double u, double v, double size, t_param *param);
 /*
 ** NK_API SDL Prototypes
 */

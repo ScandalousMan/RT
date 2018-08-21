@@ -58,3 +58,15 @@ double	marble_ratio(double u, double v, double size, t_param *param)
 		v * yPeriod / (double)NOISE_SIZE +
 		TURB_POWER * turbulence(u, v, size, param) / 256.0));
 }
+
+char 		wood_ratio(double u, double v, double size, t_param *param)
+{
+	double sineValue;
+	double xyPeriod = 12.0;
+
+	sineValue = 128.0 * ft_absdbl(sin(2.0 * xyPeriod * sqrt(
+			ft_pow((x - NOISE_SIZE / 2) / double(NOISE_SIZE), 2) +
+			ft_pow((y - NOISE_SIZE / 2) / double(NOISE_SIZE), 2)
+		) + TURB_POWER * turbulence(x, y, size, param) / 256.0 * M_PI));
+	return (char)sineValue;
+}
