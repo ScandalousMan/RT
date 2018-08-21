@@ -12,6 +12,21 @@
 
 #include "rt.h"
 
+void			perlin_noise_copy(t_param *param1, t_param *param2)
+{
+	param2->i[0] = 0;
+	while (param2->i[0] < NOISE_SIZE)
+	{
+		param2->i[1] = 0;
+		while (param2->i[1] < NOISE_SIZE)
+		{
+			param2->perlin_noise[param2->i[0]][param2->i[1]] = param1->perlin_noise[param2->i[0]][param2->i[1]];
+			param2->i[1]++;
+		}
+		param2->i[0]++;
+	}
+}
+
 t_param		*param_cpy(t_param *param, int count)
 {
 	t_param		*param_cpy;
@@ -32,6 +47,7 @@ t_param		*param_cpy(t_param *param, int count)
 	param_cpy->num_objects = param->num_objects;
 	param_cpy->pxl_infos = param->pxl_infos;
 	param_cpy->path->inside_obj = param->path->inside_obj;
+	perlin_noise_copy(param, param_cpy);
 	return (param_cpy);
 }
 

@@ -14,6 +14,21 @@
 #include "rt.h"
 #include <rt_parser.h>
 
+void	perlin_noise_generator(t_param *param)
+{
+	param->i[0] = 0;
+	while (param->i[0] < NOISE_SIZE)
+	{
+		param->i[1] = 0;
+		while (param->i[1] < NOISE_SIZE)
+		{
+			param->perlin_noise[param->i[0]][param->i[1]] = (double)(rand() % RAND_MAX) / (double)RAND_MAX;
+			param->i[1]++;
+		}
+		param->i[0]++;
+	}
+}
+
 int		main(int ac, char **av)
 {
 	t_param	*param;
@@ -25,6 +40,7 @@ int		main(int ac, char **av)
 		filename = "rtv1.json";
 	if (!(param = struct_create()))
 		return (-1);
+	perlin_noise_generator(param);
 	param->to_pix = 0;//todo change
 	param->last_mv = clock();//todo change
 	param->start = clock();//TODO delete

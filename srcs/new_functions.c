@@ -10,7 +10,7 @@ int		object_color(t_param *param, t_path *path)
 		// if (point_display(param))
 		// 	printf("u=%f, v=%f\n", path->current_object->uv_map[0], path->current_object->uv_map[1]);
 		object_color_changer(path->current_object, param);
-		object_normal_changer(path->current_object, param);
+		object_normal_changer(path->current_object, param, path);
 
 		param->final_col = rgb_ratio(param->texture_col, (double)param->macro.k_ambience);
 		while (param->tmp_light)

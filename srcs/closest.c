@@ -118,18 +118,48 @@ void		object_position(double *pt, t_object *object)
 		quadric_position(pt, object);
 }
 
-void 		object_color_changer(t_object *object, t_param *param)
+int			sierpinski_carpet(int u, int v)
 {
-	// entre 0 et 1 pour u et v: object->uv_map
-	// 
-	// tester avec des booléens à terme pour chaque type de modification de couleur
-	param->texture_col = (int)(floor(object->uv_map[0] * 8.0) + floor(object->uv_map[1] * 8.0)) % 2 ? object->col : rgb_color(255, 255, 255);
+	int i;
+
+	i = SIERPINSKI;
+	while (i > 1)
+	{
+		if ((u / ((int)ft_pow(3, i - 2))) % 3 == 1 &&
+			(v / ((int)ft_pow(3, i - 2))) % 3 == 1)
+			return 0;
+		i--;
+	}
+	return 1;
 }
 
-void		object_normal_changer(t_object *object, t_param *param)
+void 		object_color_changer(t_object *object, t_param *param)
 {
-	if (!object && !param)
-		printf("ouille\n");
+	// tester avec des booléens à terme pour chaque type de modification de couleur
+	char 	t;
+
+	// #1 damier
+	// param->texture_col = (int)(floor(object->uv_map[0] * 8.0) + floor(object->uv_map[1] * 8.0)) % 2 ? object->col : rgb_color(255, 255, 255);
+
+	// #2 perturbation couleur plus complexe : fractale tapis de sierpinski
+	// param->texture_col = sierpinski_carpet((int)floor(object->uv_map[0] * ft_pow(3, SIERPINSKI)), (int)floor(object->uv_map[1] * ft_pow(3, SIERPINSKI))) ? object->col : rgb_color(255, 255, 255);
+
+	// #3 turbulence
+	// t = turbulence(object->uv_map[0] * 128.0, object->uv_map[1] * 128.0, TURB_SIZE, param);
+	// param->texture_col = rgb_color((char)t, (char)t, (char)t);
+
+	// #4 marble
+	t = 255.0 * marble_ratio(object->uv_map[0] * 128.0, object->uv_map[1] * 128.0, TURB_SIZE, param);
+	param->texture_col = rgb_color((char)t, (char)t, (char)t);
+}
+
+void		object_normal_changer(t_object *object, t_param *param, t_path *path)
+{
+	if (!object && !param && !path)
+		printf("test\n");
+	// simple sinusoidal modification
+	// rotation_matrice(0, 0, 45 * sin(object->uv_map[0] * 2.0 * M_PI * 20), param);
+	// matrice_product(param->rot, path->n, path->n);
 }
 
 

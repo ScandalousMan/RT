@@ -80,6 +80,7 @@ SRCS =		closest.c \
 			objects/plane.c \
 			objects/quadric.c \
 			objects/sphere.c \
+			perlin.c \
 			postprocessing.c \
 			quadric_tools.c \
 			rt_parser.c \

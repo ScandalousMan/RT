@@ -56,6 +56,12 @@
 # define MIN_BLUR_RADIUS 0
 # define MAX_BLUR_RADIUS 50
 
+# define SIERPINSKI 4
+
+# define NOISE_SIZE 128
+# define TURB_SIZE 32.0
+# define TURB_POWER 5.0
+
 # include <fcntl.h>
 # include <stdlib.h>
 # include <math.h>
@@ -313,6 +319,7 @@ typedef struct		s_param
 	t_pxl_info	***pxl_infos;
 	double			ia;//intensité de la lumiere ambiante
 	double			m[VEC_SIZE];//triplet intermediaire pour calculs ombres
+	double			perlin_noise[NOISE_SIZE][NOISE_SIZE];
 
 	int				to_pix;
 	clock_t			last_mv;
@@ -449,7 +456,7 @@ void			update_normal_vector(t_object *tmp, t_path *path);
 int				is_inside_object(double *pt, t_object *tmp, t_limit *limit);
 void			object_position(double *pt, t_object *object);
 void 			object_color_changer(t_object *object, t_param *param);
-void			object_normal_changer(t_object *object, t_param *param);
+void			object_normal_changer(t_object *object, t_param *param, t_path *path);
 t_object	*object_constructor(t_param *param);
 void			update_normal_sphere(t_object *tmp, t_path *path);
 void			update_normal_plane(t_object *tmp, t_path *path);
@@ -464,7 +471,7 @@ int 			my_key_func(int keycode, t_param *param);
 void			define_refracted_n(t_path *path1, t_path *path2);
 double		get_index_n(t_path *path);
 int				snell_descartes(double n1, double n2, t_path *path1, t_path *path2);
-	/*
+/*
 **POST PROCESSING FUNCTIONS
 */
 void 							greyscale(t_param *param);
@@ -472,7 +479,11 @@ void						 	sepia(t_param *param);
 void							cartoon(t_param *param);
 void							blur(t_param *param);
 void							stereoscopy(t_param *param);
-
+/*
+**PERLIN
+*/
+double 		turbulence(double x, double y, double size, t_param *param);
+double		marble_ratio(double u, double v, double size, t_param *param);
 /*
 ** NK_API SDL Prototypes
 */
