@@ -137,7 +137,9 @@ void 		object_color_changer(t_object *object, t_param *param)
 {
 	char 	t;
 
-	if (object->effects->color == RT_C_CHESS)
+	if (object->type == RTQUADRIC)
+		param->texture_col = object->col;
+	else if (object->effects->color == RT_C_CHESS)
 		param->texture_col = (int)(floor(object->uv_map[0] * 8.0) + floor(object->uv_map[1] * 8.0)) % 2 ? object->col : rgb_color(255, 255, 255);
 	else if (object->effects->color == RT_C_SIERPINSKI)
 		param->texture_col = sierpinski_carpet((int)floor(object->uv_map[0] * ft_pow(3, SIERPINSKI)), (int)floor(object->uv_map[1] * ft_pow(3, SIERPINSKI))) ? object->col : rgb_color(255, 255, 255);
@@ -160,7 +162,9 @@ void 		object_color_changer(t_object *object, t_param *param)
 
 void		object_normal_changer(t_object *object, t_param *param, t_path *path)
 {
-	if (object->effects->normal == RT_N_SINUS)
+	if (object->type == RTQUADRIC)
+		return;
+	else if (object->effects->normal == RT_N_SINUS)
 	{
 		rotation_matrice(0, 0, 45 * sin(object->uv_map[0] * 2.0 * M_PI * 20), param);
 		matrice_product(param->rot, path->n, path->n);
