@@ -153,7 +153,7 @@ void 		object_color_changer(t_object *object, t_param *param)
 	// param->texture_col = rgb_color(t, t, t);
 
 	// #5 wood
-	t = wood_ratio(object->uv_map[0] * 128.0, object->uv_map[1] * 128.0, TURB_SIZE, param)
+	t = wood_ratio(object->uv_map[0] * 128.0, object->uv_map[1] * 128.0, TURB_SIZE, param);
 	param->texture_col = rgb_color(80 + t, 30 + t, 30);
 }
 
