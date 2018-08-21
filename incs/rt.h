@@ -194,6 +194,12 @@ typedef struct	s_reference
 	double		k[VEC_SIZE];
 }				t_reference;
 
+typedef struct	s_effects
+{
+	char				color;
+	char				normal;
+}				t_effects;
+
 typedef struct	s_object
 {
 	void				*dim;
@@ -212,6 +218,7 @@ typedef struct	s_object
 	int					phong;//exposant de Phong de l'objet
 	t_limit			*limits;
 	double			uv_map[2];
+	t_effects		*effects;
 	struct s_object	*next;//liste chainée
 }				t_object;
 

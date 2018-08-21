@@ -361,6 +361,12 @@ int	fill_object(t_object *obj, t_jobject *jobj, int num, t_param *param)
 		obj->ref.i[0] = 1.0;
 		obj->ref.j[1] = 1.0;
 	}
+	// AJOUT ADRIEN POUR INITIALISER LES OBJETS avec leur normale ou leur modifications de couleur
+	if (!(obj->effects = (t_effects*)malloc(sizeof(t_effects))))
+		return (0);
+	obj->effects->color = RT_C_WOOD;
+	obj->effects->normal = RT_N_SINUS;
+	// FIN AJOUT ADRIEN
 	if (obj_def.fill)
 		obj->dim = obj_def.fill(jobj, param);
 	else

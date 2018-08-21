@@ -30,7 +30,7 @@ typedef enum			e_object_type
 
 typedef enum			e_light_type
 {
-	RTSPOT=0,
+	RTSPOT,
 	RTPARALLEL
 }						t_light_type;
 
@@ -58,6 +58,22 @@ typedef enum			e_rt_type
 	RTLIGHTTYPE,
 	RTREFERENCE
 }						t_rt_type;
+
+typedef enum			e_color_effect
+{
+	RT_C_NONE,
+	RT_C_CHESS,
+	RT_C_SIERPINSKI,
+	RT_C_CLOUD,
+	RT_C_MARBLE,
+	RT_C_WOOD
+}						t_color_effect;
+
+typedef enum			e_normal_effect
+{
+	RT_N_NONE,
+	RT_N_SINUS
+}						t_normal_effect;
 
 typedef struct			s_key
 {
