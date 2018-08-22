@@ -25,6 +25,6 @@ double	distance_calc(t_object *tmp, t_param *param,double *from, double *to)
 	else if (tmp->type == RTQUADRIC)
 		return (distance_to_quadric(tmp, from, to));
 	else if (tmp->type == 6)
-		return (distance_to_tore(tmp, from, to));
+		return (distance_to_tore(tmp, from, to, param));
 	return (-1.0);
 }
