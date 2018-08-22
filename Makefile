@@ -38,10 +38,10 @@ LIBJSON_DEP = $(LIBJSON_PATH)/sources/*
 # Link lib : "-L FOLDER -lXXX" where XXX = libXXX.a
 
 ifeq ($(OS), Linux)
-	LFLAGS = -L./libjson -ljson -L./libft -lft `pkg-config --libs glew` `pkg-config --libs sdl2` -lSDL2_image -lGL -lm -lGLU
+	LFLAGS = -L./libjson -ljson -L./libft -lft `pkg-config --libs glew` `pkg-config --libs sdl2` -lSDL2_image -lGL -lm -lGLU -lgsl -lgslcblas -lm
 	INCLUDE = -I./incs -I./libft/incs -I./libjson
 else
-	LFLAGS = -L./libft -lft -L./libjson -ljson `pkg-config --libs glew` `pkg-config --libs sdl2` -lSDL2_image -framework OpenGL -lm
+	LFLAGS = -L./libft -lft -L./libjson -ljson `pkg-config --libs glew` `pkg-config --libs sdl2` -lSDL2_image -framework OpenGL -lm -lgsl -lgslcblas -lm
 	INCLUDE = -I./incs -I./libft/incs -I./libjson
 endif
 

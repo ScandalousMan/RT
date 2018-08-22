@@ -309,6 +309,7 @@ void	*fill_tore(t_jobject *jobj, t_param *param)
 	fill_vector(&tr, (t_jarray*)(get_jobject(jobj, "rotation")->value));
 	rotation_matrice(tr[0], tr[1], tr[2], param);
 	//rotation tore
+	printf("tore R/r1 = %f; r/r2 = %f\n", obj->r1, obj->r2);
 	return (obj);
 }
 
