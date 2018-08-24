@@ -401,6 +401,7 @@ int								is_in_list(t_param *param, t_light *light);
 void							matrice_product(double matrice[VEC_SIZE][VEC_SIZE], double *col, double *dest);
 double							*vec_dup(double *vec);
 void							object_rotation(double mat[VEC_SIZE][VEC_SIZE], t_object *object);
+void							sim_matrice_rotation(double *a, double * b, t_param *param);
 /*
 **------------------------------------display-----------------------------------
 */

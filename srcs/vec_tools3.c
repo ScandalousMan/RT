@@ -76,3 +76,48 @@ void 		object_rotation(double mat[VEC_SIZE][VEC_SIZE], t_object *object)
 	if (object->type != 1)
 		printf("not a sphere\n");
 }
+
+void		sim_matrice_rotation(double *a, double * b, t_param *param)
+{
+	if (a && b)
+	{
+		param->rot[0][0] = 0.0;
+		param->rot[0][1] = 1.0;
+		param->rot[0][2] = 0.0;
+		param->rot[1][0] = 0.0;
+		param->rot[1][1] = 0.0;
+		param->rot[1][2] = 1.0;
+		param->rot[2][0] = 1.0;
+		param->rot[2][1] = 0.0;
+		param->rot[2][2] = 0.0;
+	}
+	// double	c;
+	// double	v[VEC_SIZE];
+
+	// vector_product(a, b, v);
+	// c = scalar_product(a, b);
+	// if (c == -1.0)
+	// {
+	// 	param->rot[0][0] = -1.0;
+	// 	param->rot[0][1] = 0.0;
+	// 	param->rot[0][2] = 0.0;
+	// 	param->rot[1][0] = 0.0;
+	// 	param->rot[1][1] = -1.0;
+	// 	param->rot[1][2] = 0.0;
+	// 	param->rot[2][0] = 0.0;
+	// 	param->rot[2][1] = 0.0;
+	// 	param->rot[2][2] = -1.0;
+	// }
+	// else
+	// {
+	// 	param->rot[0][0] = 1.0 - (v[1] * v[1] + v[2] * v[2]) / (1.0 + c);
+	// 	param->rot[0][1] = -v[2] + v[0] * v[1] / (1.0 + c);
+	// 	param->rot[0][2] = v[1] + v[0] * v[2] / (1.0 + c);
+	// 	param->rot[1][0] = v[2] + v[0] * v[1] / (1.0 + c);
+	// 	param->rot[1][1] = 1.0 - (v[0] * v[0] + v[2] * v[2]) / (1.0 + c);
+	// 	param->rot[1][2] = -v[0] + v[1] * v[2] / (1.0 + c);
+	// 	param->rot[2][0] = -v[1] + v[0] * v[2] / (1.0 + c);
+	// 	param->rot[2][1] = v[0] + v[1] * v[2] / (1.0 + c);
+	// 	param->rot[2][2] = 1.0 - (v[0] * v[0] + v[1] * v[1]) / (1.0 + c);
+	// }
+}
