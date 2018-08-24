@@ -34,7 +34,6 @@ int		main(int ac, char **av)
 	t_param	*param;
 	char	*filename;
 	
-
 	if (ac == 2)
 		filename = av[1];
 	else
@@ -51,6 +50,10 @@ int		main(int ac, char **av)
 	printf("=> creating graph structure\n");
 	if ((param->graph = graph_init()) == NULL)
 		error(0, 0, "Can't allocate graph struct");
+	if (ac == 2)
+		filename = av[1];
+	else
+		filename = "rtv1.json";
 	if (!rt_parser(param, filename))
 		return (1);
 	sdl_init(param->graph);
@@ -75,9 +78,5 @@ int		main(int ac, char **av)
 	}
 	sdl_quit(param->graph);
 	end_program(param);
-	while (1)
-	{
-		
-	}
 	return (0);
 }

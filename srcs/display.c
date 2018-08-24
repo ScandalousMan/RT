@@ -1,4 +1,4 @@
-#include "rt.h"
+#include "rt_objects.h"
 
 void	display_objects(t_param *param)
 {
@@ -6,7 +6,7 @@ void	display_objects(t_param *param)
 	while (objs)
 	{
 		ft_putstr("\n***************\n");
-		if (objs->type == 1)
+		if (objs->type == RTSPHERE)
 		{
 			ft_putstr("** nouvelle sphere **\n");
 			ft_putstr("centre : ");
@@ -16,7 +16,7 @@ void	display_objects(t_param *param)
 			ft_putnbr(((t_sphere*)(objs->dim))->radius);
 			ft_putchar('\n');
 		}
-		if (objs->type == 2)
+		if (objs->type == RTPLAN)
 		{
 			ft_putstr("** nouveau plan **\n");
 			ft_putstr("point : ");
@@ -26,7 +26,7 @@ void	display_objects(t_param *param)
 			ft_putvec(((t_plane*)(objs->dim))->n);
 			ft_putchar('\n');
 		}
-		if (objs->type == 3)
+		if (objs->type == RTCONE)
 		{
 			ft_putstr("** nouveau cone **\n");
 			ft_putstr("origine : ");
@@ -39,7 +39,7 @@ void	display_objects(t_param *param)
 			ft_putnbr(((t_cone*)(objs->dim))->angle);
 			ft_putchar('\n');
 		}
-		if (objs->type == 4)
+		if (objs->type == RTCYLINDER)
 		{
 			ft_putstr("** nouveau cylindre **\n");
 			ft_putstr("origine : ");
@@ -52,7 +52,7 @@ void	display_objects(t_param *param)
 			ft_putnbr(((t_cylindre*)(objs->dim))->radius);
 			ft_putchar('\n');
 		}
-		if (objs->type == 5)
+		if (objs->type == RTQUADRIC)
 		{
 			ft_putstr("** nouvelle quadrique **\n");
 			ft_putstr("centre : ");
@@ -86,8 +86,7 @@ void	display_objects(t_param *param)
 			ft_putdbl(((t_quadric*)(objs->dim))->i, 4);
 			ft_putchar('\n');
 		}
-		ft_putchar('#');
-		if (objs->type == 6)
+		if (objs->type == RTTORE)
 		{
 			ft_putstr("** nouveau tore **\n");
 			ft_putstr("R: ");
@@ -103,6 +102,7 @@ void	display_objects(t_param *param)
 			ft_putvec(((t_tore*)(objs->dim))->center);
 			ft_putchar('\n');
 		}
+		ft_putchar('#');
 		ft_putnbr(objs->num);
 		ft_putstr("\ncolor = ");
 		ft_putnbr(objs->col);

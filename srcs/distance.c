@@ -10,21 +10,21 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rt.h"
+#include "rt_objects.h"
 
 double	distance_calc(t_object *tmp, t_param *param,double *from, double *to)
 {
-	if (tmp->type == 1 && param)
+	if (tmp->type == RTSPHERE)
 		return (distance_to_sphere(tmp, from, to));
-	else if (tmp->type == 2)
+	else if (tmp->type == RTPLAN)
 		return (distance_to_plane(tmp, from, to));
-	else if (tmp->type == 3)
+	else if (tmp->type == RTCONE)
 		return (distance_to_cone(tmp, from, to));
-	else if (tmp->type == 4)
+	else if (tmp->type == RTCYLINDER)
 		return (distance_to_cylindre(tmp, from, to));
-	else if (tmp->type == 5)
+	else if (tmp->type == RTQUADRIC)
 		return (distance_to_quadric(tmp, from, to));
-	else if (tmp->type == 6)
+	else if (tmp->type == RTTORE)
 		return (distance_to_tore(tmp, from, to, param));
 	return (-1.0);
 }
