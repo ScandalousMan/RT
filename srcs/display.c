@@ -103,22 +103,6 @@ void	display_objects(t_param *param)
 			ft_putchar('\n');
 		}
 		ft_putchar('#');
-		if (objs->type == 6)
-		{
-			ft_putstr("** nouveau tore **\n");
-			ft_putstr("R: ");
-			ft_putnbr(((t_tore*)(objs->dim))->r1);
-			ft_putchar('\n');
-			ft_putstr("r: ");
-			ft_putnbr(((t_tore*)(objs->dim))->r2);
-			ft_putchar('\n');
-			ft_putstr("axis: ");
-			ft_putvec(((t_tore*)(objs->dim))->axis);
-			ft_putchar('\n');
-			ft_putstr("center: ");
-			ft_putvec(((t_tore*)(objs->dim))->center);
-			ft_putchar('\n');
-		}
 		ft_putnbr(objs->num);
 		ft_putstr("\ncolor = ");
 		ft_putnbr(objs->col);
