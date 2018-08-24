@@ -1,4 +1,4 @@
-#include <rt.h>
+#include "rt_objects.h"
 
 void		*duplicate(void *src, size_t size)
 {
@@ -31,17 +31,17 @@ t_object	*object_copy(t_object *src)
 		return (NULL);
 	if (!(copy = duplicate(src, sizeof(t_object))))
 		return (NULL);
-	if (copy->type == 1)
+	if (copy->type == RTSPHERE)
 		copy->dim = duplicate(src->dim, sizeof(t_sphere));
-	else if (copy->type == 2)
+	else if (copy->type == RTPLAN)
 		copy->dim = duplicate(src->dim, sizeof(t_plane));
-	else if (copy->type == 3)
+	else if (copy->type == RTCONE)
 		copy->dim = duplicate(src->dim, sizeof(t_cone));
-	else if (copy->type == 4)
+	else if (copy->type == RTCYLINDER)
 		copy->dim = duplicate(src->dim, sizeof(t_cylindre));
-	else if (copy->type == 5)
+	else if (copy->type == RTQUADRIC)
 		copy->dim = duplicate(src->dim, sizeof(t_quadric));
-	else if (copy->type == 6)
+	else if (copy->type == RTTORE)
 		copy->dim = duplicate(src->dim, sizeof(t_tore));
 	if (copy->dim == NULL)
 		return (NULL);

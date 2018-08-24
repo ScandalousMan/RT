@@ -221,7 +221,7 @@ const t_object_def		g_objects[] = {
 	{"plane", RTPLAN, g_plan_keys, RT_KEYS_SIZE(g_plan_keys), &fill_plane},
 	{"cone", RTCONE, g_cone_keys, RT_KEYS_SIZE(g_cone_keys), &fill_cone},
 	{"cylinder", RTCYLINDER, g_cylinder_keys, RT_KEYS_SIZE(g_cylinder_keys), &fill_cylinder},
-	{"quadric", RTQUADRIC, g_quadric_keys, RT_KEYS_SIZE(g_quadric_keys), fill_quadric},
+	{"quadric", RTQUADRIC, g_quadric_keys, RT_KEYS_SIZE(g_quadric_keys), &fill_quadric},
 	{"tore", RTTORE, g_tore_keys, RT_KEYS_SIZE(g_tore_keys), &fill_tore},
 	{"custom", RTCUSTOMOBJECT, g_customobject_keys, RT_KEYS_SIZE(g_customobject_keys), &fill_customobject}
 };
