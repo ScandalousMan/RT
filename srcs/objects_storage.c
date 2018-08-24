@@ -280,6 +280,7 @@ void	*fill_tore(t_jobject *jobj, t_param *param)
 	if (!(obj = (t_tore *)malloc(sizeof(t_tore))))
 		return (NULL);//EXIT
 	fill_vector(&(obj->center), (t_jarray*)(get_jobject(jobj, "center")->value));
+	fill_vector(&(obj->axis), (t_jarray*)(get_jobject(jobj, "axis")->value));
 	tmp = get_jobject(jobj, "R");
 	obj->r1 = get_double(tmp->type, tmp->value);
 	tmp = get_jobject(jobj, "r");
