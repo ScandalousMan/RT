@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rt.h"
+#include "rt_objects.h"
 
 void	free_objects(t_param *param)
 {
@@ -20,30 +20,18 @@ void	free_objects(t_param *param)
 	while (param && param->objects)
 	{
 		tmp = param->objects->next;
-		if (param->objects->type == 1)
-		{
+		if (param->objects->type == RTSPHERE)
 			free ((t_sphere*)(param->objects->dim));
-		}
-		else if (param->objects->type == 2)
-		{
+		else if (param->objects->type == RTPLAN)
 			free ((t_plane*)(param->objects->dim));
-		}
-		else if (param->objects->type == 3)
-		{
+		else if (param->objects->type == RTCONE)
 			free ((t_cone*)(param->objects->dim));
-		}
-		else if (param->objects->type == 4)
-		{
+		else if (param->objects->type == RTCYLINDER)
 			free ((t_cylindre*)(param->objects->dim));
-		}
-		else if (param->objects->type == 5)
-		{
+		else if (param->objects->type == RTQUADRIC)
 			free ((t_quadric*)(param->objects->dim));
-		}
-		else if (param->objects->type == 6)
-		{
+		else if (param->objects->type == RTTORE)
 			free ((t_tore*)(param->objects->dim));
-		}
 		while (param->objects->limits)
 		{
 			l_tmp = param->objects->limits->next;
