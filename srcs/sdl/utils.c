@@ -54,3 +54,16 @@ Uint32 getpxl(t_param *param, int y, int x)
 		return 0;
     return *(Uint32 *)(param->graph->surfs[num_surf]->pixels + y * param->graph->surfs[num_surf]->pitch + x * 4);
 }
+
+Uint32		jpg_find_pxl(t_param *param, double w, double h)
+{
+	if (w > 1 || w < 0 || h > 1 || h < 0)
+		return (0);
+	return *(Uint32 *)(param->texture->pixels + (int)round(param->texture->w * w) * param->texture->pitch + (int)round(param->texture->h * h) * 3);
+}
+void	jpg_loader(t_param *param, char *name)
+{
+	IMG_Init(IMG_INIT_JPG);
+	IMG_Quit();
+	param->texture = IMG_Load(name);
+}

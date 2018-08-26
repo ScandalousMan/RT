@@ -43,10 +43,12 @@ int		main(int ac, char **av)
 {
 	t_param	*param;
 	char	*filename;
+	
 
 	filename = concat_filename(ac, av[1]);
 	if (!(param = struct_create()))
 		return (-1);
+	jpg_loader(param, "rouge.jpg");
 	param->to_pix = 0;//todo change
 	param->last_mv = clock();//todo change
 	param->start = clock();//TODO delete
