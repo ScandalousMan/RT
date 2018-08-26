@@ -57,9 +57,12 @@ Uint32 getpxl(t_param *param, int y, int x)
 
 Uint32		jpg_find_pxl(t_param *param, double w, double h)
 {
+	int color;
+
 	if (w > 1 || w < 0 || h > 1 || h < 0)
 		return (0);
-	return *(Uint32 *)(param->texture->pixels + (int)round(param->texture->w * w) * param->texture->pitch + (int)round(param->texture->h * h) * 3);
+	color = (int)*(Uint32 *)(param->texture->pixels + (int)round(param->texture->w * w) * param->texture->pitch + (int)round(param->texture->h * h) * 3);
+	return rgb_color((color) & 0xFF, (color >> 8) & 0xFF, (color >> 16) & 0xFF);
 }
 void	jpg_loader(t_param *param, char *name)
 {
