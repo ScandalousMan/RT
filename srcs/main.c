@@ -37,18 +37,23 @@ int		main(int ac, char **av)
 	if (ac == 2)
 		filename = av[1];
 	else
-		filename = "rtv1.json";
+		filename = "scenes/rtv1.json";
+	printf("=> creating program structure\n");
 	if (!(param = struct_create()))
 		return (-1);
+	printf("=> creating random noise map\n");
 	perlin_noise_generator(param);
 	param->to_pix = 0;//todo change
 	param->last_mv = clock();//todo change
 	param->start = clock();//TODO delete
+	printf("=> creating graph structure\n");
 	if ((param->graph = graph_init()) == NULL)
 		error(0, 0, "Can't allocate graph struct");
-	if (!rt_parser(param, av[1]))
+	printf("=> parsing the scene\n");
+	if (!rt_parser(param, filename))
 		return (1);
 	sdl_init(param->graph);
+	printf("=> launching threads for RT computation\n");
 	launch_threads(param);
 	while (param->quit == FALSE)
 	{
@@ -71,5 +76,9 @@ int		main(int ac, char **av)
 	}
 	sdl_quit(param->graph);
 	end_program(param);
+	while (1)
+	{
+		
+	}
 	return (0);
 }

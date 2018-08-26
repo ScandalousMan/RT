@@ -102,8 +102,8 @@ t_limit	*get_limits(t_jarray *array)
 		obj = get_jobject(tmp->value, "point");
 		fill_vector(&new->plane.ref, obj->value);
 		vec_to_unit_norm(new->plane.n);
-		printf("REF: %f, %f, %f\n", new->plane.ref[0], new->plane.ref[1], new->plane.ref[2]);
-		printf("N: %f, %f, %f\n", new->plane.n[0], new->plane.n[1], new->plane.n[2]);
+		// printf("REF: %f, %f, %f\n", new->plane.ref[0], new->plane.ref[1], new->plane.ref[2]);
+		// printf("N: %f, %f, %f\n", new->plane.n[0], new->plane.n[1], new->plane.n[2]);
 		new->next = limits;
 		limits = new;
 		tmp = tmp->next;

@@ -102,12 +102,12 @@ char					*get_value(char *json, t_jtype *type, void **value)
 		if (g_func_parse[i].type == *type)
 		{
 			json = (g_func_parse[i].f)(json, value);
-			printf("get_value: %s\n", json);//todo delete
+			// printf("get_value: %s\n", json);//todo delete
 			break ;
 		}
 		++i;
 	}
-	debug(json, type, value);//todo delete
+	// debug(json, type, value);//todo delete
 	return (json);
 }
 
@@ -123,7 +123,7 @@ char					*parse_key_value(char *json, t_jobject **obj)
 	(*obj)->next = NULL;
 	(*obj)->value = NULL;
 	json = get_key(json, &((*obj)->key));
-	printf("%s\n", (char*)((*obj)->key));
+	// printf("%s\n", (char*)((*obj)->key));
 	if (json && json[0] == ':')
 	{
 		json = get_value(json + 1, &((*obj)->type), &((*obj)->value));

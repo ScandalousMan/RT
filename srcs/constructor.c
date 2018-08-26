@@ -152,7 +152,8 @@ t_param			*struct_create(void)
 	param->macro.rotation_angle = 30;
 	param->macro.k_ambience = K_AMBIENCE;
 	param->macro.filter = 0;
-	param->path = path_create(param, 0);
+	if (!(param->path = path_create(param, 0)))
+		return (NULL);
 	if (!pxl_infos_create(param))
 		return (NULL);
 	return (param);

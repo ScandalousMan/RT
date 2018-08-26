@@ -75,7 +75,7 @@ int	read_lines(int fd, t_list **lst)
 	tmp_prev = NULL;
 	while ((ret = get_next_line(fd, &line)) > 0)
 	{
-		ft_putendl(line);
+		// ft_putendl(line);
 		stringify(line);
 		if ((tmp = ft_lstnew((const void*)line, ft_strlen(line) + 1)) == NULL)
 			return (EXIT_FAILURE);
@@ -84,6 +84,7 @@ int	read_lines(int fd, t_list **lst)
 		else
 			ft_lstadd(&(tmp_prev->next), tmp);
 		tmp_prev = tmp;
+		free(line);
 	}
 	return (EXIT_SUCCESS);
 }
@@ -121,8 +122,8 @@ char *read_file(const char *path)
 		return (NULL);
 
 /* DEBUG */
-	ft_lstiter(lst, &print_lst);
-	ft_putendl(lst_to_string(lst));
+	// ft_lstiter(lst, &print_lst);
+	// ft_putendl(lst_to_string(lst));
 /* END */
 
 	json = lst_to_string(lst);
