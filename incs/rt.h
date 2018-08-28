@@ -497,7 +497,6 @@ int								convert_Uint32_to_int(Uint32 pixel, SDL_PixelFormat *fmt);
 Uint32							format_Uint32(Uint32 pixel, SDL_PixelFormat *fmt);
 Uint32 							getpxl(t_param *param, int y, int x);
 void							putpxl(t_param *param, int y, int x, Uint32 pixel);
-void							jpg_loader(t_param *param, char *name);
 Uint32							jpg_find_pxl(t_param *param, double x, double y);
 void							save_img(t_param *param);
 void							sdl_draw(t_sdl *graph);
