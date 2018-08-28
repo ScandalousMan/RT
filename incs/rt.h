@@ -29,7 +29,7 @@
 # define MAX_ANTI_ALIASING 1
 # define MIN_ANTI_ALIASING 10
 
-# define RECURSION 2
+# define RECURSION 0
 # define STEP_RECURSION 1
 # define MAX_RECURSION 0
 # define MIN_RECURSION 10
@@ -55,6 +55,12 @@
 # define STEP_BLUR_RADIUS 1
 # define MIN_BLUR_RADIUS 0
 # define MAX_BLUR_RADIUS 50
+
+# define SIERPINSKI 4
+
+# define NOISE_SIZE 128
+# define TURB_SIZE 32.0
+# define TURB_POWER 5.0
 
 # include <fcntl.h>
 # include <stdlib.h>
@@ -185,7 +191,14 @@ typedef struct	s_reference
 {
 	double		i[VEC_SIZE];
 	double		j[VEC_SIZE];
+	double		k[VEC_SIZE];
 }				t_reference;
+
+typedef struct	s_effects
+{
+	char				color;
+	char				normal;
+}				t_effects;
 
 typedef struct	s_object
 {
@@ -204,6 +217,10 @@ typedef struct	s_object
 	double			index;//indice du matériaux constituant l'objet, 1 par défaut
 	int					phong;//exposant de Phong de l'objet
 	t_limit			*limits;
+	double			uv_map[2];
+	t_effects		*effects;
+	double			rotation[VEC_SIZE];
+	double			translation[VEC_SIZE];
 	struct s_object	*next;//liste chainée
 }				t_object;
 
@@ -298,6 +315,7 @@ typedef struct		s_param
 	double			tmp_vec[VEC_SIZE];
 	int 			brightness;
 	int				final_col;
+	int				texture_col;
 	int				i[2];
 	double			rot[VEC_SIZE][VEC_SIZE];
 	double			epsilon;
@@ -310,6 +328,7 @@ typedef struct		s_param
 	t_pxl_info	***pxl_infos;
 	double			ia;//intensité de la lumiere ambiante
 	double			m[VEC_SIZE];//triplet intermediaire pour calculs ombres
+	double			perlin_noise[NOISE_SIZE][NOISE_SIZE];
 
 	int				to_pix;
 	clock_t			last_mv;
@@ -372,6 +391,7 @@ double							*vec_soustraction(double *x, double *y, double *container);
 int								is_in_list(t_param *param, t_light *light);
 void							matrice_product(double matrice[VEC_SIZE][VEC_SIZE], double *col, double *dest);
 double							*vec_dup(double *vec);
+void							object_rotation(double mat[VEC_SIZE][VEC_SIZE], t_object *object);
 /*
 **------------------------------------display-----------------------------------
 */
@@ -385,13 +405,18 @@ double			distance_calc(t_object *tmp, t_param *param, double *from,
 double			distance_to_sphere(t_object *tmp, double *from,
 				double *to);
 int					is_inside_sphere(double *pt, t_object *tmp);
+double 			*sphere_position(double *pt, t_object *obj);
 double			plane_distance(double *from, double *to, double *n, double *ref);
 double			distance_to_plane(t_object *tmp, double *from,
 				double *to);
 int					is_inside_plane(double *pt, t_object *tmp);
+double			*plane_position(double *pt, t_object *obj);
 double			distance_to_cone(t_object *tmp, double *from, double *to);
+double			*cone_position(double *pt, t_object *object);
 double			distance_to_cylindre(t_object *tmp, double *from, double *to);
+double			*cylindre_position(double *pt, t_object *object);
 double			distance_to_quadric(t_object *tmp, double *from, double *to);
+double			*quadric_position(double *pt, t_object *object);
 /*
 **-------------------------------------cone-------------------------------------
 */
@@ -439,6 +464,9 @@ int				is_in_limit(double *pt, t_limit *limit);
 int				is_in_limits(double *pt, t_object *obj, t_limit *limit);
 void			update_normal_vector(t_object *tmp, t_path *path);
 int				is_inside_object(double *pt, t_object *tmp, t_limit *limit);
+void			object_position(double *pt, t_object *object);
+void 			object_color_changer(t_object *object, t_param *param);
+void			object_normal_changer(t_object *object, t_param *param, t_path *path);
 t_object	*object_constructor(t_param *param);
 void			update_normal_sphere(t_object *tmp, t_path *path);
 void			update_normal_plane(t_object *tmp, t_path *path);
@@ -453,7 +481,7 @@ int 			my_key_func(int keycode, t_param *param);
 void			define_refracted_n(t_path *path1, t_path *path2);
 double		get_index_n(t_path *path);
 int				snell_descartes(double n1, double n2, t_path *path1, t_path *path2);
-	/*
+/*
 **POST PROCESSING FUNCTIONS
 */
 void 							greyscale(t_param *param);
@@ -461,7 +489,12 @@ void						 	sepia(t_param *param);
 void							cartoon(t_param *param);
 void							blur(t_param *param);
 void							stereoscopy(t_param *param);
-
+/*
+**PERLIN
+*/
+double 		turbulence(double x, double y, double size, t_param *param);
+double		marble_ratio(double u, double v, double size, t_param *param);
+char			wood_ratio(double u, double v, double size, t_param *param);
 /*
 ** NK_API SDL Prototypes
 */

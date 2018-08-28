@@ -14,29 +14,19 @@
 #include "rt.h"
 #include <rt_parser.h>
 
-char	*concat_filename(int ac, char* str)
+void	perlin_noise_generator(t_param *param)
 {
-	char	*filename;
-	int		len;
-
-	if (ac == 2)
+	param->i[0] = 0;
+	while (param->i[0] < NOISE_SIZE)
 	{
-		len = ft_strlen("scenes/");
-		if (!(filename = (char*)malloc(sizeof(char) * (len + ft_strlen(str) + 1))))
-			return (NULL);
-		ft_memcpy((void*)filename, (void*)"scenes/", len);
-		filename[len] = '\0';
-		ft_strcat(filename, str);
+		param->i[1] = 0;
+		while (param->i[1] < NOISE_SIZE)
+		{
+			param->perlin_noise[param->i[0]][param->i[1]] = (double)(rand() % RAND_MAX) / (double)RAND_MAX;
+			param->i[1]++;
+		}
+		param->i[0]++;
 	}
-	else
-	{
-		len = ft_strlen("scenes/rtv1.json");
-		if (!(filename = (char*)malloc(sizeof(char) * (len + 1))))
-			return (NULL);
-		ft_memcpy((void*)filename, (void*)"scenes/rtv1.json", len);
-		filename[len] = '\0';
-	}
-	return (filename);
 }
 
 int		main(int ac, char **av)
@@ -45,18 +35,27 @@ int		main(int ac, char **av)
 	char	*filename;
 	
 
-	filename = concat_filename(ac, av[1]);
+	if (ac == 2)
+		filename = av[1];
+	else
+		filename = "scenes/rtv1.json";
+	printf("=> creating program structure\n");
 	if (!(param = struct_create()))
 		return (-1);
 	param->texture = IMG_Load("rouge.jpg");
+	printf("=> creating random noise map\n");
+	perlin_noise_generator(param);
 	param->to_pix = 0;//todo change
 	param->last_mv = clock();//todo change
 	param->start = clock();//TODO delete
+	printf("=> creating graph structure\n");
 	if ((param->graph = graph_init()) == NULL)
 		error(0, 0, "Can't allocate graph struct");
+	printf("=> parsing the scene\n");
 	if (!rt_parser(param, filename))
 		return (1);
 	sdl_init(param->graph);
+	printf("=> launching threads for RT computation\n");
 	launch_threads(param);
 	while (param->quit == FALSE)
 	{
@@ -79,5 +78,9 @@ int		main(int ac, char **av)
 	}
 	sdl_quit(param->graph);
 	end_program(param);
+	while (1)
+	{
+		
+	}
 	return (0);
 }

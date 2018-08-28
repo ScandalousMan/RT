@@ -94,6 +94,24 @@ void	display_objects(t_param *param)
 		ft_putdbl(objs->index, 2);
 		ft_putstr("\nmiroir:");
 		ft_putdbl(objs->reflection, 4);
+		ft_putstr("\nreferentiel: ");
+		ft_putdbl(objs->ref.i[0], 2);
+		ft_putstr(", ");
+		ft_putdbl(objs->ref.i[1], 2);
+		ft_putstr(", ");
+		ft_putdbl(objs->ref.i[2], 2);
+		ft_putstr(" | ");
+		ft_putdbl(objs->ref.j[0], 2);
+		ft_putstr(", ");
+		ft_putdbl(objs->ref.j[1], 2);
+		ft_putstr(", ");
+		ft_putdbl(objs->ref.j[2], 2);
+		ft_putstr(" | ");
+		ft_putdbl(objs->ref.k[0], 2);
+		ft_putstr(", ");
+		ft_putdbl(objs->ref.k[1], 2);
+		ft_putstr(", ");
+		ft_putdbl(objs->ref.k[2], 2);
 		ft_putstr("\n***************\n");
 		objs = objs->next;
 	}
@@ -117,6 +135,5 @@ void	display_lights(t_param *param)
 
 int		point_display(t_param *param)
 {
-	// return (ft_absint(param->i[0] - 485) <= 0 && ft_absint(param->i[1] - 186) <= 0);
-	return (ft_absint(param->i[0] - 280) <= 0 && ft_absint(param->i[1] - 440) <= 0);
+	return (ft_absint(param->i[0] - 396) <= 0 && ft_absint(param->i[1] - 369) <= 0);
 }

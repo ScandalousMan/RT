@@ -52,6 +52,5 @@ int		rt_parser(t_param *param, char *file)
 	update_eye_n(param);
 	printf("num_objects: %i\n", param->num_objects);
 	free_jobject(obj);
-	free(file);
 	return (1);
 }

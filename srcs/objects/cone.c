@@ -24,3 +24,16 @@ int		is_inside_cone(double *pt, t_object *tmp)
 	vec_to_unit_norm(tmp->tmp_vec);
 	return (acos(ABS(scalar_product(((t_cone*)(tmp->dim))->u, tmp->tmp_vec))) < ((t_cone*)(tmp->dim))->angle ? 1 : 0);
 }
+
+double *cone_position(double *pt, t_object *obj)
+{
+	double	scalar;
+
+	vec_soustraction(((t_cone*)(obj->dim))->org, pt, obj->tmp_vec);
+	scalar = scalar_product(obj->tmp_vec, obj->ref.i) / 64.0;
+	obj->uv_map[0] = scalar - floor(scalar);
+	vec_to_unit_norm(obj->tmp_vec);
+	obj->uv_map[1] = 0.5 + atan2(scalar_product(obj->ref.j, obj->tmp_vec),
+		scalar_product(obj->ref.k, obj->tmp_vec)) / 2.0 / M_PI;
+	return (obj->uv_map);
+}

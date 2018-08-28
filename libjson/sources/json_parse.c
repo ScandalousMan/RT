@@ -56,8 +56,8 @@ static char	*parse_jarray_value(char *json, t_jarray **array)
 	(*array)->next = NULL;
 	(*array)->value = NULL;
 	json = get_value(json, &((*array)->type), &((*array)->value));
-	if (json)
-		printf("array_value: %d\n", *(int*)((*array)->value));//todo delete
+	// if (json)
+	// 	printf("array_value: %d\n", *(int*)((*array)->value));//todo delete
 	if (json && json[0] == ',' && json[1] != ']')
 		json = parse_jarray_value(json + 1, &((*array)->next));
 	return (json);

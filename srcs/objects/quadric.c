@@ -32,3 +32,10 @@ int		is_inside_quadric(double *pt, t_quadric *tmp)
 		tmp->f * (pt[2] - tmp->center[2]) * (pt[1] - tmp->center[1]) +
 		tmp->i * (pt[2] - tmp->center[2]) * (pt[2] - tmp->center[2]) - tmp->r * tmp->r <= 0.0 ? 1 : 0);
 }
+
+double *quadric_position(double *pt, t_object *obj)
+{
+	if (pt)
+		return (obj->uv_map);
+	return (obj->uv_map);
+}

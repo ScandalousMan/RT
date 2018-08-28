@@ -4,8 +4,15 @@ int		object_color(t_param *param, t_path *path)
 {
 	if (param && path && path->current_object)
 	{
-		param->final_col = rgb_ratio(path->current_object->col, (double)param->macro.k_ambience);
 		param->tmp_light = param->lights;
+		// A REMPLACER PAR OBJECT POSITION
+		object_position(path->x, path->current_object);
+		// if (point_display(param))
+		// 	printf("u=%f, v=%f\n", path->current_object->uv_map[0], path->current_object->uv_map[1]);
+		object_color_changer(path->current_object, param);
+		object_normal_changer(path->current_object, param, path);
+
+		param->final_col = rgb_ratio(param->texture_col, (double)param->macro.k_ambience);
 		while (param->tmp_light)
 		{
 			// if (point_display(param))
@@ -26,7 +33,7 @@ int		object_color(t_param *param, t_path *path)
 					// if (point_display(param))
 					// 	printf("color: %d, %d, %d\n", (color_absorber(param->tmp_light->col, path->current_object->col) >> 16) & 0xFF, (color_absorber(param->tmp_light->col, path->current_object->col) >> 8) & 0xFF, color_absorber(param->tmp_light->col, path->current_object->col) & 0xFF);
 					param->final_col = color_summer(param->final_col,
-						rgb_ratio(color_absorber(param->tmp_light->tmp_col, path->current_object->col),
+						rgb_ratio(color_absorber(param->tmp_light->tmp_col, param->texture_col),
 							path->current_object->kd * scalar_product(path->l, path->n) * param->tmp_light->i));
 				}
 				if (param->brightness && ft_pow(scalar_product(path->l, path->r), param->brightness) > 0.0){
@@ -90,6 +97,8 @@ int		ray_color(t_param *param, double *from, double *to, int index, t_path *path
 			// 	printf("indice from: %f, to: %f\n", get_index_n(path), get_index_n(path->transmitted));
 			if ((snell_descartes(get_index_n(path), get_index_n(path->transmitted), path, path->transmitted)))
 			{
+				// if (point_display(param))
+				// 	printf("== snell descartes OK\n");
 				// if (point_display(param))
 				// 	printf("refraction OK:\n - v1: [%f,%f,%f]\n - v2: [%f,%f,%f]\n - n: [%f,%f,%f]\n\n", path->v[0], path->v[1], path->v[2], path->transmitted->v[0], path->transmitted->v[1], path->transmitted->v[2], path->n[0], path->n[1], path->n[2]);
 				vec_copy(path->x, path->transmitted->from);
@@ -175,6 +184,8 @@ void	rt_tracer(t_param *param)
 						param->macro.anti_aliasing * param->i[0] + alias[0],
 						param->macro.anti_aliasing * param->i[1] + alias[1]);
 					tmp_col = ray_color(param, param->eye, param->path->v, 0, param->path);
+					// if (point_display(param))
+					// 	printf("=> tmp_col:%d\n", tmp_col);
 					col[0] += (tmp_col >> 16) & 0xFF;
 					col[1] += (tmp_col >> 8) & 0xFF;
 					col[2] += (tmp_col) & 0xFF;
@@ -190,6 +201,12 @@ void	rt_tracer(t_param *param)
 				x = 0;
 				while (x < pixelisation)
 				{
+					// ! ajout de la couleur en info segfault avec le recalcul du escape
+					// param->pxl_infos[param->i[0] + x][param->i[1] + y]->col = rgb_color(
+					// 	(unsigned char)(col[0] / db_antialiasing),
+					// 	(unsigned char)(col[1] / db_antialiasing),
+					// 	(unsigned char)(col[2] / db_antialiasing));
+
 					putpxl(param, param->i[0] + x, param->i[1] + y, rgb_color(
 						(unsigned char)(col[0] / db_antialiasing),
 						(unsigned char)(col[1] / db_antialiasing),

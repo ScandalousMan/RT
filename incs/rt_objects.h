@@ -6,7 +6,7 @@
 /*   By: jbouille <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 14:13:11 by jbouille          #+#    #+#             */
-/*   Updated: 2018/08/06 17:30:41 by jbouille         ###   ########.fr       */
+/*   Updated: 2018/08/19 17:10:34 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ typedef enum			e_object_type
 
 typedef enum			e_light_type
 {
-	RTSPOT=0,
+	RTSPOT,
 	RTPARALLEL
 }						t_light_type;
 
@@ -55,8 +55,25 @@ typedef enum			e_rt_type
 	RTCUSTOMOBJ,
 	RTSIGN,
 	RTLIMIT,
-	RTLIGHTTYPE
+	RTLIGHTTYPE,
+	RTREFERENCE
 }						t_rt_type;
+
+typedef enum			e_color_effect
+{
+	RT_C_NONE,
+	RT_C_CHESS,
+	RT_C_SIERPINSKI,
+	RT_C_CLOUD,
+	RT_C_MARBLE,
+	RT_C_WOOD
+}						t_color_effect;
+
+typedef enum			e_normal_effect
+{
+	RT_N_NONE,
+	RT_N_SINUS
+}						t_normal_effect;
 
 typedef struct			s_key
 {
@@ -95,7 +112,12 @@ const t_key				g_common_keys[] = {
 	{"thickness", RTCOEF, RTNULL},
 	{"translation", RTVECTOR, RTDOUBLE},
 	{"rotation", RTVECTOR, RTDOUBLE},
-	{"limits", RTARRAY, RTLIMIT}
+	{"limits", RTARRAY, RTLIMIT},
+	{"reference", RTREFERENCE, RTNULL}
+};
+
+const t_key				g_optionnal_keys[] = {
+	{"reference", RTREFERENCE, RTNULL}
 };
 
 const t_key				g_plan_keys[] = {
@@ -170,6 +192,11 @@ const t_key				g_texture_keys[] = {
 	{"name", RTSTRING, RTNULL},
 };
 
+const t_key				g_reference_keys[] = {
+	{"i", RTVECTOR, RTDOUBLE},
+	{"j", RTVECTOR, RTDOUBLE}
+};
+
 const t_key				g_custom_keys[] = {
 	{"name", RTSTRING, RTNULL},
 	{OBJECTS_KEY, RTARRAY, RTCUSTOMOBJ}
@@ -201,7 +228,8 @@ const t_object_def		g_objects[] = {
 #else
 
 extern const t_object_def		g_objects[7];
-extern const t_key				g_common_keys[12];
+extern const t_key				g_common_keys[13];//todo change for optionnal
+extern const t_key				g_optionnal_keys[1];
 extern const t_key				g_sphere_keys[];
 extern const t_key				g_plan_keys[2];
 extern const t_key				g_cone_keys[];
@@ -212,6 +240,7 @@ extern const t_key				g_camera_keys[3];
 extern const t_key				g_light_keys[4];
 extern const t_key				g_main_object_keys[4];
 extern const t_key				g_texture_keys[2];
+extern const t_key				g_reference_keys[2];
 extern const t_key				g_custom_keys[2];
 extern const t_key				g_customobj_keys[2];
 

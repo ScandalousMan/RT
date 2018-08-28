@@ -55,3 +55,15 @@ int		is_in_limits(double *pt, t_object *obj, t_limit *limit)
 	}
 	return (1);
 }
+
+double *plane_position(double *pt, t_object *obj)
+{
+	double scalar;
+
+	vec_soustraction(pt, ((t_plane*)(obj->dim))->ref, obj->tmp_vec);
+	scalar = scalar_product(obj->tmp_vec, obj->ref.i) / 64.0;
+	obj->uv_map[0] = scalar - floor(scalar);
+	scalar = scalar_product(obj->tmp_vec, obj->ref.j) / 64.0;
+	obj->uv_map[1] = scalar - floor(scalar);
+	return (obj->uv_map);
+}

@@ -55,3 +55,24 @@ double	*vec_dup(double *vec)
 	vec_copy(vec, res);
 	return res;
 }
+
+void 		object_rotation(double mat[VEC_SIZE][VEC_SIZE], t_object *object)
+{
+	t_limit *tmp;
+	//1: appliquer la rotation au référentiel de l'objet
+	matrice_product(mat, object->ref.i, object->ref.i);
+	matrice_product(mat, object->ref.j, object->ref.j);
+	matrice_product(mat, object->ref.k, object->ref.k);
+	//2: appliquer la rotation aux limites de l'objet
+	tmp = object->limits;
+	while (tmp)
+	{
+		// ajouter typologie de limite (soit absolue, soit relative)
+		matrice_product(mat, tmp->plane.n, tmp->plane.n);
+		matrice_product(mat, tmp->plane.ref, tmp->plane.ref);	
+		tmp = tmp->next;
+	}
+	//3: appliquer la rotation aux spécificités de l'objet (dans les objets)
+	if (object->type != 1)
+		printf("not a sphere\n");
+}

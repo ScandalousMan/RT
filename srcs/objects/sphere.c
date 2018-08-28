@@ -32,3 +32,13 @@ int		is_inside_sphere(double *pt, t_object *tmp)
 		return 0;
 	return 1;
 }
+
+double *sphere_position(double *pt, t_object *obj)
+{
+	vec_soustraction(((t_sphere*)(obj->dim))->center, pt, obj->tmp_vec);
+	vec_to_unit_norm(obj->tmp_vec);
+	obj->uv_map[0] = 0.5 + atan2(scalar_product(obj->ref.k, obj->tmp_vec),
+		scalar_product(obj->ref.i, obj->tmp_vec)) / 2.0 / M_PI;
+	obj->uv_map[1] = 0.5 - asin(scalar_product(obj->ref.j, obj->tmp_vec)) / M_PI;
+	return (obj->uv_map);
+}
