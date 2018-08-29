@@ -336,6 +336,7 @@ typedef struct		s_param
 	t_macro			macro; // Contain all global variable across program
 
 	char			quit; // Used to know if program must exit
+	SDL_Surface		*texture; //
 }				t_param;
 
 /*
@@ -529,6 +530,7 @@ int								convert_Uint32_to_int(Uint32 pixel, SDL_PixelFormat *fmt);
 Uint32							format_Uint32(Uint32 pixel, SDL_PixelFormat *fmt);
 Uint32 							getpxl(t_param *param, int y, int x);
 void							putpxl(t_param *param, int y, int x, Uint32 pixel);
+Uint32							jpg_find_pxl(t_param *param, double x, double y);
 void							save_img(t_param *param);
 void							sdl_draw(t_sdl *graph);
 void							sdl_init(t_sdl *graph);

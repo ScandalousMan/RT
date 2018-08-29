@@ -33,6 +33,7 @@ int		main(int ac, char **av)
 {
 	t_param	*param;
 	char	*filename;
+	
 
 	if (ac == 2)
 		filename = av[1];
@@ -41,6 +42,7 @@ int		main(int ac, char **av)
 	printf("=> creating program structure\n");
 	if (!(param = struct_create()))
 		return (-1);
+	param->texture = IMG_Load("rouge.jpg");
 	printf("=> creating random noise map\n");
 	perlin_noise_generator(param);
 	param->to_pix = 0;//todo change
