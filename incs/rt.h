@@ -6,7 +6,7 @@
 /*   By: itsalex <itsalex@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 16:39:54 by aguemy            #+#    #+#             */
-/*   Updated: 2018/08/12 19:12:07 by itsalex          ###   ########.fr       */
+/*   Updated: 2018/08/29 14:22:11 by itsalex          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,16 @@
 
 # define RECURSION 0
 # define STEP_RECURSION 1
-# define MAX_RECURSION 0
-# define MIN_RECURSION 10
+# define MAX_RECURSION 10
+# define MIN_RECURSION 0
 
 # define STEP_SPECULAR_EXP 1
-# define MAX_SPECULAR_EXP 1
-# define MIN_SPECULAR_EXP 16
+# define MAX_SPECULAR_EXP 16
+# define MIN_SPECULAR_EXP 1
 
 # define STEP_ROTATION_ANGLE 1
-# define MAX_ROTATION_ANGLE 1
-# define MIN_ROTATION_ANGLE 90
+# define MAX_ROTATION_ANGLE 90
+# define MIN_ROTATION_ANGLE 1
 
 # define K_AMBIENCE 0.2
 # define STEP_K_AMBIENCE 0.05
@@ -97,7 +97,7 @@
 # define WINDOW_SDL_WIDTH 800
 # define WINDOW_SDL_HEIGHT 800
 
-# define NB_THREAD 8
+# define NB_THREAD 4
 
 # define SAVED_IMG_NAME "test.png"
 
@@ -475,10 +475,11 @@ void			update_normal_cylindre(t_object *tmp, t_path *path);
 void			update_normal_quadric(t_quadric *tmp, t_path *path);
 void			display_lights(t_param *param);
 int 			my_key_func(int keycode, t_param *param);
-/*
+t_path			*path_create(t_param *param, int index);
+	/*
 **REFRACTION
 */
-void			define_refracted_n(t_path *path1, t_path *path2);
+	void define_refracted_n(t_path *path1, t_path *path2);
 double		get_index_n(t_path *path);
 int				snell_descartes(double n1, double n2, t_path *path1, t_path *path2);
 /*
@@ -556,7 +557,7 @@ void							launch_threads(t_param *param);
 */
 
 void 							free_objects(t_param *param);
-void 							free_lights(t_param *param);
+void 							free_lights(t_light *lights);
 void 							free_path(t_path *path);
 void 							end_program(t_param *param);
 

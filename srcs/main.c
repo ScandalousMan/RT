@@ -6,7 +6,7 @@
 /*   By: itsalex <itsalex@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/21 17:02:46 by malexand          #+#    #+#             */
-/*   Updated: 2018/08/12 19:01:58 by itsalex          ###   ########.fr       */
+/*   Updated: 2018/08/29 11:17:37 by itsalex          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,34 +45,32 @@ int		main(int ac, char **av)
 	param->texture = IMG_Load("rouge.jpg");
 	printf("=> creating random noise map\n");
 	perlin_noise_generator(param);
-	param->to_pix = 0;//todo change
-	param->last_mv = clock();//todo change
-	param->start = clock();//TODO delete
+	param->to_pix = 0; // Rasterization
+	param->last_mv = clock(); // Clock
+	param->start = clock(); // Clock
 	printf("=> creating graph structure\n");
 	if ((param->graph = graph_init()) == NULL)
 		error(0, 0, "Can't allocate graph struct");
-	printf("=> parsing the scene\n");
 	if (!rt_parser(param, filename))
 		return (1);
 	sdl_init(param->graph);
 	printf("=> launching threads for RT computation\n");
-	launch_threads(param);
+	param->refresh = 1;
 	while (param->quit == FALSE)
 	{
 		sdl_pull_evts(param);
-		if (param->to_pix && ((double)(clock() - param->last_mv) / (double)CLOCKS_PER_SEC) > 0.4)
+		if (param->to_pix && ((double)(clock() - param->last_mv) / (double)CLOCKS_PER_SEC) > 0.4) // Rasterization
 		{
 			param->to_pix = 0;
 			param->refresh = 1;
 		}
 		nukl_gui(param);
-		if (param->refresh == 1)
+		if (param->refresh == 1 && param->quit == FALSE)
 		{
 			launch_threads(param);
 			sdl_draw(param->graph);
-			param->end = clock();//TODO delete
+			param->end = clock(); // Clock
 			printf("Render %.5lf secondes...\n", (double)(param->end - param->start) / CLOCKS_PER_SEC);
-			save_img(param);
 			param->refresh = 0;
 		}
 	}

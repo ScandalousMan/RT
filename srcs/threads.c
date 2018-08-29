@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   threads.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: itsalex <itsalex@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/27 15:05:21 by malexand          #+#    #+#             */
-/*   Updated: 2018/03/16 15:53:24 by jbouille         ###   ########.fr       */
+/*   Updated: 2018/08/29 14:24:53 by itsalex          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,30 @@ t_param		*param_cpy(t_param *param, int count)
 {
 	t_param		*param_cpy;
 
-	
-	if (!(param_cpy = struct_create()))
-			error(0, 0, "Init param for multi thread failed!");
+	if (!(param_cpy = (t_param *)malloc(sizeof(t_param))))
+		return (NULL);
+	param_cpy->brightness = 1;
+	param_cpy->quit = FALSE;
+	param_cpy->epsilon = EPSILON;
+	param_cpy->customs = NULL;
+	param_cpy->objects = NULL;
+	param_cpy->lights = NULL;
+	param_cpy->tmp_light = NULL;
+	param_cpy->intersect_object = NULL;
+	param_cpy->f = FOCAL_VALUE;
+	param_cpy->ia = 1.0;
+	param_cpy->num_lights = 0;
+	param_cpy->num_objects = 0;
+	param_cpy->refresh = 1;
+	param_cpy->current_thread = 0;
+	param_cpy->macro.anti_aliasing = ANTI_ALIASING;
+	param_cpy->macro.recursion = RECURSION;
+	param_cpy->macro.cartoon_factor = 25;
+	param_cpy->macro.blur_radius = BLUR_RADIUS;
+	param_cpy->macro.specular_exp = 1;
+	param_cpy->macro.rotation_angle = 30;
+	param_cpy->macro.k_ambience = K_AMBIENCE;
+	param_cpy->macro.filter = 0;
 	param_cpy->to_pix = param->to_pix;
 	param_cpy->last_mv = param->last_mv;
 	param_cpy->graph = param->graph;
@@ -46,6 +67,8 @@ t_param		*param_cpy(t_param *param, int count)
 	param_cpy->lights = light_copy(param->lights);
 	param_cpy->num_objects = param->num_objects;
 	param_cpy->pxl_infos = param->pxl_infos;
+	if (!(param_cpy->path = path_create(param_cpy, 0)))
+		return (NULL);
 	param_cpy->path->inside_obj = param->path->inside_obj;
 	perlin_noise_copy(param, param_cpy);
 	return (param_cpy);
@@ -57,47 +80,54 @@ static int	calc(void *ptr)
 
 	param = (t_param*)ptr;
 	rt_tracer(param);
-  return (0);
+	return (0);
 }
 
 void		launch_threads(t_param *param)
 {
-	int			count;
 	int			threadReturnValue;
-	char		*name;
+	int			count;
 	t_param		*params[NB_THREAD];
 
+	ft_putstr("==> Launch thread\n");
 	count = 0;
-	name = ft_strdup("Thread0");
-//	if (!(params = (t_param**)malloc(sizeof(t_param*) * NB_THREAD)))
-//		error(0, 0, "Alloc all thread not work");
 	while (count < NB_THREAD)
 	{
+		mprintf(1, "Create param_cpy %d\n", count);
 		params[count] = param_cpy(param, count);
 		++count;
 	}
-	clock_t start = clock();//TODO delete
+	clock_t start = clock();
 	count = 0;
 	while (count < NB_THREAD)
 	{
-		name[6] = 48 + count;
-	//	params[count] = param_cpy(param, count);
-		if (!(param->thread[count] = SDL_CreateThread(calc, name, (void*)params[count])))
+		mprintf(1, "Create thread %d\n", count);
+		if (!(param->thread[count] = SDL_CreateThread(calc, "", (void*)params[count])))
 			error(0, 0, "Create new thread failed!");
 		count++;
 	}
-	param->end = clock();//TODO delete
-//	printf("Create threads %.5lf secondes...\n", (double)(param->end - start) / CLOCKS_PER_SEC);
-	start = clock();//TODO delete
+	param->end = clock();// Clock
+	printf("Create threads takes %.5lf secondes...\n", (double)(param->end - start) / CLOCKS_PER_SEC);
+	start = clock();// Clock
 	count = 0;
 	while (count < NB_THREAD)
 	{
+		mprintf(1, "Wait thread %d\n", count);
 		SDL_WaitThread(param->thread[count], &threadReturnValue);
 		if (threadReturnValue != 0)
 			error(0, 0, "Thread wrong return value");
 		count++;
 	}
-	ft_strdel(&name);
-	param->end = clock();//TODO delete
-//	printf("Calculs %.5lf secondes...\n", (double)(param->end - start) / CLOCKS_PER_SEC);
+
+	count = 0;
+	while (count < NB_THREAD) {
+		mprintf(1, "Free param_cpy %d\n", count);
+		free_path(params[count]->path);
+		free_lights(params[count]->lights);
+		free_objects(params[count]);
+		free(params[count]);
+		++count;
+	}
+	param->end = clock();// Clock
+	printf("Calculs %.5lf secondes...\n", (double)(param->end - start) / CLOCKS_PER_SEC);
 }

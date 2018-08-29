@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_func.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
+/*   By: itsalex <itsalex@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 16:38:39 by aguemy            #+#    #+#             */
-/*   Updated: 2018/04/21 15:10:13 by jbouille         ###   ########.fr       */
+/*   Updated: 2018/08/28 17:04:49 by itsalex          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,16 +51,17 @@ void	free_objects(t_param *param)
 	}
 }
 
-void	free_lights(t_param *param)
+void	free_lights(t_light *lights)
 {
 	t_light		*tmp;
 
-	while (param && param->lights)
+	while (lights)
 	{
-		tmp = param->lights->next;
-		free(param->lights);
-		param->lights = tmp;
+		tmp = lights->next;
+		free(lights);
+		lights = tmp;
 	}
+	free(lights);
 }
 
 void	free_path(t_path *path)
