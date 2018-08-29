@@ -3,21 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: alex <alex@student.42.fr>                  +#+  +:+       +#+         #
+#    By: itsalex <itsalex@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/08/21 18:23:32 by malexand          #+#    #+#              #
-#    Updated: 2017/11/20 00:23:47 by alex             ###   ########.fr        #
+#    Updated: 2018/08/29 14:29:41 by itsalex          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 EXEC = RT
 
-ifndef CC
-CC 					= clang
-endif
-ifndef DEBUG
-DEBUG 				= no
-endif
+CC ?= clang
+DEBUG ?= false
 
 OS := $(shell uname -s)
 DEPEND_FRAGMENT = Make.depend
@@ -25,7 +21,7 @@ MAKEFLAGS += --silent
 
 export
 
-ifeq ($(DEBUG), yes)
+ifeq ($(DEBUG), true)
 	CFLAGS = -std=c99 -pedantic -g -ggdb `pkg-config --cflags sdl2` `pkg-config --cflags glew`
 else
 	CFLAGS =  -Wall -Werror -Wextra -O3 -Ofast `pkg-config --cflags sdl2` `pkg-config --cflags glew`
@@ -108,10 +104,10 @@ all: directories $(EXEC) $(DEPEND_FRAGMENT)
 $(LIBFT_FILE): $(LIBFT_DEP)
 ifeq ($(OS), Linux)
 	@echo -e "\x1B[34mLibft:\x1B[0m"
-	@make -C ./libft
+	@DEBUG=$(DEBUG) make -C ./libft
 else
 	@echo "\x1B[34mLibft:\x1B[0m"
-	@make -C ./libft
+	@DEBUG=$(DEBUG) make -C ./libft
 endif
 
 $(LIBJSON_FILE): $(LIBJSON_DEP)
@@ -147,7 +143,7 @@ endif
 
 $(DEPEND_FRAGMENT): $(SRCC)
 	@touch $(DEPEND_FRAGMENT)
-	@makedepend -f $(DEPEND_FRAGMENT) -- -Y -O -DHACK $(CFLAGS) $(INCLUDE) -- $(SRCC) >& /dev/null
+	@makedepend -f $(DEPEND_FRAGMENT) -- -Y -O -DHACK $(CFLAGS) $(CXXFLAGS) $(INCLUDE) -- $(SRCC) >& /dev/null
 	@sed 's/.\/srcs/.\/objs/g' $(DEPEND_FRAGMENT) > $(DEPEND_FRAGMENT).bak
 	@mv $(DEPEND_FRAGMENT).bak $(DEPEND_FRAGMENT)
 

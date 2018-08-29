@@ -3,21 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: malexand <malexand@student.42.fr>          +#+  +:+       +#+         #
+#    By: itsalex <itsalex@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/08/21 18:23:32 by malexand          #+#    #+#              #
-#    Updated: 2017/11/21 16:48:27 by malexand         ###   ########.fr        #
+#    Updated: 2018/08/29 14:30:00 by itsalex          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-EXEC = libft.a
+CC ?= clang
+DEBUG ?= true
 
-ifndef CC
-CC 					= clang
-endif
-ifndef DEBUG
-DEBUG 				= no
-endif
+EXEC = libft.a
 
 CC = clang
 OS := $(shell uname -s)
@@ -25,7 +21,7 @@ OS := $(shell uname -s)
 ifeq ($(DEBUG), yes)
 	CFLAGS = -std=c99 -pedantic -g -ggdb
 else
-	CFLAGS =  -Wall -Werror -Wextra
+	CFLAGS = -Wall -Werror -Wextra
 endif
 
 INCLUDE = -I./incs
