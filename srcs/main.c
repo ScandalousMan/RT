@@ -6,7 +6,7 @@
 /*   By: itsalex <itsalex@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/21 17:02:46 by malexand          #+#    #+#             */
-/*   Updated: 2018/08/29 11:17:37 by itsalex          ###   ########.fr       */
+/*   Updated: 2018/08/29 14:52:51 by itsalex          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ int		main(int ac, char **av)
 	if (!rt_parser(param, filename))
 		return (1);
 	sdl_init(param->graph);
-	printf("=> launching threads for RT computation\n");
 	param->refresh = 1;
 	while (param->quit == FALSE)
 	{

@@ -6,7 +6,7 @@
 /*   By: itsalex <itsalex@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 16:39:54 by aguemy            #+#    #+#             */
-/*   Updated: 2018/08/29 14:22:11 by itsalex          ###   ########.fr       */
+/*   Updated: 2018/08/29 14:44:48 by itsalex          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -336,7 +336,7 @@ typedef struct		s_param
 	t_macro			macro; // Contain all global variable across program
 
 	char			quit; // Used to know if program must exit
-	SDL_Surface		*texture; //
+	SDL_Surface		*texture;
 }				t_param;
 
 /*
