@@ -1,0 +1,7 @@
+{
+  "files.associations": {
+    "*.make": "makefile",
+    "*.Make": "makefile",
+    "rt.h": "c"
+  }
+}
