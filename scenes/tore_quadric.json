@@ -24,36 +24,6 @@
 
 	"objects": [
 		{
-			"type": "quadric",
-			"color": [100, 100, 100],
-			"kd": 0.55,
-			"ks": 0.25,
-			"texture":
-				{
-					"type": "native",
-					"name": "texture_1"
-				},
-			"transparency": 0,
-			"reflection": 0.3,
-			"n": 1,
-			"thickness": 0.5,
-			"translation": [0, 100, 0],
-			"rotation": [0, 0, 0],
-			"limits": [],
-
-			"center": [1.7, 1, 0],
-			"a": 3.4,
-			"b": 1,
-			"c": 1.0,
-			"d": 4,
-			"e": 6,
-			"f": 9,
-			"g": 346734.5,
-			"h": 23,
-			"i": 12.76
-		},
-
-		{
 			"type": "tore",
 			"color": [255, 255, 255],
 			"kd": 0.55,
@@ -70,7 +40,12 @@
 			"translation": [0, 0, 0],
 			"rotation": [0, 0, 0],
 			"limits": [],
-	
+			"reference":
+			{
+				"i": [0, 0, 1],
+				"j": [1, 0, 0]
+			},
+			"axis": [0, 0, 1],
 			"center": [0, 0, -90],
 			"R": 40.5,
 			"r": 3
