@@ -22,9 +22,9 @@ MAKEFLAGS += --silent
 export
 
 ifeq ($(DEBUG), true)
-	CFLAGS = -std=c99 -pedantic -g -ggdb `pkg-config --cflags sdl2` `pkg-config --cflags glew`
+	CFLAGS = -std=c99 -pedantic -g -ggdb `pkg-config --cflags sdl2` `pkg-config --cflags glew` `pkg-config --cflags gsl`
 else
-	CFLAGS =  -Wall -Werror -Wextra -O3 -Ofast `pkg-config --cflags sdl2` `pkg-config --cflags glew`
+	CFLAGS =  -Wall -Werror -Wextra -O3 -Ofast `pkg-config --cflags sdl2` `pkg-config --cflags glew` `pkg-config --cflags gsl`
 endif
 
 LIBFT_PATH = ./libft
@@ -38,10 +38,10 @@ LIBJSON_DEP = $(LIBJSON_PATH)/sources/*
 # Link lib : "-L FOLDER -lXXX" where XXX = libXXX.a
 
 ifeq ($(OS), Linux)
-	LFLAGS = -L./libjson -ljson -L./libft -lft `pkg-config --libs glew` `pkg-config --libs sdl2` -lSDL2_image -lGL -lm -lGLU -lgsl -lgslcblas -lm
+	LFLAGS = -L./libjson -ljson -L./libft -lft `pkg-config --libs glew` `pkg-config --libs gsl` `pkg-config --libs sdl2` -lSDL2_image -lGL -lm -lGLU
 	INCLUDE = -I./incs -I./libft/incs -I./libjson
 else
-	LFLAGS = -L./libft -lft -L./libjson -ljson `pkg-config --libs glew` `pkg-config --libs sdl2` -lSDL2_image -framework OpenGL -lm -lgsl -lgslcblas -lm
+	LFLAGS = -L./libft -lft -L./libjson -ljson `pkg-config --libs glew` `pkg-config --libs gsl` `pkg-config --libs sdl2` -lSDL2_image -framework OpenGL -lm
 	INCLUDE = -I./incs -I./libft/incs -I./libjson
 endif
 
