@@ -20,7 +20,8 @@ void			perlin_noise_copy(t_param *param1, t_param *param2)
 		param2->i[1] = 0;
 		while (param2->i[1] < NOISE_SIZE)
 		{
-			param2->perlin_noise[param2->i[0]][param2->i[1]] = param1->perlin_noise[param2->i[0]][param2->i[1]];
+			param2->perlin_noise[param2->i[0]][param2->i[1]] =
+				param1->perlin_noise[param2->i[0]][param2->i[1]];
 			param2->i[1]++;
 		}
 		param2->i[0]++;

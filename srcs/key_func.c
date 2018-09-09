@@ -6,63 +6,11 @@
 /*   By: itsalex <itsalex@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 16:38:39 by aguemy            #+#    #+#             */
-/*   Updated: 2018/08/28 17:04:49 by itsalex          ###   ########.fr       */
+/*   Updated: 2018/09/09 17:59:56 by vacrozet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
-
-void	free_objects(t_param *param)
-{
-	t_object	*tmp;
-	t_limit		*l_tmp;
-
-	while (param && param->objects)
-	{
-		tmp = param->objects->next;
-		if (param->objects->type == 1)
-		{
-			free ((t_sphere*)(param->objects->dim));
-		}
-		else if (param->objects->type == 2)
-		{
-			free ((t_plane*)(param->objects->dim));
-		}
-		else if (param->objects->type == 3)
-		{
-			free ((t_cone*)(param->objects->dim));
-		}
-		else if (param->objects->type == 4)
-		{
-			free ((t_cylindre*)(param->objects->dim));
-		}
-		else if (param->objects->type == 5)
-		{
-			free ((t_quadric*)(param->objects->dim));
-		}
-		while (param->objects->limits)
-		{
-			l_tmp = param->objects->limits->next;
-			free(param->objects->limits);
-			param->objects->limits = l_tmp;
-		}
-		free(param->objects);
-		param->objects = tmp;
-	}
-}
-
-void	free_lights(t_light *lights)
-{
-	t_light		*tmp;
-
-	while (lights)
-	{
-		tmp = lights->next;
-		free(lights);
-		lights = tmp;
-	}
-	free(lights);
-}
 
 void	free_path(t_path *path)
 {
@@ -77,12 +25,15 @@ void	free_path(t_path *path)
 void	end_program(t_param *param)
 {
 	UNUSED(param);
-//	free_objects(param);
-//	free_lights(param);
-//	free_path(param->path);
-//	free(param);
 	exit(0);
 }
+
+/*
+**	free_objects(param);
+**	free_lights(param);
+**	free_path(param->path);
+**	free(param);
+*/
 
 void	rotation_axis_matrice(double angle, double *axis, t_param *param)
 {
@@ -102,7 +53,8 @@ void	rotation_axis_matrice(double angle, double *axis, t_param *param)
 	param->rot[2][2] = axis[2] * axis[2] * (1.0 - c) + c;
 }
 
-void	rotation_matrice(double alpha, double beta, double gamma, t_param *param)
+void	rotation_matrice(double alpha, double beta, double gamma,
+			t_param *param)
 {
 	alpha = alpha * M_PI / 180.0;
 	beta = beta * M_PI / 180.0;
@@ -110,11 +62,15 @@ void	rotation_matrice(double alpha, double beta, double gamma, t_param *param)
 	param->rot[0][0] = cos(beta) * cos(gamma);
 	param->rot[0][1] = -1.0 * cos(beta) * sin(gamma);
 	param->rot[0][2] = sin(beta);
-	param->rot[1][0] = sin(alpha) * sin(beta) * cos(gamma) + cos(alpha) * sin(gamma);
-	param->rot[1][1] = cos(alpha) * cos(gamma) - sin(alpha) * sin(beta) * sin(gamma);
+	param->rot[1][0] = sin(alpha) * sin(beta) * cos(gamma) + cos(alpha)
+		* sin(gamma);
+	param->rot[1][1] = cos(alpha) * cos(gamma) - sin(alpha) * sin(beta)
+		* sin(gamma);
 	param->rot[1][2] = -1.0 * sin(alpha) * cos(beta);
-	param->rot[2][0] = sin(alpha) * sin(gamma) - cos(alpha) * sin(beta) * cos(gamma);
-	param->rot[2][1] = cos(alpha) * sin(beta) * sin(gamma) + sin(alpha) * cos(gamma);
+	param->rot[2][0] = sin(alpha) * sin(gamma) - cos(alpha) * sin(beta)
+		* cos(gamma);
+	param->rot[2][1] = cos(alpha) * sin(beta) * sin(gamma) + sin(alpha)
+		* cos(gamma);
 	param->rot[2][2] = cos(alpha) * cos(beta);
 }
 

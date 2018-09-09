@@ -59,7 +59,8 @@ int	jobject_contains(t_jobject *obj, t_key key)
 	while (tmp)
 	{
 		if (ft_strequ(tmp->key, key.key))
-			return (is_type(tmp->value, tmp->type, key.type, key.content_type));
+			return (is_type(tmp->value, tmp->type, key.type,
+					key.content_type));
 		tmp = tmp->next;
 	}
 	return (0);
@@ -79,7 +80,8 @@ const char	*get_string_value(t_jobject *obj, const char *key)
 	return (NULL);
 }
 
-int	is_object(t_jobject *obj, const t_key *keys, const size_t keys_size, int is_common);
+int	is_object(t_jobject *obj, const t_key *keys, const size_t keys_size,
+	int is_common);
 
 int	is_rt_object(t_jobject *obj)
 {
@@ -93,7 +95,8 @@ int	is_rt_object(t_jobject *obj)
 	{
 //		printf("is_rt_objects: %zu\n", g_objects[i].size);
 		if (ft_strequ(g_objects[i].name, rt_type))
-			return (is_object(obj, g_objects[i].key, g_objects[i].size, 1));
+			return (is_object(obj, g_objects[i].key,
+					g_objects[i].size, 1));
 		++i;
 	}
 	return (0);
@@ -110,7 +113,8 @@ int	is_type(void* value, t_jtype jtype, t_rt_type type, t_rt_type subtype)
 	else if (type == RTDOUBLE)
 		return (jtype == JDOUBLE || jtype == JINT);
 	else if (type == RTUDOUBLE)
-		return ((jtype == JINT && *((int*)value) >= 0) || (jtype == JDOUBLE && *((double*)value) >= 0.0));
+		return ((jtype == JINT && *((int*)value) >= 0) || (jtype == JDOUBLE
+				&& *((double*)value) >= 0.0));
 	else if (type == RTCHAR)
 		return (jtype == JINT && *((int*)value) >= 0 && *((int*)value) <= 255);
 	else if (type == RTINT)
@@ -118,11 +122,11 @@ int	is_type(void* value, t_jtype jtype, t_rt_type type, t_rt_type subtype)
 	else if (type == RTARRAY)
 		return (jtype == JARRAY && check_subtypes((t_jarray*)value, subtype));
 	else if (type == RTCAMERA)
-		return (jtype == JOBJECT
-				&& is_object((t_jobject*)value, g_camera_keys, RT_KEYS_SIZE(g_camera_keys), 0));
+		return (jtype == JOBJECT && is_object((t_jobject*)value, g_camera_keys,
+			RT_KEYS_SIZE(g_camera_keys), 0));
 	else if (type == RTLIGHT)
-		return (jtype == JOBJECT
-				&& is_object((t_jobject*)value, g_light_keys, RT_KEYS_SIZE(g_light_keys), 0));
+		return (jtype == JOBJECT && is_object((t_jobject*)value, g_light_keys,
+			RT_KEYS_SIZE(g_light_keys), 0));
 	else if (type == RTOBJECT)
 		return (jtype == JOBJECT && is_rt_object((t_jobject*)value));
 	else if (type == RTVECTOR)
@@ -208,17 +212,13 @@ int	json_to_objects(t_jobject *obj, t_param *param)
 {
 	if (is_object(obj, g_main_object_keys, RT_KEYS_SIZE(g_main_object_keys), 0) == 0)
 		return (0);
-//	printf("obj_size: %zu\n", jobject_len(((t_jarray*)((t_jobject*)(obj->value))->value)->value));//DEBUG
 	if (camera_storage(obj, param) == 0)
 		return (0);
 	vec_to_unit_norm(vector_product(param->align, param->look, param->third));
 	param->customs = customs_storage(obj, param);
 	param->lights = lights_storage(obj);
 	param->objects = objects_storage(obj, param);
-	//ATTENTION AUX RETOURS
 	display_lights(param);
 	display_objects(param);	
-//	if (!(objects_storage(obj, param)))
-//		return (0);
 	return (1);
 }

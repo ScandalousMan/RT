@@ -34,7 +34,7 @@ void	save_img(t_param *param)
 	}
 	if (IMG_SavePNG(surf, SAVED_IMG_NAME))
 		error(0, 0, "cannot save the image");
-	else 
+	else
 		mprintf(1, "image has been saved\n");
 	SDL_FreeSurface(surf);
 }

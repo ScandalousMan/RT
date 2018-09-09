@@ -64,6 +64,7 @@ SRCS =		closest.c \
 			file.c \
 			json_to_objects.c \
 			key_func.c \
+			key_func_2.c \
 			light.c \
 			main.c \
 			new_functions.c \

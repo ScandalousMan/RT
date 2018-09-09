@@ -638,5 +638,8 @@ void							free_objects(t_param *param);
 void							free_lights(t_light *lights);
 void							free_path(t_path *path);
 void							end_program(t_param *param);
-
+void							rotation_axis_matrice(double angle,
+									double *axis, t_param *param);
+// int								json_to_objects(t_jobject *obj, t_param* param);
+									
 #endif

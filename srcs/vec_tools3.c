@@ -6,7 +6,7 @@
 /*   By: aguemy <aguemy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/19 11:07:29 by aguemy            #+#    #+#             */
-/*   Updated: 2017/10/25 19:55:08 by jbouille         ###   ########.fr       */
+/*   Updated: 2018/09/09 17:29:40 by vacrozet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ double	second_level(double a, double b, double c)
 		return ((-b - det) / 2.0 / a);
 }
 
-void	matrice_product(double mat[VEC_SIZE][VEC_SIZE], double *col, double *dest)
+void	matrice_product(double mat[VEC_SIZE][VEC_SIZE], double *col,
+			double *dest)
 {
 	double	a;
 	double	b;
@@ -51,28 +52,25 @@ double	*vec_dup(double *vec)
 	double	*res;
 
 	if (!(res = (double*)malloc(sizeof(double) * 3)))
-		return NULL;
+		return (NULL);
 	vec_copy(vec, res);
-	return res;
+	return (res);
 }
 
-void 		object_rotation(double mat[VEC_SIZE][VEC_SIZE], t_object *object)
+void	object_rotation(double mat[VEC_SIZE][VEC_SIZE], t_object *object)
 {
 	t_limit *tmp;
-	//1: appliquer la rotation au référentiel de l'objet
+
 	matrice_product(mat, object->ref.i, object->ref.i);
 	matrice_product(mat, object->ref.j, object->ref.j);
 	matrice_product(mat, object->ref.k, object->ref.k);
-	//2: appliquer la rotation aux limites de l'objet
 	tmp = object->limits;
 	while (tmp)
 	{
-		// ajouter typologie de limite (soit absolue, soit relative)
 		matrice_product(mat, tmp->plane.n, tmp->plane.n);
-		matrice_product(mat, tmp->plane.ref, tmp->plane.ref);	
+		matrice_product(mat, tmp->plane.ref, tmp->plane.ref);
 		tmp = tmp->next;
 	}
-	//3: appliquer la rotation aux spécificités de l'objet (dans les objets)
 	if (object->type != 1)
 		printf("not a sphere\n");
 }
