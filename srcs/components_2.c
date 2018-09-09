@@ -1,0 +1,32 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   components_2.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vacrozet <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/09/09 17:02:57 by vacrozet          #+#    #+#             */
+/*   Updated: 2018/09/09 17:02:59 by vacrozet         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "rt.h"
+
+double		ft_absdbl(double a)
+{
+	return (a < 0.0 ? -1.0 * a : a);
+}
+
+int			ft_absint(int a)
+{
+	return (a < 0 ? -1 * a : a);
+}
+
+void		ft_putvec(double *x)
+{
+	ft_putdbl(x[0], 4);
+	ft_putstr(", ");
+	ft_putdbl(x[1], 4);
+	ft_putstr(", ");
+	ft_putdbl(x[2], 4);
+}

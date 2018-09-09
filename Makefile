@@ -55,6 +55,7 @@ SDIR =		./srcs/
 
 SRCS =		closest.c \
 			components.c \
+			components_2.c \
 			cone_tools.c \
 			constructor.c \
 			cylindre_tools.c \
@@ -73,10 +74,12 @@ SRCS =		closest.c \
 			objects/cone.c \
 			objects/cylindre.c \
 			objects/plane.c \
+			objects/plane_2.c \
 			objects/quadric.c \
 			objects/sphere.c \
 			perlin.c \
 			postprocessing.c \
+			postprocessing_2.c \
 			quadric_tools.c \
 			rt_parser.c \
 			save_img.c \

@@ -550,8 +550,11 @@ int								snell_descartes(double n1, double n2,
 **POST PROCESSING FUNCTIONS
 */
 void							greyscale(t_param *param);
+int								greyscaler(int color);
 void							sepia(t_param *param);
+int								sepiacer(int color);
 void							cartoon(t_param *param);
+int								cartooner(t_param *param, int color);
 void							blur(t_param *param);
 void							stereoscopy(t_param *param);
 void							to_negative(t_param *param);

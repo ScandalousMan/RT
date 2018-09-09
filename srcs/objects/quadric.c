@@ -6,7 +6,7 @@
 /*   By: itsalex <itsalex@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/29 14:43:38 by itsalex           #+#    #+#             */
-/*   Updated: 2018/08/29 14:43:41 by itsalex          ###   ########.fr       */
+/*   Updated: 2018/09/09 16:31:47 by vacrozet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 
 double	distance_to_quadric(t_object *tmp, double *from, double *to)
 {
-	return (vec_norm(to) * second_level(quadric_first_term((t_quadric*)(tmp->dim), to),
-		quadric_second_term((t_quadric*)(tmp->dim), from, to), quadric_third_term((t_quadric*)(tmp->dim), from)));
+	return (vec_norm(to)
+			* second_level(quadric_first_term((t_quadric*)(tmp->dim), to),
+			quadric_second_term((t_quadric*)(tmp->dim), from, to),
+			quadric_third_term((t_quadric*)(tmp->dim), from)));
 }
 
 void	update_normal_quadric(t_quadric *tmp, t_path *path)
@@ -34,18 +36,19 @@ void	update_normal_quadric(t_quadric *tmp, t_path *path)
 int		is_inside_quadric(double *pt, t_quadric *tmp)
 {
 	return (
-		tmp->a * (pt[0] - tmp->center[0]) * (pt[0] - tmp->center[0]) +
-		tmp->d * (pt[0] - tmp->center[0]) * (pt[1] - tmp->center[1]) + 
-		tmp->g * (pt[0] - tmp->center[0]) * (pt[2] - tmp->center[2]) +
-		tmp->b * (pt[1] - tmp->center[1]) * (pt[0] - tmp->center[0]) +
-		tmp->e * (pt[1] - tmp->center[1]) * (pt[1] - tmp->center[1]) +
-		tmp->h * (pt[1] - tmp->center[1]) * (pt[2] - tmp->center[2]) +
-		tmp->c * (pt[2] - tmp->center[2]) * (pt[0] - tmp->center[0]) +
-		tmp->f * (pt[2] - tmp->center[2]) * (pt[1] - tmp->center[1]) +
-		tmp->i * (pt[2] - tmp->center[2]) * (pt[2] - tmp->center[2]) - tmp->r * tmp->r <= 0.0 ? 1 : 0);
+			tmp->a * (pt[0] - tmp->center[0]) * (pt[0] - tmp->center[0]) +
+			tmp->d * (pt[0] - tmp->center[0]) * (pt[1] - tmp->center[1]) +
+			tmp->g * (pt[0] - tmp->center[0]) * (pt[2] - tmp->center[2]) +
+			tmp->b * (pt[1] - tmp->center[1]) * (pt[0] - tmp->center[0]) +
+			tmp->e * (pt[1] - tmp->center[1]) * (pt[1] - tmp->center[1]) +
+			tmp->h * (pt[1] - tmp->center[1]) * (pt[2] - tmp->center[2]) +
+			tmp->c * (pt[2] - tmp->center[2]) * (pt[0] - tmp->center[0]) +
+			tmp->f * (pt[2] - tmp->center[2]) * (pt[1] - tmp->center[1]) +
+			tmp->i * (pt[2] - tmp->center[2]) * (pt[2] - tmp->center[2]) -
+			tmp->r * tmp->r <= 0.0 ? 1 : 0);
 }
 
-double *quadric_position(double *pt, t_object *obj)
+double	*quadric_position(double *pt, t_object *obj)
 {
 	if (pt)
 		return (obj->uv_map);

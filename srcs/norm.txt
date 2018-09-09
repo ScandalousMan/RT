@@ -1,0 +1,17 @@
+Norme: ./constructor.c
+Error: global scope bad aligned
+Error: 6 functions in the file
+Error (line 22): line has 93 characters
+Error (line 23): line has 95 characters
+Error (line 29): line has 95 characters
+Error (line 34): line has 109 characters
+Error (line 39): line has 105 characters
+Error (line 48): declarations in copy_pxls are bad aligned
+Error (line 51, col 4): bad spacing
+Error (line 64): line has 88 characters
+Error (line 68): line has 88 characters
+Error (line 74, col 8): missing parentheses in return statement
+Error (line 77): function stereoscopy_cpy has 28 lines
+Error (line 111, col 4): bad spacing
+Error (line 125): function struct_create has 33 lines
+Error (line 131): line has 82 characters

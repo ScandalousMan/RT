@@ -19,8 +19,10 @@ t_path			*path_create(t_param *param, int index)
 	if (!(path = (t_path*)malloc(sizeof(t_path))))
 		return (NULL);
 	path->current_object = NULL;
-	path->reflected = index < param->macro.recursion ? path_create(param, index + 1) : NULL;
-	path->transmitted = index < param->macro.recursion ? path_create(param, index + 1) : NULL;
+	path->reflected = index < param->macro.recursion ? path_create(param,
+		index + 1) : NULL;
+	path->transmitted = index < param->macro.recursion ? path_create(param,
+		index + 1) : NULL;
 	return (path);
 }
 
@@ -44,10 +46,10 @@ t_param			*pxl_infos_create(t_param *param)
 	return (param);
 }
 
-t_sdl				*copy_pxls(t_param *param)
+t_sdl			*copy_pxls(t_param *param)
 {
-	t_sdl *graph;
-	int 	count;
+	t_sdl	*graph;
+	int		count;
 
 	count = 0;
 	if (!(graph = (t_sdl*)malloc(sizeof(t_sdl))))
@@ -59,17 +61,17 @@ t_sdl				*copy_pxls(t_param *param)
 	while (count < NB_THREAD)
 	{
 		if ((graph->surfs[count] = SDL_CreateRGBSurfaceWithFormat(0,
-		WINDOW_SDL_WIDTH, WINDOW_SDL_HEIGHT / NB_THREAD, 32, SDL_PIXELFORMAT_ARGB8888))
-		== NULL)
+		WINDOW_SDL_WIDTH, WINDOW_SDL_HEIGHT / NB_THREAD, 32,
+		SDL_PIXELFORMAT_ARGB8888)) == NULL)
 			error(0, 0, "Can't create all surface");
 		if ((graph->tmp_surfs[count] = SDL_CreateRGBSurfaceWithFormat(0,
-		WINDOW_SDL_WIDTH, WINDOW_SDL_HEIGHT / NB_THREAD, 32, SDL_PIXELFORMAT_ARGB8888))
-		== NULL)
+		WINDOW_SDL_WIDTH, WINDOW_SDL_HEIGHT / NB_THREAD, 32,
+		SDL_PIXELFORMAT_ARGB8888)) == NULL)
 			error(0, 0, "Can't create all surface");
 		count++;
 	}
 	graph->show_tmp = 0;
-	return graph;
+	return (graph);
 }
 
 t_param			*stereoscopy_cpy(t_param *param1)
@@ -104,9 +106,9 @@ t_param			*stereoscopy_cpy(t_param *param1)
 	return (param);
 }
 
-void				stereoscopy_free(t_param *param)
+void			stereoscopy_free(t_param *param)
 {
-	int 	count;
+	int		count;
 
 	count = 0;
 	while (count < NB_THREAD)
@@ -125,7 +127,8 @@ t_param			*struct_create(void)
 
 	if (!(param = (t_param*)malloc(sizeof(t_param))))
 		return (NULL);
-	if (!(param->thread = (SDL_Thread**)malloc(sizeof(SDL_Thread*) * NB_THREAD)))
+	if (!(param->thread = (SDL_Thread**)malloc(sizeof(SDL_Thread*)
+		* NB_THREAD)))
 		return (NULL);
 	param->brightness = 1;
 	param->quit = FALSE;
