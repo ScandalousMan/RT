@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itsalex <itsalex@student.42.fr>            +#+  +:+       +#+        */
+/*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 16:39:54 by aguemy            #+#    #+#             */
-/*   Updated: 2018/08/29 14:44:48 by itsalex          ###   ########.fr       */
+/*   Updated: 2018/09/08 17:00:42 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -534,7 +534,9 @@ void							putpxl(t_param *param, int y, int x, Uint32 pixel);
 Uint32							jpg_find_pxl(t_param *param, double x, double y);
 void							save_img(t_param *param);
 void							sdl_draw(t_sdl *graph);
-void							sdl_init(t_sdl *graph);
+void 							sdl_init(t_sdl *graph);
+void							sdl_init_window(t_sdl *graph);
+void							sdl_init_nuklear(t_sdl *graph);
 void							sdl_pull_evts(t_param *param);
 void							sdl_quit(t_sdl *graph);
 
