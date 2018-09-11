@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itsalex <itsalex@student.42.fr>            +#+  +:+       +#+        */
+/*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 16:39:54 by aguemy            #+#    #+#             */
 /*   Updated: 2018/09/08 16:29:32 by vacrozet         ###   ########.fr       */
@@ -635,7 +635,9 @@ Uint32							jpg_find_pxl(t_param *param, double x,
 									double y);
 void							save_img(t_param *param);
 void							sdl_draw(t_sdl *graph);
-void							sdl_init(t_sdl *graph);
+void 							sdl_init(t_sdl *graph);
+void							sdl_init_window(t_sdl *graph);
+void							sdl_init_nuklear(t_sdl *graph);
 void							sdl_pull_evts(t_param *param);
 void							sdl_quit(t_sdl *graph);
 

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: itsalex <itsalex@student.42.fr>            +#+  +:+       +#+         #
+#    By: malexand <malexand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/08/21 18:23:32 by malexand          #+#    #+#              #
-#    Updated: 2018/08/29 14:29:41 by itsalex          ###   ########.fr        #
+#    Updated: 2018/09/08 16:49:52 by malexand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -84,6 +84,7 @@ SRCS =		closest.c \
 			sdl/draw.c \
 			sdl/events.c \
 			sdl/init.c \
+			sdl/init_window.c \
 			sdl/keyboard.c \
 			sdl/utils.c \
 			threads.c \

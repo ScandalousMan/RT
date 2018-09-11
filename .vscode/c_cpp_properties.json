@@ -27,7 +27,7 @@
                     "${workspaceFolder}/libft/incs",
                     "${workspaceFolder}/libjson/includes",
                     "/Users/malexand/.brew/include/SDL2",
-                    "/Users/malexand/.brew/include",                                    
+                    "/Users/malexand/.brew/include",
                     "/usr/local/Cellar",
                     "/usr/local/Cellar/sdl2/2.0.8/include/SDL2",
                     "/usr/local/Cellar/sdl2_image/2.0.3/include/SDL2",
@@ -102,5 +102,5 @@
             "cppStandard": "c++17"
         }
     ],
-    "version": 3
+    "version": 4
 }
