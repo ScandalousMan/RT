@@ -117,7 +117,7 @@ void	nukl_gui(t_param *param)
 				param->up_img.post_process = TRUE;
 			}
 		}
-		nk_layout_space_begin(param->graph->ctx, NK_STATIC, 20, INT_MAX);
+		nk_layout_space_begin(param->graph->ctx, NK_STATIC, 100, INT_MAX);
 		nk_layout_space_push(param->graph->ctx, nk_rect(15, 0, 40, 20));
 		if (nk_button_label(param->graph->ctx, "UPDATE"))
 		{
@@ -125,6 +125,11 @@ void	nukl_gui(t_param *param)
 			param->up_img.post_process = TRUE;
 			mprintf(1, "Refresh engaged\n");
 		}
+		nk_layout_space_end(param->graph->ctx);
+		nk_layout_space_begin(param->graph->ctx, NK_STATIC, 100, INT_MAX);
+		nk_layout_space_push(param->graph->ctx, nk_rect(15, 0, 40, 20));
+		if (nk_button_label(param->graph->ctx, "SAVE"))
+			save_img(param);
 		nk_layout_space_end(param->graph->ctx);
 	}
 	nk_end(param->graph->ctx);

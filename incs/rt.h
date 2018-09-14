@@ -99,7 +99,7 @@
 
 # define NB_THREAD 4
 
-# define SAVED_IMG_NAME "test.png"
+# define SAVED_IMG_NAME "screenshot.png"
 
 # define MAX_VERTEX_MEMORY 512 * 1024
 # define MAX_ELEMENT_MEMORY 128 * 1024
