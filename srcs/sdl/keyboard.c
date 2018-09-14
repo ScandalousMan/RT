@@ -14,6 +14,15 @@
 
 void	handle_keyboard(int keycode, t_param *param)
 {
+	// Enable rasterization
+	if (keycode == SDLK_a || keycode == SDLK_q || keycode == SDLK_w ||
+	keycode == SDLK_s || keycode == SDLK_z || keycode == SDLK_x ||
+	keycode == SDLK_RIGHT || keycode == SDLK_LEFT || keycode == SDLK_UP ||
+	keycode == SDLK_DOWN || keycode == SDLK_KP_PLUS || keycode == SDLK_KP_MINUS)
+	{
+		param->to_pix = 1;
+		param->last_mv = clock();
+	}
 	if (keycode == SDLK_RIGHT) //droite
 		param->eye[0] += 10;
 	else if (keycode == SDLK_LEFT) //gauche
