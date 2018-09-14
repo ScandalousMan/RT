@@ -44,7 +44,6 @@ static	void	handle_clic(t_param *param, SDL_MouseButtonEvent evt)
 
 static	void	handle_keyboard_events(t_param *param, SDL_Event evt)
 {
-	param->to_pix = 1;
 	printf("Keycode: %d, Charac: %c\n", evt.key.keysym.sym,
 		evt.key.keysym.sym);
 	if (SDL_GetModState() != KMOD_LSHIFT && SDL_GetModState() != KMOD_RSHIFT &&
@@ -52,7 +51,6 @@ static	void	handle_keyboard_events(t_param *param, SDL_Event evt)
 		handle_keyboard(evt.key.keysym.sym, param);
 	else
 		handle_keyboard_caps(evt.key.keysym.sym, param);
-	param->last_mv = clock();
 	param->refresh = 1;
 }
 
