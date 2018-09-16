@@ -19,6 +19,7 @@ t_path			*path_create(t_param *param, int index)
 	if (!(path = (t_path*)malloc(sizeof(t_path))))
 		return (NULL);
 	path->current_object = NULL;
+	path->inside_obj = NULL;
 	path->reflected = index < param->macro.recursion ? path_create(param, index + 1) : NULL;
 	path->transmitted = index < param->macro.recursion ? path_create(param, index + 1) : NULL;
 	return (path);
