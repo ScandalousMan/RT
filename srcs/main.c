@@ -105,5 +105,10 @@ int		main(int ac, char **av)
 	}
 	sdl_quit(param->graph);
 	end_program(param);
+	sleep(3);
+	while (1)
+	{
+
+	}
 	return (0);
 }
