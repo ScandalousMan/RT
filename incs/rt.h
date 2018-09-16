@@ -221,7 +221,7 @@ typedef struct	s_object
 	int					phong;//exposant de Phong de l'objet
 	t_limit			*limits;
 	double			uv_map[2];
-	t_effects		*effects;
+	t_effects		effects;
 	double			rotation[VEC_SIZE];
 	double			translation[VEC_SIZE];
 	struct s_object	*next;//liste chainée

@@ -14,29 +14,18 @@
 
 static	void	handle_clic(t_param *param, SDL_MouseButtonEvent evt)
 {
-	int test;
-	int type;
-	int third;
 	int num;
+	int type;
 
-	test = -1;
 	type = -1;
-	third = -1;
 	num = -1;
-	if (evt.button == SDL_BUTTON_LEFT)
-	{
-		if (param->pxl_infos[evt.y][evt.x]->object)
-		{
-			test = param->pxl_infos[evt.y][evt.x]->col;
-			type = param->pxl_infos[evt.y][evt.x]->calc_col;
-			third = param->pxl_infos[evt.y][evt.x]->object->type;
+	if (evt.button == SDL_BUTTON_LEFT) {
+		if (param->pxl_infos[evt.y][evt.x]->object) {
 			num = param->pxl_infos[evt.y][evt.x]->object->num;
+			type = param->pxl_infos[evt.y][evt.x]->object->type;
 		}
-		mprintf(1, "Mouse LEFT button pressed at : x=[%d], y=[%d], \
-			num=[%d] type=[%d], col=[%d], calc_col=[%d]\n",
-			evt.x, evt.y, num, third, test, type);
-	}
-	else if (evt.button == SDL_BUTTON_MIDDLE)
+		mprintf(1, "Mouse LEFT button pressed at : x=[%d], y=[%d], num=[%d] type=[%d]\n", evt.x, evt.y, num, type);
+	} else if (evt.button == SDL_BUTTON_MIDDLE) {
 		ft_putendl("Mouse MIDDLE button pressed");
 	else if (evt.button == SDL_BUTTON_RIGHT)
 		ft_putendl("Mouse RIGHT button pressed");
