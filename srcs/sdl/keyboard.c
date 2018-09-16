@@ -21,6 +21,8 @@ void	handle_keyboard(int keycode, t_param *param)
 	keycode == SDLK_DOWN || keycode == SDLK_KP_PLUS || keycode == SDLK_KP_MINUS)
 	{
 		param->to_pix = 1;
+		param->up_img.process = TRUE;
+		param->up_img.post_process = TRUE;
 		param->last_mv = clock();
 	}
 	if (keycode == SDLK_RIGHT) //droite

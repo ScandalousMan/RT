@@ -51,7 +51,6 @@ static	void	handle_keyboard_events(t_param *param, SDL_Event evt)
 		handle_keyboard(evt.key.keysym.sym, param);
 	else
 		handle_keyboard_caps(evt.key.keysym.sym, param);
-	param->refresh = 1;
 }
 
 void			sdl_pull_evts(t_param *param)
