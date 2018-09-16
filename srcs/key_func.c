@@ -38,7 +38,6 @@ void	free_objects(t_param *param)
 			free(param->objects->limits);
 			param->objects->limits = l_tmp;
 		}
-		free(param->objects->effects);
 		free(param->objects);
 		param->objects = tmp;
 	}

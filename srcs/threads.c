@@ -94,7 +94,8 @@ void		launch_threads(t_param *param)
 	while (count < NB_THREAD)
 	{
 		mprintf(1, "Create param_cpy %d\n", count);
-		params[count] = param_cpy(param, count);
+		if (!(params[count] = param_cpy(param, count)))
+			return ;
 		++count;
 	}
 	clock_t start = clock();
