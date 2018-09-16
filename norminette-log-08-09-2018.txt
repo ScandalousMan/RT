@@ -1,0 +1,1139 @@
+Norme: ./srcs/components.c
+Error: global scope bad aligned
+Error: 8 functions in the file
+Error (line 13): preprocessor block must be followed by one empty line
+Error (line 14): bad spacing before ft_absdbl
+Error (line 16, col 8): missing parentheses in return statement
+Error (line 19): Space before function name
+Error (line 19, col 3): bad spacing
+Error (line 21, col 8): missing parentheses in return statement
+Error (line 49): must begin only by tabulations
+Error (line 51): must begin only by tabulations
+Error (line 53, col 2): space before )
+Error (line 56): Space before function name
+Error (line 56, col 3): bad spacing
+Error (line 59): line has 103 characters
+Error (line 60): line has 98 characters
+Error (line 62, col 1): space before )
+Error (line 65): function display_info has 27 lines
+Error (line 82): C++ comment
+Error (line 83): C++ comment
+Error (line 84): C++ comment
+Error (line 85): bad indentation
+Error (line 88): C++ comment
+Error (line 89): C++ comment
+Error (line 90): C++ comment
+Error (line 91): bad indentation
+Norme: ./srcs/constructor.c
+Error: global scope bad aligned
+Error: 6 functions in the file
+Error (line 22): line has 93 characters
+Error (line 23): line has 95 characters
+Error (line 29): line has 95 characters
+Error (line 34): line has 109 characters
+Error (line 39): line has 105 characters
+Error (line 48): declarations in copy_pxls are bad aligned
+Error (line 51, col 4): bad spacing
+Error (line 64): line has 88 characters
+Error (line 68): line has 88 characters
+Error (line 74, col 8): missing parentheses in return statement
+Error (line 77): function stereoscopy_cpy has 28 lines
+Error (line 111, col 4): bad spacing
+Error (line 125): function struct_create has 33 lines
+Error (line 131): line has 82 characters
+Norme: ./srcs/closest.c
+Error: 7 functions in the file
+Error: 42 header not at top of the file
+Error: file must end with a single empty line
+Error (line 3): declarations in closest_object are bad aligned
+Error (line 3): function closest_object has 66 lines
+Error (line 3): declarations in closest_object must be at the top of the function
+Error (line 3): line has 84 characters
+Error (line 5, col 13): missing space around =
+Error (line 6, col 11): objs is instanciated during declaration
+Error (line 15): C++ comment
+Error (line 16): C++ comment
+Error (line 18): line has 94 characters
+Error (line 22): C++ comment
+Error (line 23): C++ comment
+Error (line 23): line has 109 characters
+Error (line 30): line has 101 characters
+Error (line 31): line has 88 characters
+Error (line 33): line has 95 characters
+Error (line 35): bad indentation
+Error (line 35): C++ comment
+Error (line 36): bad indentation
+Error (line 36): C++ comment
+Error (line 45): C++ comment
+Error (line 46): C++ comment
+Error (line 49): bad indentation
+Error (line 49): C++ comment
+Error (line 50): bad indentation
+Error (line 50): C++ comment
+Error (line 50): spaces at the end of line
+Error (line 55): line has 82 characters
+Error (line 60): line has 97 characters
+Error (line 62): bad indentation
+Error (line 62): C++ comment
+Error (line 63): line has 137 characters
+Error (line 78, col 9): missing parentheses in return statement
+Error (line 80, col 9): missing parentheses in return statement
+Error (line 82, col 9): missing parentheses in return statement
+Error (line 84, col 9): missing parentheses in return statement
+Error (line 86, col 9): missing parentheses in return statement
+Error (line 88, col 9): missing parentheses in return statement
+Error (line 134, col 10): missing parentheses in return statement
+Error (line 137, col 8): missing parentheses in return statement
+Error (line 140): Space before function name
+Error (line 140, col 4): bad spacing
+Error (line 142, col 5): bad spacing
+Error (line 147): line has 146 characters
+Error (line 149): line has 199 characters
+Error (line 152): line has 96 characters
+Error (line 157): line has 114 characters
+Error (line 162): line has 96 characters
+Error (line 167): line has 82 characters
+Error (line 170, col 2): missing space after return
+Error (line 173): line has 86 characters
+Error (line 178): multiple empty lines
+Norme: ./srcs/cone_tools.c
+Error: 42 header not at top of the file
+Error (line 6): bad indentation
+Error (line 10): bad indentation
+Error (line 16): bad indentation
+Error (line 21): bad indentation
+Error (line 27): bad indentation
+Error (line 28): must begin only by tabulations
+Error (line 32): bad indentation
+Norme: ./srcs/cylindre_tools.c
+Error: 42 header not at top of the file
+Error (line 5): line has 184 characters
+Error (line 6): line has 184 characters
+Error (line 7): line has 184 characters
+Error (line 12): line has 211 characters
+Error (line 13): line has 204 characters
+Error (line 14): line has 205 characters
+Error (line 19): line has 224 characters
+Error (line 20): line has 224 characters
+Error (line 21): line has 224 characters
+Error (line 22): line has 84 characters
+Norme: ./srcs/distance.c
+Error (line 15, col 50): bad character after ,
+Norme: ./srcs/graph_init.c
+Norme: ./srcs/display.c
+Error: 42 header not at top of the file
+Error (line 3): function display_objects has 129 lines
+Error (line 3): declarations must be followed by one empty line in display_objects
+Error (line 5, col 11): objs is instanciated during declaration
+Error (line 154): line has 85 characters
+Norme: ./srcs/file.c
+Error: global scope bad aligned
+Error: 6 functions in the file
+Error (line 19): C++ comment
+Error (line 22): comment not well formatted
+Error (line 31): comment not well formatted
+Error (line 33): Space before function name
+Error (line 78): bad indentation
+Error (line 78): C++ comment
+Error (line 109): Space before function name
+Error (line 123): Empty line
+Error (line 124): comment not well formatted
+Error (line 124): comment not well placed
+Error (line 125): bad indentation
+Error (line 125): C++ comment
+Error (line 126): bad indentation
+Error (line 126): C++ comment
+Error (line 127): comment not well formatted
+Error (line 127): comment not well placed
+Error (line 128): Empty line
+Norme: ./srcs/key_func.c
+Error: 7 functions in the file
+Error (line 15): function free_objects has 27 lines
+Error (line 24, col 8): Spacing after call to free
+Error (line 26, col 8): Spacing after call to free
+Error (line 28, col 8): Spacing after call to free
+Error (line 30, col 8): Spacing after call to free
+Error (line 32, col 8): Spacing after call to free
+Error (line 34, col 8): Spacing after call to free
+Error (line 72): C++ comment
+Error (line 73): C++ comment
+Error (line 74): C++ comment
+Error (line 75): C++ comment
+Error (line 97): line has 82 characters
+Error (line 105): line has 86 characters
+Error (line 106): line has 86 characters
+Error (line 108): line has 86 characters
+Error (line 109): line has 86 characters
+Norme: ./srcs/main.c
+Error (line 25): line has 108 characters
+Error (line 32): function main has 48 lines
+Error (line 32): declarations must be followed by one empty line in main
+Error (line 36): spaces at the end of line
+Error (line 47): C++ comment
+Error (line 48): C++ comment
+Error (line 49): C++ comment
+Error (line 64): missing newline after if
+Error (line 64): C++ comment
+Error (line 64): line has 115 characters
+Error (line 74): C++ comment
+Error (line 75): line has 104 characters
+Norme: ./srcs/json_to_objects.c
+Error: global scope bad aligned
+Error: 9 functions in the file
+Error (line 18): multiple empty lines
+Error (line 19): C++ comment
+Error (line 52): declaration of is_type forbidden in .c
+Error (line 52, col 16): space after pointer
+Error (line 82): declaration of is_object forbidden in .c
+Error (line 82): line has 89 characters
+Error (line 94): C++ comment
+Error (line 102): declaration of check_subtypes forbidden in .c
+Error (line 104): function is_type has 54 lines
+Error (line 104, col 16): space after pointer
+Error (line 113): line has 107 characters
+Error (line 122): line has 97 characters
+Error (line 125): line has 95 characters
+Error (line 133): line has 96 characters
+Error (line 136): line has 96 characters
+Error (line 139): line has 99 characters
+Error (line 145): line has 97 characters
+Error (line 148): line has 103 characters
+Error (line 150): line has 125 characters
+Error (line 153): line has 93 characters
+Error (line 156): line has 86 characters
+Error (line 158): line has 120 characters
+Error (line 171): C++ comment
+Error (line 179): line has 88 characters
+Error (line 190): line has 86 characters
+Error (line 198): line has 104 characters
+Error (line 206): #include <objects_storage.h> should be before line 22
+Error (line 207): bad spacing before json_to_objects
+Error (line 209): line has 86 characters
+Error (line 211): C++ comment
+Error (line 211): line has 106 characters
+Error (line 218): C++ comment
+Error (line 220): spaces at the end of line
+Error (line 220, col 23): bad character after ;
+Error (line 221): C++ comment
+Error (line 222): C++ comment
+Norme: ./srcs/light.c
+Error: global scope bad aligned
+Error (line 31): line has 82 characters
+Error (line 33): bad indentation
+Error (line 33): C++ comment
+Error (line 34): bad indentation
+Error (line 34): C++ comment
+Error (line 39): C++ comment
+Error (line 40): C++ comment
+Error (line 41): Empty line
+Error (line 42): C++ comment
+Error (line 42): line has 142 characters
+Error (line 43): C++ comment
+Error (line 44): Empty line
+Norme: ./srcs/nukl_gui.c
+Error (line 15): declarations in nukl_gui are bad aligned
+Error (line 15): function nukl_gui has 112 lines
+Error (line 15): declarations in nukl_gui must be at the top of the function
+Error (line 18, col 22): sizeButton not unixcase
+Error (line 30): line has 120 characters
+Error (line 37): line has 133 characters
+Error (line 48): line has 117 characters
+Error (line 59): line has 137 characters
+Error (line 70): line has 125 characters
+Error (line 81): line has 137 characters
+Error (line 92): line has 129 characters
+Error (line 103): line has 123 characters
+Error (line 112): line has 111 characters
+Norme: ./srcs/objects/cone.c
+Error: global scope bad aligned
+Error (line 29): line has 135 characters
+Error (line 37): line has 119 characters
+Error (line 40): Space before function name
+Norme: ./srcs/objects/plane.c
+Error: global scope bad aligned
+Error: 7 functions in the file
+Error (line 31): line has 93 characters
+Error (line 31, col 8): missing parentheses in return statement
+Error (line 44): line has 83 characters
+Error (line 44, col 8): missing parentheses in return statement
+Error (line 51): bad indentation
+Error (line 51): must begin only by tabulations
+Error (line 71): Space before function name
+Norme: ./srcs/new_functions.c
+Error: 42 header not at top of the file
+Error (line 3): function object_color has 44 lines
+Error (line 8): C++ comment
+Error (line 10): C++ comment
+Error (line 11): C++ comment
+Error (line 11): line has 102 characters
+Error (line 14): Empty line
+Error (line 15): line has 91 characters
+Error (line 18): bad indentation
+Error (line 18): C++ comment
+Error (line 19): bad indentation
+Error (line 19): C++ comment
+Error (line 19): line has 125 characters
+Error (line 25): line has 85 characters
+Error (line 29): Empty line
+Error (line 30): C++ comment
+Error (line 31): C++ comment
+Error (line 32): bad indentation
+Error (line 32): missing newline after if
+Error (line 32, col 47): no newline before block
+Error (line 33): bad indentation
+Error (line 33): C++ comment
+Error (line 34): bad indentation
+Error (line 34): C++ comment
+Error (line 34): line has 289 characters
+Error (line 35): bad indentation
+Error (line 36): line has 97 characters
+Error (line 37): line has 113 characters
+Error (line 38): bad indentation
+Error (line 39): bad indentation
+Error (line 39): missing newline after if
+Error (line 39): line has 109 characters
+Error (line 39, col 95): no newline before block
+Error (line 40): bad indentation
+Error (line 41): line has 183 characters
+Error (line 42): bad indentation
+Error (line 43): C++ comment
+Error (line 46, col 9): missing parentheses in return statement
+Error (line 54): line has 101 characters
+Error (line 55): line has 95 characters
+Error (line 57): line has 100 characters
+Error (line 58): line has 94 characters
+Error (line 64): ray_color have 5 parameters
+Error (line 64): function ray_color has 93 lines
+Error (line 64): line has 85 characters
+Error (line 66): bad indentation
+Error (line 66): C++ comment
+Error (line 67): bad indentation
+Error (line 67): C++ comment
+Error (line 68): bad indentation
+Error (line 68): C++ comment
+Error (line 69): Empty line
+Error (line 70): bad indentation
+Error (line 70): C++ comment
+Error (line 71): bad indentation
+Error (line 71): C++ comment
+Error (line 80, col 9): missing parentheses in return statement
+Error (line 84): bad indentation
+Error (line 84): C++ comment
+Error (line 85): bad indentation
+Error (line 85): C++ comment
+Error (line 85): line has 125 characters
+Error (line 87): line has 87 characters
+Error (line 90): bad indentation
+Error (line 90): C++ comment
+Error (line 94): C++ comment
+Error (line 96): C++ comment
+Error (line 97): C++ comment
+Error (line 97): line has 104 characters
+Error (line 98): line has 111 characters
+Error (line 100): bad indentation
+Error (line 100): C++ comment
+Error (line 101): bad indentation
+Error (line 101): C++ comment
+Error (line 102): bad indentation
+Error (line 102): C++ comment
+Error (line 103): bad indentation
+Error (line 103): C++ comment
+Error (line 103): line has 253 characters
+Error (line 106): line has 97 characters
+Error (line 108): line has 97 characters
+Error (line 109): Empty line
+Error (line 110): C++ comment
+Error (line 111): C++ comment
+Error (line 111): line has 134 characters
+Error (line 112): C++ comment
+Error (line 112): line has 140 characters
+Error (line 113): C++ comment
+Error (line 114): C++ comment
+Error (line 115): C++ comment
+Error (line 115): line has 165 characters
+Error (line 116): C++ comment
+Error (line 117): C++ comment
+Error (line 118): C++ comment
+Error (line 118): line has 157 characters
+Error (line 119): C++ comment
+Error (line 120): C++ comment
+Error (line 121): C++ comment
+Error (line 122): C++ comment
+Error (line 123): C++ comment
+Error (line 123): line has 87 characters
+Error (line 124): C++ comment
+Error (line 125): C++ comment
+Error (line 126): C++ comment
+Error (line 127): spaces at the end of line
+Error (line 131): line has 145 characters
+Error (line 132): line has 212 characters
+Error (line 133, col 6): space before )
+Error (line 134): line has 200 characters
+Error (line 135, col 5): space before )
+Error (line 136, col 4): space before )
+Error (line 140): bad indentation
+Error (line 140): C++ comment
+Error (line 141): bad indentation
+Error (line 141): C++ comment
+Error (line 141): line has 157 characters
+Error (line 142): bad indentation
+Error (line 142): C++ comment
+Error (line 142): line has 140 characters
+Error (line 143): bad indentation
+Error (line 143): C++ comment
+Error (line 143): line has 194 characters
+Error (line 144): bad indentation
+Error (line 144): C++ comment
+Error (line 145): bad indentation
+Error (line 145): C++ comment
+Error (line 146): bad indentation
+Error (line 146): C++ comment
+Error (line 147): Empty line
+Error (line 150): line has 141 characters
+Error (line 151): line has 237 characters
+Error (line 152, col 5): space before )
+Error (line 153, col 4): space before )
+Error (line 161): function rt_tracer has 59 lines
+Error (line 161): declarations in rt_tracer must be at the top of the function
+Error (line 161): declarations must be followed by one empty line in rt_tracer
+Error (line 161, col 0): rt_tracer has 7 variables
+Error (line 165, col 4): bad spacing
+Error (line 168): line has 91 characters
+Error (line 171): line has 86 characters
+Error (line 186): line has 92 characters
+Error (line 187): C++ comment
+Error (line 188): C++ comment
+Error (line 204): bad indentation
+Error (line 204): C++ comment
+Error (line 204): line has 89 characters
+Error (line 205): bad indentation
+Error (line 205): C++ comment
+Error (line 205): line has 92 characters
+Error (line 206): bad indentation
+Error (line 206): C++ comment
+Error (line 207): bad indentation
+Error (line 207): C++ comment
+Error (line 208): bad indentation
+Error (line 208): C++ comment
+Error (line 209): Empty line
+Error (line 216): bad indentation
+Norme: ./srcs/object_parser.c
+Error: 42 header not at top of the file
+Error (line 12): Space before function name
+Error (line 12, col 7): bad spacing
+Error (line 17, col 9): missing parentheses in return statement
+Error (line 26): function object_copy has 28 lines
+Norme: ./srcs/objects/sphere.c
+Error: global scope bad aligned
+Error (line 30): line has 82 characters
+Error (line 30, col 3): space after negative
+Error (line 38): line has 85 characters
+Error (line 43): line has 127 characters
+Error (line 44, col 9): missing parentheses in return statement
+Error (line 45, col 8): missing parentheses in return statement
+Error (line 48): Space before function name
+Error (line 54): line has 82 characters
+Norme: ./srcs/objects/cylindre.c
+Error: global scope bad aligned
+Error (line 24): line has 84 characters
+Error (line 25): line has 123 characters
+Error (line 32): line has 122 characters
+Error (line 38): Space before function name
+Norme: ./srcs/objects/quadric.c
+Error: global scope bad aligned
+Error (line 17): line has 88 characters
+Error (line 18): line has 115 characters
+Error (line 38): spaces at the end of line
+Error (line 45): line has 104 characters
+Error (line 48): Space before function name
+Norme: ./srcs/objects/tore.c
+Error: 42 header not at top of the file
+Error: file must end with a single empty line
+Error (line 4): declarations in distance_to_tore are bad aligned
+Error (line 4): function distance_to_tore has 31 lines
+Error (line 4): line has 82 characters
+Error (line 7, col 7): bad spacing
+Error (line 11): C++ comment
+Error (line 11): line has 94 characters
+Error (line 12): C++ comment
+Error (line 13): C++ comment
+Error (line 14): Empty line
+Error (line 19): line has 85 characters
+Error (line 20): line has 105 characters
+Error (line 21): line has 106 characters
+Error (line 42): line has 151 characters
+Error (line 43, col 16): missing space around *
+Error (line 45): line has 151 characters
+Error (line 46, col 16): missing space around *
+Error (line 48): line has 150 characters
+Error (line 49): Empty line
+Error (line 50): C++ comment
+Error (line 50): line has 148 characters
+Error (line 51): C++ comment
+Error (line 51): line has 209 characters
+Error (line 52): C++ comment
+Error (line 52): line has 158 characters
+Error (line 58, col 0): no newline after block
+Norme: ./srcs/perlin.c
+Error: global scope bad aligned
+Error: 42 header not at top of the file
+Error (line 3): multiple empty lines
+Error (line 4): declarations in smoothNoise are bad aligned
+Error (line 4): Space before function name
+Error (line 4): function smoothNoise has 28 lines
+Error (line 4): bad spacing before smoothNoise
+Error (line 4, col 0): smoothNoise not unixcase
+Error (line 4, col 0): smoothNoise has 7 variables
+Error (line 6, col 8): fractX not unixcase
+Error (line 7, col 8): fractY not unixcase
+Error (line 8, col 4): bad spacing
+Error (line 9, col 4): bad spacing
+Error (line 10, col 4): bad spacing
+Error (line 11, col 4): bad spacing
+Error (line 14): bad indentation
+Error (line 14): must begin only by tabulations
+Error (line 14): C++ comment
+Error (line 15): bad indentation
+Error (line 15): must begin only by tabulations
+Error (line 16): bad indentation
+Error (line 16): must begin only by tabulations
+Error (line 17): Empty line
+Error (line 18): C++ comment
+Error (line 21): Empty line
+Error (line 22): C++ comment
+Error (line 25): Empty line
+Error (line 26): C++ comment
+Error (line 28, col 16): bad spacing
+Error (line 28, col 29): bad spacing
+Error (line 29, col 31): bad spacing
+Error (line 30, col 16): bad spacing
+Error (line 32): Empty line
+Error (line 33): bad indentation
+Error (line 33): must begin only by tabulations
+Error (line 33, col 9): missing parentheses in return statement
+Error (line 36): Space before function name
+Error (line 38): bad indentation
+Error (line 38): must begin only by tabulations
+Error (line 38, col 9): value is instanciated during declaration
+Error (line 39): bad indentation
+Error (line 39): must begin only by tabulations
+Error (line 39, col 9): initialSize not unixcase
+Error (line 39, col 9): initialSize is instanciated during declaration
+Error (line 41): bad indentation
+Error (line 41): must begin only by tabulations
+Error (line 42): bad indentation
+Error (line 42): must begin only by tabulations
+Error (line 43): bad indentation
+Error (line 43): must begin only by tabulations
+Error (line 44): bad indentation
+Error (line 44): must begin only by tabulations
+Error (line 45): bad indentation
+Error (line 45): must begin only by tabulations
+Error (line 46): Empty line
+Error (line 47): bad indentation
+Error (line 47): must begin only by tabulations
+Error (line 47, col 2): missing space after return
+Error (line 52, col 8): xPeriod not unixcase
+Error (line 53, col 8): yPeriod not unixcase
+Error (line 57, col 8): missing parentheses in return statement
+Error (line 62): Space before function name
+Error (line 62, col 4): bad spacing
+Error (line 64, col 8): sineValue not unixcase
+Error (line 65, col 8): xyPeriod not unixcase
+Error (line 65, col 8): xyPeriod is instanciated during declaration
+Error (line 70, col 2): space before )
+Norme: ./srcs/postprocessing.c
+Error: 8 functions in the file
+Error: 42 header not at top of the file
+Error (line 5): line has 85 characters
+Error (line 6): line has 104 characters
+Error (line 17): line has 114 characters
+Error (line 26): Empty line
+Error (line 28): line has 151 characters
+Error (line 29): line has 150 characters
+Error (line 30): line has 143 characters
+Error (line 31, col 1): space before )
+Error (line 42): line has 104 characters
+Error (line 51): line has 98 characters
+Error (line 52): line has 106 characters
+Error (line 53): line has 108 characters
+Error (line 64): line has 112 characters
+Error (line 71): declarations in blur are bad aligned
+Error (line 71): function blur has 51 lines
+Error (line 71, col 0): blur has 10 variables
+Error (line 73, col 7): bad spacing
+Error (line 81, col 4): bad spacing
+Error (line 82, col 4): bad spacing
+Error (line 84): bad indentation
+Error (line 84): must begin only by tabulations
+Error (line 85): bad indentation
+Error (line 85): must begin only by tabulations
+Error (line 86): bad indentation
+Error (line 86): must begin only by tabulations
+Error (line 87): bad indentation
+Error (line 87): must begin only by tabulations
+Error (line 88): bad indentation
+Error (line 88): must begin only by tabulations
+Error (line 89): bad indentation
+Error (line 89): must begin only by tabulations
+Error (line 90): bad indentation
+Error (line 90): must begin only by tabulations
+Error (line 91): bad indentation
+Error (line 91): must begin only by tabulations
+Error (line 92): bad indentation
+Error (line 92): must begin only by tabulations
+Error (line 93): bad indentation
+Error (line 93): must begin only by tabulations
+Error (line 94): bad indentation
+Error (line 94): must begin only by tabulations
+Error (line 95): bad indentation
+Error (line 95): must begin only by tabulations
+Error (line 96): bad indentation
+Error (line 96): must begin only by tabulations
+Error (line 97): bad indentation
+Error (line 97): must begin only by tabulations
+Error (line 98): bad indentation
+Error (line 98): must begin only by tabulations
+Error (line 99): bad indentation
+Error (line 99): must begin only by tabulations
+Error (line 100): bad indentation
+Error (line 100): must begin only by tabulations
+Error (line 101): bad indentation
+Error (line 101): must begin only by tabulations
+Error (line 102): bad indentation
+Error (line 102): must begin only by tabulations
+Error (line 103): bad indentation
+Error (line 103): must begin only by tabulations
+Error (line 104): bad indentation
+Error (line 104): must begin only by tabulations
+Error (line 104): line has 115 characters
+Error (line 105): bad indentation
+Error (line 105): must begin only by tabulations
+Error (line 105): line has 176 characters
+Error (line 106): bad indentation
+Error (line 106): must begin only by tabulations
+Error (line 107): bad indentation
+Error (line 107): must begin only by tabulations
+Error (line 108): bad indentation
+Error (line 108): must begin only by tabulations
+Error (line 109): bad indentation
+Error (line 109): must begin only by tabulations
+Error (line 110): bad indentation
+Error (line 110): must begin only by tabulations
+Error (line 111): bad indentation
+Error (line 111): must begin only by tabulations
+Error (line 112): bad indentation
+Error (line 112): must begin only by tabulations
+Error (line 113): bad indentation
+Error (line 113): must begin only by tabulations
+Error (line 114): bad indentation
+Error (line 114): must begin only by tabulations
+Error (line 115): bad indentation
+Error (line 115): must begin only by tabulations
+Error (line 116): bad indentation
+Error (line 116): must begin only by tabulations
+Error (line 117): bad indentation
+Error (line 117): must begin only by tabulations
+Error (line 118): spaces at the end of line
+Error (line 119): line has 103 characters
+Error (line 120): bad indentation
+Error (line 120): must begin only by tabulations
+Error (line 121): bad indentation
+Error (line 121): must begin only by tabulations
+Error (line 122): bad indentation
+Error (line 122): must begin only by tabulations
+Error (line 123): bad indentation
+Error (line 123): must begin only by tabulations
+Error (line 129, col 7): bad spacing
+Error (line 136): bad indentation
+Error (line 136): must begin only by tabulations
+Error (line 137): bad indentation
+Error (line 137): must begin only by tabulations
+Error (line 138): bad indentation
+Error (line 138): must begin only by tabulations
+Error (line 139): bad indentation
+Error (line 139): must begin only by tabulations
+Error (line 140): bad indentation
+Error (line 140): must begin only by tabulations
+Error (line 141): bad indentation
+Error (line 141): must begin only by tabulations
+Error (line 142): bad indentation
+Error (line 142): must begin only by tabulations
+Error (line 143): bad indentation
+Error (line 143): must begin only by tabulations
+Error (line 144): must begin only by tabulations
+Error (line 144): line has 103 characters
+Error (line 145): bad indentation
+Error (line 145): must begin only by tabulations
+Norme: ./srcs/refraction.c
+Error: global scope bad aligned
+Error (line 28, col 9): missing parentheses in return statement
+Error (line 34): line has 83 characters
+Error (line 40): line has 83 characters
+Error (line 45): line has 85 characters
+Norme: ./srcs/rt_parser.c
+Error: global scope bad aligned
+Error (line 19): declaration of json_to_objects forbidden in .c
+Error (line 19, col 43): space after pointer
+Error (line 20): #include <file.h> should be before line 19
+Error (line 23): #include <rt_objects.h> should be before line 19
+Error (line 36): line has 100 characters
+Error (line 46): C++ comment
+Norme: ./srcs/objects_storage.c
+Error: global scope bad aligned
+Error: 29 functions in the file
+Error (line 18): declaration of fill_vector forbidden in .c
+Error (line 51): declarations in get_jobject are bad aligned
+Error (line 51): declarations in get_jobject must be at the top of the function
+Error (line 51): declarations must be followed by one empty line in get_jobject
+Error (line 55, col 5): i is instanciated during declaration
+Error (line 64): C++ comment
+Error (line 78): C++ comment
+Error (line 99): C++ comment
+Error (line 105): C++ comment
+Error (line 105): line has 97 characters
+Error (line 106): C++ comment
+Error (line 106): line has 89 characters
+Error (line 132): C++ comment
+Error (line 133, col 0): no empty line before block
+Error (line 151): C++ comment
+Error (line 152): line has 84 characters
+Error (line 161): C++ comment
+Error (line 171): C++ comment
+Error (line 180): Empty line
+Error (line 183): Empty line
+Error (line 194): C++ comment
+Error (line 198, col 13): bad spacing
+Error (line 205): Empty line
+Error (line 208): Empty line
+Error (line 219): C++ comment
+Error (line 230): Empty line
+Error (line 233): Empty line
+Error (line 237): function fill_quadric has 33 lines
+Error (line 244): C++ comment
+Error (line 245): line has 82 characters
+Error (line 270): C++ comment
+Error (line 281): C++ comment
+Error (line 282): line has 82 characters
+Error (line 294): C++ comment
+Error (line 299): #include <libft.h> should be before line 18
+Error (line 300): declarations in fill_customobject must be at the top of the function
+Error (line 300): bad spacing before fill_customobject
+Error (line 303): C++ comment
+Error (line 309): C++ comment
+Error (line 309): line has 90 characters
+Error (line 310): C++ comment
+Error (line 323): #include <stdint.h> should be before line 18
+Error (line 324): declarations in fill_object are bad aligned
+Error (line 324): function fill_object has 51 lines
+Error (line 324): declarations in fill_object must be at the top of the function
+Error (line 324): bad spacing before fill_object
+Error (line 326): line has 99 characters
+Error (line 332): C++ comment
+Error (line 333): C++ comment
+Error (line 351): Empty line
+Error (line 354): spaces at the end of line
+Error (line 355): C++ comment
+Error (line 356): C++ comment
+Error (line 366): C++ comment
+Error (line 366): line has 99 characters
+Error (line 371): C++ comment
+Error (line 375): C++ comment
+Error (line 375): line has 87 characters
+Error (line 386): C++ comment
+Error (line 424): C++ comment
+Error (line 431): declarations must be followed by one empty line in fill_custom_obj
+Error (line 434): spaces at the end of line
+Error (line 444): line has 91 characters
+Error (line 446): C++ comment
+Error (line 447): C++ comment
+Error (line 458): declarations must be followed by one empty line in fill_custom
+Error (line 461): bad indentation
+Error (line 461): spaces at the end of line
+Error (line 461, col 9): bad character after ;
+Error (line 462): bad indentation
+Error (line 462): spaces at the end of line
+Error (line 462, col 11): bad character after ;
+Error (line 463): C++ comment
+Error (line 464): C++ comment
+Error (line 465): C++ comment
+Error (line 466): C++ comment
+Error (line 467): C++ comment
+Error (line 468): C++ comment
+Error (line 469): C++ comment
+Error (line 470): C++ comment
+Error (line 471): C++ comment
+Error (line 477): declarations must be followed by one empty line in fill_custom_name
+Error (line 480): bad indentation
+Error (line 480): spaces at the end of line
+Error (line 480, col 11): bad character after ;
+Error (line 484): Empty line
+Error (line 491): line has 84 characters
+Error (line 493): C++ comment
+Error (line 494): C++ comment
+Error (line 497): C++ comment
+Error (line 498): C++ comment
+Error (line 502): C++ comment
+Error (line 503): C++ comment
+Error (line 504): C++ comment
+Error (line 516): C++ comment
+Error (line 517): C++ comment
+Error (line 524): C++ comment
+Error (line 549): line has 86 characters
+Error (line 550): line has 97 characters
+Norme: ./srcs/sdl/events.c
+Error (line 18): bad spacing before handle_clic
+Error (line 29): missing newline after if
+Error (line 29, col 36): no newline before block
+Error (line 30): missing newline after if
+Error (line 30, col 46): no newline before block
+Error (line 36): line has 154 characters
+Error (line 37): missing newline after if
+Error (line 37, col 1): no newline after block
+Error (line 37, col 45): no newline before block
+Error (line 39): missing newline after if
+Error (line 39, col 1): no newline after block
+Error (line 39, col 44): no newline before block
+Error (line 47): bad spacing before sdl_pull_evts
+Error (line 54): line has 116 characters
+Error (line 64): line has 89 characters
+Error (line 65): line has 120 characters
+Norme: ./srcs/quadric_tools.c
+Error: 42 header not at top of the file
+Error (line 5): line has 87 characters
+Error (line 6): line has 116 characters
+Error (line 11): line has 111 characters
+Error (line 12): line has 182 characters
+Error (line 13): line has 356 characters
+Error (line 18): line has 99 characters
+Error (line 19): line has 128 characters
+Error (line 20): line has 362 characters
+Error (line 21): line has 137 characters
+Error (line 22): line has 188 characters
+Norme: ./srcs/sdl/init.c
+Error (line 20): declarations in init_win_gui are bad aligned
+Error (line 20): function init_win_gui has 32 lines
+Error (line 38): missing newline after if
+Error (line 38, col 45): no newline before block
+Error (line 40): 2 instructions
+Error (line 41, col 1): no newline after block
+Error (line 41, col 8): no newline before block
+Error (line 46): line has 93 characters
+Error (line 71): line has 88 characters
+Error (line 75): line has 88 characters
+Norme: ./srcs/save_img.c
+Error (line 15): declarations in save_img are bad aligned
+Error (line 18, col 4): bad spacing
+Error (line 19, col 9): bad spacing
+Error (line 37): spaces at the end of line
+Norme: ./srcs/sdl/draw.c
+Error (line 15): function sdl_draw has 28 lines
+Error (line 27): missing newline after if
+Error (line 27, col 28): no newline before block
+Error (line 29): 2 instructions
+Error (line 30, col 2): no newline after block
+Error (line 30, col 9): no newline before block
+Norme: ./srcs/sdl/utils.c
+Error: global scope bad aligned
+Error (line 21, col 2): missing space after return
+Error (line 22): missing newline after if
+Error (line 22, col 13): no newline before block
+Error (line 26): missing newline after if
+Error (line 26, col 1): no newline after block
+Error (line 26, col 20): no newline before block
+Error (line 30): line has 85 characters
+Error (line 31, col 2): missing space after return
+Error (line 32): missing newline after if
+Error (line 32, col 34): no newline before block
+Error (line 34): 2 instructions
+Error (line 35, col 1): no newline after block
+Error (line 35, col 8): no newline before block
+Error (line 42): Space before function name
+Error (line 46): missing newline after if
+Error (line 46, col 13): no newline before block
+Error (line 50): missing newline after if
+Error (line 50, col 1): no newline after block
+Error (line 50, col 20): no newline before block
+Error (line 53): line has 85 characters
+Error (line 55): bad indentation
+Error (line 55): must begin only by tabulations
+Error (line 55): line has 121 characters
+Error (line 55, col 11): missing parentheses in return statement
+Error (line 64): line has 161 characters
+Error (line 65, col 8): missing parentheses in return statement
+Norme: ./srcs/vec_tools.c
+Error (line 25): C++ comment
+Error (line 26): C++ comment
+Error (line 27): bad indentation
+Error (line 28): bad indentation
+Error (line 29): bad indentation
+Error (line 30): C++ comment
+Error (line 31, col 0): no empty line before block
+Error (line 35): C++ comment
+Error (line 36): C++ comment
+Error (line 37): bad indentation
+Error (line 38): bad indentation
+Error (line 39): bad indentation
+Error (line 40): bad indentation
+Error (line 41): C++ comment
+Error (line 42): C++ comment
+Error (line 43, col 0): no empty line before block
+Error (line 47): C++ comment
+Error (line 48): bad indentation
+Error (line 49): C++ comment
+Error (line 50, col 0): no empty line before block
+Error (line 54): C++ comment
+Error (line 55): C++ comment
+Error (line 56): bad indentation
+Error (line 57): bad indentation
+Error (line 58): bad indentation
+Error (line 59): C++ comment
+Norme: ./srcs/sdl/keyboard.c
+Error (line 15): function handle_keyboard has 48 lines
+Error (line 17): missing newline after if
+Error (line 17): C++ comment
+Error (line 21): missing newline after if
+Error (line 21): C++ comment
+Error (line 25): missing newline after if
+Error (line 25): C++ comment
+Error (line 29): missing newline after if
+Error (line 29): C++ comment
+Error (line 33): missing newline after if
+Error (line 33): C++ comment
+Error (line 37): missing newline after if
+Error (line 37): C++ comment
+Norme: ./srcs/threads.c
+Warning: /Users/malexand/Documents/RT/srcs/threads.c may not compile or is invalid for some reasons.
+Norme: ./srcs/vec_tools2.c
+Error (line 29): C++ comment
+Error (line 30): comment not well formatted
+Norme: ./incs/implementation.h
+Norme: ./srcs/tore_tools.c
+Error: 42 header not at top of the file
+Error (line 3): C++ comment
+Error (line 8): Empty line
+Error (line 9): C++ comment
+Error (line 10): C++ comment
+Error (line 11): C++ comment
+Error (line 18): Empty line
+Error (line 19): C++ comment
+Error (line 20): C++ comment
+Error (line 20): line has 116 characters
+Error (line 21): C++ comment
+Error (line 31): Empty line
+Error (line 32): C++ comment
+Error (line 32): line has 91 characters
+Error (line 33): C++ comment
+Error (line 33): spaces at the end of line
+Error (line 33): line has 85 characters
+Error (line 34): C++ comment
+Error (line 35): C++ comment
+Error (line 36): C++ comment
+Error (line 37): C++ comment
+Error (line 46): Empty line
+Error (line 47): C++ comment
+Error (line 47): line has 107 characters
+Error (line 48): C++ comment
+Error (line 48): line has 85 characters
+Error (line 49): C++ comment
+Error (line 49): line has 86 characters
+Error (line 50): C++ comment
+Error (line 51): C++ comment
+Error (line 52): C++ comment
+Error (line 60): Empty line
+Error (line 61): C++ comment
+Error (line 61): line has 109 characters
+Error (line 62): C++ comment
+Norme: ./incs/nuklear_sdl_gl3.h
+Warning: /Users/malexand/Documents/RT/incs/nuklear_sdl_gl3.h may not compile or is invalid for some reasons.
+Norme: ./srcs/vec_tools3.c
+Error: global scope bad aligned
+Error (line 35): line has 83 characters
+Error (line 54, col 9): missing parentheses in return statement
+Error (line 56, col 8): missing parentheses in return statement
+Error (line 59): Space before function name
+Error (line 59): declarations must be followed by one empty line in object_rotation
+Error (line 59, col 4): bad spacing
+Error (line 62): C++ comment
+Error (line 66): C++ comment
+Error (line 70): bad indentation
+Error (line 70): C++ comment
+Error (line 72): spaces at the end of line
+Error (line 72, col 54): bad character after ;
+Error (line 75): C++ comment
+Error (line 80): function sim_matrice_rotation has 41 lines
+Error (line 80, col 45): space after pointer
+Error (line 94): C++ comment
+Error (line 95): C++ comment
+Error (line 96): Empty line
+Error (line 97): C++ comment
+Error (line 98): C++ comment
+Error (line 99): C++ comment
+Error (line 100): C++ comment
+Error (line 101): C++ comment
+Error (line 102): C++ comment
+Error (line 103): C++ comment
+Error (line 104): C++ comment
+Error (line 105): C++ comment
+Error (line 106): C++ comment
+Error (line 107): C++ comment
+Error (line 108): C++ comment
+Error (line 109): C++ comment
+Error (line 110): C++ comment
+Error (line 111): C++ comment
+Error (line 112): C++ comment
+Error (line 113): C++ comment
+Error (line 114): C++ comment
+Error (line 115): C++ comment
+Error (line 116): C++ comment
+Error (line 117): C++ comment
+Error (line 118): C++ comment
+Error (line 119): C++ comment
+Error (line 120): C++ comment
+Error (line 121): C++ comment
+Error (line 122): C++ comment
+Norme: ./incs/file.h
+Norme: ./incs/rt.h
+Error: global scope bad aligned
+Error (line 83): multiple empty lines
+Error (line 142): s_plane and t_plane not aligned.
+Error (line 142): must have only tabulations between struct and s_plane.
+Error (line 148): s_cone and t_cone not aligned.
+Error (line 148): must have only tabulations between struct and s_cone.
+Error (line 155): s_cylindre and t_cylindre not aligned.
+Error (line 155): must have only tabulations between struct and s_cylindre.
+Error (line 206): Struct s_object bad aligned
+Error (line 210): C++ comment
+Error (line 210): line has 85 characters
+Error (line 211): C++ comment
+Error (line 214): C++ comment
+Error (line 215): C++ comment
+Error (line 216): C++ comment
+Error (line 219): C++ comment
+Error (line 220): C++ comment
+Error (line 220): line has 82 characters
+Error (line 221): C++ comment
+Error (line 227): C++ comment
+Error (line 230): Struct s_light bad aligned
+Error (line 235): C++ comment
+Error (line 236): C++ comment
+Error (line 237): C++ comment
+Error (line 237): line has 97 characters
+Error (line 244): C++ comment
+Error (line 245): C++ comment
+Error (line 246): C++ comment
+Error (line 247): C++ comment
+Error (line 248): C++ comment
+Error (line 249): C++ comment
+Error (line 250): C++ comment
+Error (line 251): C++ comment
+Error (line 252): C++ comment
+Error (line 268): C++ comment
+Error (line 269): C++ comment
+Error (line 277): Struct s_pxl_info bad aligned
+Error (line 296): Struct s_param bad aligned
+Error (line 296): s_param and t_param not aligned.
+Error (line 298): C++ comment
+Error (line 299): C++ comment
+Error (line 300): C++ comment
+Error (line 301): C++ comment
+Error (line 302): C++ comment
+Error (line 303): C++ comment
+Error (line 303): line has 82 characters
+Error (line 304): C++ comment
+Error (line 305): C++ comment
+Error (line 306): C++ comment
+Error (line 307): C++ comment
+Error (line 314, col 4): bad spacing
+Error (line 319, col 4): bad spacing
+Error (line 328): spaces at the end of line
+Error (line 332): C++ comment
+Error (line 333): C++ comment
+Error (line 339): C++ comment
+Error (line 341): C++ comment
+Error (line 348): line has 94 characters
+Error (line 352, col 3): bad spacing
+Error (line 360): C++ comment
+Error (line 360): line has 98 characters
+Error (line 362): C++ comment
+Error (line 362): line has 92 characters
+Error (line 363): C++ comment
+Error (line 363): line has 88 characters
+Error (line 364): C++ comment
+Error (line 364): line has 84 characters
+Error (line 365): C++ comment
+Error (line 365): line has 82 characters
+Error (line 366): C++ comment
+Error (line 368): C++ comment
+Error (line 368): line has 86 characters
+Error (line 369): C++ comment
+Error (line 375): line has 103 characters
+Error (line 381): C++ comment
+Error (line 385): C++ comment
+Error (line 387): line has 89 characters
+Error (line 388): line has 92 characters
+Error (line 390): line has 88 characters
+Error (line 392): line has 90 characters
+Error (line 393): line has 92 characters
+Error (line 395): line has 112 characters
+Error (line 397): line has 99 characters
+Error (line 398): line has 93 characters
+Error (line 398, col 50): space after pointer
+Error (line 412, col 6): bad spacing
+Error (line 413): line has 82 characters
+Error (line 424): line has 91 characters
+Error (line 450, col 32): space after pointer
+Error (line 459, col 3): bad spacing
+Error (line 461): line has 91 characters
+Error (line 462): line has 95 characters
+Error (line 466): C++ comment
+Error (line 467): C++ comment
+Error (line 468): C++ comment
+Error (line 469): C++ comment
+Error (line 470, col 3): bad spacing
+Error (line 471): C++ comment
+Error (line 472): C++ comment
+Error (line 473): C++ comment
+Error (line 474): C++ comment
+Error (line 475): C++ comment
+Error (line 478): line has 85 characters
+Error (line 484, col 4): bad spacing
+Error (line 485): line has 87 characters
+Error (line 494, col 3): bad spacing
+Error (line 496): comment not well formatted
+Error (line 496): bad indentation
+Error (line 499): bad indentation
+Error (line 501): line has 85 characters
+Error (line 505, col 4): bad spacing
+Error (line 506, col 4): bad spacing
+Error (line 513, col 6): bad spacing
+Error (line 547): line has 91 characters
+Error (line 547, col 11): convert_Uint32_to_int not unixcase
+Error (line 548): line has 83 characters
+Error (line 548, col 13): format_Uint32 not unixcase
+Error (line 549, col 6): bad spacing
+Error (line 550): line has 84 characters
+Error (line 551): line has 82 characters
+Error (line 558): comment not well formatted
+Error (line 562, col 4): bad spacing
+Error (line 563): line has 83 characters
+Error (line 563, col 4): bad spacing
+Error (line 576, col 4): bad spacing
+Error (line 577, col 4): bad spacing
+Error (line 578, col 4): bad spacing
+Error (line 579, col 4): bad spacing
+Norme: ./incs/nuklear.h
+Warning: /Users/malexand/Documents/RT/incs/nuklear.h may not compile or is invalid for some reasons.
+Norme: ./incs/objects_storage.h
+Norme: ./incs/rt_objects.h
+Error: global scope bad aligned
+Error (line 22, col 9): missing space around =
+Error (line 211): comment not well formatted
+Error (line 220): line has 84 characters
+Error (line 223): line has 94 characters
+Error (line 224): line has 89 characters
+Error (line 226): line has 107 characters
+Error (line 229): wrong number of spaces in preprocessor indentation
+Error (line 232): C++ comment
+Error (line 248): wrong number of spaces in preprocessor indentation
+Norme: ./incs/rt_parser.h
