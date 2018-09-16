@@ -70,6 +70,7 @@
 # define TURB_SIZE 32.0
 # define TURB_POWER 5.0
 
+
 # include <fcntl.h>
 # include <stdlib.h>
 # include <math.h>
@@ -87,7 +88,6 @@
 # include <SDL_opengl.h>
 
 # include <libft.h>
-
 
 # define NK_INCLUDE_FIXED_TYPES
 # define NK_INCLUDE_STANDARD_IO
