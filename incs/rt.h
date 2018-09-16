@@ -290,6 +290,12 @@ typedef struct		s_macro
 	int				specular_exp;
 }					t_macro;
 
+typedef	struct		s_update_img
+{
+	char			process;
+	char			post_process;
+}					t_update_img;
+
 typedef struct		s_param
 {
 	clock_t			start;//TODO delete
@@ -308,9 +314,9 @@ typedef struct		s_param
 	t_light			*lights;
 	int				num_lights;
 	t_object		*intersect_object;
-	int 				num_objects;
-	char				is_cut;
-	char				is_for_light;
+	int 			num_objects;
+	char			is_cut;
+	char			is_for_light;
 	t_light			*tmp_light;
 	double			tmp_vec[VEC_SIZE];
 	int 			brightness;
@@ -324,7 +330,7 @@ typedef struct		s_param
 	SDL_Thread		**thread;
 	
 	int				current_thread;
-	int				refresh;
+	t_update_img	up_img;
 	t_pxl_info	***pxl_infos;
 	double			ia;//intensité de la lumiere ambiante
 	double			m[VEC_SIZE];//triplet intermediaire pour calculs ombres
