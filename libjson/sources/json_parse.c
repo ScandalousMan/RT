@@ -26,11 +26,6 @@ char		*parse_jobject(char *json, void **value)
 	obj = NULL;
 	if (ft_strlen(json) >= 2)
 	{
-		if ((obj = (t_jobject*)malloc(sizeof(t_jobject))) == NULL)
-		{
-			perror(NULL);
-			exit(EXIT_FAILURE);
-		}
 		if (json[0] != '{')
 			return (NULL);//ERROR
 		if (json[1] != '}')

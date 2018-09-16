@@ -27,7 +27,7 @@ void	update_eye_n(t_param *param)
 	t_object *obj;
 
 	obj = param->objects;
-	while (obj && param->eye)
+	while (obj)
 	{
 		if (is_inside_object(param->eye, obj, NULL))
 			param->path->inside_obj = obj;
