@@ -54,6 +54,7 @@ void			sdl_quit(t_sdl *graph)
 	SDL_GL_DeleteContext(graph->gl_context);
 	SDL_DestroyWindow(graph->win_gl);
 	SDL_DestroyWindow(graph->win_sdl);
+	SDL_DestroyRenderer(graph->render_sdl);
 	free(graph);
 	IMG_Quit();
 	SDL_Quit();

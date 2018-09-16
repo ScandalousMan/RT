@@ -46,6 +46,26 @@ t_param			*pxl_infos_create(t_param *param)
 	return (param);
 }
 
+void		free_pxl_infos(t_pxl_info ***pxl_infos)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while (i < WINDOW_SDL_HEIGHT)
+	{
+		j = 0;
+		while (j < WINDOW_SDL_WIDTH)
+		{
+			free(pxl_infos[i][j]);
+			j++;
+		}
+		free(pxl_infos[i]);
+		i++;
+	}
+	free(pxl_infos);
+}
+
 t_sdl				*copy_pxls(t_param *param)
 {
 	t_sdl *graph;

@@ -38,6 +38,7 @@ void	free_objects(t_param *param)
 			free(param->objects->limits);
 			param->objects->limits = l_tmp;
 		}
+		free(param->objects->effects);
 		free(param->objects);
 		param->objects = tmp;
 	}
@@ -68,12 +69,15 @@ void	free_path(t_path *path)
 
 void	end_program(t_param *param)
 {
-	UNUSED(param);
-//	free_objects(param);
-//	free_lights(param);
-//	free_path(param->path);
-//	free(param);
-	exit(0);
+	// UNUSED(param);
+	free_objects(param);
+	free_lights(param->lights);
+	free_path(param->path);
+	free_pxl_infos(param->pxl_infos);
+	free(param->thread);
+	SDL_FreeSurface(param->texture);
+	free(param);
+	// exit(0);
 }
 
 void	rotation_axis_matrice(double angle, double *axis, t_param *param)
