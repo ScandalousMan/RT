@@ -53,7 +53,7 @@ int		main(int ac, char **av)
 	if (ac == 2)
 		filename = av[1];
 	else
-		filename = "rtv1.json";
+		filename = "scenes/rt.json";
 	if (!rt_parser(param, filename))
 		return (1);
 	sdl_init(param->graph);
@@ -105,10 +105,5 @@ int		main(int ac, char **av)
 	}
 	sdl_quit(param->graph);
 	end_program(param);
-	sleep(3);
-	while (1)
-	{
-
-	}
 	return (0);
 }
