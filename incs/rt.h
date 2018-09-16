@@ -609,6 +609,7 @@ void							launch_threads(t_param *param);
 void 							free_objects(t_param *param);
 void 							free_lights(t_light *lights);
 void 							free_path(t_path *path);
+void							free_pxl_infos(t_pxl_info ***pxl_infos);
 void 							end_program(t_param *param);
 
 #endif
