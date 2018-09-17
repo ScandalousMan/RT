@@ -50,14 +50,13 @@ t_sdl				*copy_pxls(t_param *param)
 	t_sdl *graph;
 	int 	count;
 
-	count = -1;
+	count = 0;
 	if (!(graph = (t_sdl*)malloc(sizeof(t_sdl))))
 		return (NULL);
 	graph->win_gl = param->graph->win_gl;
 	graph->gl_context = param->graph->gl_context;
 	graph->win_sdl = param->graph->win_sdl;
 	graph->render_sdl = param->graph->render_sdl;
-	count = 0;
 	while (count < NB_THREAD)
 	{
 		if ((graph->surfs[count] = SDL_CreateRGBSurfaceWithFormat(0,
@@ -118,7 +117,6 @@ void				stereoscopy_free(t_param *param)
 		count++;
 	}
 	free(param->graph);
-	free(param->thread);
 	free(param);
 }
 

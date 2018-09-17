@@ -86,6 +86,8 @@ int		main(int ac, char **av)
 					sepia(param);
 				else if (param->macro.filter == 4)
 					blur(param);
+				else if (param->macro.filter == 5)
+					stereoscopy(param);
 			}
 		}
 		if (param->up_img.process == TRUE || param->up_img.post_process == TRUE)

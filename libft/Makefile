@@ -11,14 +11,14 @@
 # **************************************************************************** #
 
 CC ?= clang
-DEBUG ?= true
+DEBUG ?= false
 
 EXEC = libft.a
 
 CC = clang
 OS := $(shell uname -s)
 
-ifeq ($(DEBUG), yes)
+ifeq ($(DEBUG), true)
 	CFLAGS = -std=c99 -pedantic -g -ggdb
 else
 	CFLAGS = -Wall -Werror -Wextra
