@@ -105,6 +105,7 @@
 /// NK_INCLUDE_COMMAND_USERDATA     | Defining this adds a userdata pointer into each command. Can be useful for example if you want to provide custom shaders depending on the used widget. Can be combined with the style structures.
 /// NK_BUTTON_TRIGGER_ON_RELEASE    | Different platforms require button clicks occurring either on buttons being pressed (up to down) or released (down to up). By default this library will react on buttons being pressed, but if you define this it will only trigger if a button is released.
 /// NK_ZERO_COMMAND_MEMORY          | Defining this will zero out memory for each drawing command added to a drawing queue (inside nk_command_buffer_push). Zeroing command memory is very useful for fast checking (using memcmp) if command buffers are equal and avoid drawing frames when nothing on screen has changed since previous frame.
+/// NK_UINT_DRAW_INDEX              | Defining this will set the size of vertex index elements when using NK_VERTEX_BUFFER_OUTPUT to 32bit instead of the default of 16bit
 ///
 /// !!! WARNING
 ///     The following flags will pull in the standard C library:
@@ -122,6 +123,7 @@
 ///     - NK_INCLUDE_DEFAULT_FONT
 ///     - NK_INCLUDE_STANDARD_VARARGS
 ///     - NK_INCLUDE_COMMAND_USERDATA
+///     - NK_UINT_DRAW_INDEX
 ///
 /// ### Constants
 /// Define                          | Description
@@ -335,7 +337,7 @@ extern "C" {
  #define NK_POINTER_TYPE uintptr_t
 #else
   #ifndef NK_INT8
-    #define NK_INT8 char
+    #define NK_INT8 signed char
   #endif
   #ifndef NK_UINT8
     #define NK_UINT8 unsigned char
@@ -1082,6 +1084,12 @@ NK_API void nk_input_end(struct nk_context*);
 ///
 /// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~c
 /// // fill configuration
+/// struct your_vertex
+/// {
+///     float pos[2]; // important to keep it to 2 floats
+///     float uv[2];
+///     unsigned char col[4];
+/// };
 /// struct nk_convert_config cfg = {};
 /// static const struct nk_draw_vertex_layout_element vertex_layout[] = {
 ///     {NK_VERTEX_POSITION, NK_FORMAT_FLOAT, NK_OFFSETOF(struct your_vertex, pos)},
@@ -1425,7 +1433,7 @@ NK_API const struct nk_draw_command* nk__draw_next(const struct nk_draw_command*
 /// NK_WINDOW_TITLE             | Forces a header at the top at the window showing the title
 /// NK_WINDOW_SCROLL_AUTO_HIDE  | Automatically hides the window scrollbar if no user interaction: also requires delta time in `nk_context` to be set each frame
 /// NK_WINDOW_BACKGROUND        | Always keep window in the background
-/// NK_WINDOW_SCALE_LEFT        | Puts window scaler in the left-ottom corner instead right-bottom
+/// NK_WINDOW_SCALE_LEFT        | Puts window scaler in the left-bottom corner instead right-bottom
 /// NK_WINDOW_NO_INPUT          | Prevents window of scaling, moving or getting focus
 ///
 /// #### nk_collapse_states
@@ -2692,7 +2700,7 @@ NK_API void nk_group_scrolled_end(struct nk_context*);
  *
  *                                  TREE
  *
- * ============================================================================= 
+ * =============================================================================
 /// ### Tree
 /// Trees represent two different concept. First the concept of a collapsable
 /// UI section that can be either in a hidden or visibile state. They allow the UI
@@ -2938,7 +2946,7 @@ NK_API int nk_tree_state_image_push(struct nk_context*, enum nk_tree_type, struc
 NK_API void nk_tree_state_pop(struct nk_context*);
 
 #define nk_tree_element_push(ctx, type, title, state, sel) nk_tree_element_push_hashed(ctx, type, title, state, sel, NK_FILE_LINE,nk_strlen(NK_FILE_LINE),__LINE__)
-#define nk_tree_element_push_id(ctx, type, title, state, sel, id) nk_tree_element_push_hashed(ctx, type, title, sel, NK_FILE_LINE,nk_strlen(NK_FILE_LINE),id)
+#define nk_tree_element_push_id(ctx, type, title, state, sel, id) nk_tree_element_push_hashed(ctx, type, title, state, sel, NK_FILE_LINE,nk_strlen(NK_FILE_LINE),id)
 NK_API int nk_tree_element_push_hashed(struct nk_context*, enum nk_tree_type, const char *title, enum nk_collapse_states initial_state, int *selected, const char *hash, int len, int seed);
 NK_API int nk_tree_element_image_push_hashed(struct nk_context*, enum nk_tree_type, struct nk_image, const char *title, enum nk_collapse_states initial_state, int *selected, const char *hash, int len,int seed);
 NK_API void nk_tree_element_pop(struct nk_context*);
@@ -4586,7 +4594,11 @@ NK_API int nk_input_is_key_down(const struct nk_input*, enum nk_keys);
     In fact it is probably more powerful than needed but allows even more crazy
     things than this library provides by default.
 */
+#ifdef NK_UINT_DRAW_INDEX
+typedef nk_uint nk_draw_index;
+#else
 typedef nk_ushort nk_draw_index;
+#endif
 enum nk_draw_list_stroke {
     NK_STROKE_OPEN = nk_false,
     /* build up path has no connection back to the beginning */
@@ -5170,6 +5182,7 @@ NK_API struct nk_style_item nk_style_item_hide(void);
 #endif
 
 enum nk_panel_type {
+    NK_PANEL_NONE       = 0,
     NK_PANEL_WINDOW     = NK_FLAG(0),
     NK_PANEL_GROUP      = NK_FLAG(1),
     NK_PANEL_POPUP      = NK_FLAG(2),
@@ -9346,6 +9359,18 @@ nk_draw_list_alloc_vertices(struct nk_draw_list *list, nk_size count)
         list->config.vertex_size*count, list->config.vertex_alignment);
     if (!vtx) return 0;
     list->vertex_count += (unsigned int)count;
+
+    /* This assert triggers because your are drawing a lot of stuff and nuklear
+     * defined `nk_draw_index` as `nk_ushort` to safe space be default.
+     *
+     * So you reached the maximum number of indicies or rather vertexes.
+     * To solve this issue please change typdef `nk_draw_index` to `nk_uint`
+     * and don't forget to specify the new element size in your drawing
+     * backend (OpenGL, DirectX, ...). For example in OpenGL for `glDrawElements`
+     * instead of specifing `GL_UNSIGNED_SHORT` you have to define `GL_UNSIGNED_INT`.
+     * Sorry for the inconvenience. */
+    if(sizeof(nk_draw_index)==2) NK_ASSERT((list->vertex_count < NK_USHORT_MAX &&
+        "To many verticies for 16-bit vertex indicies. Please read comment above on how to solve this problem"));
     return vtx;
 }
 NK_INTERN nk_draw_index*
@@ -13028,16 +13053,15 @@ nk_font_init(struct nk_font *font, float pixel_height,
  * MIT license (see License.txt in http://www.upperbounds.net/download/ProggyClean.ttf.zip)
  * Download and more information at http://upperbounds.net
  *-----------------------------------------------------------------------------*/
-#ifdef NK_INCLUDE_DEFAULT_FONT
-
- #ifdef __clang__
+#ifdef __clang__
 #pragma clang diagnostic push
-
 #pragma clang diagnostic ignored "-Woverlength-strings"
 #elif defined(__GNUC__) || defined(__GNUG__)
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Woverlength-strings"
 #endif
+
+#ifdef NK_INCLUDE_DEFAULT_FONT
 
 NK_GLOBAL const char nk_proggy_clean_ttf_compressed_data_base85[11980+1] =
     "7])#######hV0qs'/###[),##/l:$#Q6>##5[n42>c-TH`->>#/e>11NNV=Bv(*:.F?uu#(gRU.o0XGH`$vhLG1hxt9?W`#,5LsCp#-i>.r$<$6pD>Lb';9Crc6tgXmKVeU2cD4Eo3R/"
@@ -13126,6 +13150,7 @@ NK_GLOBAL const char nk_proggy_clean_ttf_compressed_data_base85[11980+1] =
     "TmD<#%JSMFove:CTBEXI:<eh2g)B,3h2^G3i;#d3jD>)4kMYD4lVu`4m`:&5niUA5@(A5BA1]PBB:xlBCC=2CDLXMCEUtiCf&0g2'tN?PGT4CPGT4CPGT4CPGT4CPGT4CPGT4CPGT4CP"
     "GT4CPGT4CPGT4CPGT4CPGT4CPGT4CP-qekC`.9kEg^+F$kwViFJTB&5KTB&5KTB&5KTB&5KTB&5KTB&5KTB&5KTB&5KTB&5KTB&5KTB&5KTB&5KTB&5KTB&5KTB&5o,^<-28ZI'O?;xp"
     "O?;xpO?;xpO?;xpO?;xpO?;xpO?;xpO?;xpO?;xpO?;xpO?;xpO?;xpO?;xpO?;xp;7q-#lLYI:xvD=#";
+
 #endif /* NK_INCLUDE_DEFAULT_FONT */
 
 #define NK_CURSOR_DATA_W 90
@@ -15537,6 +15562,7 @@ nk_panel_begin(struct nk_context *ctx, const char *title, enum nk_panel_type pan
     /* window movement */
     if ((win->flags & NK_WINDOW_MOVABLE) && !(win->flags & NK_WINDOW_ROM)) {
         int left_mouse_down;
+        int left_mouse_clicked;
         int left_mouse_click_in_cursor;
 
         /* calculate draggable window space */
@@ -15551,9 +15577,10 @@ nk_panel_begin(struct nk_context *ctx, const char *title, enum nk_panel_type pan
 
         /* window movement by dragging */
         left_mouse_down = in->mouse.buttons[NK_BUTTON_LEFT].down;
+        left_mouse_clicked = (int)in->mouse.buttons[NK_BUTTON_LEFT].clicked;
         left_mouse_click_in_cursor = nk_input_has_mouse_click_down_in_rect(in,
             NK_BUTTON_LEFT, header, nk_true);
-        if (left_mouse_down && left_mouse_click_in_cursor) {
+        if (left_mouse_down && left_mouse_click_in_cursor && !left_mouse_clicked) {
             win->bounds.x = win->bounds.x + in->mouse.delta.x;
             win->bounds.y = win->bounds.y + in->mouse.delta.y;
             in->mouse.buttons[NK_BUTTON_LEFT].clicked_pos.x += in->mouse.delta.x;
@@ -15783,11 +15810,11 @@ nk_panel_end(struct nk_context *ctx)
         nk_fill_rect(out, empty_space, 0, style->window.background);
 
         /* fill bottom empty space */
-        if (*layout->offset_x != 0 && !(layout->flags & NK_WINDOW_NO_SCROLLBAR)) {
+        if (layout->footer_height > 0) {
             empty_space.x = window->bounds.x;
             empty_space.y = layout->bounds.y + layout->bounds.h;
             empty_space.w = window->bounds.w;
-            empty_space.h = scrollbar_size.y;
+            empty_space.h = layout->footer_height;
             nk_fill_rect(out, empty_space, 0, style->window.background);
         }
     }
@@ -16161,8 +16188,8 @@ nk_begin_titled(struct nk_context *ctx, const char *name, const char *title,
 {
     struct nk_window *win;
     struct nk_style *style;
-    nk_hash title_hash;
-    int title_len;
+    nk_hash name_hash;
+    int name_len;
     int ret = 0;
 
     NK_ASSERT(ctx);
@@ -16175,12 +16202,12 @@ nk_begin_titled(struct nk_context *ctx, const char *name, const char *title,
 
     /* find or create window */
     style = &ctx->style;
-    title_len = (int)nk_strlen(name);
-    title_hash = nk_murmur_hash(name, (int)title_len, NK_WINDOW_TITLE);
-    win = nk_find_window(ctx, title_hash, name);
+    name_len = (int)nk_strlen(name);
+    name_hash = nk_murmur_hash(name, (int)name_len, NK_WINDOW_TITLE);
+    win = nk_find_window(ctx, name_hash, name);
     if (!win) {
         /* create new window */
-        nk_size name_length = (nk_size)nk_strlen(name);
+        nk_size name_length = (nk_size)name_len;
         win = (struct nk_window*)nk_create_window(ctx);
         NK_ASSERT(win);
         if (!win) return 0;
@@ -16192,7 +16219,7 @@ nk_begin_titled(struct nk_context *ctx, const char *name, const char *title,
 
         win->flags = flags;
         win->bounds = bounds;
-        win->name = title_hash;
+        win->name = name_hash;
         name_length = NK_MIN(name_length, NK_WINDOW_MAX_NAME-1);
         NK_MEMCPY(win->name_string, name, name_length);
         win->name_string[name_length] = 0;
@@ -16902,9 +16929,8 @@ nk_contextual_begin(struct nk_context *ctx, nk_flags flags, struct nk_vec2 size,
     struct nk_window *popup;
     struct nk_rect body;
 
-    NK_STORAGE const struct nk_rect null_rect = {0,0,0,0};
+    NK_STORAGE const struct nk_rect null_rect = {-1,-1,0,0};
     int is_clicked = 0;
-    int is_active = 0;
     int is_open = 0;
     int ret = 0;
 
@@ -16913,11 +16939,11 @@ nk_contextual_begin(struct nk_context *ctx, nk_flags flags, struct nk_vec2 size,
     NK_ASSERT(ctx->current->layout);
     if (!ctx || !ctx->current || !ctx->current->layout)
         return 0;
-    if (ctx->current != ctx->active)
-        return 0;
 
     win = ctx->current;
     ++win->popup.con_count;
+    if (ctx->current != ctx->active)
+        return 0;
 
     /* check if currently active contextual is active */
     popup = win->popup.win;
@@ -16925,7 +16951,9 @@ nk_contextual_begin(struct nk_context *ctx, nk_flags flags, struct nk_vec2 size,
     is_clicked = nk_input_mouse_clicked(&ctx->input, NK_BUTTON_RIGHT, trigger_bounds);
     if (win->popup.active_con && win->popup.con_count != win->popup.active_con)
         return 0;
-    if ((is_clicked && is_open && !is_active) || (!is_open && !is_active && !is_clicked))
+    if (!is_open && win->popup.active_con)
+        win->popup.active_con = 0;
+    if ((!is_open && !is_clicked))
         return 0;
 
     /* calculate contextual position on click */
@@ -16946,6 +16974,7 @@ nk_contextual_begin(struct nk_context *ctx, nk_flags flags, struct nk_vec2 size,
     if (ret) win->popup.type = NK_PANEL_CONTEXTUAL;
     else {
         win->popup.active_con = 0;
+        win->popup.type = NK_PANEL_NONE;
         if (win->popup.win)
             win->popup.win->flags = 0;
     }
@@ -18009,22 +18038,25 @@ nk_layout_widget_space(struct nk_rect *bounds, const struct nk_context *ctx,
     panel_space = nk_layout_row_calculate_usable_space(&ctx->style, layout->type,
                                             layout->bounds.w, layout->row.columns);
 
+    #define NK_FRAC(x) (x - (int)x) /* will be used to remove fookin gaps */
     /* calculate the width of one item inside the current layout space */
     switch (layout->row.type) {
     case NK_LAYOUT_DYNAMIC_FIXED: {
         /* scaling fixed size widgets item width */
-        item_width = NK_MAX(1.0f,panel_space) / (float)layout->row.columns;
-        item_offset = (float)layout->row.index * item_width;
+        float w = NK_MAX(1.0f,panel_space) / (float)layout->row.columns;
+        item_offset = (float)layout->row.index * w;
+        item_width = w + NK_FRAC(item_offset);
         item_spacing = (float)layout->row.index * spacing.x;
     } break;
     case NK_LAYOUT_DYNAMIC_ROW: {
         /* scaling single ratio widget width */
-        item_width = layout->row.item_width * panel_space;
+        float w = layout->row.item_width * panel_space;
         item_offset = layout->row.item_offset;
+        item_width = w + NK_FRAC(item_offset);
         item_spacing = 0;
 
         if (modify) {
-            layout->row.item_offset += item_width + spacing.x;
+            layout->row.item_offset += w + spacing.x;
             layout->row.filled += layout->row.item_width;
             layout->row.index = 0;
         }
@@ -18035,23 +18067,24 @@ nk_layout_widget_space(struct nk_rect *bounds, const struct nk_context *ctx,
         bounds->x -= (float)*layout->offset_x;
         bounds->y = layout->at_y + (layout->row.height * layout->row.item.y);
         bounds->y -= (float)*layout->offset_y;
-        bounds->w = layout->bounds.w  * layout->row.item.w;
-        bounds->h = layout->row.height * layout->row.item.h;
+        bounds->w = layout->bounds.w  * layout->row.item.w + NK_FRAC(bounds->x);
+        bounds->h = layout->row.height * layout->row.item.h + NK_FRAC(bounds->y);
         return;
     }
     case NK_LAYOUT_DYNAMIC: {
         /* scaling arrays of panel width ratios for every widget */
-        float ratio;
+        float ratio, w;
         NK_ASSERT(layout->row.ratio);
         ratio = (layout->row.ratio[layout->row.index] < 0) ?
             layout->row.item_width : layout->row.ratio[layout->row.index];
 
+        w = (ratio * panel_space);
         item_spacing = (float)layout->row.index * spacing.x;
-        item_width = (ratio * panel_space);
         item_offset = layout->row.item_offset;
+        item_width = w + NK_FRAC(item_offset);
 
         if (modify) {
-            layout->row.item_offset += item_width;
+            layout->row.item_offset += w;
             layout->row.filled += ratio;
         }
     } break;
@@ -18089,13 +18122,16 @@ nk_layout_widget_space(struct nk_rect *bounds, const struct nk_context *ctx,
     } break;
     case NK_LAYOUT_TEMPLATE: {
         /* stretchy row layout with combined dynamic/static widget width*/
+        float w;
         NK_ASSERT(layout->row.index < layout->row.columns);
         NK_ASSERT(layout->row.index < NK_MAX_LAYOUT_ROW_TEMPLATE_COLUMNS);
-        item_width = layout->row.templates[layout->row.index];
+        w = layout->row.templates[layout->row.index];
         item_offset = layout->row.item_offset;
+        item_width = w + NK_FRAC(item_offset);
         item_spacing = (float)layout->row.index * spacing.x;
-        if (modify) layout->row.item_offset += item_width;
+        if (modify) layout->row.item_offset += w;
     } break;
+    #undef NK_FRAC
     default: NK_ASSERT(0); break;
     };
 
@@ -18480,7 +18516,7 @@ nk_tree_element_base(struct nk_context *ctx, enum nk_tree_type type,
         state = nk_add_value(ctx, win, tree_hash, 0);
         *state = initial_state;
     } return nk_tree_element_image_push_hashed_base(ctx, type, img, title,
-        nk_strlen(title), state, selected);
+        nk_strlen(title), (enum nk_collapse_states*)state, selected);
 }
 NK_API int
 nk_tree_element_push_hashed(struct nk_context *ctx, enum nk_tree_type type,
@@ -18729,7 +18765,8 @@ nk_list_view_begin(struct nk_context *ctx, struct nk_list_view *view,
 
     view->total_height = row_height * NK_MAX(row_count,1);
     view->begin = (int)NK_MAX(((float)view->scroll_value / (float)row_height), 0.0f);
-    view->count = (int)NK_MAX(nk_iceilf((layout->clip.h)/(float)row_height), 0);
+    view->count = (int)NK_MAX(nk_iceilf((layout->clip.h)/(float)row_height),0);
+    view->count = NK_MIN(view->count, row_count - view->begin);
     view->end = view->begin + view->count;
     view->ctx = ctx;
     return result;
@@ -20513,7 +20550,7 @@ nk_do_selectable(nk_flags *state, struct nk_command_buffer *out,
 
     /* draw selectable */
     if (style->draw_begin) style->draw_begin(out, style->userdata);
-    nk_draw_selectable(out, *state, style, *value, &bounds, 0,0,0, str, len, align, font);
+    nk_draw_selectable(out, *state, style, *value, &bounds, 0,0,NK_SYMBOL_NONE, str, len, align, font);
     if (style->draw_end) style->draw_end(out, style->userdata);
     return old_value != *value;
 }
@@ -20560,7 +20597,7 @@ nk_do_selectable_image(nk_flags *state, struct nk_command_buffer *out,
 
     /* draw selectable */
     if (style->draw_begin) style->draw_begin(out, style->userdata);
-    nk_draw_selectable(out, *state, style, *value, &bounds, &icon, img, 0, str, len, align, font);
+    nk_draw_selectable(out, *state, style, *value, &bounds, &icon, img, NK_SYMBOL_NONE, str, len, align, font);
     if (style->draw_end) style->draw_end(out, style->userdata);
     return old_value != *value;
 }
@@ -21162,6 +21199,7 @@ nk_scrollbar_behavior(nk_flags *state, struct nk_input *in,
 {
     nk_flags ws = 0;
     int left_mouse_down;
+    int left_mouse_clicked;
     int left_mouse_click_in_cursor;
     float scroll_delta;
 
@@ -21169,13 +21207,14 @@ nk_scrollbar_behavior(nk_flags *state, struct nk_input *in,
     if (!in) return scroll_offset;
 
     left_mouse_down = in->mouse.buttons[NK_BUTTON_LEFT].down;
+    left_mouse_clicked = in->mouse.buttons[NK_BUTTON_LEFT].clicked;
     left_mouse_click_in_cursor = nk_input_has_mouse_click_down_in_rect(in,
         NK_BUTTON_LEFT, *cursor, nk_true);
     if (nk_input_is_mouse_hovering_rect(in, *scroll))
         *state = NK_WIDGET_STATE_HOVERED;
 
     scroll_delta = (o == NK_VERTICAL) ? in->mouse.scroll_delta.y: in->mouse.scroll_delta.x;
-    if (left_mouse_down && left_mouse_click_in_cursor) {
+    if (left_mouse_down && left_mouse_click_in_cursor && !left_mouse_clicked) {
         /* update cursor by mouse dragging */
         float pixel, delta;
         *state = NK_WIDGET_STATE_ACTIVE;
@@ -21256,7 +21295,7 @@ nk_draw_scrollbar(struct nk_command_buffer *out, nk_flags state,
     }
 
     /* draw cursor */
-    if (background->type == NK_STYLE_ITEM_COLOR) {
+    if (cursor->type == NK_STYLE_ITEM_COLOR) {
         nk_fill_rect(out, *scroll, style->rounding_cursor, cursor->data.color);
         nk_stroke_rect(out, *scroll, style->rounding_cursor, style->border_cursor, style->cursor_border_color);
     } else nk_draw_image(out, *scroll, &cursor->data.image, nk_white);
