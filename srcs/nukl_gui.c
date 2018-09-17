@@ -32,83 +32,90 @@ void	nukl_gui(t_param *param)
 
 	if (nk_begin(param->graph->ctx, "RT UI", nk_rect(0, 0, WINDOW_GUI_WIDTH, WINDOW_GUI_HEIGHT), NK_WINDOW_SCALE_LEFT))
 	{
-		nk_layout_row_begin(param->graph->ctx, NK_STATIC, 30, 3);
+		nk_layout_row_begin(param->graph->ctx, NK_DYNAMIC, 30, 3);
 		{
-			nk_layout_row_push(param->graph->ctx, 100);
+			nk_layout_row_push(param->graph->ctx, 0.25f);
 			nk_label(param->graph->ctx, "Anti aliasing:", NK_TEXT_RIGHT);
-			nk_layout_row_push(param->graph->ctx, 200);
+			nk_layout_row_push(param->graph->ctx, 0.6f);
 			nk_slider_int(param->graph->ctx, MIN_ANTI_ALIASING, &param->macro.anti_aliasing, MAX_ANTI_ALIASING, STEP_ANTI_ALIASING);
-			nk_layout_row_push(param->graph->ctx, 100);
+			nk_layout_row_push(param->graph->ctx, 0.15f);
 			number = ft_itoa(param->macro.anti_aliasing);
 			nk_label(param->graph->ctx, number, NK_TEXT_CENTERED);
 			ft_strdel(&number);
 		}
-		nk_layout_row_begin(param->graph->ctx, NK_STATIC, 30, 3);
+		nk_layout_row_end(param->graph->ctx);
+		nk_layout_row_begin(param->graph->ctx, NK_DYNAMIC, 30, 3);
 		{
-			nk_layout_row_push(param->graph->ctx, 100);
+			nk_layout_row_push(param->graph->ctx, 0.25f);
 			nk_label(param->graph->ctx, "Recursion:", NK_TEXT_RIGHT);
-			nk_layout_row_push(param->graph->ctx, 200);
+			nk_layout_row_push(param->graph->ctx, 0.6f);
 			nk_slider_int(param->graph->ctx, MIN_RECURSION, &param->macro.recursion, MAX_RECURSION, STEP_RECURSION);
-			nk_layout_row_push(param->graph->ctx, 100);
+			nk_layout_row_push(param->graph->ctx, 0.15f);
 			number = ft_itoa(param->macro.recursion);
 			nk_label(param->graph->ctx, number, NK_TEXT_CENTERED);
 			ft_strdel(&number);
 		}
-		nk_layout_row_begin(param->graph->ctx, NK_STATIC, 30, 3);
+		nk_layout_row_end(param->graph->ctx);
+		nk_layout_row_begin(param->graph->ctx, NK_DYNAMIC, 30, 3);
 		{
-			nk_layout_row_push(param->graph->ctx, 100);
+			nk_layout_row_push(param->graph->ctx, 0.25f);
 			nk_label(param->graph->ctx, "Cartoon factor:", NK_TEXT_RIGHT);
-			nk_layout_row_push(param->graph->ctx, 200);
+			nk_layout_row_push(param->graph->ctx, 0.6f);
 			nk_slider_int(param->graph->ctx, MIN_CARTOON_FACTOR, &param->macro.cartoon_factor, MAX_CARTOON_FACTOR, STEP_CARTOON_FACTOR);
-			nk_layout_row_push(param->graph->ctx, 100);
+			nk_layout_row_push(param->graph->ctx, 0.15f);
 			number = ft_itoa(param->macro.cartoon_factor);
 			nk_label(param->graph->ctx, number, NK_TEXT_CENTERED);
 			ft_strdel(&number);
 		}
-		nk_layout_row_begin(param->graph->ctx, NK_STATIC, 30, 3);
+		nk_layout_row_end(param->graph->ctx);
+		nk_layout_row_begin(param->graph->ctx, NK_DYNAMIC, 30, 3);
 		{
-			nk_layout_row_push(param->graph->ctx, 100);
+			nk_layout_row_push(param->graph->ctx, 0.25f);
 			nk_label(param->graph->ctx, "Blur radius:", NK_TEXT_RIGHT);
-			nk_layout_row_push(param->graph->ctx, 200);
+			nk_layout_row_push(param->graph->ctx, 0.6f);
 			nk_slider_int(param->graph->ctx, MIN_BLUR_RADIUS, &param->macro.blur_radius, MAX_BLUR_RADIUS, STEP_BLUR_RADIUS);
-			nk_layout_row_push(param->graph->ctx, 100);
+			nk_layout_row_push(param->graph->ctx, 0.15f);
 			number = ft_itoa(param->macro.blur_radius);
 			nk_label(param->graph->ctx, number, NK_TEXT_CENTERED);
 			ft_strdel(&number);
 		}
-		nk_layout_row_begin(param->graph->ctx, NK_STATIC, 30, 3);
+		nk_layout_row_end(param->graph->ctx);
+		nk_layout_row_begin(param->graph->ctx, NK_DYNAMIC, 30, 3);
 		{
-			nk_layout_row_push(param->graph->ctx, 100);
+			nk_layout_row_push(param->graph->ctx, 0.25f);
 			nk_label(param->graph->ctx, "Rotation:", NK_TEXT_RIGHT);
-			nk_layout_row_push(param->graph->ctx, 200);
+			nk_layout_row_push(param->graph->ctx, 0.6f);
 			nk_slider_int(param->graph->ctx, MIN_ROTATION_ANGLE, &param->macro.rotation_angle, MAX_ROTATION_ANGLE, STEP_ROTATION_ANGLE);
-			nk_layout_row_push(param->graph->ctx, 100);
+			nk_layout_row_push(param->graph->ctx, 0.15f);
 			number = ft_itoa(param->macro.rotation_angle);
 			nk_label(param->graph->ctx, number, NK_TEXT_CENTERED);
 			ft_strdel(&number);
 		}
-		nk_layout_row_begin(param->graph->ctx, NK_STATIC, 30, 3);
+		nk_layout_row_end(param->graph->ctx);
+		nk_layout_row_begin(param->graph->ctx, NK_DYNAMIC, 30, 3);
 		{
-			nk_layout_row_push(param->graph->ctx, 100);
+			nk_layout_row_push(param->graph->ctx, 0.25f);
 			nk_label(param->graph->ctx, "Specular exp:", NK_TEXT_RIGHT);
-			nk_layout_row_push(param->graph->ctx, 200);
+			nk_layout_row_push(param->graph->ctx, 0.6f);
 			nk_slider_int(param->graph->ctx, MIN_SPECULAR_EXP, &param->macro.specular_exp, MAX_SPECULAR_EXP, STEP_SPECULAR_EXP);
-			nk_layout_row_push(param->graph->ctx, 100);
+			nk_layout_row_push(param->graph->ctx, 0.15f);
 			number = ft_itoa(param->macro.specular_exp);
 			nk_label(param->graph->ctx, number, NK_TEXT_CENTERED);
 			ft_strdel(&number);
 		}
-		nk_layout_row_begin(param->graph->ctx, NK_STATIC, 30, 3);
+		nk_layout_row_end(param->graph->ctx);
+		nk_layout_row_begin(param->graph->ctx, NK_DYNAMIC, 30, 3);
 		{
-			nk_layout_row_push(param->graph->ctx, 100);
+			nk_layout_row_push(param->graph->ctx, 0.25f);
 			nk_label(param->graph->ctx, "K Ambience:", NK_TEXT_RIGHT);
-			nk_layout_row_push(param->graph->ctx, 200);
+			nk_layout_row_push(param->graph->ctx, 0.6f);
 			nk_slider_float(param->graph->ctx, MIN_K_AMBIENCE, &param->macro.k_ambience, MAX_K_AMBIENCE, STEP_K_AMBIENCE);
-			nk_layout_row_push(param->graph->ctx, 100);
+			nk_layout_row_push(param->graph->ctx, 0.15f);
 			number = ft_itoa(param->macro.k_ambience);
 			nk_label(param->graph->ctx, number, NK_TEXT_CENTERED);
 			ft_strdel(&number);
 		}
+		nk_layout_row_end(param->graph->ctx);
 		nk_layout_row_begin(param->graph->ctx, NK_STATIC, 30, 1);
 		{
 			nk_layout_row_push(param->graph->ctx, 400);
@@ -119,20 +126,21 @@ void	nukl_gui(t_param *param)
 				param->up_img.post_process = TRUE;
 			}
 		}
-		nk_layout_space_begin(param->graph->ctx, NK_STATIC, 100, INT_MAX);
-		nk_layout_space_push(param->graph->ctx, nk_rect(15, 0, 40, 20));
-		if (nk_button_label(param->graph->ctx, "UPDATE"))
+		nk_layout_row_end(param->graph->ctx);
+		nk_layout_row_begin(param->graph->ctx, NK_DYNAMIC, 30, 2);
 		{
-			param->up_img.process = TRUE;
-			param->up_img.post_process = TRUE;
-			mprintf(1, "Refresh engaged\n");
+			nk_layout_row_push(param->graph->ctx, 0.3f);
+			if (nk_button_label(param->graph->ctx, "UPDATE"))
+			{
+				param->up_img.process = TRUE;
+				param->up_img.post_process = TRUE;
+				mprintf(1, "Refresh engaged\n");
+			}
+			nk_layout_row_push(param->graph->ctx, 0.3f);
+			if (nk_button_label(param->graph->ctx, "SAVE"))
+				save_img(param);
 		}
-		nk_layout_space_end(param->graph->ctx);
-		nk_layout_space_begin(param->graph->ctx, NK_STATIC, 100, INT_MAX);
-		nk_layout_space_push(param->graph->ctx, nk_rect(15, 0, 40, 20));
-		if (nk_button_label(param->graph->ctx, "SAVE"))
-			save_img(param);
-		nk_layout_space_end(param->graph->ctx);
+		nk_layout_row_end(param->graph->ctx);
 	}
 	nk_end(param->graph->ctx);
 	SDL_GL_MakeCurrent(param->graph->win_gl, param->graph->gl_context);
