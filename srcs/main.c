@@ -49,7 +49,7 @@ int		main(int ac, char **av)
 	param->last_mv = clock(); // Clock
 	param->start = clock(); // Clock
 	printf("=> creating graph structure\n");
-	if ((param->graph = graph_init()) == NULL)
+	if ((param->graph = (t_sdl*)malloc(sizeof(t_sdl))) == NULL)
 		error(0, 0, "Can't allocate graph struct");
 	if (!rt_parser(param, filename))
 		return (1);

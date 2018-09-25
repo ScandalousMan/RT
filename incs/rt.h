@@ -557,7 +557,6 @@ void 							handle_keyboard_caps(int keycode, t_param *param);
 ** Graph prototype
 */
 
-t_sdl							*graph_init(void);
 void							launch_threads(t_param *param);
 
 /*

@@ -147,6 +147,9 @@ void	*fill_sphere(t_jobject *jobj, t_param *param)
 	t_jobject	*tmp;
 	double		tr[VEC_SIZE];
 
+	tr[0] = 0.0;
+	tr[1] = 0.0;
+	tr[2] = 0.0;
 	if (!(obj = (t_sphere *)malloc(sizeof(t_sphere))))
 		return (NULL);//EXIT
 	fill_vector((&(obj->center)), (t_jarray*)(get_jobject(jobj, "center")->value));
@@ -167,6 +170,9 @@ void	*fill_plane(t_jobject *jobj, t_param *param)
 	t_plane		*obj;
 	double		tr[VEC_SIZE];
 
+	tr[0] = 0.0;
+	tr[1] = 0.0;
+	tr[2] = 0.0;
 	if (!(obj = (t_plane *)malloc(sizeof(t_plane))))
 		return (NULL);//EXIT
 	fill_vector((&(obj->n)), (t_jarray*)(get_jobject(jobj, "normal")->value));
@@ -190,6 +196,9 @@ void	*fill_cone(t_jobject *jobj, t_param *param)
 	t_jobject	*tmp;
 	double		tr[VEC_SIZE];
 
+	tr[0] = 0.0;
+	tr[1] = 0.0;
+	tr[2] = 0.0;
 	if (!(obj = (t_cone *)malloc(sizeof(t_cone))))
 		return (NULL);//EXIT
 	fill_vector(&(obj->org), (t_jarray*)(get_jobject(jobj, "center")->value));
@@ -215,6 +224,9 @@ void	*fill_cylinder(t_jobject *jobj, t_param *param)
 	t_jobject	*tmp;
 	double		tr[VEC_SIZE];
 
+	tr[0] = 0.0;
+	tr[1] = 0.0;
+	tr[2] = 0.0;
 	if (!(obj = (t_cylindre *)malloc(sizeof(t_cylindre))))
 		return (NULL);//EXIT
 	fill_vector(&(obj->org), (t_jarray*)(get_jobject(jobj, "center")->value));
@@ -240,6 +252,9 @@ void	*fill_quadric(t_jobject *jobj, t_param *param)
 	t_jobject	*tmp;
 	double		tr[VEC_SIZE];
 
+	tr[0] = 0.0;
+	tr[1] = 0.0;
+	tr[2] = 0.0;
 	if (!(obj = (t_quadric *)malloc(sizeof(t_quadric))))
 		return (NULL);//EXIT
 	fill_vector(&(obj->center), (t_jarray*)(get_jobject(jobj, "center")->value));
@@ -277,6 +292,9 @@ void	*fill_tore(t_jobject *jobj, t_param *param)
 	t_jobject	*tmp;
 	double		tr[VEC_SIZE];
 
+	tr[0] = 0.0;
+	tr[1] = 0.0;
+	tr[2] = 0.0;
 	if (!(obj = (t_tore *)malloc(sizeof(t_tore))))
 		return (NULL);//EXIT
 	fill_vector(&(obj->center), (t_jarray*)(get_jobject(jobj, "center")->value));
@@ -302,6 +320,9 @@ void	*fill_customobject(t_jobject *jobj, t_param *param)
 	t_jobject		*tmp;
 	double			tr[VEC_SIZE];
 
+	tr[0] = 0.0;
+	tr[1] = 0.0;
+	tr[2] = 0.0;
 	tmp = get_jobject(jobj, "name");
 	if (!(obj = get_custom_ptr(tmp->value, param->customs)))
 		error(0, 0, "Can't find one custom object");//ERROR can't find this custom object
@@ -475,10 +496,10 @@ int	fill_custom(t_custom *custom, t_jobject *jobj, int num, t_param *param)
 int	fill_custom_name(t_custom *custom, t_jobject *jobj, int num, t_param *param)
 {
 	t_jobject	*tmp;
-(void)param;	
+	(void)param;
 	custom->id = num;
 	tmp = get_jobject(jobj, "name");
-	printf("TEST: %s\n", tmp->value);
+	printf("TEST: %s\n", (char *)tmp->value);
 
 	custom->name = ft_strdup(tmp->value);
 	if (custom->name == NULL)

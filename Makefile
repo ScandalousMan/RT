@@ -24,7 +24,7 @@ export
 ifeq ($(DEBUG), true)
 	CFLAGS = -std=c99 -pedantic -g -ggdb `pkg-config --cflags sdl2` `pkg-config --cflags glew`
 else
-	CFLAGS =  -Wall -Werror -Wextra -O3 -Ofast `pkg-config --cflags sdl2` `pkg-config --cflags glew`
+	CFLAGS = -Wall -Werror -Wextra -O3 -Ofast `pkg-config --cflags sdl2` `pkg-config --cflags glew`
 endif
 
 LIBFT_PATH = ./libft
@@ -61,7 +61,6 @@ SRCS =		closest.c \
 			display.c \
 			distance.c \
 			file.c \
-			graph_init.c \
 			json_to_objects.c \
 			key_func.c \
 			light.c \
