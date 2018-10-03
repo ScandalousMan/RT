@@ -56,7 +56,8 @@ void			sdl_pull_evts(t_param *param)
 		if (evt.window.windowID == SDL_GetWindowID(param->graph->win_sdl) &&
 		evt.button.type == SDL_MOUSEBUTTONDOWN)
 			handle_clic(param, evt.button);
-		if (evt.type == SDL_KEYDOWN && evt.key.repeat == 0)
+		if (evt.window.windowID == SDL_GetWindowID(param->graph->win_sdl) && 
+		evt.type == SDL_KEYDOWN && evt.key.repeat == 0)
 			handle_keyboard_events(param, evt);
 	}
 	nk_input_end(param->graph->ctx);
