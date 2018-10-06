@@ -12,7 +12,7 @@
 
 #include "rt.h"
 
-double	distance_calc(t_object *tmp, t_param *param,double *from, double *to)
+double	distance_calc(t_object *tmp, t_param *param, double *from, double *to)
 {
 	if (tmp->type == 1 && param)
 		return (distance_to_sphere(tmp, from, to));

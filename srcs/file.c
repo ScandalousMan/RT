@@ -15,22 +15,16 @@
 #include <libft.h>
 #include <json.h>
 #include <json_parse.h>
-
-//FOR PRINTF
 #include <stdio.h>
 
-/*					DEBUG													  */
-
-void	print_lst(t_list *lst)
+void			print_lst(t_list *lst)
 {
 	ft_putendl((char*)(lst->content));
 	ft_putnbr((int)(lst->content_size));
 	ft_putchar('\n');
 }
 
-/*					END														  */
-
-static size_t get_string_size(t_list *lst)
+static size_t	get_string_size(t_list *lst)
 {
 	size_t	size;
 	t_list	*tmp;
@@ -45,7 +39,7 @@ static size_t get_string_size(t_list *lst)
 	return (size + 1);
 }
 
-char	*lst_to_string(t_list *lst)
+char			*lst_to_string(t_list *lst)
 {
 	char	*s;
 	size_t	size;
@@ -64,7 +58,7 @@ char	*lst_to_string(t_list *lst)
 	return (s);
 }
 
-int	read_lines(int fd, t_list **lst)
+int				read_lines(int fd, t_list **lst)
 {
 	char	*line;
 	int		ret;
@@ -75,7 +69,6 @@ int	read_lines(int fd, t_list **lst)
 	tmp_prev = NULL;
 	while ((ret = get_next_line(fd, &line)) > 0)
 	{
-		// ft_putendl(line);
 		stringify(line);
 		if ((tmp = ft_lstnew((const void*)line, ft_strlen(line) + 1)) == NULL)
 			return (EXIT_FAILURE);
@@ -89,7 +82,7 @@ int	read_lines(int fd, t_list **lst)
 	return (EXIT_SUCCESS);
 }
 
-void	free_lst(t_list *lst)
+void			free_lst(t_list *lst)
 {
 	t_list *tmp;
 	t_list *to_free;
@@ -106,7 +99,7 @@ void	free_lst(t_list *lst)
 	}
 }
 
-char *read_file(const char *path)
+char			*read_file(const char *path)
 {
 	int		fd;
 	char	*json;
@@ -120,12 +113,6 @@ char *read_file(const char *path)
 		return (NULL);
 	if (close(fd) != 0)
 		return (NULL);
-
-/* DEBUG */
-	// ft_lstiter(lst, &print_lst);
-	// ft_putendl(lst_to_string(lst));
-/* END */
-
 	json = lst_to_string(lst);
 	free_lst(lst);
 	return (json);
