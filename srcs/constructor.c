@@ -26,23 +26,37 @@ t_path			*path_create(t_param *param, int index)
 
 t_param			*pxl_infos_create(t_param *param)
 {
-	if (!(param->pxl_infos = (t_pxl_info***)malloc(sizeof(t_pxl_info**) * WINDOW_SDL_HEIGHT)))
+	if (!(param->pxl_infos = (int**)malloc(sizeof(int*) * WINDOW_SDL_HEIGHT)))
 		return (NULL);
 	param->i[0] = 0;
 	while (param->i[0] < WINDOW_SDL_HEIGHT)
 	{
-		if (!(param->pxl_infos[param->i[0]] = (t_pxl_info**)malloc(sizeof(t_pxl_info*) * WINDOW_SDL_WIDTH)))
+		if (!(param->pxl_infos[param->i[0]] = (int*)malloc(sizeof(int) * WINDOW_SDL_WIDTH)))
 			return (NULL);
 		param->i[1] = 0;
 		while (param->i[1] < WINDOW_SDL_WIDTH)
 		{
-			if (!(param->pxl_infos[param->i[0]][param->i[1]] = (t_pxl_info*)malloc(sizeof(t_pxl_info))))
-				return (NULL);
+			param->pxl_infos[param->i[0]][param->i[1]] = 0;
 			param->i[1]++;
 		}
 		param->i[0]++;
 	}
 	return (param);
+}
+
+void			pxl_infos_reset(t_param *param)
+{
+	param->i[0] = 0;
+	while (param->i[0] < WINDOW_SDL_HEIGHT)
+	{
+		param->i[1] = 0;
+		while (param->i[1] < WINDOW_SDL_WIDTH)
+		{
+			param->pxl_infos[param->i[0]][param->i[1]] = 0;
+			param->i[1]++;
+		}
+		param->i[0]++;
+	}
 }
 
 t_sdl				*copy_pxls(t_param *param)
@@ -155,5 +169,6 @@ t_param			*struct_create(void)
 		return (NULL);
 	if (!pxl_infos_create(param))
 		return (NULL);
+	printf("correct address: %p\n", param->pxl_infos);
 	return (param);
 }

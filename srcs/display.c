@@ -3,7 +3,7 @@
 void	display_objects(t_param *param)
 {
 	t_object *objs = param->objects;
-	while (objs)
+	while (objs && DEBUG)
 	{
 		ft_putstr("\n***************\n");
 		if (objs->type == 1)
@@ -120,7 +120,7 @@ void	display_objects(t_param *param)
 void	display_lights(t_param *param)
 {
 	param->tmp_light = param->lights;
-	while (param->tmp_light)
+	while (param->tmp_light && DEBUG)
 	{
 		ft_putstr("light detected,#");
 		ft_putnbr(param->tmp_light->num);
@@ -133,7 +133,18 @@ void	display_lights(t_param *param)
 	}
 }
 
+void	light_display_objects(t_param *param)
+{
+	t_object *tmp;
+
+	tmp = param->objects;
+	while (tmp) {
+		printf("number object: %d, type: %d, address: %p\n", tmp->num, tmp->type, tmp);
+		tmp = tmp->next;
+	}
+}
+
 int		point_display(t_param *param)
 {
-	return (ft_absint(param->i[0] - 396) <= 0 && ft_absint(param->i[1] - 369) <= 0);
+	return (ft_absint(param->i[0] - 10) <= 0 && ft_absint(param->i[1] - 10) <= 0);
 }

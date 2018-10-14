@@ -21,6 +21,7 @@
 # endif
 # define SPECULAR_EXP 8
 # define EPSILON 0.000001
+# define DEBUG 0
 
 # define PIXELISATION	8
 
@@ -29,7 +30,7 @@
 # define MAX_ANTI_ALIASING 1
 # define MIN_ANTI_ALIASING 10
 
-# define RECURSION 0
+# define RECURSION 1
 # define STEP_RECURSION 1
 # define MAX_RECURSION 10
 # define MIN_RECURSION 0
@@ -271,13 +272,6 @@ typedef struct	s_custom
 	struct s_custom		*next;
 }				t_custom;
 
-typedef struct	s_pxl_info
-{
-	t_object		*object;
-	int					col;
-	int					calc_col;
-}				t_pxl_info;
-
 typedef struct		s_macro
 {
 	float			k_ambience;
@@ -325,13 +319,12 @@ typedef struct		s_param
 	int				i[2];
 	double			rot[VEC_SIZE][VEC_SIZE];
 	double			epsilon;
-
 	t_sdl			*graph;
 	SDL_Thread		**thread;
 	
 	int				current_thread;
 	t_update_img	up_img;
-	t_pxl_info	***pxl_infos;
+	int					**pxl_infos;
 	double			ia;//intensité de la lumiere ambiante
 	double			m[VEC_SIZE];//triplet intermediaire pour calculs ombres
 	double			perlin_noise[NOISE_SIZE][NOISE_SIZE];
@@ -403,6 +396,7 @@ void							object_rotation(double mat[VEC_SIZE][VEC_SIZE], t_object *object);
 */
 void							display_objects(t_param *param);
 int								point_display(t_param *param);
+void							light_display_objects(t_param *param);
 /*
 **-----------------------------------distance-----------------------------------
 */

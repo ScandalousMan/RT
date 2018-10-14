@@ -87,7 +87,7 @@ int	is_rt_object(t_jobject *obj)
 	const size_t	nb_obj = RT_KEYS_SIZE(g_objects);
 	size_t			i;
 
-	printf("rt_type_key: %s\n", rt_type);
+	// printf("rt_type_key: %s\n", rt_type);
 	i = 0;
 	while (i < nb_obj)
 	{
@@ -166,8 +166,8 @@ int	check_subtypes(t_jarray *array, t_rt_type subtype)
 	tmp = array;
 	while (tmp)
 	{
-		if (subtype == RTOBJECT)
-			printf("OBJECT ---------->\n");
+		// if (subtype == RTOBJECT)
+		// 	printf("OBJECT ---------->\n");
 //		printf("check_subtypes: %d\n", tmp->type);
 		if (is_type(tmp->value, tmp->type, subtype, subtype) == 0)
 			return (0);
@@ -187,7 +187,7 @@ int	is_object(t_jobject *obj, const t_key *keys, const size_t keys_size, int is_
 	i = 0;
 	while (i < keys_size)
 	{
-		printf("is_object: %zu %s %d %d\n", i, keys[i].key, obj->type, keys[i].type);
+		// printf("is_object: %zu %s %d %d\n", i, keys[i].key, obj->type, keys[i].type);
 		if (jobject_contains(obj, keys[i]) == 0)
 			return (0);
 		++i;
@@ -195,7 +195,7 @@ int	is_object(t_jobject *obj, const t_key *keys, const size_t keys_size, int is_
 	i = 0;
 	while (i < common_size)
 	{
-		printf("is_object: %zu %s %d %d\n", i, g_common_keys[i].key, obj->type, g_common_keys[i].type);
+		// printf("is_object: %zu %s %d %d\n", i, g_common_keys[i].key, obj->type, g_common_keys[i].type);
 		if (jobject_contains(obj, g_common_keys[i]) == 0)
 			return (0);
 		++i;

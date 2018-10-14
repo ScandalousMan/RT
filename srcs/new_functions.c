@@ -75,16 +75,14 @@ int		ray_color(t_param *param, double *from, double *to, int index, t_path *path
 	path->current_object = closest_object(param, from, to, path);
 	if (!path->current_object)
 	{
-		if (!param->pxl_infos[param->i[0]][param->i[1]]->object)
-			param->pxl_infos[param->i[0]][param->i[1]]->object = NULL;
+		if (!index)
+			param->pxl_infos[param->i[0]][param->i[1]] = 0;
 		return 0;
 	}
 	else
 	{
-		// if (point_display(param))
-		// 	printf("obj intersected: #%d en x:[%f,%f,%f]\n", path->current_object->num, path->x[0], path->x[1], path->x[2]);
 		if (!index)
-			param->pxl_infos[param->i[0]][param->i[1]]->object = path->current_object;
+			param->pxl_infos[param->i[0]][param->i[1]] = path->current_object->num;
 		if (index < param->macro.recursion)
 		{
 			// REFLECTED

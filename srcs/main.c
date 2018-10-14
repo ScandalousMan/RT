@@ -42,6 +42,7 @@ int		main(int ac, char **av)
 	printf("=> creating program structure\n");
 	if (!(param = struct_create()))
 		return (-1);
+	printf("in main: %p\n", param->pxl_infos);
 	param->texture = IMG_Load("rouge.jpg");
 	printf("=> creating random noise map\n");
 	perlin_noise_generator(param);
@@ -93,6 +94,7 @@ int		main(int ac, char **av)
 		if (param->up_img.process == TRUE || param->up_img.post_process == TRUE)
 		{
 			sdl_draw(param->graph);
+			// light_display_objects(param);
 			param->up_img.process = FALSE;
 			param->up_img.post_process = FALSE;
 		}
