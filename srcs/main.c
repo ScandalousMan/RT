@@ -42,7 +42,6 @@ int		main(int ac, char **av)
 	printf("=> creating program structure\n");
 	if (!(param = struct_create()))
 		return (-1);
-	printf("in main: %p\n", param->pxl_infos);
 	param->texture = IMG_Load("rouge.jpg");
 	printf("=> creating random noise map\n");
 	perlin_noise_generator(param);

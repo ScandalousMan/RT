@@ -44,21 +44,6 @@ t_param			*pxl_infos_create(t_param *param)
 	return (param);
 }
 
-void			pxl_infos_reset(t_param *param)
-{
-	param->i[0] = 0;
-	while (param->i[0] < WINDOW_SDL_HEIGHT)
-	{
-		param->i[1] = 0;
-		while (param->i[1] < WINDOW_SDL_WIDTH)
-		{
-			param->pxl_infos[param->i[0]][param->i[1]] = 0;
-			param->i[1]++;
-		}
-		param->i[0]++;
-	}
-}
-
 t_sdl				*copy_pxls(t_param *param)
 {
 	t_sdl *graph;
@@ -169,6 +154,5 @@ t_param			*struct_create(void)
 		return (NULL);
 	if (!pxl_infos_create(param))
 		return (NULL);
-	printf("correct address: %p\n", param->pxl_infos);
 	return (param);
 }
