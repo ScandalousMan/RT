@@ -12,11 +12,40 @@
 
 #include "rt.h"
 
-void	sdl_draw(t_sdl *graph)
+static	SDL_Texture	*create_texture(t_sdl *graph, int count)
+{
+	SDL_Texture *text;
+
+	if (graph->show_tmp == 0)
+		text = SDL_CreateTextureFromSurface(graph->render_sdl,
+			graph->surfs[count]);
+	else
+		text = SDL_CreateTextureFromSurface(graph->render_sdl,
+			graph->tmp_surfs[count]);
+	return (text);
+}
+
+static	void		apply_texture(t_sdl *graph, int count, SDL_Rect dest,
+					SDL_Texture *text)
+{
+	if (text)
+	{
+		dest.y = (WINDOW_SDL_HEIGHT / NB_THREAD) * count;
+		SDL_RenderCopy(graph->render_sdl, text, NULL, &dest);
+		SDL_DestroyTexture(text);
+	}
+	else
+	{
+		mprintf(1, "Can't create texture to apply on screen: %s",
+			SDL_GetError());
+		exit(0);
+	}
+}
+
+void				sdl_draw(t_sdl *graph)
 {
 	int				count;
 	SDL_Rect		dest;
-	SDL_Texture		*text;
 
 	count = 0;
 	dest.x = 0;
@@ -24,21 +53,7 @@ void	sdl_draw(t_sdl *graph)
 	dest.h = graph->surfs[count]->h;
 	while (count < NB_THREAD)
 	{
-		if (graph->show_tmp == 0) {
-			text = SDL_CreateTextureFromSurface(graph->render_sdl,
-			graph->surfs[count]);
-		} else {
-			text = SDL_CreateTextureFromSurface(graph->render_sdl,
-			graph->tmp_surfs[count]);
-		}
-		if (text)
-		{
-			dest.y = (WINDOW_SDL_HEIGHT / NB_THREAD) * count;
-			SDL_RenderCopy(graph->render_sdl, text, NULL, &dest);
-			SDL_DestroyTexture(text);
-		}
-		else
-			exit(0);
+		apply_texture(graph, count, dest, create_texture(graph, count));
 		count++;
 	}
 	SDL_RenderPresent(graph->render_sdl);

@@ -14,14 +14,14 @@
 
 void	save_img(t_param *param)
 {
-	SDL_Surface *surf;
-	int 				count;
+	SDL_Surface 	*surf;
+	int 			count;
 	SDL_Rect 		rect_to;
 
+	count = 0;
 	if (!(surf = SDL_CreateRGBSurfaceWithFormat(0,
 	WINDOW_SDL_WIDTH, WINDOW_SDL_HEIGHT, 32, SDL_PIXELFORMAT_ARGB8888)))
 		error(0, 0, "Can't create saved image surface");
-	count = 0;
 	while (count < NB_THREAD)
 	{
 		rect_to.x = 0;

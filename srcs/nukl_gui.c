@@ -14,7 +14,8 @@
 
 void	nukl_gui(t_param *param)
 {
-	char *number;
+	int		tmp_filter;
+	char	*number;
 	const struct nk_vec2 sizeButton = {
 		470.0,
 		150.0
@@ -109,15 +110,26 @@ void	nukl_gui(t_param *param)
 		nk_layout_row_begin(param->graph->ctx, NK_STATIC, 30, 1);
 		{
 			nk_layout_row_push(param->graph->ctx, 400);
-			param->macro.filter = nk_combo(param->graph->ctx, filter, 5, param->macro.filter, 20, sizeButton);
+			tmp_filter = nk_combo(param->graph->ctx, filter, 5, param->macro.filter, 20, sizeButton);
+			if (param->macro.filter != tmp_filter)
+			{
+				param->macro.filter = tmp_filter;
+				param->up_img.post_process = TRUE;
+			}
 		}
-		nk_layout_space_begin(param->graph->ctx, NK_STATIC, 20, INT_MAX);
+		nk_layout_space_begin(param->graph->ctx, NK_STATIC, 100, INT_MAX);
 		nk_layout_space_push(param->graph->ctx, nk_rect(15, 0, 40, 20));
-		if (nk_button_label(param->graph->ctx, "REFRESH"))
+		if (nk_button_label(param->graph->ctx, "UPDATE"))
 		{
-			param->refresh = 1;
+			param->up_img.process = TRUE;
+			param->up_img.post_process = TRUE;
 			mprintf(1, "Refresh engaged\n");
 		}
+		nk_layout_space_end(param->graph->ctx);
+		nk_layout_space_begin(param->graph->ctx, NK_STATIC, 100, INT_MAX);
+		nk_layout_space_push(param->graph->ctx, nk_rect(15, 0, 40, 20));
+		if (nk_button_label(param->graph->ctx, "SAVE"))
+			save_img(param);
 		nk_layout_space_end(param->graph->ctx);
 	}
 	nk_end(param->graph->ctx);

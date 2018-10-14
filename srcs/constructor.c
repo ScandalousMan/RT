@@ -163,7 +163,8 @@ t_param			*struct_create(void)
 	param->ia = 1.0;
 	param->num_lights = 0;
 	param->num_objects = 0;
-	param->refresh = 1;
+	param->up_img.process = TRUE;
+	param->up_img.post_process = TRUE;
 	param->current_thread = 0;
 	param->macro.anti_aliasing = ANTI_ALIASING;
 	param->macro.recursion = RECURSION;

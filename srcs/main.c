@@ -57,23 +57,45 @@ int		main(int ac, char **av)
 	if (!rt_parser(param, filename))
 		return (1);
 	sdl_init(param->graph);
-	param->refresh = 1;
 	while (param->quit == FALSE)
 	{
 		sdl_pull_evts(param);
-		if (param->to_pix && ((double)(clock() - param->last_mv) / (double)CLOCKS_PER_SEC) > 0.4) // Rasterization
+		if (param->to_pix && ((double)(clock() - param->last_mv) / (double)CLOCKS_PER_SEC) > 0.08) // Rasterization
 		{
 			param->to_pix = 0;
-			param->refresh = 1;
+			param->up_img.process = TRUE;
+			param->up_img.post_process = TRUE;
 		}
 		nukl_gui(param);
-		if (param->refresh == 1 && param->quit == FALSE)
+		if (param->up_img.process == TRUE && param->quit == FALSE)
 		{
+			param->graph->show_tmp = 0;
 			launch_threads(param);
-			sdl_draw(param->graph);
 			param->end = clock(); // Clock
 			printf("Render %.5lf secondes...\n", (double)(param->end - param->start) / CLOCKS_PER_SEC);
-			param->refresh = 0;
+		}
+		if (param->up_img.post_process == TRUE && param->quit == FALSE)
+		{
+			if (param->macro.filter == 0)
+				param->graph->show_tmp = 0;
+			else
+			{
+				param->graph->show_tmp = 1;
+				if (param->macro.filter == 1)
+					cartoon(param);
+				else if (param->macro.filter == 2)
+					greyscale(param);
+				else if (param->macro.filter == 3)
+					sepia(param);
+				else if (param->macro.filter == 4)
+					blur(param);
+			}
+		}
+		if (param->up_img.process == TRUE || param->up_img.post_process == TRUE)
+		{
+			sdl_draw(param->graph);
+			param->up_img.process = FALSE;
+			param->up_img.post_process = FALSE;
 		}
 	}
 	sdl_quit(param->graph);

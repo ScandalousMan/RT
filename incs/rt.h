@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itsalex <itsalex@student.42.fr>            +#+  +:+       +#+        */
+/*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 16:39:54 by aguemy            #+#    #+#             */
-/*   Updated: 2018/08/29 14:44:48 by itsalex          ###   ########.fr       */
+/*   Updated: 2018/09/08 17:00:42 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@
 
 # define NB_THREAD 4
 
-# define SAVED_IMG_NAME "test.png"
+# define SAVED_IMG_NAME "screenshot.png"
 
 # define MAX_VERTEX_MEMORY 512 * 1024
 # define MAX_ELEMENT_MEMORY 128 * 1024
@@ -293,6 +293,12 @@ typedef struct		s_macro
 	int				specular_exp;
 }					t_macro;
 
+typedef	struct		s_update_img
+{
+	char			process;
+	char			post_process;
+}					t_update_img;
+
 typedef struct		s_param
 {
 	clock_t			start;//TODO delete
@@ -311,9 +317,9 @@ typedef struct		s_param
 	t_light			*lights;
 	int				num_lights;
 	t_object		*intersect_object;
-	int 				num_objects;
-	char				is_cut;
-	char				is_for_light;
+	int 			num_objects;
+	char			is_cut;
+	char			is_for_light;
 	t_light			*tmp_light;
 	double			tmp_vec[VEC_SIZE];
 	int 			brightness;
@@ -327,7 +333,7 @@ typedef struct		s_param
 	SDL_Thread		**thread;
 	
 	int				current_thread;
-	int				refresh;
+	t_update_img	up_img;
 	t_pxl_info	***pxl_infos;
 	double			ia;//intensité de la lumiere ambiante
 	double			m[VEC_SIZE];//triplet intermediaire pour calculs ombres
@@ -551,7 +557,9 @@ void							putpxl(t_param *param, int y, int x, Uint32 pixel);
 Uint32							jpg_find_pxl(t_param *param, double x, double y);
 void							save_img(t_param *param);
 void							sdl_draw(t_sdl *graph);
-void							sdl_init(t_sdl *graph);
+void 							sdl_init(t_sdl *graph);
+void							sdl_init_window(t_sdl *graph);
+void							sdl_init_nuklear(t_sdl *graph);
 void							sdl_pull_evts(t_param *param);
 void							sdl_quit(t_sdl *graph);
 

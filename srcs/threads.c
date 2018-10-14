@@ -45,7 +45,8 @@ t_param		*param_cpy(t_param *param, int count)
 	param_cpy->ia = 1.0;
 	param_cpy->num_lights = 0;
 	param_cpy->num_objects = 0;
-	param_cpy->refresh = 1;
+	param_cpy->up_img.process = param->up_img.process;
+	param_cpy->up_img.post_process = param->up_img.post_process;
 	param_cpy->current_thread = 0;
 	param_cpy->macro.anti_aliasing = ANTI_ALIASING;
 	param_cpy->macro.recursion = RECURSION;
