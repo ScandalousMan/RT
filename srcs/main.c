@@ -88,6 +88,8 @@ int		main(int ac, char **av)
 					blur(param);
 				else if (param->macro.filter == 5)
 					stereoscopy(param);
+				else if (param->macro.filter == 6)
+					to_negative(param);
 			}
 		}
 		if (param->up_img.process == TRUE || param->up_img.post_process == TRUE)

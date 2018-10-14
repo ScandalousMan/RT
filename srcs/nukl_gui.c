@@ -20,13 +20,14 @@ void	nukl_gui(t_param *param)
 		470.0,
 		150.0
 	};
-	const char *filter[6] = {
+	const char *filter[7] = {
 		"None",
 		"Cartoon",
 		"Greyscale",
 		"Sepia",
 		"Blur",
-		"Stéréoscopie"
+		"Stéréoscopie",
+		"Négatif"
 	};
 
 	if (nk_begin(param->graph->ctx, "RT UI", nk_rect(0, 0, WINDOW_GUI_WIDTH, WINDOW_GUI_HEIGHT), NK_WINDOW_SCALE_LEFT))
@@ -111,7 +112,7 @@ void	nukl_gui(t_param *param)
 		nk_layout_row_begin(param->graph->ctx, NK_STATIC, 30, 1);
 		{
 			nk_layout_row_push(param->graph->ctx, 400);
-			tmp_filter = nk_combo(param->graph->ctx, filter, 6, param->macro.filter, 20, sizeButton);
+			tmp_filter = nk_combo(param->graph->ctx, filter, 7, param->macro.filter, 20, sizeButton);
 			if (param->macro.filter != tmp_filter)
 			{
 				param->macro.filter = tmp_filter;

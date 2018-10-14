@@ -490,6 +490,7 @@ void						 	sepia(t_param *param);
 void							cartoon(t_param *param);
 void							blur(t_param *param);
 void							stereoscopy(t_param *param);
+void							to_negative(t_param *param);
 /*
 **PERLIN
 */

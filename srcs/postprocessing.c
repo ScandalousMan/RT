@@ -149,3 +149,26 @@ void	stereoscopy(t_param *param)
 		stereoscopy_free(stereo_param);
 	}
 }
+
+int		negativer(int color)
+{
+	return ((255 - (color & 0xFF)) |
+		((255 - ((color >> 8) & 0xFF)) << 8) |
+		((255 - ((color >> 16) & 0xFF)) << 16));	
+}
+
+void	to_negative(t_param *param)
+{
+	param->i[0] = 0;
+	while (param->i[0] < WINDOW_SDL_HEIGHT)
+	{
+		param->i[1] = 0;
+		while (param->i[1] < WINDOW_SDL_WIDTH)
+		{
+			putpxl(param, param->i[0], param->i[1], negativer(getpxl(param, param->i[0], param->i[1])));
+			param->i[1]++;
+		}
+		param->i[0]++;
+	}
+}
+
