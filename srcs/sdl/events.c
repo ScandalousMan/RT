@@ -38,7 +38,7 @@ static	void	handle_clic(t_param *param, SDL_MouseButtonEvent evt)
 	}
 	else if (evt.button == SDL_BUTTON_MIDDLE)
 		ft_putendl("Mouse MIDDLE button pressed");
-	else if (evt.button == SDL_BUTTON_RIGHT)
+	} else if (evt.button == SDL_BUTTON_RIGHT)
 		ft_putendl("Mouse RIGHT button pressed");
 }
 
