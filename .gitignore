@@ -60,4 +60,7 @@ dkms.conf
 # Project
 *.png
 Make.depend
-RT 
+RT
+
+# Mac
+.DS_Store

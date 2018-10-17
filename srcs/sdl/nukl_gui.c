@@ -116,10 +116,10 @@ void	nukl_gui(t_param *param)
 			ft_strdel(&number);
 		}
 		nk_layout_row_end(param->graph->ctx);
-		nk_layout_row_begin(param->graph->ctx, NK_STATIC, 30, 1);
+		nk_layout_row_begin(param->graph->ctx, NK_DYNAMIC, 30, 1);
 		{
-			nk_layout_row_push(param->graph->ctx, 400);
-			tmp_filter = nk_combo(param->graph->ctx, filter, 7, param->macro.filter, 20, sizeButton);
+			nk_layout_row_push(param->graph->ctx, 1.0f);
+			tmp_filter = nk_combo(param->graph->ctx, filter, 6, param->macro.filter, 30, sizeButton);
 			if (param->macro.filter != tmp_filter)
 			{
 				param->macro.filter = tmp_filter;
@@ -139,6 +139,27 @@ void	nukl_gui(t_param *param)
 			nk_layout_row_push(param->graph->ctx, 0.3f);
 			if (nk_button_label(param->graph->ctx, "SAVE"))
 				save_img(param);
+		}
+		nk_layout_row_end(param->graph->ctx);
+		nk_layout_row_begin(param->graph->ctx, NK_DYNAMIC, 30, 6);
+		{
+			static char x[8];
+			static char y[8];
+			static char z[8];
+			static int text_len[3];
+			nk_layout_row_push(param->graph->ctx, 0.1f);
+			nk_label(param->graph->ctx, "x:", NK_TEXT_LEFT);
+			nk_layout_row_push(param->graph->ctx, 0.1f);
+			nk_edit_string(param->graph->ctx, NK_EDIT_SIMPLE, x, &text_len[0], 8, nk_filter_float);
+			nk_layout_row_push(param->graph->ctx, 0.1f);
+			nk_label(param->graph->ctx, "y:", NK_TEXT_LEFT);
+			nk_layout_row_push(param->graph->ctx, 0.1f);
+			nk_edit_string(param->graph->ctx, NK_EDIT_SIMPLE, y, &text_len[1], 8, nk_filter_float);
+			nk_layout_row_push(param->graph->ctx, 0.1f);
+			nk_label(param->graph->ctx, "z:", NK_TEXT_LEFT);
+			nk_layout_row_push(param->graph->ctx, 0.1f);
+			nk_edit_string(param->graph->ctx, NK_EDIT_SIMPLE, z, &text_len[2], 8, nk_filter_float);
+			ft_putnbr(text_len[0]);
 		}
 		nk_layout_row_end(param->graph->ctx);
 	}
