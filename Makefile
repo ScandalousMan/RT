@@ -66,8 +66,6 @@ SRCS =		closest.c \
 			light.c \
 			main.c \
 			new_functions.c \
-			refraction.c \
-			nukl_gui.c \
 			object_parser.c \
 			objects_storage.c \
 			objects/cone.c \
@@ -78,13 +76,15 @@ SRCS =		closest.c \
 			perlin.c \
 			postprocessing.c \
 			quadric_tools.c \
+			refraction.c \
 			rt_parser.c \
 			save_img.c \
 			sdl/draw.c \
 			sdl/events.c \
-			sdl/init.c \
 			sdl/init_window.c \
+			sdl/init.c \
 			sdl/keyboard.c \
+			sdl/nukl_gui.c \
 			sdl/utils.c \
 			threads.c \
 			vec_tools.c \

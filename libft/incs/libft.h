@@ -21,6 +21,7 @@
 # include <math.h>
 # include <limits.h>
 # include <stdarg.h>
+# include <float.h>
 
 # define RED   "\x1B[31m"
 # define GRN   "\x1B[32m"
@@ -77,6 +78,8 @@ void				ft_putlong(long n);
 void				ft_putlong_fd(long n, int fd);
 void				ft_freetab(char **tab);
 
+int					ft_dbllen(double d, int index);
+char				*ft_dtoa(double d, int index);
 double				*ft_dbldup(const double *src);
 
 int					ft_strcmp(const char *s1, const char *s2);
