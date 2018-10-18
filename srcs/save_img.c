@@ -12,10 +12,10 @@
 
 #include "rt.h"
 
-void	save_img(t_param *param)
+void	save_img(t_param *param, char *name)
 {
-	SDL_Surface 	*surf;
 	int 			count;
+	SDL_Surface 	*surf;
 	SDL_Rect 		rect_to;
 
 	count = 0;
@@ -32,9 +32,11 @@ void	save_img(t_param *param)
 			error(0, 0, "cannot copy surface on total image");
 		count++;
 	}
-	if (IMG_SavePNG(surf, SAVED_IMG_NAME))
-		error(0, 0, "cannot save the image");
+	name = ft_strjoin_free(name, ft_strdup(".png"));
+	if (IMG_SavePNG(surf, name))
+		error(0, 0, "Cannot save the image");
 	else 
-		mprintf(1, "image has been saved\n");
+		mprintf(1, "Image has been saved\n");
+	ft_strdel(&name);
 	SDL_FreeSurface(surf);
 }
