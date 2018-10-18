@@ -49,6 +49,8 @@ void	handle_keyboard(int keycode, t_param *param)
 		eye_rotation(0.0, -param->macro.rotation_angle, 0.0, param);
 	else if (keycode == SDLK_x)
 		eye_rotation(0.0, param->macro.rotation_angle, 0.0, param);
+	else if (keycode == SDLK_ESCAPE)
+		param->quit = TRUE;
 }
 
 void	handle_keyboard_caps(int keycode, t_param *param)
