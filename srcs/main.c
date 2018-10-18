@@ -57,7 +57,7 @@ int		main(int ac, char **av)
 	while (param->quit == FALSE)
 	{
 		sdl_pull_evts(param);
-		if (param->to_pix && ((double)(clock() - param->last_mv) / (double)CLOCKS_PER_SEC) > 0.08) // Rasterization
+		if (param->to_pix && ((double)(clock() - param->last_mv) / (double)CLOCKS_PER_SEC) > 0.12) // Rasterization
 		{
 			param->to_pix = 0;
 			param->up_img.process = TRUE;
