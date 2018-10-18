@@ -144,10 +144,10 @@ t_param			*struct_create(void)
 	param->current_thread = 0;
 	param->macro.anti_aliasing = ANTI_ALIASING;
 	param->macro.recursion = RECURSION;
-	param->macro.cartoon_factor = 25;
+	param->macro.cartoon_factor = CARTOON_FACTOR;
 	param->macro.blur_radius = BLUR_RADIUS;
-	param->macro.specular_exp = 1;
-	param->macro.rotation_angle = 30;
+	param->macro.specular_exp = SPECULAR_EXP;
+	param->macro.rotation_angle = ROTATION_ANGLE;
 	param->macro.k_ambience = K_AMBIENCE;
 	param->macro.filter = 0;
 	if (!(param->path = path_create(param, 0)))
