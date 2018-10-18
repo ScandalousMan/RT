@@ -30,6 +30,8 @@ char 	*ft_dtoa(double d, int index)
 		return (NULL);
 	if (!(start = ft_itoa((int)d)))
 		return NULL;
+	if (d < 0.0)
+		d = -d;
 	if (!(end = ft_decimal(d, index)))
 		return NULL;
 	return ft_strjoin_free(start, end);
