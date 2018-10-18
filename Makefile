@@ -48,6 +48,7 @@ endif
 OUT_DIR = objs
 OUT_OBJECT_DIR = $(OUT_DIR)/objects
 OUT_SDL_DIR = $(OUT_DIR)/sdl
+OUT_NUKL_GUI_DIR = $(OUT_DIR)/nukl_gui
 SRC_DIR = srcs
 INC_DIR = incs
 
@@ -66,6 +67,12 @@ SRCS =		closest.c \
 			light.c \
 			main.c \
 			new_functions.c \
+			nukl_gui/camera.c \
+			nukl_gui/global_settings.c \
+			nukl_gui/gui.c \
+			nukl_gui/objects_plus.c \
+			nukl_gui/objects_utils.c \
+			nukl_gui/objects.c \
 			object_parser.c \
 			objects_storage.c \
 			objects/cone.c \
@@ -84,7 +91,6 @@ SRCS =		closest.c \
 			sdl/init_window.c \
 			sdl/init.c \
 			sdl/keyboard.c \
-			sdl/nukl_gui.c \
 			sdl/utils.c \
 			threads.c \
 			vec_tools.c \
@@ -147,7 +153,7 @@ $(DEPEND_FRAGMENT): $(SRCC)
 	@sed 's/.\/srcs/.\/objs/g' $(DEPEND_FRAGMENT) > $(DEPEND_FRAGMENT).bak
 	@mv $(DEPEND_FRAGMENT).bak $(DEPEND_FRAGMENT)
 
-directories: ${OUT_DIR} ${SRC_DIR} ${INC_DIR} ${OUT_OBJECT_DIR} ${OUT_SDL_DIR}
+directories: ${OUT_DIR} ${SRC_DIR} ${INC_DIR} ${OUT_OBJECT_DIR} ${OUT_SDL_DIR} ${OUT_NUKL_GUI_DIR}
 
 ${OUT_DIR}:
 	@mkdir -p ${OUT_DIR}
@@ -163,6 +169,9 @@ ${OUT_OBJECT_DIR}:
 
 ${OUT_SDL_DIR}:
 	@mkdir -p ${OUT_SDL_DIR}
+
+${OUT_NUKL_GUI_DIR}:
+	@mkdir -p ${OUT_NUKL_GUI_DIR}
 
 clean:
 	@make -C ./libft clean
@@ -188,7 +197,7 @@ endif
 re: fclean
 	make
 
-run: re
+run: all
 	@./$(EXEC)
 
 norm:
