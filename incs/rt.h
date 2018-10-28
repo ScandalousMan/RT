@@ -166,15 +166,11 @@ typedef struct	s_quadric
 	double			r;
 }				t_quadric;
 
-typedef struct	s_tore
+typedef struct	s_cube
 {
 	double			center[VEC_SIZE];
-	double			axis[VEC_SIZE];
-	double			r1;
-	double			r2;
-	double			to[VEC_SIZE];
-	double			from[VEC_SIZE];
-}				t_tore;
+	double			h;	
+}				t_cube;
 
 typedef struct	s_limit
 {
@@ -414,8 +410,7 @@ void							light_display_objects(t_param *param);
 /*
 **-----------------------------------distance-----------------------------------
 */
-double			distance_calc(t_object *tmp, t_param *param, double *from,
-				double *to);
+double			distance_calc(t_object *tmp, double *from, double *to, t_path *p);
 double			distance_to_sphere(t_object *tmp, double *from,
 				double *to);
 int					is_inside_sphere(double *pt, t_object *tmp);
@@ -431,7 +426,7 @@ double			distance_to_cylindre(t_object *tmp, double *from, double *to);
 double			*cylindre_position(double *pt, t_object *object);
 double			distance_to_quadric(t_object *tmp, double *from, double *to);
 double			*quadric_position(double *pt, t_object *object);
-double			distance_to_tore(t_object *tmp, double *from, double *to, t_param *param);
+double			distance_to_cube(t_object *t, double *from, double *to, t_path *p);
 /*
 **-------------------------------------cone-------------------------------------
 */
@@ -455,15 +450,15 @@ double			quadric_third_term(t_quadric *tmp, double *from);
 int					is_inside_quadric(double *pt, t_quadric *tmp);
 
 /*
-**-----------------------------------tore-----------------------------------
+**-----------------------------------cube-----------------------------------
 */
-double			tore_first_term(double * to);
-double			tore_second_term(double *from, double *to);
-double			tore_third_term(t_tore *obj, double *from, double *to);
-double			tore_fourth_term(t_tore *obj, double *from, double *to);
-double			tore_fifth_term(t_tore *obj, double *from);
-int					is_inside_tore(double *pt, t_object *tmp);
-double			ferrari(double a, double b, double c, double d, double e);
+int					is_inside_cube(double *pt, t_object *tmp);
+double			distance_to_face1(t_object *tmp, double *from, double *to);
+double			distance_to_face2(t_object *tmp, double *from, double *to);
+double			distance_to_face3(t_object *tmp, double *from, double *to);
+double			distance_to_face4(t_object *tmp, double *from, double *to);
+double			distance_to_face5(t_object *tmp, double *from, double *to);
+double			distance_to_face6(t_object *tmp, double *from, double *to);
 
 double			ft_absdbl(double a);
 int 				ft_absint(int a);
@@ -499,7 +494,7 @@ void			update_normal_plane(t_object *tmp, t_path *path);
 void			update_normal_cone(t_object *tmp, t_path *path);
 void			update_normal_cylindre(t_object *tmp, t_path *path);
 void			update_normal_quadric(t_quadric *tmp, t_path *path);
-void			update_normal_tore(t_tore *tmp, t_path *path);
+void			update_normal_cube(t_object *tmp, t_path *path);
 void			display_lights(t_param *param);
 int 			my_key_func(int keycode, t_param *param);
 t_path			*path_create(t_param *param, int index);
@@ -570,7 +565,7 @@ void 							gui_plane(t_param *param);
 void 							gui_cylindre(t_param *param);
 void 							gui_quadric(t_param *param);
 void 							gui_cone(t_param *param);
-void 							gui_tore(t_param *param);
+void 							gui_cube(t_param *param);
 
 /*
 ** SDL2 Prototypes
@@ -608,8 +603,8 @@ void							launch_threads(t_param *param);
 
 void 							free_objects(t_param *param);
 void 							free_lights(t_light *lights);
+void							free_pxl_infos(int **pxl_infos);
 void 							free_path(t_path *path);
-void							free_pxl_infos(t_pxl_info ***pxl_infos);
 void 							end_program(t_param *param);
 
 #endif

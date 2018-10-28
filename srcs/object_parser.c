@@ -41,8 +41,8 @@ t_object	*object_copy(t_object *src)
 		copy->dim = duplicate(src->dim, sizeof(t_cylindre));
 	else if (copy->type == RTQUADRIC)
 		copy->dim = duplicate(src->dim, sizeof(t_quadric));
-	else if (copy->type == RTTORE)
-		copy->dim = duplicate(src->dim, sizeof(t_tore));
+	else if (copy->type == RTCUBE)
+		copy->dim = duplicate(src->dim, sizeof(t_cube));
 	if (copy->dim == NULL)
 		return (NULL);
 	if (src->limits && (copy->limits = limits_copy(src->limits)) == NULL)

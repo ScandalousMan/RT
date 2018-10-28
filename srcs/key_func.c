@@ -30,8 +30,8 @@ void	free_objects(t_param *param)
 			free ((t_cylindre*)(param->objects->dim));
 		else if (param->objects->type == RTQUADRIC)
 			free ((t_quadric*)(param->objects->dim));
-		else if (param->objects->type == RTTORE)
-			free ((t_tore*)(param->objects->dim));
+		else if (param->objects->type == RTCUBE)
+			free ((t_cube*)(param->objects->dim));
 		while (param->objects->limits)
 		{
 			l_tmp = param->objects->limits->next;

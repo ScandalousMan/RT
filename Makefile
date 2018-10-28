@@ -22,9 +22,9 @@ MAKEFLAGS += --silent
 export
 
 ifeq ($(DEBUG), true)
-	CFLAGS = -std=c99 -pedantic -g -ggdb `pkg-config --cflags sdl2` `pkg-config --cflags glew` `pkg-config --cflags gsl`
+	CFLAGS = -std=c99 -pedantic -g -ggdb `pkg-config --cflags sdl2` `pkg-config --cflags glew`
 else
-	CFLAGS =  -Wall -Werror -Wextra -O3 -Ofast `pkg-config --cflags sdl2` `pkg-config --cflags glew` `pkg-config --cflags gsl`
+	CFLAGS =  -Wall -Werror -Wextra -O3 -Ofast `pkg-config --cflags sdl2` `pkg-config --cflags glew`
 endif
 
 LIBFT_PATH = ./libft
@@ -38,10 +38,10 @@ LIBJSON_DEP = $(LIBJSON_PATH)/sources/*
 # Link lib : "-L FOLDER -lXXX" where XXX = libXXX.a
 
 ifeq ($(OS), Linux)
-	LFLAGS = -L./libjson -ljson -L./libft -lft `pkg-config --libs glew` `pkg-config --libs gsl` `pkg-config --libs sdl2` -lSDL2_image -lGL -lm -lGLU
+	LFLAGS = -L./libjson -ljson -L./libft -lft `pkg-config --libs glew` `pkg-config --libs sdl2` -lSDL2_image -lGL -lm -lGLU
 	INCLUDE = -I./incs -I./libft/incs -I./libjson
 else
-	LFLAGS = -L./libft -lft -L./libjson -ljson `pkg-config --libs glew` `pkg-config --libs gsl` `pkg-config --libs sdl2` -lSDL2_image -framework OpenGL -lm
+	LFLAGS = -L./libft -lft -L./libjson -ljson `pkg-config --libs glew` `pkg-config --libs sdl2` -lSDL2_image -framework OpenGL -lm
 	INCLUDE = -I./incs -I./libft/incs -I./libjson
 endif
 
@@ -59,6 +59,7 @@ SRCS =		closest.c \
 			cone_tools.c \
 			constructor.c \
 			cylindre_tools.c \
+			cube_tools.c \
 			display.c \
 			distance.c \
 			file.c \
@@ -80,7 +81,7 @@ SRCS =		closest.c \
 			objects/plane.c \
 			objects/quadric.c \
 			objects/sphere.c \
-			objects/tore.c \
+			objects/cube.c \
 			perlin.c \
 			postprocessing.c \
 			quadric_tools.c \
@@ -94,7 +95,6 @@ SRCS =		closest.c \
 			sdl/keyboard.c \
 			sdl/utils.c \
 			threads.c \
-			tore_tools.c \
 			vec_tools.c \
 			vec_tools2.c \
 			vec_tools3.c

@@ -286,31 +286,26 @@ void	*fill_quadric(t_jobject *jobj, t_param *param)
 	return (obj);
 }
 
-void	*fill_tore(t_jobject *jobj, t_param *param)
+void	*fill_cube(t_jobject *jobj, t_param *param)
 {
-	t_tore		*obj;
+	t_cube		*obj;
 	t_jobject	*tmp;
 	double		tr[VEC_SIZE];
 
 	tr[0] = 0.0;
 	tr[1] = 0.0;
 	tr[2] = 0.0;
-	if (!(obj = (t_tore *)malloc(sizeof(t_tore))))
+	if (!(obj = (t_cube*)malloc(sizeof(t_cube))))
 		return (NULL);//EXIT
 	fill_vector(&(obj->center), (t_jarray*)(get_jobject(jobj, "center")->value));
-	fill_vector(&(obj->axis), (t_jarray*)(get_jobject(jobj, "axis")->value));
-	tmp = get_jobject(jobj, "R");
-	obj->r1 = get_double(tmp->type, tmp->value);
-	tmp = get_jobject(jobj, "r");
-	obj->r2 = get_double(tmp->type, tmp->value);
+	tmp = get_jobject(jobj, "h");
+	obj->h = get_double(tmp->type, tmp->value);
 	fill_vector(&tr, (t_jarray*)(get_jobject(jobj, "translation")->value));
 	obj->center[0] += tr[0];
 	obj->center[1] += tr[1];
 	obj->center[2] += tr[2];
 	fill_vector(&tr, (t_jarray*)(get_jobject(jobj, "rotation")->value));
 	rotation_matrice(tr[0], tr[1], tr[2], param);
-	//rotation tore
-	printf("tore R/r1 = %f; r/r2 = %f\n", obj->r1, obj->r2);
 	return (obj);
 }
 

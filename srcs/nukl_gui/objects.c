@@ -56,8 +56,8 @@ void nukl_objects(t_param *param)
 			gui_cylinder(param);
 		if (param->graph->current_object->type == RTQUADRIC)
 			gui_quadric(param);
-		if (param->graph->current_object->type == RTTORE)
-			gui_tore(param);
+		if (param->graph->current_object->type == RTCUBE)
+			gui_cube(param);
 	}
 	nk_tree_pop(param->graph->ctx);
 }

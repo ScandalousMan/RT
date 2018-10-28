@@ -86,20 +86,14 @@ void	display_objects(t_param *param)
 			ft_putdbl(((t_quadric*)(objs->dim))->i, 4);
 			ft_putchar('\n');
 		}
-		if (objs->type == RTTORE)
+		if (objs->type == RTCUBE)
 		{
-			ft_putstr("** nouveau tore **\n");
-			ft_putstr("R: ");
-			ft_putnbr(((t_tore*)(objs->dim))->r1);
-			ft_putchar('\n');
-			ft_putstr("r: ");
-			ft_putnbr(((t_tore*)(objs->dim))->r2);
-			ft_putchar('\n');
-			ft_putstr("axis: ");
-			ft_putvec(((t_tore*)(objs->dim))->axis);
+			ft_putstr("** nouveau cube **\n");
+			ft_putstr("h: ");
+			ft_putnbr(((t_cube*)(objs->dim))->h);
 			ft_putchar('\n');
 			ft_putstr("center: ");
-			ft_putvec(((t_tore*)(objs->dim))->center);
+			ft_putvec(((t_cube*)(objs->dim))->center);
 			ft_putchar('\n');
 		}
 		ft_putchar('#');
@@ -162,5 +156,5 @@ void	light_display_objects(t_param *param)
 
 int		point_display(t_param *param)
 {
-	return (ft_absint(param->i[0] - 10) <= 0 && ft_absint(param->i[1] - 10) <= 0);
+	return (ft_absint(param->i[0] - 400) <= 0 && ft_absint(param->i[1] - 400) <= 0);
 }

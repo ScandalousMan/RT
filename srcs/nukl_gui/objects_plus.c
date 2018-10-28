@@ -32,19 +32,16 @@ void gui_quadric(t_param *param)
 	nukl_objects_show_pos(param, &quadric->center[0]);
 }
 
-void gui_tore(t_param *param)
+void gui_cube(t_param *param)
 {
-	t_tore *tore;
+	t_cube *cube;
 
-	tore = (t_tore *)param->graph->current_object->dim;
-	nukl_objects_show_pos(param, &tore->center[0]);
+	cube = (t_cube *)param->graph->current_object->dim;
+	nukl_objects_show_pos(param, &cube->center[0]);
 	nk_layout_row_begin(param->graph->ctx, NK_DYNAMIC, 30, 6);
 	{
 		nk_layout_row_push(param->graph->ctx, 0.5f);
-		nk_property_double(param->graph->ctx, "r1:", MIN_DOUBLE_OBJECT,
-			&tore->r1, MAX_DOUBLE_OBJECT, 2.0f, 0.2f);
-		nk_layout_row_push(param->graph->ctx, 0.5f);
-		nk_property_double(param->graph->ctx, "r2:", MIN_DOUBLE_OBJECT,
-			&tore->r2, MAX_DOUBLE_OBJECT, 2.0f, 0.2f);
+		nk_property_double(param->graph->ctx, "h:", MIN_DOUBLE_OBJECT,
+			&cube->h, MAX_DOUBLE_OBJECT, 2.0f, 0.2f);
 	}
 }

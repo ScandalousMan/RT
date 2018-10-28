@@ -217,7 +217,7 @@ int	json_to_objects(t_jobject *obj, t_param *param)
 	param->objects = objects_storage(obj, param);
 	//ATTENTION AUX RETOURS
 	display_lights(param);
-	display_objects(param);	
+	display_objects(param);
 //	if (!(objects_storage(obj, param)))
 //		return (0);
 	return (1);
