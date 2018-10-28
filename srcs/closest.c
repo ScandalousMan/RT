@@ -11,7 +11,7 @@ t_object	*closest_object(t_param *param, double *from, double *to, t_path *path)
 		if (!param->is_for_light || objs != path->current_object)
 		{
 			param->is_cut = -1;
-			param->tmp_d = distance_calc(objs, param, from, to);
+			param->tmp_d = distance_calc(objs, from, to);
 			// if (point_display(param))
 			// 	printf("\ntype: %d | tmp_d: %f\n", objs->type, param->tmp_d);
 			if (param->tmp_d > 0.0 &&
@@ -102,7 +102,7 @@ void		update_normal_vector(t_object *tmp, t_path *path)
 	else if (tmp->type == RTQUADRIC)
 		update_normal_quadric((t_quadric*)(tmp->dim), path);
 	else if (tmp->type == RTTORE)
-		update_normal_tore((t_tore*)(tmp->dim), path);
+		update_normal_tore(tmp, path);
 	if (path->inside_obj)
 		vec_multiply(-1.0, path->valid_n, path->valid_n);
 	vec_to_unit_norm(path->valid_n);

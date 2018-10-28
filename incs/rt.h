@@ -29,7 +29,7 @@
 # define MAX_ANTI_ALIASING 1
 # define MIN_ANTI_ALIASING 10
 
-# define RECURSION 3
+# define RECURSION 0
 # define STEP_RECURSION 1
 # define MAX_RECURSION 10
 # define MIN_RECURSION 0
@@ -78,6 +78,7 @@
 # include <SDL.h>
 # include <SDL_image.h>
 # include <SDL_opengl.h>
+# include <gsl/gsl_poly.h>
 
 # include <libft.h>
 
@@ -177,11 +178,11 @@ typedef struct	s_quadric
 typedef struct	s_tore
 {
 	double			center[VEC_SIZE];
-	double			axis[VEC_SIZE];
 	double			r1;
 	double			r2;
 	double			to[VEC_SIZE];
 	double			from[VEC_SIZE];
+	double			valid_x[VEC_SIZE];
 }				t_tore;
 
 typedef struct	s_limit
@@ -402,6 +403,7 @@ void							matrice_product(double matrice[VEC_SIZE][VEC_SIZE], double *col, doub
 double							*vec_dup(double *vec);
 void							object_rotation(double mat[VEC_SIZE][VEC_SIZE], t_object *object);
 void							sim_matrice_rotation(double *a, double * b, t_param *param);
+void							ref_change(t_reference ref, double *src, double *dest);
 /*
 **------------------------------------display-----------------------------------
 */
@@ -410,8 +412,7 @@ int								point_display(t_param *param);
 /*
 **-----------------------------------distance-----------------------------------
 */
-double			distance_calc(t_object *tmp, t_param *param, double *from,
-				double *to);
+double			distance_calc(t_object *tmp, double *from, double *to);
 double			distance_to_sphere(t_object *tmp, double *from,
 				double *to);
 int					is_inside_sphere(double *pt, t_object *tmp);
@@ -427,7 +428,7 @@ double			distance_to_cylindre(t_object *tmp, double *from, double *to);
 double			*cylindre_position(double *pt, t_object *object);
 double			distance_to_quadric(t_object *tmp, double *from, double *to);
 double			*quadric_position(double *pt, t_object *object);
-double			distance_to_tore(t_object *tmp, double *from, double *to, t_param *param);
+double			distance_to_tore(t_object *tmp, double *from, double *to);
 /*
 **-------------------------------------cone-------------------------------------
 */
@@ -495,7 +496,7 @@ void			update_normal_plane(t_object *tmp, t_path *path);
 void			update_normal_cone(t_object *tmp, t_path *path);
 void			update_normal_cylindre(t_object *tmp, t_path *path);
 void			update_normal_quadric(t_quadric *tmp, t_path *path);
-void			update_normal_tore(t_tore *tmp, t_path *path);
+void			update_normal_tore(t_object *tmp, t_path *path);
 void			display_lights(t_param *param);
 int 			my_key_func(int keycode, t_param *param);
 t_path			*path_create(t_param *param, int index);

@@ -12,7 +12,7 @@
 
 #include "rt_objects.h"
 
-double	distance_calc(t_object *tmp, t_param *param,double *from, double *to)
+double	distance_calc(t_object *tmp,double *from, double *to)
 {
 	if (tmp->type == RTSPHERE)
 		return (distance_to_sphere(tmp, from, to));
@@ -25,6 +25,6 @@ double	distance_calc(t_object *tmp, t_param *param,double *from, double *to)
 	else if (tmp->type == RTQUADRIC)
 		return (distance_to_quadric(tmp, from, to));
 	else if (tmp->type == RTTORE)
-		return (distance_to_tore(tmp, from, to, param));
+		return (distance_to_tore(tmp, from, to));
 	return (-1.0);
 }

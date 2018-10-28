@@ -158,7 +158,6 @@ const t_key				g_quadric_keys[] = {
 
 const t_key				g_tore_keys[] = {
 	{"center", RTVECTOR, RTDOUBLE},
-	{"axis", RTVECTOR, RTDOUBLE},
 	{"R", RTUDOUBLE, RTNULL},
 	{"r", RTUDOUBLE, RTNULL},
 };

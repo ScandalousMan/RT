@@ -96,7 +96,7 @@ void	display_objects(t_param *param)
 			ft_putnbr(((t_tore*)(objs->dim))->r2);
 			ft_putchar('\n');
 			ft_putstr("axis: ");
-			ft_putvec(((t_tore*)(objs->dim))->axis);
+			ft_putvec(objs->ref.k);
 			ft_putchar('\n');
 			ft_putstr("center: ");
 			ft_putvec(((t_tore*)(objs->dim))->center);
@@ -151,5 +151,5 @@ void	display_lights(t_param *param)
 
 int		point_display(t_param *param)
 {
-	return (ft_absint(param->i[0] - 396) <= 0 && ft_absint(param->i[1] - 369) <= 0);
+	return (ft_absint(param->i[0] - 400) <= 0 && ft_absint(param->i[1] - 328) <= 0);
 }

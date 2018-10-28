@@ -280,7 +280,6 @@ void	*fill_tore(t_jobject *jobj, t_param *param)
 	if (!(obj = (t_tore *)malloc(sizeof(t_tore))))
 		return (NULL);//EXIT
 	fill_vector(&(obj->center), (t_jarray*)(get_jobject(jobj, "center")->value));
-	fill_vector(&(obj->axis), (t_jarray*)(get_jobject(jobj, "axis")->value));
 	tmp = get_jobject(jobj, "R");
 	obj->r1 = get_double(tmp->type, tmp->value);
 	tmp = get_jobject(jobj, "r");
@@ -291,8 +290,6 @@ void	*fill_tore(t_jobject *jobj, t_param *param)
 	obj->center[2] += tr[2];
 	fill_vector(&tr, (t_jarray*)(get_jobject(jobj, "rotation")->value));
 	rotation_matrice(tr[0], tr[1], tr[2], param);
-	//rotation tore
-	printf("tore R/r1 = %f; r/r2 = %f\n", obj->r1, obj->r2);
 	return (obj);
 }
 
