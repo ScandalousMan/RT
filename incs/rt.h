@@ -404,6 +404,7 @@ double							*vec_dup(double *vec);
 void							object_rotation(double mat[VEC_SIZE][VEC_SIZE], t_object *object);
 void							sim_matrice_rotation(double *a, double * b, t_param *param);
 void							ref_change(t_reference ref, double *src, double *dest);
+void							ref_change_back(t_reference ref, double *src, double*dest);
 /*
 **------------------------------------display-----------------------------------
 */

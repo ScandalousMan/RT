@@ -2,7 +2,7 @@
 
 double	distance_to_tore(t_object *tmp, double *from, double *to)
 {
-	double 											a[5];
+	double 	a[5];
 
 	ref_change(tmp->ref, to, ((t_tore*)(tmp->dim))->to);
 	ref_change(tmp->ref, from, ((t_tore*)(tmp->dim))->from);
@@ -17,12 +17,18 @@ double	distance_to_tore(t_object *tmp, double *from, double *to)
 
 void	update_normal_tore(t_object *tmp, t_path *path)
 {
-	t_tore *tore;
+	t_tore	*tore;
 
 	tore = ((t_tore*)(tmp->dim));
+	// vec_copy(path->valid_x, tore->valid_x);
+
+	// valid_x => position par rapport à l'oeil tel qu'il est perçu
+
+
 	vec_soustraction(path->valid_x, tore->center, tore->valid_x);
-	ref_change(tmp->ref, tore->valid_x, tore->valid_x);
-	path->valid_n[0] = 4.0 * ft_pow(path->valid_x[0], 3.0f) +
+	// ref_change_back(tmp->ref, tore->valid_x, tore->valid_x);
+	// ref_change(tmp->ref, tore->valid_x, tore->valid_x);
+	path->valid_n[0] = 4.0 * ft_pow(tore->valid_x[0], 3.0f) +
 		4.0 * tore->valid_x[0] * (tore->valid_x[1] * tore->valid_x[1] + tore->valid_x[2] * tore->valid_x[2] + tore->r1 * tore->r1 - tore->r2 * tore->r2) -
 		8.0 * tore->r1 *tore->r1 * tore->valid_x[0];
 	path->valid_n[1] = 4.0 * ft_pow(tore->valid_x[1], 3.0f) +
@@ -30,6 +36,7 @@ void	update_normal_tore(t_object *tmp, t_path *path)
 		8.0 * tore->r1 *tore->r1 * tore->valid_x[1];
 	path->valid_n[2] = 4.0 * ft_pow(tore->valid_x[2], 3.0f) +
 		4.0 * tore->valid_x[2] * (tore->valid_x[1] * tore->valid_x[1] + tore->valid_x[0] * tore->valid_x[0] + tore->r1 * tore->r1 - tore->r2 * tore->r2);
+	// ref_change(tmp->ref, path->valid_n, path->valid_n);
 }
 
 int		is_inside_tore(double *pt, t_object *tmp)
