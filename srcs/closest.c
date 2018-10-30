@@ -11,7 +11,7 @@ t_object	*closest_object(t_param *param, double *from, double *to, t_path *path)
 		if (!param->is_for_light || objs != path->current_object)
 		{
 			param->is_cut = -1;
-			param->tmp_d = distance_calc(objs, from, to, path);
+			param->tmp_d = distance_calc(objs, from, to);
 			// if (point_display(param))
 			// 	printf("\ntype: %d | tmp_d: %f\n", objs->type, param->tmp_d);
 			if (param->tmp_d > 0.0 &&
@@ -20,8 +20,10 @@ t_object	*closest_object(t_param *param, double *from, double *to, t_path *path)
 				vec_multiply(param->tmp_d + param->epsilon, to, path->valid_x);
 				pt_translated(from, path->valid_x, path->valid_x);
 				// if (point_display(param))
-				// 	printf("()valid_x: [%f,%f,%f]\n", path->valid_x[0], path->valid_x[1], path->valid_x[2]);
+				// 	printf("(*)valid_x: [%f,%f,%f]\n", path->valid_x[0], path->valid_x[1], path->valid_x[2]);
 				update_normal_vector(objs, path);
+				// if (point_display(param))
+				// 	printf("( )valid_n: [%f,%f,%f]\n", path->valid_n[0], path->valid_n[1], path->valid_n[2]);
 				limits = objs->limits;
 				while (limits && param->tmp_d > 0 && param->is_cut)
 				{
@@ -101,8 +103,8 @@ void		update_normal_vector(t_object *tmp, t_path *path)
 		update_normal_cylindre(tmp, path);
 	else if (tmp->type == RTQUADRIC)
 		update_normal_quadric((t_quadric*)(tmp->dim), path);
-	// else if (tmp->type == RTCUBE)
-	// 	update_normal_cube(tmp->dim, path);
+	else if (tmp->type == RTCUBE)
+		update_normal_cube(tmp, path);
 	if (path->inside_obj)
 		vec_multiply(-1.0, path->valid_n, path->valid_n);
 	vec_to_unit_norm(path->valid_n);
@@ -120,6 +122,8 @@ void		object_position(double *pt, t_object *object)
 		cylindre_position(pt, object);
 	else if (object->type == RTQUADRIC)
 		quadric_position(pt, object);
+	else if (object->type == RTCUBE)
+		cube_position(pt, object);
 }
 
 int			sierpinski_carpet(int u, int v)

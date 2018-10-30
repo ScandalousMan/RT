@@ -169,7 +169,8 @@ typedef struct	s_quadric
 typedef struct	s_cube
 {
 	double			center[VEC_SIZE];
-	double			h;	
+	double			h;
+	double			n[VEC_SIZE];
 }				t_cube;
 
 typedef struct	s_limit
@@ -410,7 +411,7 @@ void							light_display_objects(t_param *param);
 /*
 **-----------------------------------distance-----------------------------------
 */
-double			distance_calc(t_object *tmp, double *from, double *to, t_path *p);
+double			distance_calc(t_object *tmp, double *from, double *to);
 double			distance_to_sphere(t_object *tmp, double *from,
 				double *to);
 int					is_inside_sphere(double *pt, t_object *tmp);
@@ -426,7 +427,8 @@ double			distance_to_cylindre(t_object *tmp, double *from, double *to);
 double			*cylindre_position(double *pt, t_object *object);
 double			distance_to_quadric(t_object *tmp, double *from, double *to);
 double			*quadric_position(double *pt, t_object *object);
-double			distance_to_cube(t_object *t, double *from, double *to, t_path *p);
+double			distance_to_cube(t_object *t, double *from, double *to);
+double			*cube_position(double *pt, t_object *obj);
 /*
 **-------------------------------------cone-------------------------------------
 */

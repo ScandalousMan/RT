@@ -1,6 +1,6 @@
 {
 	"camera": {
-		"eye": [0, -220, -120],
+		"eye": [0, -220, 0],
 		"look": [0, 1, 0],
 		"align": [1, 0, 0]
 	},
@@ -24,7 +24,7 @@
 	"objects": [
 		{
 			"type": "cube",
-			"color": [255, 255, 255],
+			"color": [124, 124, 252],
 			"kd": 0.55,
 			"ks": 0.25,
 			"texture":
@@ -32,8 +32,8 @@
 					"type": "file",
 					"name": "path/to/texture_2.ext"
 				},			
-			"transparency": 0.2,
-			"reflection": 0.2,
+			"transparency": 0,
+			"reflection": 0,
 			"n": 1,
 			"thickness": 0.5,
 			"translation": [0, 0, 0],
@@ -41,10 +41,10 @@
 			"limits": [],
 			"reference":
 			{
-				"i": [0, 1, 0],
-				"j": [0, 0, 1]
+				"i": [1, 1, 1],
+				"j": [-1, 1, 1]
 			},
-			"center": [0, 0, -90],
+			"center": [0, 0, 0],
 			"h": 10.0
 		}
 
