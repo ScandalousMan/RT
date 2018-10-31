@@ -28,7 +28,7 @@ void	save_img(t_param *param, char *name)
 		rect_to.y = count * WINDOW_SDL_HEIGHT / NB_THREAD;
 		rect_to.w = WINDOW_SDL_WIDTH;
 		rect_to.h = WINDOW_SDL_HEIGHT / NB_THREAD;
-		if (SDL_BlitSurface(param->graph->surfs[count], NULL, surf, &rect_to))
+		if ((param->graph->show_tmp == 0 && SDL_BlitSurface(param->graph->surfs[count], NULL, surf, &rect_to)) || (param->graph->show_tmp == 1 && SDL_BlitSurface(param->graph->tmp_surfs[count], NULL, surf, &rect_to)))
 			error(0, 0, "cannot copy surface on total image");
 		count++;
 	}
