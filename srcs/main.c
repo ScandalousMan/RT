@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itsalex <itsalex@student.42.fr>            +#+  +:+       +#+        */
+/*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/21 17:02:46 by malexand          #+#    #+#             */
-/*   Updated: 2018/08/29 14:52:51 by itsalex          ###   ########.fr       */
+/*   Updated: 2018/10/31 21:49:47 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int		main(int ac, char **av)
 	if (ac == 2)
 		filename = av[1];
 	else
-		filename = "scenes/rtv1.json";
+		filename = "scenes/rt.json";
 	printf("=> creating program structure\n");
 	if (!(param = struct_create()))
 		return (-1);
@@ -50,10 +50,6 @@ int		main(int ac, char **av)
 	printf("=> creating graph structure\n");
 	if ((param->graph = (t_sdl*)malloc(sizeof(t_sdl))) == NULL)
 		error(0, 0, "Can't allocate graph struct");
-	if (ac == 2)
-		filename = av[1];
-	else
-		filename = "scenes/rt.json";
 	if (!rt_parser(param, filename))
 		return (1);
 	sdl_init(param->graph);

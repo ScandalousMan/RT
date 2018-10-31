@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   threads.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itsalex <itsalex@student.42.fr>            +#+  +:+       +#+        */
+/*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/27 15:05:21 by malexand          #+#    #+#             */
-/*   Updated: 2018/08/29 14:24:53 by itsalex          ###   ########.fr       */
+/*   Updated: 2018/10/31 22:09:19 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void		launch_threads(t_param *param)
 	{
 		mprintf(1, "Create param_cpy %d\n", count);
 		if (!(params[count] = param_cpy(param, count)))
-			return ;
+			error(1, 0, "failed to copy param in thread\n");
 		++count;
 	}
 	clock_t start = clock();

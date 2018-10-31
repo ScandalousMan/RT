@@ -82,7 +82,7 @@ int		ray_color(t_param *param, double *from, double *to, int index, t_path *path
 	{
 		if (!index)
 			param->pxl_infos[param->i[0]][param->i[1]] = path->current_object->num;
-		if (index < param->macro.recursion)
+		if (!param->to_pix && index < param->macro.recursion)
 		{
 			// REFLECTED
 			path->reflected->inside_obj = path->inside_obj;
