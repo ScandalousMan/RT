@@ -178,5 +178,3 @@ void		object_normal_changer(t_object *object, t_param *param, t_path *path)
 		matrice_product(param->rot, path->n, path->n);
 	}
 }
-
-

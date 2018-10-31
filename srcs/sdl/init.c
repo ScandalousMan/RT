@@ -17,6 +17,7 @@ void			sdl_init(t_sdl *graph)
 	int		count;
 
 	count = 0;
+	graph->current_object = NULL;
 	sdl_init_window(graph);
 	sdl_init_nuklear(graph);
 	if (SDL_CreateWindowAndRenderer(WINDOW_SDL_WIDTH, WINDOW_SDL_HEIGHT,
