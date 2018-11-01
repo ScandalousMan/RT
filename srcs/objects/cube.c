@@ -87,3 +87,11 @@ double *cube_position(double *pt, t_object *obj)
 	}
 	return (obj->uv_map);
 }
+
+void	update_cube(t_object *obj, t_param *param)
+{
+	pt_translated(((t_cube*)(obj->dim))->center, obj->translation, ((t_cube*)(obj->dim))->center);
+	ref_move(obj, param);
+	limits_move(obj, param);
+	reset_moves(obj);
+}

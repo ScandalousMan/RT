@@ -47,3 +47,13 @@ double *cylindre_position(double *pt, t_object *obj)
 		scalar_product(obj->ref.k, obj->tmp_vec)) / 2.0 / M_PI;
 	return (obj->uv_map);
 }
+
+void	update_cylindre(t_object *obj, t_param *param)
+{
+	pt_translated(((t_cylindre*)(obj->dim))->org, obj->translation, ((t_cylindre*)(obj->dim))->org);
+	rotation_matrice(obj->rotation[0], obj->rotation[1], obj->rotation[2], param);
+	matrice_product(param->rot, ((t_cylindre*)(obj->dim))->u, ((t_cylindre*)(obj->dim))->u);
+	ref_move(obj, param);
+	limits_move(obj, param);
+	reset_moves(obj);
+}

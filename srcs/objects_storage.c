@@ -141,7 +141,17 @@ void	fill_reference(t_reference *ref, t_jobject *jobj, t_param *param)
 	vec_to_unit_norm(ref->k);
 }
 
-void	*fill_sphere(t_jobject *jobj, t_param *param)
+void	fill_moves(t_jobject *jobj, t_object *obj)
+{
+	double		tr[VEC_SIZE];
+
+	fill_vector(&tr, (t_jarray*)(get_jobject(jobj, "translation")->value));
+	vec_copy(tr, obj->translation);
+	fill_vector(&tr, (t_jarray*)(get_jobject(jobj, "rotation")->value));
+	vec_copy(tr, obj->rotation);
+}
+
+void	*fill_sphere(t_jobject *jobj, t_object *s_obj)
 {
 	t_sphere	*obj;
 	t_jobject	*tmp;
@@ -152,20 +162,22 @@ void	*fill_sphere(t_jobject *jobj, t_param *param)
 	tr[2] = 0.0;
 	if (!(obj = (t_sphere *)malloc(sizeof(t_sphere))))
 		return (NULL);//EXIT
+	s_obj->dim = obj;
 	fill_vector((&(obj->center)), (t_jarray*)(get_jobject(jobj, "center")->value));
 	tmp = get_jobject(jobj, "radius");
 	obj->radius = get_double(tmp->type, tmp->value);
-	fill_vector(&tr, (t_jarray*)(get_jobject(jobj, "translation")->value));
-	obj->center[0] += tr[0];
-	obj->center[1] += tr[1];
-	obj->center[2] += tr[2];
-	fill_vector(&tr, (t_jarray*)(get_jobject(jobj, "rotation")->value));
-	rotation_matrice(tr[0], tr[1], tr[2], param);
+	// fill_vector(&tr, (t_jarray*)(get_jobject(jobj, "translation")->value));
+	// obj->center[0] += tr[0];
+	// obj->center[1] += tr[1];
+	// obj->center[2] += tr[2];
+	// fill_vector(&tr, (t_jarray*)(get_jobject(jobj, "rotation")->value));
+	// rotation_matrice(tr[0], tr[1], tr[2], param);
 //	matrice_product(param->rot, obj->n, obj->n);
+	fill_moves(jobj, s_obj);
 	return (obj);
 }
 
-void	*fill_plane(t_jobject *jobj, t_param *param)
+void	*fill_plane(t_jobject *jobj, t_object *p_obj)
 {
 	t_plane		*obj;
 	double		tr[VEC_SIZE];
@@ -175,22 +187,23 @@ void	*fill_plane(t_jobject *jobj, t_param *param)
 	tr[2] = 0.0;
 	if (!(obj = (t_plane *)malloc(sizeof(t_plane))))
 		return (NULL);//EXIT
+	p_obj->dim = obj;
 	fill_vector((&(obj->n)), (t_jarray*)(get_jobject(jobj, "normal")->value));
 	fill_vector((&(obj->ref)), (t_jarray*)(get_jobject(jobj, "point")->value));
-	fill_vector(&tr, (t_jarray*)(get_jobject(jobj, "translation")->value));
-	obj->ref[0] += tr[0];
-	obj->ref[1] += tr[1];
-	obj->ref[2] += tr[2];
-	fill_vector(&tr, (t_jarray*)(get_jobject(jobj, "rotation")->value));
-	rotation_matrice(tr[0], tr[1], tr[2], param);
+	// fill_vector(&tr, (t_jarray*)(get_jobject(jobj, "translation")->value));
+	// obj->ref[0] += tr[0];
+	// obj->ref[1] += tr[1];
+	// obj->ref[2] += tr[2];
+	// fill_vector(&tr, (t_jarray*)(get_jobject(jobj, "rotation")->value));
+	// rotation_matrice(tr[0], tr[1], tr[2], param);
 
-	matrice_product(param->rot, obj->n, obj->n);
+	// matrice_product(param->rot, obj->n, obj->n);
 	vec_to_unit_norm(obj->n);
-
+	fill_moves(jobj, p_obj);
 	return (obj);
 }
 
-void	*fill_cone(t_jobject *jobj, t_param *param)
+void	*fill_cone(t_jobject *jobj, t_object *c_obj)
 {
 	t_cone		*obj;
 	t_jobject	*tmp;
@@ -201,24 +214,25 @@ void	*fill_cone(t_jobject *jobj, t_param *param)
 	tr[2] = 0.0;
 	if (!(obj = (t_cone *)malloc(sizeof(t_cone))))
 		return (NULL);//EXIT
+	c_obj->dim = obj;
 	fill_vector(&(obj->org), (t_jarray*)(get_jobject(jobj, "center")->value));
 	fill_vector(&(obj->u), (t_jarray*)(get_jobject(jobj, "vector")->value));
 	tmp = get_jobject(jobj, "angle");
 	obj->angle =  M_PI / 180.0 * get_double(tmp->type, tmp->value);
-	fill_vector(&tr, (t_jarray*)(get_jobject(jobj, "translation")->value));
-	obj->org[0] += tr[0];
-	obj->org[1] += tr[1];
-	obj->org[2] += tr[2];
-	fill_vector(&tr, (t_jarray*)(get_jobject(jobj, "rotation")->value));
-	rotation_matrice(tr[0], tr[1], tr[2], param);
+	// fill_vector(&tr, (t_jarray*)(get_jobject(jobj, "translation")->value));
+	// obj->org[0] += tr[0];
+	// obj->org[1] += tr[1];
+	// obj->org[2] += tr[2];
+	// fill_vector(&tr, (t_jarray*)(get_jobject(jobj, "rotation")->value));
+	// rotation_matrice(tr[0], tr[1], tr[2], param);
 
-	matrice_product(param->rot, obj->u, obj->u);
+	// matrice_product(param->rot, obj->u, obj->u);
 	vec_to_unit_norm(obj->u);
-
+	fill_moves(jobj, c_obj);
 	return (obj);
 }
 
-void	*fill_cylinder(t_jobject *jobj, t_param *param)
+void	*fill_cylinder(t_jobject *jobj, t_object *c_obj)
 {
 	t_cylindre	*obj;
 	t_jobject	*tmp;
@@ -229,24 +243,25 @@ void	*fill_cylinder(t_jobject *jobj, t_param *param)
 	tr[2] = 0.0;
 	if (!(obj = (t_cylindre *)malloc(sizeof(t_cylindre))))
 		return (NULL);//EXIT
+	c_obj->dim = obj;
 	fill_vector(&(obj->org), (t_jarray*)(get_jobject(jobj, "center")->value));
 	fill_vector(&(obj->u), (t_jarray*)(get_jobject(jobj, "vector")->value));
 	tmp = get_jobject(jobj, "radius");
 	obj->radius = get_double(tmp->type, tmp->value);
-	fill_vector(&tr, (t_jarray*)(get_jobject(jobj, "translation")->value));
-	obj->org[0] += tr[0];
-	obj->org[1] += tr[1];
-	obj->org[2] += tr[2];
-	fill_vector(&tr, (t_jarray*)(get_jobject(jobj, "rotation")->value));
-	rotation_matrice(tr[0], tr[1], tr[2], param);
+	// fill_vector(&tr, (t_jarray*)(get_jobject(jobj, "translation")->value));
+	// obj->org[0] += tr[0];
+	// obj->org[1] += tr[1];
+	// obj->org[2] += tr[2];
+	// fill_vector(&tr, (t_jarray*)(get_jobject(jobj, "rotation")->value));
+	// rotation_matrice(tr[0], tr[1], tr[2], param);
 
-	matrice_product(param->rot, obj->u, obj->u);
+	// matrice_product(param->rot, obj->u, obj->u);
 	vec_to_unit_norm(obj->u);
-
+	fill_moves(jobj, c_obj);
 	return (obj);
 }
 
-void	*fill_quadric(t_jobject *jobj, t_param *param)
+void	*fill_quadric(t_jobject *jobj, t_object *q_obj)
 {
 	t_quadric	*obj;
 	t_jobject	*tmp;
@@ -257,6 +272,7 @@ void	*fill_quadric(t_jobject *jobj, t_param *param)
 	tr[2] = 0.0;
 	if (!(obj = (t_quadric *)malloc(sizeof(t_quadric))))
 		return (NULL);//EXIT
+	q_obj->dim = obj;
 	fill_vector(&(obj->center), (t_jarray*)(get_jobject(jobj, "center")->value));
 	tmp = get_jobject(jobj, "a");
 	obj->a = get_double(tmp->type, tmp->value);
@@ -276,17 +292,18 @@ void	*fill_quadric(t_jobject *jobj, t_param *param)
 	obj->h = get_double(tmp->type, tmp->value);
 	tmp = get_jobject(jobj, "i");
 	obj->i = get_double(tmp->type, tmp->value);
-	fill_vector(&tr, (t_jarray*)(get_jobject(jobj, "translation")->value));
-	obj->center[0] += tr[0];
-	obj->center[1] += tr[1];
-	obj->center[2] += tr[2];
-	fill_vector(&tr, (t_jarray*)(get_jobject(jobj, "rotation")->value));
-	rotation_matrice(tr[0], tr[1], tr[2], param);
+	// fill_vector(&tr, (t_jarray*)(get_jobject(jobj, "translation")->value));
+	// obj->center[0] += tr[0];
+	// obj->center[1] += tr[1];
+	// obj->center[2] += tr[2];
+	// fill_vector(&tr, (t_jarray*)(get_jobject(jobj, "rotation")->value));
+	// rotation_matrice(tr[0], tr[1], tr[2], param);
 	//rotation quadrique
+	fill_moves(jobj, q_obj);
 	return (obj);
 }
 
-void	*fill_cube(t_jobject *jobj, t_param *param)
+void	*fill_cube(t_jobject *jobj, t_object *c_obj)
 {
 	t_cube		*obj;
 	t_jobject	*tmp;
@@ -297,44 +314,48 @@ void	*fill_cube(t_jobject *jobj, t_param *param)
 	tr[2] = 0.0;
 	if (!(obj = (t_cube*)malloc(sizeof(t_cube))))
 		return (NULL);//EXIT
+	c_obj->dim = obj;
 	fill_vector(&(obj->center), (t_jarray*)(get_jobject(jobj, "center")->value));
 	tmp = get_jobject(jobj, "h");
 	obj->h = get_double(tmp->type, tmp->value);
-	fill_vector(&tr, (t_jarray*)(get_jobject(jobj, "translation")->value));
-	obj->center[0] += tr[0];
-	obj->center[1] += tr[1];
-	obj->center[2] += tr[2];
-	fill_vector(&tr, (t_jarray*)(get_jobject(jobj, "rotation")->value));
-	rotation_matrice(tr[0], tr[1], tr[2], param);
+	// fill_vector(&tr, (t_jarray*)(get_jobject(jobj, "translation")->value));
+	// obj->center[0] += tr[0];
+	// obj->center[1] += tr[1];
+	// obj->center[2] += tr[2];
+	// vec_copy(tr, c_obj->translation);
+	// fill_vector(&tr, (t_jarray*)(get_jobject(jobj, "rotation")->value));
+	// vec_copy(tr, c_obj->rotation);
+	// rotation_matrice(tr[0], tr[1], tr[2], param);
+	fill_moves(jobj, c_obj);
 	return (obj);
 }
 
 #include <libft.h>
-void	*fill_customobject(t_jobject *jobj, t_param *param)
-{
-	t_custom		*obj;
-//	t_custom_obj	*obj;
-	t_jobject		*tmp;
-	double			tr[VEC_SIZE];
+// void	*fill_customobject(t_jobject *jobj, t_param *param)
+// {
+// 	t_custom		*obj;
+// //	t_custom_obj	*obj;
+// 	t_jobject		*tmp;
+// 	double			tr[VEC_SIZE];
 
-	tr[0] = 0.0;
-	tr[1] = 0.0;
-	tr[2] = 0.0;
-	tmp = get_jobject(jobj, "name");
-	if (!(obj = get_custom_ptr(tmp->value, param->customs)))
-		error(0, 0, "Can't find one custom object");//ERROR can't find this custom object
-//	obj = cust->objects;//COPY? TODO
-	fill_vector(&(obj->org), (t_jarray*)(get_jobject(jobj, "center")->value));
-	fill_vector(&tr, (t_jarray*)(get_jobject(jobj, "translation")->value));
-	obj->org[0] += tr[0];
-	obj->org[1] += tr[1];
-	obj->org[2] += tr[2];
-	fill_vector(&tr, (t_jarray*)(get_jobject(jobj, "rotation")->value));
-	rotation_matrice(tr[0], tr[1], tr[2], param);
-	matrice_product(param->rot, obj->u, obj->u);
-	vec_to_unit_norm(obj->u);
-	return (obj);
-}
+// 	tr[0] = 0.0;
+// 	tr[1] = 0.0;
+// 	tr[2] = 0.0;
+// 	tmp = get_jobject(jobj, "name");
+// 	if (!(obj = get_custom_ptr(tmp->value, param->customs)))
+// 		error(0, 0, "Can't find one custom object");//ERROR can't find this custom object
+// //	obj = cust->objects;//COPY? TODO
+// 	fill_vector(&(obj->org), (t_jarray*)(get_jobject(jobj, "center")->value));
+// 	fill_vector(&tr, (t_jarray*)(get_jobject(jobj, "translation")->value));
+// 	obj->org[0] += tr[0];
+// 	obj->org[1] += tr[1];
+// 	obj->org[2] += tr[2];
+// 	fill_vector(&tr, (t_jarray*)(get_jobject(jobj, "rotation")->value));
+// 	rotation_matrice(tr[0], tr[1], tr[2], param);
+// 	matrice_product(param->rot, obj->u, obj->u);
+// 	vec_to_unit_norm(obj->u);
+// 	return (obj);
+// }
 
 #include <stdint.h>
 int	fill_object(t_object *obj, t_jobject *jobj, int num, t_param *param)
@@ -345,8 +366,8 @@ int	fill_object(t_object *obj, t_jobject *jobj, int num, t_param *param)
 
 	obj->next = NULL;
 	obj->type = obj_def.type;
-	obj->num = num;//REALLY NEED THAT ?
-	obj->tmp_vec[0] = 0;//TODO CHANGE THIS BEURK !
+	obj->num = num;
+	obj->tmp_vec[0] = 0;
 	obj->tmp_vec[1] = 0;
 	obj->tmp_vec[2] = 0;
 	obj->phong = param->macro.specular_exp;
@@ -379,14 +400,12 @@ int	fill_object(t_object *obj, t_jobject *jobj, int num, t_param *param)
 		obj->ref.i[0] = 1.0;
 		obj->ref.j[1] = 1.0;
 	}
-	// AJOUT ADRIEN POUR INITIALISER LES OBJETS avec leur normale ou leur modifications de couleur
 	obj->effects.color = RT_C_NONE;
 	obj->effects.normal = RT_N_NONE;
-	// FIN AJOUT ADRIEN
 	if (obj_def.fill)
-		obj->dim = obj_def.fill(jobj, param);
+		obj_def.fill(jobj, obj);
 	else
-		obj->dim = NULL;//EXIT ??? pas forcement si l'object ne prends pas de param...
+		obj->dim = NULL;
 	return (1);
 }
 

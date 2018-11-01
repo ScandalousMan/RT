@@ -140,12 +140,12 @@ int	is_type(void* value, t_jtype jtype, t_rt_type type, t_rt_type subtype)
 	else if (type == RTN)
 		return ((jtype == JINT && *((int*)value) >= 1)
 				|| (jtype == JDOUBLE && *((double*)value) >= 1.0));
-	else if (type == RTCUSTOM)
-		return (jtype == JOBJECT
-				&& is_object((t_jobject*)value, g_custom_keys, RT_KEYS_SIZE(g_custom_keys), 0));
-	else if (type == RTCUSTOMOBJ)
-		return (jtype == JOBJECT
-				&& is_object((t_jobject*)value, g_customobj_keys, RT_KEYS_SIZE(g_customobj_keys), 0));
+	// else if (type == RTCUSTOM)
+	// 	return (jtype == JOBJECT
+	// 			&& is_object((t_jobject*)value, g_custom_keys, RT_KEYS_SIZE(g_custom_keys), 0));
+	// else if (type == RTCUSTOMOBJ)
+	// 	return (jtype == JOBJECT
+	// 			&& is_object((t_jobject*)value, g_customobj_keys, RT_KEYS_SIZE(g_customobj_keys), 0));
 	else if (type == RTSIGN)
 		return (jtype == JSTRING && ft_strlen((char*)value) == 1 && (((char*)value)[0] == '-' || ((char*)value)[0] == '+'));
 	else if (type == RTLIMIT)

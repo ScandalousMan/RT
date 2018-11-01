@@ -66,6 +66,7 @@ int		main(int ac, char **av)
 		if (param->up_img.process == TRUE && param->quit == FALSE)
 		{
 			param->graph->show_tmp = 0;
+			update_objects(param);
 			launch_threads(param);
 			param->end = clock(); // Clock
 			printf("Render %.5lf secondes...\n", (double)(param->end - param->start) / CLOCKS_PER_SEC);

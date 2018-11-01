@@ -49,3 +49,13 @@ double *cone_position(double *pt, t_object *obj)
 		scalar_product(obj->ref.k, obj->tmp_vec)) / 2.0 / M_PI;
 	return (obj->uv_map);
 }
+
+void	update_cone(t_object *obj, t_param *param)
+{
+	pt_translated(((t_cone*)(obj->dim))->org, obj->translation, ((t_cone*)(obj->dim))->org);
+	rotation_matrice(obj->rotation[0], obj->rotation[1], obj->rotation[2], param);
+	matrice_product(param->rot, ((t_cone*)(obj->dim))->u, ((t_cone*)(obj->dim))->u);
+	ref_move(obj, param);
+	limits_move(obj, param);
+	reset_moves(obj);
+}

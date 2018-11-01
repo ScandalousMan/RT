@@ -486,6 +486,16 @@ t_object	*closest_object(t_param *param, double *from, double *to, t_path *path)
 int				is_in_limit(double *pt, t_limit *limit);
 int				is_in_limits(double *pt, t_object *obj, t_limit *limit);
 void			update_normal_vector(t_object *tmp, t_path *path);
+void			update_objects(t_param *param);
+void			update_sphere(t_object *obj, t_param *param);
+void			update_cube(t_object *obj, t_param *param);
+void			update_cylindre(t_object *obj, t_param *param);
+void			update_plane(t_object *obj, t_param *param);
+void			update_quadric(t_object *obj, t_param *param);
+void			update_cone(t_object *obj, t_param *param);
+void			reset_moves(t_object *obj);
+void			limits_move(t_object *obj, t_param *param);
+void			ref_move(t_object *obj, t_param *param);
 int				is_inside_object(double *pt, t_object *tmp, t_limit *limit);
 void			object_position(double *pt, t_object *object);
 void 			object_color_changer(t_object *object, t_param *param);

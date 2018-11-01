@@ -79,3 +79,13 @@ double *plane_position(double *pt, t_object *obj)
 	obj->uv_map[1] = scalar - floor(scalar);
 	return (obj->uv_map);
 }
+
+void	update_plane(t_object *obj, t_param *param)
+{
+	pt_translated(((t_plane*)(obj->dim))->ref, obj->translation, ((t_plane*)(obj->dim))->ref);
+	rotation_matrice(obj->rotation[0], obj->rotation[1], obj->rotation[2], param);
+	matrice_product(param->rot, ((t_plane*)(obj->dim))->n, ((t_plane*)(obj->dim))->n);
+	ref_move(obj, param);
+	limits_move(obj, param);
+	reset_moves(obj);
+}

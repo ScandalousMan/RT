@@ -54,3 +54,11 @@ double *sphere_position(double *pt, t_object *obj)
 	obj->uv_map[1] = 0.5 - asin(scalar_product(obj->ref.j, obj->tmp_vec)) / M_PI;
 	return (obj->uv_map);
 }
+
+void	update_sphere(t_object *obj, t_param *param)
+{
+	pt_translated(((t_sphere*)(obj->dim))->center, obj->translation, ((t_sphere*)(obj->dim))->center);
+	ref_move(obj, param);
+	limits_move(obj, param);
+	reset_moves(obj);
+}
