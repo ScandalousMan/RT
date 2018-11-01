@@ -36,8 +36,8 @@
 			"reflection": 0,
 			"n": 1,
 			"thickness": 0.5,
-			"translation": [0, 0, 0],
-			"rotation": [0, 0, 0],
+			"translation": [0, 0, 20],
+			"rotation": [45, 45, 0],
 			"limits": [],
 			"reference":
 			{

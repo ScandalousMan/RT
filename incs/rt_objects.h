@@ -69,6 +69,12 @@ typedef enum			e_color_effect
 	RT_C_WOOD
 }						t_color_effect;
 
+// typedef enum			e_limit_type
+// {
+// 	RT_C_RELATIVE,
+// 	RT_C_ABSOLUTE
+// }						t_limit_type;
+
 typedef enum			e_normal_effect
 {
 	RT_N_NONE,

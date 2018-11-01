@@ -51,9 +51,8 @@ double *cylindre_position(double *pt, t_object *obj)
 void	update_cylindre(t_object *obj, t_param *param)
 {
 	pt_translated(((t_cylindre*)(obj->dim))->org, obj->translation, ((t_cylindre*)(obj->dim))->org);
-	rotation_matrice(obj->rotation[0], obj->rotation[1], obj->rotation[2], param);
-	matrice_product(param->rot, ((t_cylindre*)(obj->dim))->u, ((t_cylindre*)(obj->dim))->u);
 	ref_move(obj, param);
-	limits_move(obj, param);
+	limits_move(((t_cylindre*)(obj->dim))->org, obj, param);
+	matrice_product(param->rot, ((t_cylindre*)(obj->dim))->u, ((t_cylindre*)(obj->dim))->u);
 	reset_moves(obj);
 }

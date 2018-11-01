@@ -59,6 +59,6 @@ void	update_sphere(t_object *obj, t_param *param)
 {
 	pt_translated(((t_sphere*)(obj->dim))->center, obj->translation, ((t_sphere*)(obj->dim))->center);
 	ref_move(obj, param);
-	limits_move(obj, param);
+	limits_move(((t_sphere*)(obj->dim))->center, obj, param);
 	reset_moves(obj);
 }

@@ -400,8 +400,6 @@ double							*vec_soustraction(double *x, double *y, double *container);
 int								is_in_list(t_param *param, t_light *light);
 void							matrice_product(double matrice[VEC_SIZE][VEC_SIZE], double *col, double *dest);
 double							*vec_dup(double *vec);
-void							object_rotation(double mat[VEC_SIZE][VEC_SIZE], t_object *object);
-void							sim_matrice_rotation(double *a, double * b, t_param *param);
 /*
 **------------------------------------display-----------------------------------
 */
@@ -494,7 +492,7 @@ void			update_plane(t_object *obj, t_param *param);
 void			update_quadric(t_object *obj, t_param *param);
 void			update_cone(t_object *obj, t_param *param);
 void			reset_moves(t_object *obj);
-void			limits_move(t_object *obj, t_param *param);
+void			limits_move(double *o, t_object *obj, t_param *param);
 void			ref_move(t_object *obj, t_param *param);
 int				is_inside_object(double *pt, t_object *tmp, t_limit *limit);
 void			object_position(double *pt, t_object *object);
