@@ -125,228 +125,228 @@ typedef enum nk_anti_aliasing	t_nk_anti_aliasing;
 
 # define VEC_SIZE 3
 
-typedef struct	s_sphere
+typedef struct					s_sphere
 {
-	double			center[VEC_SIZE];
-	double			radius;
-}				t_sphere;
+	double						center[VEC_SIZE];
+	double						radius;
+}								t_sphere;
 
-typedef struct s_plane
+typedef struct 					s_plane
 {
-	double			n[VEC_SIZE];
-	double			ref[VEC_SIZE];
-}				t_plane;
+	double						n[VEC_SIZE];
+	double						ref[VEC_SIZE];
+}								t_plane;
 
-typedef struct s_cone
+typedef struct					s_cone
 {
-	double			org[VEC_SIZE];
-	double			u[VEC_SIZE];
-	double			angle;
-}				t_cone;
+	double						org[VEC_SIZE];
+	double						u[VEC_SIZE];
+	double						angle;
+}								t_cone;
 
-typedef struct s_cylindre
+typedef struct 					s_cylindre
 {
-	double			org[VEC_SIZE];
-	double			u[VEC_SIZE];
-	double			radius;
-}				t_cylindre;
+	double						org[VEC_SIZE];
+	double						u[VEC_SIZE];
+	double						radius;
+}								t_cylindre;
 
-typedef struct	s_quadric
+typedef struct					s_quadric
 {
-	double			center[VEC_SIZE];
-	double			a;
-	double			b;
-	double			c;
-	double			d;
-	double			e;
-	double			f;
-	double			g;
-	double			h;
-	double			i;
-	double			r;
-}				t_quadric;
+	double						center[VEC_SIZE];
+	double						a;
+	double						b;
+	double						c;
+	double						d;
+	double						e;
+	double						f;
+	double						g;
+	double						h;
+	double						i;
+	double						r;
+}								t_quadric;
 
-typedef struct	s_cube
+typedef struct					s_cube
 {
-	double			center[VEC_SIZE];
-	double			h;
-	double			n[VEC_SIZE];
-}				t_cube;
+	double						center[VEC_SIZE];
+	double						h;
+	double						n[VEC_SIZE];
+}								t_cube;
 
-typedef struct	s_limit
+typedef struct					s_limit
 {
-	t_plane			plane;
-	struct s_limit	*next;
-}				t_limit;
+	t_plane						plane;
+	struct s_limit				*next;
+}								t_limit;
 
-typedef struct	s_reference
+typedef struct					s_reference
 {
-	double		i[VEC_SIZE];
-	double		j[VEC_SIZE];
-	double		k[VEC_SIZE];
-}				t_reference;
+	double						i[VEC_SIZE];
+	double						j[VEC_SIZE];
+	double						k[VEC_SIZE];
+}								t_reference;
 
-typedef struct	s_effects
+typedef struct					s_effects
 {
-	char				color;
-	char				normal;
-}				t_effects;
+	char						color;
+	char						normal;
+}								t_effects;
 
 /*
 ** dim is a void for each specific object
 */
-typedef struct	s_object
+typedef struct					s_object
 {
-	void				*dim;
-	int					num;
-	int					type;//1 for sphere, 2 for plane, 3 for cone, 4 for cylindre
-//	double			shadow;
-	t_reference	ref;
-	double			tmp_vec[VEC_SIZE];
-	int					col;//couleur de surface de l'objet
-	double			kd;//coefficient de réflexion diffuse de l'objet
-	double			ks;//coefficient de réflexion spéculaire de l'objet
-	double			transparency;
-	double			reflection;
-	double			thickness;//épaisseur de l'objet, 0 par défaut
-	double			index;//indice du matériaux constituant l'objet, 1 par défaut
-	int					phong;//exposant de Phong de l'objet
-	t_limit			*limits;
-	double			uv_map[2];
-	t_effects		effects;
-	double			rotation[VEC_SIZE];
-	double			translation[VEC_SIZE];
-	struct s_object	*next;//liste chainée
-}				t_object;
+	void						*dim;
+	int							num;
+	int							type;//1 for sphere, 2 for plane, 3 for cone, 4 for cylindre
+//	double						shadow;
+	t_reference					ref;
+	double						tmp_vec[VEC_SIZE];
+	int							col;//couleur de surface de l'objet
+	double						kd;//coefficient de réflexion diffuse de l'objet
+	double						ks;//coefficient de réflexion spéculaire de l'objet
+	double						transparency;
+	double						reflection;
+	double						thickness;//épaisseur de l'objet, 0 par défaut
+	double						index;//indice du matériaux constituant l'objet, 1 par défaut
+	int							phong;//exposant de Phong de l'objet
+	t_limit						*limits;
+	double						uv_map[2];
+	t_effects					effects;
+	double						rotation[VEC_SIZE];
+	double						translation[VEC_SIZE];
+	struct s_object				*next;//liste chainée
+}								t_object;
 
-typedef struct	s_light
+typedef struct					s_light
 {
 	int							type;
 	int							num;
 	int							col;
-	double					src[VEC_SIZE];//position de la source lumineuse
-	double					i;//intensité de la source lumineuse
+	double						src[VEC_SIZE];//position de la source lumineuse
+	double						i;//intensité de la source lumineuse
 	int							tmp_col;//for times where light goes through transparent objects
-	struct s_light	*next;
-}				t_light;
+	struct s_light				*next;
+}								t_light;
 
-typedef struct	s_path
+typedef struct					s_path
 {
-	double			from[VEC_SIZE];
-	double			v[VEC_SIZE];//triplet pour la direction du rayon initial
-	double			x[VEC_SIZE];//triplet pour point d'intersection
-	double			n[VEC_SIZE];//triplet pour vecteur normal
-	double			l[VEC_SIZE];//rayon de la lumiere
-	double			r[VEC_SIZE];//rayon réfléchi
-	double			t[VEC_SIZE];//rayon transmis
-	double			tmp_x[VEC_SIZE];//use for cut objects tmp points
-	double			valid_n[VEC_SIZE];//to store final cut normal
-	double			valid_x[VEC_SIZE];//to store final cut intersection
-	t_object		*current_object;
-	t_object		*inside_obj;
-	struct s_path	*reflected;
-	struct s_path	*transmitted;
-}				t_path;
+	double						from[VEC_SIZE];
+	double						v[VEC_SIZE];//triplet pour la direction du rayon initial
+	double						x[VEC_SIZE];//triplet pour point d'intersection
+	double						n[VEC_SIZE];//triplet pour vecteur normal
+	double						l[VEC_SIZE];//rayon de la lumiere
+	double						r[VEC_SIZE];//rayon réfléchi
+	double						t[VEC_SIZE];//rayon transmis
+	double						tmp_x[VEC_SIZE];//use for cut objects tmp points
+	double						valid_n[VEC_SIZE];//to store final cut normal
+	double						valid_x[VEC_SIZE];//to store final cut intersection
+	t_object					*current_object;
+	t_object					*inside_obj;
+	struct s_path				*reflected;
+	struct s_path				*transmitted;
+}								t_path;
 
-typedef struct			s_custom_obj
+typedef struct					s_custom_obj
 {
-	char				op;
-	t_object			*object;
-	struct s_custom_obj	*next;
-}						t_custom_obj;
+	char						op;
+	t_object					*object;
+	struct s_custom_obj			*next;
+}								t_custom_obj;
 
 typedef struct	s_custom
 {
-	double				org[VEC_SIZE];//todo change
-	double				u[VEC_SIZE];//todo change
+	double						org[VEC_SIZE];//todo change
+	double						u[VEC_SIZE];//todo change
 
-	int					id;
-	char				*name;
-	struct s_custom_obj	*objects;
-	struct s_custom		*next;
-}				t_custom;
+	int							id;
+	char						*name;
+	struct s_custom_obj			*objects;
+	struct s_custom				*next;
+}								t_custom;
 
-typedef struct		s_macro
+typedef struct					s_macro
 {
-	float			k_ambience;
-	int				anti_aliasing;
-	int				blur_radius;
-	int				cartoon_factor;
-	int				filter;
-	int				recursion;
-	int				rotation_angle;
-	int				specular_exp;
-}					t_macro;
+	float						k_ambience;
+	int							anti_aliasing;
+	int							blur_radius;
+	int							cartoon_factor;
+	int							filter;
+	int							recursion;
+	int							rotation_angle;
+	int							specular_exp;
+}								t_macro;
 
-typedef	struct		s_update_img
+typedef	struct					s_update_img
 {
-	char			process;
-	char			post_process;
-}					t_update_img;
+	char						process;
+	char						post_process;
+}								t_update_img;
 
-typedef struct s_sdl
+typedef struct 					s_sdl
 {
-	SDL_Window *win_gl;
-	SDL_GLContext gl_context;
+	SDL_Window 					*win_gl;
+	SDL_GLContext 				gl_context;
 
-	SDL_Window *win_sdl;
-	SDL_Renderer *render_sdl;
-	SDL_Surface *surfs[NB_THREAD];
-	SDL_Surface *tmp_surfs[NB_THREAD];
-	int show_tmp;
+	SDL_Window 					*win_sdl;
+	SDL_Renderer 				*render_sdl;
+	SDL_Surface 				*surfs[NB_THREAD];
+	SDL_Surface 				*tmp_surfs[NB_THREAD];
+	int 						show_tmp;
 
-	t_object *current_object;
+	t_object 					*current_object;
 
-	t_nk_context *ctx;
+	t_nk_context 				*ctx;
 } t_sdl;
 
-typedef struct		s_param
+typedef struct					s_param
 {
-	clock_t			start;//TODO delete
-	clock_t			end;//TODO delete
-	double			f;//focale
-	double			eye[VEC_SIZE];//position de l'oeil de l'observateur
-	double			look[VEC_SIZE];//direction dans laquelle l'oeil regarde
-	double			align[VEC_SIZE];//eye's alignment to define what is looked at
-	double			third[VEC_SIZE];//third dimension in the referential
-	double			obj_d;//object's distance
-	double			tmp_d;//last distance used
-	double			tmp_d_cut;//used to detect cutting planes
-	t_path			*path;
-	t_custom		*customs;
-	t_object		*objects;
-	t_light			*lights;
-	int				num_lights;
-	t_object		*intersect_object;
-	int 			num_objects;
-	char			is_cut;
-	char			is_for_light;
-	t_light			*tmp_light;
-	double			tmp_vec[VEC_SIZE];
-	int 			brightness;
-	int				final_col;
-	int				texture_col;
-	int				i[2];
-	double			rot[VEC_SIZE][VEC_SIZE];
-	double			epsilon;
-	t_sdl			*graph;
-	SDL_Thread		**thread;
+	clock_t						start;//TODO delete
+	clock_t						end;//TODO delete
+	double						f;//focale
+	double						eye[VEC_SIZE];//position de l'oeil de l'observateur
+	double						look[VEC_SIZE];//direction dans laquelle l'oeil regarde
+	double						align[VEC_SIZE];//eye's alignment to define what is looked at
+	double						third[VEC_SIZE];//third dimension in the referential
+	double						obj_d;//object's distance
+	double						tmp_d;//last distance used
+	double						tmp_d_cut;//used to detect cutting planes
+	t_path						*path;
+	t_custom					*customs;
+	t_object					*objects;
+	t_light						*lights;
+	int							num_lights;
+	t_object					*intersect_object;
+	int 						num_objects;
+	char						is_cut;
+	char						is_for_light;
+	t_light						*tmp_light;
+	double						tmp_vec[VEC_SIZE];
+	int 						brightness;
+	int							final_col;
+	int							texture_col;
+	int							i[2];
+	double						rot[VEC_SIZE][VEC_SIZE];
+	double						epsilon;
+	t_sdl						*graph;
+	SDL_Thread					**thread;
 	
-	int				current_thread;
-	t_update_img	up_img;
-	int					**pxl_infos;
-	double			ia;//intensité de la lumiere ambiante
-	double			m[VEC_SIZE];//triplet intermediaire pour calculs ombres
-	double			perlin_noise[NOISE_SIZE][NOISE_SIZE];
+	int							current_thread;
+	t_update_img				up_img;
+	int							**pxl_infos;
+	double						ia;//intensité de la lumiere ambiante
+	double						m[VEC_SIZE];//triplet intermediaire pour calculs ombres
+	double						perlin_noise[NOISE_SIZE][NOISE_SIZE];
 
-	int				to_pix;
-	clock_t			last_mv;
+	int							to_pix;
+	clock_t						last_mv;
 
-	t_macro			macro; // Contain all global variable across program
+	t_macro						macro; // Contain all global variable across program
 
-	char			quit; // Used to know if program must exit
-	SDL_Surface		*texture;
-}				t_param;
+	char						quit; // Used to know if program must exit
+	SDL_Surface					*texture;
+}								t_param;
 
 /*
 **----------------------------------components----------------------------------
@@ -409,111 +409,111 @@ void							light_display_objects(t_param *param);
 /*
 **-----------------------------------distance-----------------------------------
 */
-double			distance_calc(t_object *tmp, double *from, double *to);
-double			distance_to_sphere(t_object *tmp, double *from,
-				double *to);
-int					is_inside_sphere(double *pt, t_object *tmp);
-double 			*sphere_position(double *pt, t_object *obj);
-double			plane_distance(double *from, double *to, double *n, double *ref);
-double			distance_to_plane(t_object *tmp, double *from,
-				double *to);
-int					is_inside_plane(double *pt, t_object *tmp);
-double			*plane_position(double *pt, t_object *obj);
-double			distance_to_cone(t_object *tmp, double *from, double *to);
-double			*cone_position(double *pt, t_object *object);
-double			distance_to_cylindre(t_object *tmp, double *from, double *to);
-double			*cylindre_position(double *pt, t_object *object);
-double			distance_to_quadric(t_object *tmp, double *from, double *to);
-double			*quadric_position(double *pt, t_object *object);
-double			distance_to_cube(t_object *t, double *from, double *to);
-double			*cube_position(double *pt, t_object *obj);
+double							distance_calc(t_object *tmp, double *from, double *to);
+double							distance_to_sphere(t_object *tmp, double *from,
+								double *to);
+int									is_inside_sphere(double *pt, t_object *tmp);
+double 							*sphere_position(double *pt, t_object *obj);
+double							plane_distance(double *from, double *to, double *n, double *ref);
+double							distance_to_plane(t_object *tmp, double *from,
+								double *to);
+int									is_inside_plane(double *pt, t_object *tmp);
+double							*plane_position(double *pt, t_object *obj);
+double							distance_to_cone(t_object *tmp, double *from, double *to);
+double							*cone_position(double *pt, t_object *object);
+double							distance_to_cylindre(t_object *tmp, double *from, double *to);
+double							*cylindre_position(double *pt, t_object *object);
+double							distance_to_quadric(t_object *tmp, double *from, double *to);
+double							*quadric_position(double *pt, t_object *object);
+double							distance_to_cube(t_object *t, double *from, double *to);
+double							*cube_position(double *pt, t_object *obj);
 /*
 **-------------------------------------cone-------------------------------------
 */
-double			cone_first_term(t_object *tmp, double *to);
-double			cone_second_term(t_object *tmp, double *to, double *x);
-double			cone_third_term(t_object *tmp, double *x);
-int					is_inside_cone(double *pt, t_object *tmp);
+double							cone_first_term(t_object *tmp, double *to);
+double							cone_second_term(t_object *tmp, double *to, double *x);
+double							cone_third_term(t_object *tmp, double *x);
+int									is_inside_cone(double *pt, t_object *tmp);
 /*
 **-----------------------------------cylindre-----------------------------------
 */
-double			cylindre_first_term(t_object *tmp, double *to);
-double			cylindre_second_term(t_object *tmp, double *to);
-double			cylindre_third_term(t_object *tmp);
-int					is_inside_cylindre(double *pt, t_object *tmp);
+double							cylindre_first_term(t_object *tmp, double *to);
+double							cylindre_second_term(t_object *tmp, double *to);
+double							cylindre_third_term(t_object *tmp);
+int									is_inside_cylindre(double *pt, t_object *tmp);
 /*
 **------------------------------------quadric-----------------------------------
 */
-double			quadric_first_term(t_quadric *tmp, double *to);
-double			quadric_second_term(t_quadric *tmp, double *from, double *to);
-double			quadric_third_term(t_quadric *tmp, double *from);
-int					is_inside_quadric(double *pt, t_quadric *tmp);
+double							quadric_first_term(t_quadric *tmp, double *to);
+double							quadric_second_term(t_quadric *tmp, double *from, double *to);
+double							quadric_third_term(t_quadric *tmp, double *from);
+int									is_inside_quadric(double *pt, t_quadric *tmp);
 
 /*
 **-----------------------------------cube-----------------------------------
 */
-int					is_inside_cube(double *pt, t_object *tmp);
-double			distance_to_face1(t_object *tmp, double *from, double *to);
-double			distance_to_face2(t_object *tmp, double *from, double *to);
-double			distance_to_face3(t_object *tmp, double *from, double *to);
-double			distance_to_face4(t_object *tmp, double *from, double *to);
-double			distance_to_face5(t_object *tmp, double *from, double *to);
-double			distance_to_face6(t_object *tmp, double *from, double *to);
+int									is_inside_cube(double *pt, t_object *tmp);
+double							distance_to_face1(t_object *tmp, double *from, double *to);
+double							distance_to_face2(t_object *tmp, double *from, double *to);
+double							distance_to_face3(t_object *tmp, double *from, double *to);
+double							distance_to_face4(t_object *tmp, double *from, double *to);
+double							distance_to_face5(t_object *tmp, double *from, double *to);
+double							distance_to_face6(t_object *tmp, double *from, double *to);
 
-double			ft_absdbl(double a);
-int 				ft_absint(int a);
-void				ft_putvec(double *x);
-void				eye_rotation(double alpha, double beta, double gamma, t_param *param);
-void				rotation_matrice(double alpha, double beta, double gamma, t_param *param);
+double							ft_absdbl(double a);
+int 							ft_absint(int a);
+void							ft_putvec(double *x);
+void							eye_rotation(double alpha, double beta, double gamma, t_param *param);
+void							rotation_matrice(double alpha, double beta, double gamma, t_param *param);
 /*
 **------------------------------------parser------------------------------------
 */
-//t_param	*rt_parser(t_param *param);
-//t_parse	*split_whitespace(char *line);
-//int 	rt_light_parser(t_param *param, t_parse *config);
-//int 	rt_objects_lights_parser(t_param *param, t_parse *config);
-int 	rt_init(t_param *param, char *line, int count);
-//int 	rt_object_parser(t_param *param, t_parse *config);
-//int 	rt_sphere_parser(t_param *param, t_parse *config);
-//int 	rt_plane_parser(t_param *param, t_parse *config);
-//int 	rt_cone_parser(t_param *param, t_parse *config);
-//int 	rt_cylindre_parser(t_param *param, t_parse *config);
+// t_param						*rt_parser(t_param *param);
+// t_parse						*split_whitespace(char *line);
+// int 							rt_light_parser(t_param *param, t_parse *config);
+// int 							rt_objects_lights_parser(t_param *param, t_parse *config);
+int 							rt_init(t_param *param, char *line, int count);
+// int 							rt_object_parser(t_param *param, t_parse *config);
+// int 							rt_sphere_parser(t_param *param, t_parse *config);
+// int 							rt_plane_parser(t_param *param, t_parse *config);
+// int 							rt_cone_parser(t_param *param, t_parse *config);
+// int 							rt_cylindre_parser(t_param *param, t_parse *config);
 
-void			rt_tracer(t_param *param);
-t_object	*closest_object(t_param *param, double *from, double *to, t_path *path);
-int				is_in_limit(double *pt, t_limit *limit);
-int				is_in_limits(double *pt, t_object *obj, t_limit *limit);
-void			update_normal_vector(t_object *tmp, t_path *path);
-void			update_objects(t_param *param);
-void			update_sphere(t_object *obj, t_param *param);
-void			update_cube(t_object *obj, t_param *param);
-void			update_cylindre(t_object *obj, t_param *param);
-void			update_plane(t_object *obj, t_param *param);
-void			update_quadric(t_object *obj, t_param *param);
-void			update_cone(t_object *obj, t_param *param);
-void			reset_moves(t_object *obj);
-void			limits_move(double *o, t_object *obj, t_param *param);
-void			ref_move(t_object *obj, t_param *param);
-int				is_inside_object(double *pt, t_object *tmp, t_limit *limit);
-void			object_position(double *pt, t_object *object);
-void 			object_color_changer(t_object *object, t_param *param);
-void			object_normal_changer(t_object *object, t_param *param, t_path *path);
-t_object	*object_constructor(t_param *param);
-void			update_normal_sphere(t_object *tmp, t_path *path);
-void			update_normal_plane(t_object *tmp, t_path *path);
-void			update_normal_cone(t_object *tmp, t_path *path);
-void			update_normal_cylindre(t_object *tmp, t_path *path);
-void			update_normal_quadric(t_quadric *tmp, t_path *path);
-void			update_normal_cube(t_object *tmp, t_path *path);
-void			display_lights(t_param *param);
-int 			my_key_func(int keycode, t_param *param);
-t_path			*path_create(t_param *param, int index);
+void							rt_tracer(t_param *param);
+t_object						*closest_object(t_param *param, double *from, double *to, t_path *path);
+int								is_in_limit(double *pt, t_limit *limit);
+int								is_in_limits(double *pt, t_object *obj, t_limit *limit);
+void							update_normal_vector(t_object *tmp, t_path *path);
+void							update_objects(t_param *param);
+void							update_sphere(t_object *obj, t_param *param);
+void							update_cube(t_object *obj, t_param *param);
+void							update_cylindre(t_object *obj, t_param *param);
+void							update_plane(t_object *obj, t_param *param);
+void							update_quadric(t_object *obj, t_param *param);
+void							update_cone(t_object *obj, t_param *param);
+void							reset_moves(t_object *obj);
+void							limits_move(double *o, t_object *obj, t_param *param);
+void							ref_move(t_object *obj, t_param *param);
+int								is_inside_object(double *pt, t_object *tmp, t_limit *limit);
+void							object_position(double *pt, t_object *object);
+void 							object_color_changer(t_object *object, t_param *param);
+void							object_normal_changer(t_object *object, t_param *param, t_path *path);
+t_object						*object_constructor(t_param *param);
+void							update_normal_sphere(t_object *tmp, t_path *path);
+void							update_normal_plane(t_object *tmp, t_path *path);
+void							update_normal_cone(t_object *tmp, t_path *path);
+void							update_normal_cylindre(t_object *tmp, t_path *path);
+void							update_normal_quadric(t_quadric *tmp, t_path *path);
+void							update_normal_cube(t_object *tmp, t_path *path);
+void							display_lights(t_param *param);
+int 							my_key_func(int keycode, t_param *param);
+t_path							*path_create(t_param *param, int index);
 	/*
 **REFRACTION
 */
-	void define_refracted_n(t_path *path1, t_path *path2);
-double		get_index_n(t_path *path);
-int				snell_descartes(double n1, double n2, t_path *path1, t_path *path2);
+void 							define_refracted_n(t_path *path1, t_path *path2);
+double							get_index_n(t_path *path);
+int								snell_descartes(double n1, double n2, t_path *path1, t_path *path2);
 /*
 **POST PROCESSING FUNCTIONS
 */
@@ -526,9 +526,9 @@ void							to_negative(t_param *param);
 /*
 **PERLIN
 */
-double 		turbulence(double x, double y, double size, t_param *param);
-double		marble_ratio(double u, double v, double size, t_param *param);
-char			wood_ratio(double u, double v, double size, t_param *param);
+double 							turbulence(double x, double y, double size, t_param *param);
+double							marble_ratio(double u, double v, double size, t_param *param);
+char							wood_ratio(double u, double v, double size, t_param *param);
 /*
 ** NK_API SDL Prototypes
 */
