@@ -58,6 +58,45 @@ void nukl_objects(t_param *param)
 			gui_quadric(param);
 		if (param->graph->current_object->type == RTCUBE)
 			gui_cube(param);
+		nk_layout_row_begin(param->graph->ctx, NK_DYNAMIC, 30, 6);
+		{
+			nk_layout_row_push(param->graph->ctx, 0.33f);
+			nk_property_double(param->graph->ctx, "rot x:", MIN_DOUBLE_OBJECT,
+							   &param->graph->current_object->ref.i[0], MAX_DOUBLE_OBJECT, 2.0f, 0.2f);
+			nk_layout_row_push(param->graph->ctx, 0.33f);
+			nk_property_double(param->graph->ctx, "rot y:", MIN_DOUBLE_OBJECT,
+							   &param->graph->current_object->ref.i[1], MAX_DOUBLE_OBJECT, 2.0f, 0.2f);
+			nk_layout_row_push(param->graph->ctx, 0.33f);
+			nk_property_double(param->graph->ctx, "rot z:", MIN_DOUBLE_OBJECT,
+							   &param->graph->current_object->ref.i[2], MAX_DOUBLE_OBJECT, 2.0f, 0.2f);
+		}
+		nk_layout_row_end(param->graph->ctx);
+		nk_layout_row_begin(param->graph->ctx, NK_DYNAMIC, 30, 6);
+		{
+			nk_layout_row_push(param->graph->ctx, 0.33f);
+			nk_property_double(param->graph->ctx, "rot x:", MIN_DOUBLE_OBJECT,
+							   &param->graph->current_object->ref.j[0], MAX_DOUBLE_OBJECT, 2.0f, 0.2f);
+			nk_layout_row_push(param->graph->ctx, 0.33f);
+			nk_property_double(param->graph->ctx, "rot y:", MIN_DOUBLE_OBJECT,
+							   &param->graph->current_object->ref.j[1], MAX_DOUBLE_OBJECT, 2.0f, 0.2f);
+			nk_layout_row_push(param->graph->ctx, 0.33f);
+			nk_property_double(param->graph->ctx, "rot z:", MIN_DOUBLE_OBJECT,
+							   &param->graph->current_object->ref.j[2], MAX_DOUBLE_OBJECT, 2.0f, 0.2f);
+		}
+		nk_layout_row_end(param->graph->ctx);
+		nk_layout_row_begin(param->graph->ctx, NK_DYNAMIC, 30, 6);
+		{
+			nk_layout_row_push(param->graph->ctx, 0.33f);
+			nk_property_double(param->graph->ctx, "rot x:", MIN_DOUBLE_OBJECT,
+							   &param->graph->current_object->ref.k[0], MAX_DOUBLE_OBJECT, 2.0f, 0.2f);
+			nk_layout_row_push(param->graph->ctx, 0.33f);
+			nk_property_double(param->graph->ctx, "rot y:", MIN_DOUBLE_OBJECT,
+							   &param->graph->current_object->ref.k[1], MAX_DOUBLE_OBJECT, 2.0f, 0.2f);
+			nk_layout_row_push(param->graph->ctx, 0.33f);
+			nk_property_double(param->graph->ctx, "rot z:", MIN_DOUBLE_OBJECT,
+							   &param->graph->current_object->ref.k[2], MAX_DOUBLE_OBJECT, 2.0f, 0.2f);
+		}
+		nk_layout_row_end(param->graph->ctx);
 	}
 	nk_tree_pop(param->graph->ctx);
 }
