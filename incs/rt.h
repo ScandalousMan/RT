@@ -612,7 +612,7 @@ void							launch_threads(t_param *param);
 ** Free functions
 */
 
-void 							free_objects(t_param *param);
+void 							free_objects(t_param *param, char final);
 void 							free_lights(t_light *lights);
 void							free_pxl_infos(int **pxl_infos);
 void 							free_path(t_path *path);

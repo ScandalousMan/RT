@@ -12,7 +12,23 @@
 
 #include "rt_objects.h"
 
-void	free_objects(t_param *param)
+void	free_parsed(t_object *obj)
+{
+	if (obj->type == RTSPHERE)
+		free((t_sphere*)(obj->parsed));
+	else if (obj->type == RTPLAN)
+		free((t_plane*)(obj->parsed));
+	else if (obj->type == RTCONE)
+		free((t_cone*)(obj->parsed));
+	else if (obj->type == RTCYLINDER)
+		free((t_cylindre*)(obj->parsed));
+	else if (obj->type == RTQUADRIC)
+		free((t_quadric*)(obj->parsed));
+	else if (obj->type == RTCUBE)
+		free((t_cube*)(obj->parsed));
+}
+
+void	free_objects(t_param *param, char final)
 {
 	t_object	*tmp;
 	t_limit		*l_tmp;
@@ -21,17 +37,19 @@ void	free_objects(t_param *param)
 	{
 		tmp = param->objects->next;
 		if (param->objects->type == RTSPHERE)
-			free ((t_sphere*)(param->objects->dim));
+			free((t_sphere*)(param->objects->dim));
 		else if (param->objects->type == RTPLAN)
-			free ((t_plane*)(param->objects->dim));
+			free((t_plane*)(param->objects->dim));
 		else if (param->objects->type == RTCONE)
-			free ((t_cone*)(param->objects->dim));
+			free((t_cone*)(param->objects->dim));
 		else if (param->objects->type == RTCYLINDER)
-			free ((t_cylindre*)(param->objects->dim));
+			free((t_cylindre*)(param->objects->dim));
 		else if (param->objects->type == RTQUADRIC)
-			free ((t_quadric*)(param->objects->dim));
+			free((t_quadric*)(param->objects->dim));
 		else if (param->objects->type == RTCUBE)
-			free ((t_cube*)(param->objects->dim));
+			free((t_cube*)(param->objects->dim));
+		if (final)
+			free_parsed(param->objects);
 		while (param->objects->limits)
 		{
 			l_tmp = param->objects->limits->next;
@@ -69,7 +87,7 @@ void	free_path(t_path *path)
 void	end_program(t_param *param)
 {
 	// UNUSED(param);
-	free_objects(param);
+	free_objects(param, 1);
 	free_lights(param->lights);
 	free_path(param->path);
 	free_pxl_infos(param->pxl_infos);

@@ -126,7 +126,7 @@ void		launch_threads(t_param *param)
 		mprintf(1, "Free param_cpy %d\n", count);
 		free_path(params[count]->path);
 		free_lights(params[count]->lights);
-		free_objects(params[count]);
+		free_objects(params[count], 0);
 		free(params[count]);
 		++count;
 	}
