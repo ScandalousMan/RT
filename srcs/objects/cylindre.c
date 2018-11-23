@@ -50,7 +50,9 @@ double *cylindre_position(double *pt, t_object *obj)
 
 void	update_cylindre(t_object *obj, t_param *param)
 {
-	pt_translated(((t_cylindre*)(obj->dim))->org, obj->translation, ((t_cylindre*)(obj->dim))->org);
+	((t_cylindre*)(obj->dim))->radius = ((t_cylindre*)(obj->parsed))->radius;
+	vec_copy(((t_cylindre*)(obj->parsed))->u, ((t_cylindre*)(obj->dim))->u);
+	pt_translated(((t_cylindre*)(obj->parsed))->org, obj->translation, ((t_cylindre*)(obj->dim))->org);
 	ref_move(obj, param);
 	limits_move(((t_cylindre*)(obj->dim))->org, obj, param);
 	matrice_product(param->rot, ((t_cylindre*)(obj->dim))->u, ((t_cylindre*)(obj->dim))->u);
