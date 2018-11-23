@@ -54,7 +54,7 @@ double *quadric_position(double *pt, t_object *obj)
 
 void	update_quadric(t_object *obj, t_param *param)
 {
-	pt_translated(((t_quadric*)(obj->dim))->center, obj->translation, ((t_quadric*)(obj->dim))->center);
+	pt_translated(((t_quadric*)(obj->parsed))->center, obj->translation, ((t_quadric*)(obj->dim))->center);
 	// fill_vector(&tr, (t_jarray*)(get_jobject(jobj, "rotation")->value));
 	// rotation_matrice(tr[0], tr[1], tr[2], param);
 	//rotation quadrique
