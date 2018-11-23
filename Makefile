@@ -74,8 +74,8 @@ SRCS =		closest.c \
 			nukl_gui/objects_plus.c \
 			nukl_gui/objects_utils.c \
 			nukl_gui/objects.c \
+			object_duplicate.c \
 			objects_moves.c \
-			object_parser.c \
 			objects_router.c \
 			objects_storage.c \
 			objects/cone.c \

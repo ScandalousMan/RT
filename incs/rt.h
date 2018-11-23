@@ -198,6 +198,7 @@ typedef struct	s_effects
 typedef struct	s_object
 {
 	void				*dim;
+	void				*parsed;
 	int					num;
 	int					type;//1 for sphere, 2 for plane, 3 for cone, 4 for cylindre
 //	double			shadow;

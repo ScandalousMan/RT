@@ -128,18 +128,18 @@ void	fill_vector(double vector[1][VEC_SIZE], t_jarray *array)
 	}
 }
 
-void	fill_reference(t_reference *ref, t_jobject *jobj, t_param *param)
-// ajouter un controle sur la co-linéarité des deux vecteurs
-{
-	fill_vector(&(ref->i), (t_jarray*)(get_jobject(jobj, "i")->value));
-	vec_to_unit_norm(ref->i);
-	fill_vector(&(ref->j), (t_jarray*)(get_jobject(jobj, "j")->value));
-	vec_multiply(scalar_product(ref->i, ref->j), ref->i, param->tmp_vec);
-	vec_soustraction(ref->j, param->tmp_vec, ref->j);
-	vec_to_unit_norm(ref->j);
-	vector_product(ref->i, ref->j, ref->k);
-	vec_to_unit_norm(ref->k);
-}
+// void	fill_reference(t_reference *ref, t_jobject *jobj, t_param *param)
+// // ajouter un controle sur la co-linéarité des deux vecteurs
+// {
+// 	fill_vector(&(ref->i), (t_jarray*)(get_jobject(jobj, "i")->value));
+// 	vec_to_unit_norm(ref->i);
+// 	fill_vector(&(ref->j), (t_jarray*)(get_jobject(jobj, "j")->value));
+// 	vec_multiply(scalar_product(ref->i, ref->j), ref->i, param->tmp_vec);
+// 	vec_soustraction(ref->j, param->tmp_vec, ref->j);
+// 	vec_to_unit_norm(ref->j);
+// 	vector_product(ref->i, ref->j, ref->k);
+// 	vec_to_unit_norm(ref->k);
+// }
 
 void	fill_moves(t_jobject *jobj, t_object *obj)
 {
@@ -162,7 +162,9 @@ void	*fill_sphere(t_jobject *jobj, t_object *s_obj)
 	tr[2] = 0.0;
 	if (!(obj = (t_sphere *)malloc(sizeof(t_sphere))))
 		return (NULL);//EXIT
-	s_obj->dim = obj;
+	if (!(s_obj->dim = (void*)malloc(sizeof(t_sphere))))
+		return (NULL);
+	s_obj->parsed = obj;
 	fill_vector((&(obj->center)), (t_jarray*)(get_jobject(jobj, "center")->value));
 	tmp = get_jobject(jobj, "radius");
 	obj->radius = get_double(tmp->type, tmp->value);
@@ -187,7 +189,9 @@ void	*fill_plane(t_jobject *jobj, t_object *p_obj)
 	tr[2] = 0.0;
 	if (!(obj = (t_plane *)malloc(sizeof(t_plane))))
 		return (NULL);//EXIT
-	p_obj->dim = obj;
+	if (!(p_obj->dim = (void*)malloc(sizeof(t_plane))))
+		return (NULL);//EXIT
+	p_obj->parsed = obj;
 	fill_vector((&(obj->n)), (t_jarray*)(get_jobject(jobj, "normal")->value));
 	fill_vector((&(obj->ref)), (t_jarray*)(get_jobject(jobj, "point")->value));
 	// fill_vector(&tr, (t_jarray*)(get_jobject(jobj, "translation")->value));
@@ -214,7 +218,9 @@ void	*fill_cone(t_jobject *jobj, t_object *c_obj)
 	tr[2] = 0.0;
 	if (!(obj = (t_cone *)malloc(sizeof(t_cone))))
 		return (NULL);//EXIT
-	c_obj->dim = obj;
+	if (!(c_obj->dim = (void*)malloc(sizeof(t_cone))))
+		return (NULL);//EXIT
+	c_obj->parsed = obj;
 	fill_vector(&(obj->org), (t_jarray*)(get_jobject(jobj, "center")->value));
 	fill_vector(&(obj->u), (t_jarray*)(get_jobject(jobj, "vector")->value));
 	tmp = get_jobject(jobj, "angle");
@@ -243,7 +249,9 @@ void	*fill_cylinder(t_jobject *jobj, t_object *c_obj)
 	tr[2] = 0.0;
 	if (!(obj = (t_cylindre *)malloc(sizeof(t_cylindre))))
 		return (NULL);//EXIT
-	c_obj->dim = obj;
+	if (!(c_obj->dim = (void*)malloc(sizeof(t_cylindre))))
+		return (NULL);//EXIT
+	c_obj->parsed = obj;
 	fill_vector(&(obj->org), (t_jarray*)(get_jobject(jobj, "center")->value));
 	fill_vector(&(obj->u), (t_jarray*)(get_jobject(jobj, "vector")->value));
 	tmp = get_jobject(jobj, "radius");
@@ -272,7 +280,9 @@ void	*fill_quadric(t_jobject *jobj, t_object *q_obj)
 	tr[2] = 0.0;
 	if (!(obj = (t_quadric *)malloc(sizeof(t_quadric))))
 		return (NULL);//EXIT
-	q_obj->dim = obj;
+	if (!(q_obj->dim = (void*)malloc(sizeof(t_quadric))))
+		return (NULL);//EXIT
+	q_obj->parsed = obj;
 	fill_vector(&(obj->center), (t_jarray*)(get_jobject(jobj, "center")->value));
 	tmp = get_jobject(jobj, "a");
 	obj->a = get_double(tmp->type, tmp->value);
@@ -314,7 +324,9 @@ void	*fill_cube(t_jobject *jobj, t_object *c_obj)
 	tr[2] = 0.0;
 	if (!(obj = (t_cube*)malloc(sizeof(t_cube))))
 		return (NULL);//EXIT
-	c_obj->dim = obj;
+	if (!(c_obj->dim = (void*)malloc(sizeof(t_cube))))
+		return (NULL);//EXIT
+	c_obj->parsed = obj;
 	fill_vector(&(obj->center), (t_jarray*)(get_jobject(jobj, "center")->value));
 	tmp = get_jobject(jobj, "h");
 	obj->h = get_double(tmp->type, tmp->value);
@@ -392,20 +404,20 @@ int	fill_object(t_object *obj, t_jobject *jobj, int num, t_param *param)
 	tmp = get_jobject(jobj, "texture");//JSON_OBJECT
 //	obj->texture = ;//NOT EXISTS FOR THE MOMENT
 	tmp = get_jobject(jobj, "reference");
-	if (tmp)
-		fill_reference(&(obj->ref), tmp->value, param);
-	else
-	{
-		ft_bzero(&(obj->ref), sizeof(t_reference));
-		obj->ref.i[0] = 1.0;
-		obj->ref.j[1] = 1.0;
-	}
+	// if (tmp)
+	// 	fill_reference(&(obj->ref), tmp->value, param);
+	// else
+	// {
+	// 	ft_bzero(&(obj->ref), sizeof(t_reference));
+	// 	obj->ref.i[0] = 1.0;
+	// 	obj->ref.j[1] = 1.0;
+	// }
 	obj->effects.color = RT_C_NONE;
 	obj->effects.normal = RT_N_NONE;
 	if (obj_def.fill)
 		obj_def.fill(jobj, obj);
 	else
-		obj->dim = NULL;
+		obj->parsed = NULL;
 	return (1);
 }
 
