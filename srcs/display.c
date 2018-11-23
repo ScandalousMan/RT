@@ -10,90 +10,90 @@ void	display_objects(t_param *param)
 		{
 			ft_putstr("** nouvelle sphere **\n");
 			ft_putstr("centre : ");
-			ft_putvec(((t_sphere*)(objs->dim))->center);
+			ft_putvec(((t_sphere*)(objs->parsed))->center);
 			ft_putchar('\n');
 			ft_putstr("rayon : ");
-			ft_putnbr(((t_sphere*)(objs->dim))->radius);
+			ft_putnbr(((t_sphere*)(objs->parsed))->radius);
 			ft_putchar('\n');
 		}
 		if (objs->type == RTPLAN)
 		{
 			ft_putstr("** nouveau plan **\n");
 			ft_putstr("point : ");
-			ft_putvec(((t_plane*)(objs->dim))->ref);
+			ft_putvec(((t_plane*)(objs->parsed))->ref);
 			ft_putchar('\n');
 			ft_putstr("normale : ");
-			ft_putvec(((t_plane*)(objs->dim))->n);
+			ft_putvec(((t_plane*)(objs->parsed))->n);
 			ft_putchar('\n');
 		}
 		if (objs->type == RTCONE)
 		{
 			ft_putstr("** nouveau cone **\n");
 			ft_putstr("origine : ");
-			ft_putvec(((t_cone*)(objs->dim))->org);
+			ft_putvec(((t_cone*)(objs->parsed))->org);
 			ft_putchar('\n');
 			ft_putstr("vecteur : ");
-			ft_putvec(((t_cone*)(objs->dim))->u);
+			ft_putvec(((t_cone*)(objs->parsed))->u);
 			ft_putchar('\n');
 			ft_putstr("angle : ");
-			ft_putnbr(((t_cone*)(objs->dim))->angle);
+			ft_putnbr(((t_cone*)(objs->parsed))->angle);
 			ft_putchar('\n');
 		}
 		if (objs->type == RTCYLINDER)
 		{
 			ft_putstr("** nouveau cylindre **\n");
 			ft_putstr("origine : ");
-			ft_putvec(((t_cylindre*)(objs->dim))->org);
+			ft_putvec(((t_cylindre*)(objs->parsed))->org);
 			ft_putchar('\n');
 			ft_putstr("normale : ");
-			ft_putvec(((t_cylindre*)(objs->dim))->u);
+			ft_putvec(((t_cylindre*)(objs->parsed))->u);
 			ft_putchar('\n');
 			ft_putstr("rayon : ");
-			ft_putnbr(((t_cylindre*)(objs->dim))->radius);
+			ft_putnbr(((t_cylindre*)(objs->parsed))->radius);
 			ft_putchar('\n');
 		}
 		if (objs->type == RTQUADRIC)
 		{
 			ft_putstr("** nouvelle quadrique **\n");
 			ft_putstr("centre : ");
-			ft_putvec(((t_quadric*)(objs->dim))->center);
+			ft_putvec(((t_quadric*)(objs->parsed))->center);
 			ft_putchar('\n');
 			ft_putstr("a: ");
-			ft_putdbl(((t_quadric*)(objs->dim))->a, 4);
+			ft_putdbl(((t_quadric*)(objs->parsed))->a, 4);
 			ft_putchar('\n');
 			ft_putstr("b: ");
-			ft_putdbl(((t_quadric*)(objs->dim))->b, 4);
+			ft_putdbl(((t_quadric*)(objs->parsed))->b, 4);
 			ft_putchar('\n');
 			ft_putstr("c: ");
-			ft_putdbl(((t_quadric*)(objs->dim))->c, 4);
+			ft_putdbl(((t_quadric*)(objs->parsed))->c, 4);
 			ft_putchar('\n');
 			ft_putstr("d: ");
-			ft_putdbl(((t_quadric*)(objs->dim))->d, 4);
+			ft_putdbl(((t_quadric*)(objs->parsed))->d, 4);
 			ft_putchar('\n');
 			ft_putstr("e: ");
-			ft_putdbl(((t_quadric*)(objs->dim))->e, 4);
+			ft_putdbl(((t_quadric*)(objs->parsed))->e, 4);
 			ft_putchar('\n');
 			ft_putstr("f: ");
-			ft_putdbl(((t_quadric*)(objs->dim))->f, 4);
+			ft_putdbl(((t_quadric*)(objs->parsed))->f, 4);
 			ft_putchar('\n');
 			ft_putstr("g: ");
-			ft_putdbl(((t_quadric*)(objs->dim))->g, 4);
+			ft_putdbl(((t_quadric*)(objs->parsed))->g, 4);
 			ft_putchar('\n');
 			ft_putstr("h: ");
-			ft_putdbl(((t_quadric*)(objs->dim))->h, 4);
+			ft_putdbl(((t_quadric*)(objs->parsed))->h, 4);
 			ft_putchar('\n');
 			ft_putstr("i: ");
-			ft_putdbl(((t_quadric*)(objs->dim))->i, 4);
+			ft_putdbl(((t_quadric*)(objs->parsed))->i, 4);
 			ft_putchar('\n');
 		}
 		if (objs->type == RTCUBE)
 		{
 			ft_putstr("** nouveau cube **\n");
 			ft_putstr("h: ");
-			ft_putnbr(((t_cube*)(objs->dim))->h);
+			ft_putnbr(((t_cube*)(objs->parsed))->h);
 			ft_putchar('\n');
 			ft_putstr("center: ");
-			ft_putvec(((t_cube*)(objs->dim))->center);
+			ft_putvec(((t_cube*)(objs->parsed))->center);
 			ft_putchar('\n');
 		}
 		ft_putchar('#');

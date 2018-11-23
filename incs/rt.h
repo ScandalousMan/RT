@@ -20,7 +20,7 @@
 #  define M_PI 3.141592653589793238462643383279
 # endif
 # define EPSILON 0.000001
-# define DEBUG 0
+# define DEBUG 1
 
 # define MIN_DOUBLE_OBJECT -5000.0f
 # define MAX_DOUBLE_OBJECT 5000.0f
