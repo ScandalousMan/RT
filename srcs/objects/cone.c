@@ -52,7 +52,9 @@ double *cone_position(double *pt, t_object *obj)
 
 void	update_cone(t_object *obj, t_param *param)
 {
-	pt_translated(((t_cone*)(obj->dim))->org, obj->translation, ((t_cone*)(obj->dim))->org);
+	((t_cone*)(obj->dim))->angle = ((t_cone*)(obj->parsed))->angle;
+	vec_copy(((t_cone*)(obj->parsed))->u, ((t_cone*)(obj->dim))->u);
+	pt_translated(((t_cone*)(obj->parsed))->org, obj->translation, ((t_cone*)(obj->dim))->org);
 	ref_move(obj, param);
 	limits_move(((t_cone*)(obj->dim))->org, obj, param);
 	matrice_product(param->rot, ((t_cone*)(obj->dim))->u, ((t_cone*)(obj->dim))->u);
