@@ -55,8 +55,7 @@ typedef enum			e_rt_type
 	RTCUSTOMOBJ,
 	RTSIGN,
 	RTLIMIT,
-	RTLIGHTTYPE,
-	RTREFERENCE
+	RTLIGHTTYPE
 }						t_rt_type;
 
 typedef enum			e_color_effect
@@ -118,12 +117,7 @@ const t_key				g_common_keys[] = {
 	{"thickness", RTCOEF, RTNULL},
 	{"translation", RTVECTOR, RTDOUBLE},
 	{"rotation", RTVECTOR, RTDOUBLE},
-	{"limits", RTARRAY, RTLIMIT},
-	{"reference", RTREFERENCE, RTNULL}
-};
-
-const t_key				g_optionnal_keys[] = {
-	{"reference", RTREFERENCE, RTNULL}
+	{"limits", RTARRAY, RTLIMIT}
 };
 
 const t_key				g_plan_keys[] = {
@@ -197,11 +191,6 @@ const t_key				g_texture_keys[] = {
 	{"name", RTSTRING, RTNULL},
 };
 
-const t_key				g_reference_keys[] = {
-	{"i", RTVECTOR, RTDOUBLE},
-	{"j", RTVECTOR, RTDOUBLE}
-};
-
 // const t_key				g_custom_keys[] = {
 // 	{"name", RTSTRING, RTNULL},
 // 	{OBJECTS_KEY, RTARRAY, RTCUSTOMOBJ}
@@ -233,7 +222,7 @@ const t_object_def		g_objects[] = {
 #else
 
 extern const t_object_def		g_objects[7];
-extern const t_key				g_common_keys[13];//todo change for optionnal
+extern const t_key				g_common_keys[12];//todo change for optionnal
 extern const t_key				g_optionnal_keys[1];
 extern const t_key				g_sphere_keys[];
 extern const t_key				g_plan_keys[2];
@@ -246,7 +235,6 @@ extern const t_key				g_camera_keys[3];
 extern const t_key				g_light_keys[4];
 extern const t_key				g_main_object_keys[4];
 extern const t_key				g_texture_keys[2];
-extern const t_key				g_reference_keys[2];
 extern const t_key				g_custom_keys[2];
 // extern const t_key				g_customobj_keys[2];
 

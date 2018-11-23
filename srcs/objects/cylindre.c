@@ -56,5 +56,5 @@ void	update_cylindre(t_object *obj, t_param *param)
 	ref_move(obj, param);
 	limits_move(((t_cylindre*)(obj->dim))->org, obj, param);
 	matrice_product(param->rot, ((t_cylindre*)(obj->dim))->u, ((t_cylindre*)(obj->dim))->u);
-	reset_moves(obj);
+	// reset_moves(obj);
 }

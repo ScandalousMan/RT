@@ -103,5 +103,5 @@ void	update_cube(t_object *obj, t_param *param)
 	pt_translated(((t_cube*)(obj->parsed))->center, obj->translation, ((t_cube*)(obj->dim))->center);
 	ref_move(obj, param);
 	limits_move(((t_cube*)(obj->dim))->center, obj, param);
-	reset_moves(obj);
+	// reset_moves(obj);
 }

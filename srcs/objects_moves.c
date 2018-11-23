@@ -15,12 +15,6 @@ void	limits_move(double *o, t_object *obj, t_param *param)
 	}
 }
 
-void	reset_moves(t_object *obj)
-{
-	ft_bzero(&(obj->translation), sizeof(double) * 3);
-	ft_bzero(&(obj->rotation), sizeof(double) * 3);
-}
-
 void	ref_move(t_object *obj, t_param *param)
 {
 	rotation_matrice(obj->rotation[0], obj->rotation[1], obj->rotation[2], param);

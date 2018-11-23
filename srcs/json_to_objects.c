@@ -154,8 +154,8 @@ int	is_type(void* value, t_jtype jtype, t_rt_type type, t_rt_type subtype)
 	else if (type == RTLIGHTTYPE)
 		return (jtype == JSTRING
 		&& (ft_strequ((char*)value, "spot") || ft_strequ((char*)value, "parallel")));
-	else if (type == RTREFERENCE)
-		return (jtype == JOBJECT && is_object((t_jobject*)value, g_reference_keys, RT_KEYS_SIZE(g_reference_keys), 0));
+	// else if (type == RTREFERENCE)
+	// 	return (jtype == JOBJECT && is_object((t_jobject*)value, g_reference_keys, RT_KEYS_SIZE(g_reference_keys), 0));
 	return (0);
 }
 

@@ -58,5 +58,5 @@ void	update_cone(t_object *obj, t_param *param)
 	ref_move(obj, param);
 	limits_move(((t_cone*)(obj->dim))->org, obj, param);
 	matrice_product(param->rot, ((t_cone*)(obj->dim))->u, ((t_cone*)(obj->dim))->u);
-	reset_moves(obj);
+	// reset_moves(obj);
 }

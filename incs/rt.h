@@ -20,7 +20,7 @@
 #  define M_PI 3.141592653589793238462643383279
 # endif
 # define EPSILON 0.000001
-# define DEBUG 1
+# define DEBUG 0
 
 # define MIN_DOUBLE_OBJECT -5000.0f
 # define MAX_DOUBLE_OBJECT 5000.0f
@@ -34,7 +34,7 @@
 # define MAX_ANTI_ALIASING 1
 # define MIN_ANTI_ALIASING 10
 
-# define RECURSION 1
+# define RECURSION 0
 # define STEP_RECURSION 1
 # define MAX_RECURSION 10
 # define MIN_RECURSION 0
@@ -492,7 +492,7 @@ void			update_cylindre(t_object *obj, t_param *param);
 void			update_plane(t_object *obj, t_param *param);
 void			update_quadric(t_object *obj, t_param *param);
 void			update_cone(t_object *obj, t_param *param);
-void			reset_moves(t_object *obj);
+// void			reset_moves(t_object *obj);
 void			limits_move(double *o, t_object *obj, t_param *param);
 void			ref_move(t_object *obj, t_param *param);
 int				is_inside_object(double *pt, t_object *tmp, t_limit *limit);

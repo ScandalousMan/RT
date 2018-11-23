@@ -403,7 +403,7 @@ int	fill_object(t_object *obj, t_jobject *jobj, int num, t_param *param)
 	
 	tmp = get_jobject(jobj, "texture");//JSON_OBJECT
 //	obj->texture = ;//NOT EXISTS FOR THE MOMENT
-	tmp = get_jobject(jobj, "reference");
+	// tmp = get_jobject(jobj, "reference");
 	// if (tmp)
 	// 	fill_reference(&(obj->ref), tmp->value, param);
 	// else

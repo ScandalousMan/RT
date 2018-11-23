@@ -60,5 +60,5 @@ void	update_quadric(t_object *obj, t_param *param)
 	//rotation quadrique
 	ref_move(obj, param);
 	limits_move(((t_plane*)(obj->dim))->ref, obj, param);
-	reset_moves(obj);
+	// reset_moves(obj);
 }

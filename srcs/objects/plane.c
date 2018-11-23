@@ -87,5 +87,5 @@ void	update_plane(t_object *obj, t_param *param)
 	ref_move(obj, param);
 	limits_move(((t_plane*)(obj->dim))->ref, obj, param);
 	matrice_product(param->rot, ((t_plane*)(obj->dim))->n, ((t_plane*)(obj->dim))->n);
-	reset_moves(obj);
+	// reset_moves(obj);
 }

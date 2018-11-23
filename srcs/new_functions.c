@@ -7,15 +7,15 @@ int		object_color(t_param *param, t_path *path)
 		param->tmp_light = param->lights;
 		// A REMPLACER PAR OBJECT POSITION
 		object_position(path->x, path->current_object);
-		if (point_display(param))
-			printf("u=%f, v=%f\n", path->current_object->uv_map[0], path->current_object->uv_map[1]);
+		// if (point_display(param))
+		// 	printf("u=%f, v=%f\n", path->current_object->uv_map[0], path->current_object->uv_map[1]);
 		object_color_changer(path->current_object, param);
 		object_normal_changer(path->current_object, param, path);
 		param->final_col = rgb_ratio(param->texture_col, (double)param->macro.k_ambience);
 		while (param->tmp_light)
 		{
-			if (point_display(param))
-				printf("light type in new function: num %d, type %d\n$$$\n", param->tmp_light->num, param->tmp_light->type);
+			// if (point_display(param))
+				// printf("light type in new function: num %d, type %d\n$$$\n", param->tmp_light->num, param->tmp_light->type);
 			if (param->tmp_light->type == RTSPOT)
 				vec_soustraction(param->tmp_light->src, path->x, path->l);
 			else
