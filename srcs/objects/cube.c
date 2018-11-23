@@ -90,6 +90,15 @@ double *cube_position(double *pt, t_object *obj)
 
 void	update_cube(t_object *obj, t_param *param)
 {
+	obj->ref.i[0] = 1;
+	obj->ref.i[1] = 0;
+	obj->ref.i[2] = 0;
+	obj->ref.j[0] = 0;
+	obj->ref.j[1] = 1;
+	obj->ref.j[2] = 0;
+	obj->ref.k[0] = 0;
+	obj->ref.k[1] = 0;
+	obj->ref.k[2] = 1;
 	((t_cube*)(obj->dim))->h = ((t_cube*)(obj->parsed))->h;
 	pt_translated(((t_cube*)(obj->parsed))->center, obj->translation, ((t_cube*)(obj->dim))->center);
 	ref_move(obj, param);
