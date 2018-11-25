@@ -8,14 +8,14 @@ int		object_color(t_param *param, t_path *path)
 		// A REMPLACER PAR OBJECT POSITION
 		object_position(path->x, path->current_object);
 		// if (point_display(param))
-		// 	printf("u=%f, v=%f\n", path->current_object->uv_map[0], path->current_object->uv_map[1]);
+		// 	printf("1) u=%f, v=%f\n", path->current_object->uv_map[0], path->current_object->uv_map[1]);
 		object_color_changer(path->current_object, param);
 		object_normal_changer(path->current_object, param, path);
 		param->final_col = rgb_ratio(param->texture_col, (double)param->macro.k_ambience);
 		while (param->tmp_light)
 		{
 			// if (point_display(param))
-				// printf("light type in new function: num %d, type %d\n$$$\n", param->tmp_light->num, param->tmp_light->type);
+			// 	printf("light type in new function: num %d, type %d\nEND\n", param->tmp_light->num, param->tmp_light->type);
 			if (param->tmp_light->type == RTSPOT)
 				vec_soustraction(param->tmp_light->src, path->x, path->l);
 			else
@@ -25,9 +25,10 @@ int		object_color(t_param *param, t_path *path)
 			pt_translated(path->r, path->v, path->r);
 			vec_to_unit_norm(path->r);
 			light_masked(param, path->x, path->l, path);
-
 			// if (!light_masked(param, path->x, path->l, path))
 			// {
+			// if (point_display(param))
+			// 	printf("path->l = %f,%f,%f  |||   path->n = %f, %f, %f\n", path->l[0], path->l[1], path->l[2], path->n[0], path->n[1], path->n[2]);
 				if (scalar_product(path->l, path->n) > 0.0){
 					// if (point_display(param))
 					// 	printf("color: %d, %d, %d\n", (color_absorber(param->tmp_light->col, path->current_object->col) >> 16) & 0xFF, (color_absorber(param->tmp_light->col, path->current_object->col) >> 8) & 0xFF, color_absorber(param->tmp_light->col, path->current_object->col) & 0xFF);
@@ -66,8 +67,6 @@ int		ray_color(t_param *param, double *from, double *to, int index, t_path *path
 	// int b;
 	// int c;
 
-	// if (point_display(param))
-	// 	printf("ray_color] index: %d\n", index);
 	path->current_object = NULL;
 	param->intersect_object = NULL;
 	param->is_for_light = 0;

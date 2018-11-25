@@ -156,5 +156,5 @@ void	light_display_objects(t_param *param)
 
 int		point_display(t_param *param)
 {
-	return (ft_absint(param->i[0] - 200) <= 0 && ft_absint(param->i[1] - 0) <= 0);
+	return (!param->is_for_light && ft_absint(param->i[0] - 357) <= 0 && ft_absint(param->i[1] - 329) <= 0);
 }

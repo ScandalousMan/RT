@@ -19,7 +19,7 @@ int			is_inside_object(double *pt, t_object *obj, t_limit *limit)
 	return (0);
 }
 
-void		update_normal_vector(t_object *tmp, t_path *path)
+void		update_normal_vector(t_object *tmp, t_path *path, double *pt)
 {
 	if (tmp->type == RTSPHERE)
 		update_normal_sphere(tmp, path);
@@ -33,7 +33,7 @@ void		update_normal_vector(t_object *tmp, t_path *path)
 		update_normal_quadric((t_quadric*)(tmp->dim), path);
 	else if (tmp->type == RTCUBE)
 		update_normal_cube(tmp, path);
-	if (path->inside_obj)
+	if (is_inside_object(pt, tmp, NULL))
 		vec_multiply(-1.0, path->valid_n, path->valid_n);
 	vec_to_unit_norm(path->valid_n);
 }

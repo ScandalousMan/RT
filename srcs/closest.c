@@ -19,11 +19,7 @@ t_object	*closest_object(t_param *param, double *from, double *to, t_path *path)
 			{
 				vec_multiply(param->tmp_d + param->epsilon, to, path->valid_x);
 				pt_translated(from, path->valid_x, path->valid_x);
-				// if (point_display(param))
-				// 	printf("(*)valid_x: [%f,%f,%f]\n", path->valid_x[0], path->valid_x[1], path->valid_x[2]);
-				update_normal_vector(objs, path);
-				// if (point_display(param))
-				// 	printf("( )valid_n: [%f,%f,%f]\n", path->valid_n[0], path->valid_n[1], path->valid_n[2]);
+				update_normal_vector(objs, path, from);
 				limits = objs->limits;
 				while (limits && param->tmp_d > 0 && param->is_cut)
 				{

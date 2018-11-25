@@ -484,7 +484,7 @@ void			rt_tracer(t_param *param);
 t_object	*closest_object(t_param *param, double *from, double *to, t_path *path);
 int				is_in_limit(double *pt, t_limit *limit);
 int				is_in_limits(double *pt, t_object *obj, t_limit *limit);
-void			update_normal_vector(t_object *tmp, t_path *path);
+void			update_normal_vector(t_object *tmp, t_path *path, double *pt);
 void			update_objects(t_param *param);
 void			update_sphere(t_object *obj, t_param *param);
 void			update_cube(t_object *obj, t_param *param);
