@@ -43,7 +43,7 @@ int		rt_parser(t_param *param, char *file)
 	int			ret;
 
 	if (!(json = read_file(file)))
-		return (0);//error_msg
+		return (0);
 	obj = NULL;
 	ret = json_parse(json, &obj);
 	free(json);

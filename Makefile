@@ -56,6 +56,7 @@ SDIR =		./srcs/
 
 SRCS =		closest.c \
 			components.c \
+			colors.c \
 			constructor.c \
 			display.c \
 			distance.c \
@@ -78,6 +79,7 @@ SRCS =		closest.c \
 			objects/cylindre.c \
 			objects/cylindre_tools.c \
 			objects/plane.c \
+			objects/plane_tools.c \
 			objects/quadric.c \
 			objects/quadric_tools.c \
 			objects/sphere.c \
@@ -87,6 +89,7 @@ SRCS =		closest.c \
 			objects_storage.c \
 			perlin.c \
 			postprocessing.c \
+			referential.c \
 			refraction.c \
 			rt_parser.c \
 			save_img.c \

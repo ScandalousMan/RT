@@ -1,10 +1,10 @@
 #include "rt.h"
 
-double	distance_to_face1(t_object *tmp, double *from, double *to)
+double	distance_to_face1(t_object *tmp, double *from, double *to, double face)
 {
 	double	res;
 
-	vec_multiply(0.5 * ((t_cube*)(tmp->dim))->h, tmp->ref.i, tmp->tmp_vec);
+	vec_multiply(face * ((t_cube*)(tmp->dim))->h, tmp->ref.i, tmp->tmp_vec);
 	pt_translated(((t_cube*)(tmp->dim))->center, tmp->tmp_vec, tmp->tmp_vec);
 	res = plane_distance(from, to, tmp->ref.i, tmp->tmp_vec);
 	if (res >= 0)
@@ -21,11 +21,11 @@ double	distance_to_face1(t_object *tmp, double *from, double *to)
 	return (res);
 }
 
-double	distance_to_face2(t_object *tmp, double *from, double *to)
+double	distance_to_face2(t_object *tmp, double *from, double *to, double face)
 {
 	double	res;
 
-	vec_multiply(0.5 * ((t_cube*)(tmp->dim))->h, tmp->ref.j, tmp->tmp_vec);
+	vec_multiply(face * ((t_cube*)(tmp->dim))->h, tmp->ref.j, tmp->tmp_vec);
 	pt_translated(((t_cube*)(tmp->dim))->center, tmp->tmp_vec, tmp->tmp_vec);
 	res = plane_distance(from, to, tmp->ref.j, tmp->tmp_vec);
 	if (res >= 0)
@@ -42,11 +42,11 @@ double	distance_to_face2(t_object *tmp, double *from, double *to)
 	return (res);
 }
 
-double	distance_to_face3(t_object *tmp, double *from, double *to)
+double	distance_to_face3(t_object *tmp, double *from, double *to, double face)
 {
 	double	res;
 
-	vec_multiply(0.5 * ((t_cube*)(tmp->dim))->h, tmp->ref.k, tmp->tmp_vec);
+	vec_multiply(face * ((t_cube*)(tmp->dim))->h, tmp->ref.k, tmp->tmp_vec);
 	pt_translated(((t_cube*)(tmp->dim))->center, tmp->tmp_vec, tmp->tmp_vec);
 	res = plane_distance(from, to, tmp->ref.k, tmp->tmp_vec);
 	if (res >= 0)
@@ -63,65 +63,12 @@ double	distance_to_face3(t_object *tmp, double *from, double *to)
 	return (res);
 }
 
-double	distance_to_face4(t_object *tmp, double *from, double *to)
+void	update_cube(t_object *obj, t_param *param)
 {
-	double	res;
-
-	vec_multiply(-0.5 * ((t_cube*)(tmp->dim))->h, tmp->ref.i, tmp->tmp_vec);
-	pt_translated(((t_cube*)(tmp->dim))->center, tmp->tmp_vec, tmp->tmp_vec);
-	res = plane_distance(from, to, tmp->ref.i, tmp->tmp_vec);
-	if (res >= 0)
-	{
-		vec_multiply(res, to, tmp->tmp_vec);
-		pt_translated(from, tmp->tmp_vec, tmp->tmp_vec);
-		vec_soustraction(tmp->tmp_vec, ((t_cube*)(tmp->dim))->center, tmp->tmp_vec);
-		if (ft_absdbl(scalar_product(tmp->tmp_vec, tmp->ref.j)) >
-			((t_cube*)(tmp->dim))->h / 2.0f ||
-			ft_absdbl(scalar_product(tmp->tmp_vec, tmp->ref.k)) >
-			((t_cube*)(tmp->dim))->h / 2.0f)
-			res = -1.0f;
-	}
-	return (res);
-}
-
-double	distance_to_face5(t_object *tmp, double *from, double *to)
-{
-	double	res;
-
-	vec_multiply(-0.5 * ((t_cube*)(tmp->dim))->h, tmp->ref.j, tmp->tmp_vec);
-	pt_translated(((t_cube*)(tmp->dim))->center, tmp->tmp_vec, tmp->tmp_vec);
-	res = plane_distance(from, to, tmp->ref.j, tmp->tmp_vec);
-	if (res >= 0)
-	{
-		vec_multiply(res, to, tmp->tmp_vec);
-		pt_translated(from, tmp->tmp_vec, tmp->tmp_vec);
-		vec_soustraction(tmp->tmp_vec, ((t_cube*)(tmp->dim))->center, tmp->tmp_vec);
-		if (ft_absdbl(scalar_product(tmp->tmp_vec, tmp->ref.i)) >
-			((t_cube*)(tmp->dim))->h / 2.0f ||
-			ft_absdbl(scalar_product(tmp->tmp_vec, tmp->ref.k)) >
-			((t_cube*)(tmp->dim))->h / 2.0f)
-			res = -1.0f;
-	}
-	return (res);
-}
-
-double	distance_to_face6(t_object *tmp, double *from, double *to)
-{
-	double	res;
-
-	vec_multiply(-0.5 * ((t_cube*)(tmp->dim))->h, tmp->ref.k, tmp->tmp_vec);
-	pt_translated(((t_cube*)(tmp->dim))->center, tmp->tmp_vec, tmp->tmp_vec);
-	res = plane_distance(from, to, tmp->ref.k, tmp->tmp_vec);
-	if (res >= 0)
-	{
-		vec_multiply(res, to, tmp->tmp_vec);
-		pt_translated(from, tmp->tmp_vec, tmp->tmp_vec);
-		vec_soustraction(tmp->tmp_vec, ((t_cube*)(tmp->dim))->center, tmp->tmp_vec);
-		if (ft_absdbl(scalar_product(tmp->tmp_vec, tmp->ref.j)) >
-			((t_cube*)(tmp->dim))->h / 2.0f ||
-			ft_absdbl(scalar_product(tmp->tmp_vec, tmp->ref.i)) >
-			((t_cube*)(tmp->dim))->h / 2.0f)
-			res = -1.0f;
-	}
-	return (res);
+	default_ref_updater(obj);
+	((t_cube*)(obj->dim))->h = ((t_cube*)(obj->parsed))->h;
+	pt_translated(((t_cube*)(obj->parsed))->center, obj->translation,
+		((t_cube*)(obj->dim))->center);
+	ref_move(obj, param);
+	limits_move(((t_cube*)(obj->dim))->center, obj, param);
 }

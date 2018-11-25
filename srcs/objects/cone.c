@@ -26,7 +26,8 @@ void	update_normal_cone(t_object *tmp, t_path *path)
 
 	vec_soustraction(path->valid_x, ((t_cone*)(tmp->dim))->org, path->valid_n);
 	norm = vec_norm(path->valid_n);
-	vec_multiply(1.0 / scalar_product(path->valid_n, ((t_cone*)(tmp->dim))->u) * norm * norm, ((t_cone*)(tmp->dim))->u, tmp->tmp_vec);
+	vec_multiply(1.0 / scalar_product(path->valid_n, ((t_cone*)(tmp->dim))->u) *
+		norm * norm, ((t_cone*)(tmp->dim))->u, tmp->tmp_vec);
 	vec_soustraction(path->valid_n, tmp->tmp_vec, path->valid_n);
 }
 
@@ -34,7 +35,8 @@ int		is_inside_cone(double *pt, t_object *tmp)
 {
 	vec_soustraction(pt, ((t_cone*)(tmp->dim))->org, tmp->tmp_vec);
 	vec_to_unit_norm(tmp->tmp_vec);
-	return (acos(ABS(scalar_product(((t_cone*)(tmp->dim))->u, tmp->tmp_vec))) < ((t_cone*)(tmp->dim))->angle ? 1 : 0);
+	return (acos(ABS(scalar_product(((t_cone*)(tmp->dim))->u, tmp->tmp_vec))) <
+		((t_cone*)(tmp->dim))->angle ? 1 : 0);
 }
 
 double *cone_position(double *pt, t_object *obj)
@@ -55,9 +57,10 @@ void	update_cone(t_object *obj, t_param *param)
 	((t_cone*)(obj->dim))->angle = ((t_cone*)(obj->parsed))->angle;
 	vec_copy(((t_cone*)(obj->parsed))->u, ((t_cone*)(obj->dim))->u);
 	special_ref_updater(((t_cone*)(obj->dim))->u, obj);
-	pt_translated(((t_cone*)(obj->parsed))->org, obj->translation, ((t_cone*)(obj->dim))->org);
+	pt_translated(((t_cone*)(obj->parsed))->org, obj->translation,
+		((t_cone*)(obj->dim))->org);
 	ref_move(obj, param);
 	limits_move(((t_cone*)(obj->dim))->org, obj, param);
-	matrice_product(param->rot, ((t_cone*)(obj->dim))->u, ((t_cone*)(obj->dim))->u);
-	// reset_moves(obj);
+	matrice_product(param->rot, ((t_cone*)(obj->dim))->u,
+		((t_cone*)(obj->dim))->u);
 }

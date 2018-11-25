@@ -35,12 +35,14 @@ double	distance_to_sphere(t_object *tmp, double *from, double *to)
 
 void	update_normal_sphere(t_object *tmp, t_path *path)
 {
-	vec_soustraction(path->valid_x, ((t_sphere*)(tmp->dim))->center, path->valid_n);
+	vec_soustraction(path->valid_x, ((t_sphere*)(tmp->dim))->center,
+		path->valid_n);
 }
 
 int		is_inside_sphere(double *pt, t_object *tmp)
 {
-	if (pt_dist_root(pt, ((t_sphere*)(tmp->dim))->center) > ((t_sphere*)(tmp->dim))->radius * ((t_sphere*)(tmp->dim))->radius)
+	if (pt_dist_root(pt, ((t_sphere*)(tmp->dim))->center) >
+		((t_sphere*)(tmp->dim))->radius * ((t_sphere*)(tmp->dim))->radius)
 		return 0;
 	return 1;
 }
@@ -59,8 +61,8 @@ void	update_sphere(t_object *obj, t_param *param)
 {
 	default_ref_updater(obj);
 	((t_sphere*)(obj->dim))->radius = ((t_sphere*)(obj->parsed))->radius;
-	pt_translated(((t_sphere*)(obj->parsed))->center, obj->translation, ((t_sphere*)(obj->dim))->center);
+	pt_translated(((t_sphere*)(obj->parsed))->center, obj->translation,
+		((t_sphere*)(obj->dim))->center);
 	ref_move(obj, param);
 	limits_move(((t_sphere*)(obj->dim))->center, obj, param);
-	// reset_moves(obj);
 }

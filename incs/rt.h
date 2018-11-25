@@ -350,11 +350,10 @@ typedef struct		s_param
 }				t_param;
 
 /*
-**----------------------------------components----------------------------------
+**------------------------------------colors------------------------------------
 */
 int								rgb_color(unsigned char r, unsigned char g, unsigned char b);
 int								rgb_ratio(int color, double a);
-void							display_info(t_param *param);
 int								color_summer(int col1, int col2);
 int 							color_absorber(int obj_col, int light_col);
 /*
@@ -454,12 +453,12 @@ int					is_inside_quadric(double *pt, t_quadric *tmp);
 **-----------------------------------cube-----------------------------------
 */
 int					is_inside_cube(double *pt, t_object *tmp);
-double			distance_to_face1(t_object *tmp, double *from, double *to);
-double			distance_to_face2(t_object *tmp, double *from, double *to);
-double			distance_to_face3(t_object *tmp, double *from, double *to);
-double			distance_to_face4(t_object *tmp, double *from, double *to);
-double			distance_to_face5(t_object *tmp, double *from, double *to);
-double			distance_to_face6(t_object *tmp, double *from, double *to);
+double			distance_to_face1(t_object *tmp, double *from, double *to, double face);
+double			distance_to_face2(t_object *tmp, double *from, double *to, double face);
+double			distance_to_face3(t_object *tmp, double *from, double *to, double face);
+// double			distance_to_face4(t_object *tmp, double *from, double *to);
+// double			distance_to_face5(t_object *tmp, double *from, double *to);
+// double			distance_to_face6(t_object *tmp, double *from, double *to);
 
 double			ft_absdbl(double a);
 int 				ft_absint(int a);
@@ -495,8 +494,6 @@ void			update_cone(t_object *obj, t_param *param);
 // void			reset_moves(t_object *obj);
 void			limits_move(double *o, t_object *obj, t_param *param);
 void			ref_move(t_object *obj, t_param *param);
-void			default_ref_updater(t_object *obj);
-void			special_ref_updater(double *vec, t_object *obj);
 int				is_inside_object(double *pt, t_object *tmp, t_limit *limit);
 void			object_position(double *pt, t_object *object);
 void 			object_color_changer(t_object *object, t_param *param);
@@ -511,10 +508,15 @@ void			update_normal_cube(t_object *tmp, t_path *path);
 void			display_lights(t_param *param);
 int 			my_key_func(int keycode, t_param *param);
 t_path			*path_create(t_param *param, int index);
-	/*
+/*
+***REFERENTIAL
+*/
+void			default_ref_updater(t_object *obj);
+void			special_ref_updater(double *vec, t_object *obj);
+/*
 **REFRACTION
 */
-	void define_refracted_n(t_path *path1, t_path *path2);
+void			define_refracted_n(t_path *path1, t_path *path2);
 double		get_index_n(t_path *path);
 int				snell_descartes(double n1, double n2, t_path *path1, t_path *path2);
 /*

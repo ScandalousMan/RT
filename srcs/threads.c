@@ -20,34 +20,16 @@ void			perlin_noise_copy(t_param *param1, t_param *param2)
 		param2->i[1] = 0;
 		while (param2->i[1] < NOISE_SIZE)
 		{
-			param2->perlin_noise[param2->i[0]][param2->i[1]] = param1->perlin_noise[param2->i[0]][param2->i[1]];
+			param2->perlin_noise[param2->i[0]][param2->i[1]] =
+				param1->perlin_noise[param2->i[0]][param2->i[1]];
 			param2->i[1]++;
 		}
 		param2->i[0]++;
 	}
 }
 
-t_param		*param_cpy(t_param *param, int count)
+t_param		*param_cpy2(t_param *param, int count, t_param *param_cpy)
 {
-	t_param		*param_cpy;
-
-	if (!(param_cpy = (t_param *)malloc(sizeof(t_param))))
-		return (NULL);
-	param_cpy->brightness = 1;
-	param_cpy->quit = FALSE;
-	param_cpy->epsilon = EPSILON;
-	param_cpy->customs = NULL;
-	param_cpy->objects = NULL;
-	param_cpy->lights = NULL;
-	param_cpy->tmp_light = NULL;
-	param_cpy->intersect_object = NULL;
-	param_cpy->f = FOCAL_VALUE;
-	param_cpy->ia = 1.0;
-	param_cpy->num_lights = 0;
-	param_cpy->num_objects = 0;
-	param_cpy->up_img.process = param->up_img.process;
-	param_cpy->up_img.post_process = param->up_img.post_process;
-	param_cpy->current_thread = 0;
 	param_cpy->macro.anti_aliasing = param->macro.anti_aliasing;
 	param_cpy->macro.recursion = param->macro.recursion;
 	param_cpy->macro.cartoon_factor = param->macro.cartoon_factor;
@@ -72,6 +54,32 @@ t_param		*param_cpy(t_param *param, int count)
 		return (NULL);
 	param_cpy->path->inside_obj = param->path->inside_obj;
 	perlin_noise_copy(param, param_cpy);
+	return (param_cpy);
+}
+
+t_param		*param_cpy(t_param *param, int count)
+{
+	t_param		*param_cpy;
+
+	if (!(param_cpy = (t_param *)malloc(sizeof(t_param))))
+		return (NULL);
+	param_cpy->brightness = 1;
+	param_cpy->quit = FALSE;
+	param_cpy->epsilon = EPSILON;
+	param_cpy->customs = NULL;
+	param_cpy->objects = NULL;
+	param_cpy->lights = NULL;
+	param_cpy->tmp_light = NULL;
+	param_cpy->intersect_object = NULL;
+	param_cpy->f = FOCAL_VALUE;
+	param_cpy->ia = 1.0;
+	param_cpy->num_lights = 0;
+	param_cpy->num_objects = 0;
+	param_cpy->up_img.process = param->up_img.process;
+	param_cpy->up_img.post_process = param->up_img.post_process;
+	param_cpy->current_thread = 0;
+	if (!(param_cpy2(param, count, param_cpy)))
+		return (NULL);
 	return (param_cpy);
 }
 

@@ -12,8 +12,6 @@ t_object	*closest_object(t_param *param, double *from, double *to, t_path *path)
 		{
 			param->is_cut = -1;
 			param->tmp_d = distance_calc(objs, from, to);
-			// if (point_display(param))
-			// 	printf("\ntype: %d | tmp_d: %f\n", objs->type, param->tmp_d);
 			if (param->tmp_d > 0.0 &&
 				(param->is_for_light || (param->obj_d < 0.0 || param->tmp_d < param->obj_d)))
 			{
@@ -30,8 +28,6 @@ t_object	*closest_object(t_param *param, double *from, double *to, t_path *path)
 						pt_translated(from, path->valid_x, path->valid_x);
 						if (param->tmp_d > 0 && is_inside_object(path->valid_x, objs, limits))
 						{
-							// if (point_display(param))
-							// 	printf("point dans objet\n");
 							param->is_cut = 0;
 							vec_copy(limits->plane.n, path->valid_n);
 						}
@@ -40,12 +36,8 @@ t_object	*closest_object(t_param *param, double *from, double *to, t_path *path)
 					}
 					limits = limits->next;
 				}
-				// if (point_display(param))
-				// 	printf("objs final tmp_d: %f\n", param->tmp_d);
 				if (param->is_cut != 1 && param->tmp_d > 0.0)
 				{
-					// if (point_display(param))
-					// 	printf("object intersectant type %d\n", objs->type);	
 					param->intersect_object = objs;
 					param->obj_d = param->tmp_d;
 					if (!param->is_for_light)
@@ -57,7 +49,6 @@ t_object	*closest_object(t_param *param, double *from, double *to, t_path *path)
 					else if (param->tmp_light->type != RTSPOT ||
 						param->obj_d * param->obj_d < pt_dist_root(from, param->tmp_light->src))
 					{
-						// update de la couleur temporaire de la lumière.
 						param->tmp_light->tmp_col = rgb_ratio(color_absorber(objs->col, param->tmp_light->tmp_col), objs->transparency);
 					}
 				}
@@ -116,7 +107,8 @@ void		object_normal_changer(t_object *object, t_param *param, t_path *path)
 		return;
 	else if (object->effects.normal == RT_N_SINUS)
 	{
-		rotation_matrice(0, 0, 45 * sin(object->uv_map[0] * 2.0 * M_PI * 20), param);
+		rotation_matrice(0, 0, 45 * sin(object->uv_map[0] * 2.0 * M_PI * 20),
+			param);
 		matrice_product(param->rot, path->n, path->n);
 	}
 }

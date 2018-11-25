@@ -42,8 +42,8 @@ int			snell_descartes(double n1, double n2, t_path *path1, t_path *path2)
 	vec_multiply(1.0 / scalar_product(path1->v, path1->n), path1->v, path2->v);
 	vec_soustraction(path1->n, path2->v, path2->v);
 	vec_to_unit_norm(path2->v);
-	vec_multiply(tan(asin(n1 / n2 * sin(acos(scalar_product(path1->v, path1->n))))),
-		path2->v, path2->v);
+	vec_multiply(tan(asin(n1 / n2 *
+		sin(acos(scalar_product(path1->v, path1->n))))),path2->v, path2->v);
 	vec_soustraction(path2->v, path1->n, path2->v);
 	vec_to_unit_norm(path2->v);
 	return (1);
