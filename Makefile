@@ -54,18 +54,17 @@ INC_DIR = incs
 
 SDIR =		./srcs/
 
-SRCS =		closest.c \
-			components.c \
+SRCS =		components.c \
 			colors.c \
 			constructor.c \
 			display.c \
 			distance.c \
 			file.c \
+			first_obj_hit.c \
 			json_to_objects.c \
 			key_func.c \
 			light.c \
 			main.c \
-			new_functions.c \
 			nukl_gui/camera.c \
 			nukl_gui/global_settings.c \
 			nukl_gui/gui.c \
@@ -88,10 +87,12 @@ SRCS =		closest.c \
 			objects_router.c \
 			objects_storage.c \
 			perlin.c \
+			perturbations.c \
 			postprocessing.c \
 			referential.c \
 			refraction.c \
 			rt_parser.c \
+			rt_tracer.c \
 			save_img.c \
 			sdl/draw.c \
 			sdl/events.c \

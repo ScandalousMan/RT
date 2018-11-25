@@ -480,7 +480,7 @@ int 	rt_init(t_param *param, char *line, int count);
 //int 	rt_cylindre_parser(t_param *param, t_parse *config);
 
 void			rt_tracer(t_param *param);
-t_object	*closest_object(t_param *param, double *from, double *to, t_path *path);
+t_object	*first_obj_hit(t_param *param, double *from, double *to, t_path *path);
 int				is_in_limit(double *pt, t_limit *limit);
 int				is_in_limits(double *pt, t_object *obj, t_limit *limit);
 void			update_normal_vector(t_object *tmp, t_path *path, double *pt);
