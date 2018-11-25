@@ -56,10 +56,7 @@ SDIR =		./srcs/
 
 SRCS =		closest.c \
 			components.c \
-			cone_tools.c \
 			constructor.c \
-			cylindre_tools.c \
-			cube_tools.c \
 			display.c \
 			distance.c \
 			file.c \
@@ -74,19 +71,22 @@ SRCS =		closest.c \
 			nukl_gui/objects_plus.c \
 			nukl_gui/objects_utils.c \
 			nukl_gui/objects.c \
-			object_duplicate.c \
+			objects/cone.c \
+			objects/cone_tools.c \
+			objects/cube.c \
+			objects/cube_tools.c \
+			objects/cylindre.c \
+			objects/cylindre_tools.c \
+			objects/plane.c \
+			objects/quadric.c \
+			objects/quadric_tools.c \
+			objects/sphere.c \
+			objects_duplicate.c \
 			objects_moves.c \
 			objects_router.c \
 			objects_storage.c \
-			objects/cone.c \
-			objects/cylindre.c \
-			objects/plane.c \
-			objects/quadric.c \
-			objects/sphere.c \
-			objects/cube.c \
 			perlin.c \
 			postprocessing.c \
-			quadric_tools.c \
 			refraction.c \
 			rt_parser.c \
 			save_img.c \
