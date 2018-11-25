@@ -83,6 +83,7 @@ double *plane_position(double *pt, t_object *obj)
 void	update_plane(t_object *obj, t_param *param)
 {
 	vec_copy(((t_plane*)(obj->parsed))->n, ((t_plane*)(obj->dim))->n);
+	special_ref_updater(((t_plane*)(obj->dim))->n, obj);
 	pt_translated(((t_plane*)(obj->parsed))->ref, obj->translation, ((t_plane*)(obj->dim))->ref);
 	ref_move(obj, param);
 	limits_move(((t_plane*)(obj->dim))->ref, obj, param);

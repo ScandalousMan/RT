@@ -52,6 +52,7 @@ void	update_cylindre(t_object *obj, t_param *param)
 {
 	((t_cylindre*)(obj->dim))->radius = ((t_cylindre*)(obj->parsed))->radius;
 	vec_copy(((t_cylindre*)(obj->parsed))->u, ((t_cylindre*)(obj->dim))->u);
+	special_ref_updater(((t_cylindre*)(obj->dim))->u, obj);
 	pt_translated(((t_cylindre*)(obj->parsed))->org, obj->translation, ((t_cylindre*)(obj->dim))->org);
 	ref_move(obj, param);
 	limits_move(((t_cylindre*)(obj->dim))->org, obj, param);

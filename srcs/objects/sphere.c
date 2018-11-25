@@ -57,6 +57,7 @@ double *sphere_position(double *pt, t_object *obj)
 
 void	update_sphere(t_object *obj, t_param *param)
 {
+	default_ref_updater(obj);
 	((t_sphere*)(obj->dim))->radius = ((t_sphere*)(obj->parsed))->radius;
 	pt_translated(((t_sphere*)(obj->parsed))->center, obj->translation, ((t_sphere*)(obj->dim))->center);
 	ref_move(obj, param);

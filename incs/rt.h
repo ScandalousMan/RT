@@ -495,6 +495,8 @@ void			update_cone(t_object *obj, t_param *param);
 // void			reset_moves(t_object *obj);
 void			limits_move(double *o, t_object *obj, t_param *param);
 void			ref_move(t_object *obj, t_param *param);
+void			default_ref_updater(t_object *obj);
+void			special_ref_updater(double *vec, t_object *obj);
 int				is_inside_object(double *pt, t_object *tmp, t_limit *limit);
 void			object_position(double *pt, t_object *object);
 void 			object_color_changer(t_object *object, t_param *param);
