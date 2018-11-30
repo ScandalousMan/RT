@@ -150,7 +150,7 @@ int	is_type(void* value, t_jtype jtype, t_rt_type type, t_rt_type subtype)
 		return (jtype == JSTRING && ft_strlen((char*)value) == 1 && (((char*)value)[0] == '-' || ((char*)value)[0] == '+'));
 	else if (type == RTLIMIT)
 		return (jtype == JOBJECT
-				&& is_object((t_jobject*)value, g_plan_keys, RT_KEYS_SIZE(g_plan_keys), 0));
+				&& is_object((t_jobject*)value, g_limit_keys, RT_KEYS_SIZE(g_limit_keys), 0));
 	else if (type == RTLIGHTTYPE)
 		return (jtype == JSTRING
 		&& (ft_strequ((char*)value, "spot") || ft_strequ((char*)value, "parallel")));
@@ -183,7 +183,10 @@ int	is_object(t_jobject *obj, const t_key *keys, const size_t keys_size, int is_
 
 	common_size = (is_common) ? RT_KEYS_SIZE(g_common_keys) : 0;
 	if (keys_size + common_size != jobject_len(obj))
+	{
+		printf("OUILLE MAUVAISE LONGUEUR\nexpected %lu, got %lu with %lu\n", keys_size + common_size, jobject_len(obj), sizeof(g_common_keys));
 		return (0);
+	}
 	i = 0;
 	while (i < keys_size)
 	{

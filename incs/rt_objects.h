@@ -68,11 +68,11 @@ typedef enum			e_color_effect
 	RT_C_WOOD
 }						t_color_effect;
 
-// typedef enum			e_limit_type
-// {
-// 	RT_C_RELATIVE,
-// 	RT_C_ABSOLUTE
-// }						t_limit_type;
+typedef enum			e_limit_type
+{
+	RT_C_RELATIVE,
+	RT_C_ABSOLUTE
+}						t_limit_type;
 
 typedef enum			e_normal_effect
 {
@@ -97,6 +97,7 @@ typedef struct			s_object_def
 }						t_object_def;
 
 # define RT_OBJECT_TYPE		"type"
+# define RT_LIMITS_TYPE		"type"
 # define CAMERA_KEY			"camera"
 # define LIGHTS_KEY			"lights"
 # define OBJECTS_KEY		"objects"
@@ -159,6 +160,13 @@ const t_key				g_quadric_keys[] = {
 const t_key				g_cube_keys[] = {
 	{"center", RTVECTOR, RTDOUBLE},
 	{"h", RTDOUBLE, RTNULL},
+};
+
+
+const t_key				g_limit_keys[] = {
+	{"normal", RTVECTOR, RTDOUBLE},
+	{"point", RTVECTOR, RTDOUBLE},
+	{RT_LIMITS_TYPE, RTSTRING, RTNULL}
 };
 
 // const t_key				g_customobject_keys[] = {
@@ -237,6 +245,7 @@ extern const t_key				g_main_object_keys[4];
 extern const t_key				g_texture_keys[2];
 extern const t_key				g_custom_keys[2];
 // extern const t_key				g_customobj_keys[2];
+extern const t_key				g_limit_keys[3];
 
 #endif
 

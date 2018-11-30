@@ -1,27 +1,4 @@
-Norme: ./Brewfile
-Warning: Not a valid file
-Norme: ./Makefile
-Warning: Not a valid file
-Norme: ./README.md
-Warning: Not a valid file
-Norme: ./auteur
-Warning: Not a valid file
-Norme: ./correction/RT01.png
-Warning: Not a valid file
-Norme: ./correction/RT02.png
-Warning: Not a valid file
-Norme: ./correction/RT03.png
-Warning: Not a valid file
-Norme: ./correction/RT04.png
-Warning: Not a valid file
-Norme: ./correction/RT05.png
-Warning: Not a valid file
-Norme: ./correction/RT06.png
-Warning: Not a valid file
-Norme: ./correction/RT07.png
-Warning: Not a valid file
-Norme: ./correction/RT08.png
-Warning: Not a valid file
+
 Norme: ./libft/auteur
 Warning: Not a valid file
 Norme: ./libft/Makefile
