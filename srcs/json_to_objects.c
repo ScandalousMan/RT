@@ -6,7 +6,7 @@
 /*   By: jbouille <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 17:32:22 by jbouille          #+#    #+#             */
-/*   Updated: 2018/08/19 17:05:49 by jbouille         ###   ########.fr       */
+/*   Updated: 2018/12/04 17:59:14 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,12 +140,6 @@ int	is_type(void* value, t_jtype jtype, t_rt_type type, t_rt_type subtype)
 	else if (type == RTN)
 		return ((jtype == JINT && *((int*)value) >= 1)
 				|| (jtype == JDOUBLE && *((double*)value) >= 1.0));
-	// else if (type == RTCUSTOM)
-	// 	return (jtype == JOBJECT
-	// 			&& is_object((t_jobject*)value, g_custom_keys, RT_KEYS_SIZE(g_custom_keys), 0));
-	// else if (type == RTCUSTOMOBJ)
-	// 	return (jtype == JOBJECT
-	// 			&& is_object((t_jobject*)value, g_customobj_keys, RT_KEYS_SIZE(g_customobj_keys), 0));
 	else if (type == RTSIGN)
 		return (jtype == JSTRING && ft_strlen((char*)value) == 1 && (((char*)value)[0] == '-' || ((char*)value)[0] == '+'));
 	else if (type == RTLIMIT)
@@ -154,8 +148,6 @@ int	is_type(void* value, t_jtype jtype, t_rt_type type, t_rt_type subtype)
 	else if (type == RTLIGHTTYPE)
 		return (jtype == JSTRING
 		&& (ft_strequ((char*)value, "spot") || ft_strequ((char*)value, "parallel")));
-	// else if (type == RTREFERENCE)
-	// 	return (jtype == JOBJECT && is_object((t_jobject*)value, g_reference_keys, RT_KEYS_SIZE(g_reference_keys), 0));
 	return (0);
 }
 
@@ -183,14 +175,10 @@ int	is_object(t_jobject *obj, const t_key *keys, const size_t keys_size, int is_
 
 	common_size = (is_common) ? RT_KEYS_SIZE(g_common_keys) : 0;
 	if (keys_size + common_size != jobject_len(obj))
-	{
-		printf("OUILLE MAUVAISE LONGUEUR\nexpected %lu, got %lu with %lu\n", keys_size + common_size, jobject_len(obj), sizeof(g_common_keys));
 		return (0);
-	}
 	i = 0;
 	while (i < keys_size)
 	{
-		// printf("is_object: %zu %s %d %d\n", i, keys[i].key, obj->type, keys[i].type);
 		if (jobject_contains(obj, keys[i]) == 0)
 			return (0);
 		++i;
@@ -198,7 +186,6 @@ int	is_object(t_jobject *obj, const t_key *keys, const size_t keys_size, int is_
 	i = 0;
 	while (i < common_size)
 	{
-		// printf("is_object: %zu %s %d %d\n", i, g_common_keys[i].key, obj->type, g_common_keys[i].type);
 		if (jobject_contains(obj, g_common_keys[i]) == 0)
 			return (0);
 		++i;
@@ -211,11 +198,9 @@ int	json_to_objects(t_jobject *obj, t_param *param)
 {
 	if (is_object(obj, g_main_object_keys, RT_KEYS_SIZE(g_main_object_keys), 0) == 0)
 		return (0);
-//	printf("obj_size: %zu\n", jobject_len(((t_jarray*)((t_jobject*)(obj->value))->value)->value));//DEBUG
 	if (camera_storage(obj, param) == 0)
 		return (0);
 	vec_to_unit_norm(vector_product(param->align, param->look, param->third));
-	param->customs = customs_storage(obj, param);
 	param->lights = lights_storage(obj);
 	param->objects = objects_storage(obj, param);
 	display_lights(param);

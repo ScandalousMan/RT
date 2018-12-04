@@ -6,7 +6,7 @@
 /*   By: jbouille <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 14:13:11 by jbouille          #+#    #+#             */
-/*   Updated: 2018/08/19 17:10:34 by jbouille         ###   ########.fr       */
+/*   Updated: 2018/12/04 17:57:16 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,7 @@ typedef enum			e_object_type
 	RTCONE,
 	RTCYLINDER,
 	RTQUADRIC,
-	RTCUBE,
-	RTCUSTOMOBJECT
+	RTCUBE
 }						t_object_type;
 
 typedef enum			e_light_type
@@ -51,8 +50,6 @@ typedef enum			e_rt_type
 	RTANGLE,
 	RTTEXTURE,
 	RTN,
-	RTCUSTOM,
-	RTCUSTOMOBJ,
 	RTSIGN,
 	RTLIMIT,
 	RTLIGHTTYPE
@@ -101,7 +98,6 @@ typedef struct			s_object_def
 # define CAMERA_KEY			"camera"
 # define LIGHTS_KEY			"lights"
 # define OBJECTS_KEY		"objects"
-# define CUSTOMS_KEY		"custom_objects"
 # define RT_KEYS_SIZE(keys)	(sizeof(keys) / sizeof(t_key))
 
 # ifdef MY_GLOBALS
@@ -190,24 +186,13 @@ const t_key				g_light_keys[] = {
 const t_key				g_main_object_keys[] = {
 	{CAMERA_KEY, RTCAMERA, RTNULL},
 	{LIGHTS_KEY, RTARRAY, RTLIGHT},
-	{OBJECTS_KEY, RTARRAY, RTOBJECT},
-	{CUSTOMS_KEY, RTARRAY, RTCUSTOM}
+	{OBJECTS_KEY, RTARRAY, RTOBJECT}
 };
 
 const t_key				g_texture_keys[] = {
 	{RT_OBJECT_TYPE, RTSTRING, RTNULL},
 	{"name", RTSTRING, RTNULL},
 };
-
-// const t_key				g_custom_keys[] = {
-// 	{"name", RTSTRING, RTNULL},
-// 	{OBJECTS_KEY, RTARRAY, RTCUSTOMOBJ}
-// };
-
-// const t_key				g_customobj_keys[] = {
-// 	{"intersection", RTSIGN, RTNULL},
-// 	{"object", RTOBJECT, RTNULL}
-// };
 
 /* TODO CHANGE FUNCTIONS DECLARATIONS */
 void	*fill_sphere		(t_jobject *jobj, t_object *s_obj);
@@ -216,7 +201,6 @@ void	*fill_cone			(t_jobject *jobj, t_object *c_obj);
 void	*fill_cylinder		(t_jobject *jobj, t_object *c_obj);
 void	*fill_quadric		(t_jobject *jobj, t_object *q_obj);
 void	*fill_cube			(t_jobject *jobj, t_object *c_obj);
-// void	*fill_customobject	(t_jobject *jobj, t_param *param, t_object *s_obj);
 const t_object_def		g_objects[] = {
 	{"sphere", RTSPHERE, g_sphere_keys, RT_KEYS_SIZE(g_sphere_keys), &fill_sphere},
 	{"plane", RTPLAN, g_plan_keys, RT_KEYS_SIZE(g_plan_keys), &fill_plane},
@@ -224,27 +208,23 @@ const t_object_def		g_objects[] = {
 	{"cylinder", RTCYLINDER, g_cylinder_keys, RT_KEYS_SIZE(g_cylinder_keys), &fill_cylinder},
 	{"quadric", RTQUADRIC, g_quadric_keys, RT_KEYS_SIZE(g_quadric_keys), &fill_quadric},
 	{"cube", RTCUBE, g_cube_keys, RT_KEYS_SIZE(g_cube_keys), &fill_cube}
-	// {"custom", RTCUSTOMOBJECT, g_customobject_keys, RT_KEYS_SIZE(g_customobject_keys), &fill_customobject}
 };
 
 #else
 
-extern const t_object_def		g_objects[7];
+extern const t_object_def		g_objects[6];
 extern const t_key				g_common_keys[12];//todo change for optionnal
 extern const t_key				g_optionnal_keys[1];
-extern const t_key				g_sphere_keys[];
+extern const t_key				g_sphere_keys[2];
 extern const t_key				g_plan_keys[2];
-extern const t_key				g_cone_keys[];
-extern const t_key				g_cylinder_keys[];
+extern const t_key				g_cone_keys[3];
+extern const t_key				g_cylinder_keys[3];
 extern const t_key				g_quadric_keys[];
 extern const t_key				g_cube_keys[2];
-// extern const t_key				g_customobject_keys[];
 extern const t_key				g_camera_keys[3];
 extern const t_key				g_light_keys[4];
-extern const t_key				g_main_object_keys[4];
+extern const t_key				g_main_object_keys[3];
 extern const t_key				g_texture_keys[2];
-extern const t_key				g_custom_keys[2];
-// extern const t_key				g_customobj_keys[2];
 extern const t_key				g_limit_keys[3];
 
 #endif

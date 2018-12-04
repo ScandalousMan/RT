@@ -6,7 +6,7 @@
 /*   By: jbouille <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 15:43:31 by jbouille          #+#    #+#             */
-/*   Updated: 2018/08/19 18:01:02 by jbouille         ###   ########.fr       */
+/*   Updated: 2018/12/04 17:56:23 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,11 @@ t_limit	*get_limits(t_jarray *array)
 		obj = get_jobject(tmp->value, "point");
 		fill_vector(&new->plane.ref, obj->value);
 		vec_to_unit_norm(new->plane.n);
+		obj = get_jobject(tmp->value, "type");
+		if (ft_strequ(obj->value, "absolute"))
+			new->type = RT_C_ABSOLUTE;
+		else
+			new->type = RT_C_RELATIVE;
 		// printf("REF: %f, %f, %f\n", new->plane.ref[0], new->plane.ref[1], new->plane.ref[2]);
 		// printf("N: %f, %f, %f\n", new->plane.n[0], new->plane.n[1], new->plane.n[2]);
 		new->next = limits;
@@ -500,72 +505,6 @@ t_custom_obj	*get_custom_obj(t_jarray *array, t_param *param, t_custom_obj *cust
 	return (custom_obj);
 }
 
-int	fill_custom(t_custom *custom, t_jobject *jobj, int num, t_param *param)
-{
-	t_jobject	*tmp;
-(void)num;	
-(void)param;	
-//	custom->id = num;
-//	tmp = get_jobject(jobj, "name");
-//	printf("TEST: %s\n", tmp->value);
-///
-//	custom->name = ft_strdup(tmp->value);
-///	if (custom->name == NULL)
-//		return (0);
-//	(void)param;
-//	printf("SET: %s\n", custom->name);
-	tmp = get_jobject(jobj, "objects");
-	custom->objects = get_custom_obj(tmp->value, param, custom->objects);
-	return (1);
-}
-
-int	fill_custom_name(t_custom *custom, t_jobject *jobj, int num, t_param *param)
-{
-	t_jobject	*tmp;
-	(void)param;
-	custom->id = num;
-	tmp = get_jobject(jobj, "name");
-	printf("TEST: %s\n", (char *)tmp->value);
-
-	custom->name = ft_strdup(tmp->value);
-	if (custom->name == NULL)
-		return (0);
-	return (1);
-}
-
-t_custom	*get_custom(t_jarray *array, int num, t_param *param, t_custom *custom)
-{
-//	t_custom	*custom;
-//
-	if (array == NULL || custom == NULL)
-		return (NULL);
-//	if (!(custom = (t_custom*)malloc(sizeof(t_custom))))
-//		return (NULL);
-	if (fill_custom(custom, array->value, num, param) == 0)
-		return (NULL);
-	custom->next = get_custom(array->next, num + 1, param, custom->next);
-//	param->customs = custom;
-//	if (fill_custom(custom, array->value, num, param) == 0)
-//		return (NULL);
-	return (custom);
-}
-
-t_custom	*get_custom_name(t_jarray *array, int num, t_param *param)
-{
-	t_custom	*custom;
-
-	if (array == NULL)
-		return (NULL);
-	if (!(custom = (t_custom*)malloc(sizeof(t_custom))))
-		return (NULL);
-//	if (!(custom->objects = (t_custom_obj*)malloc(sizeof(t_custom_obj))))
-//		return (NULL);
-	if (fill_custom_name(custom, array->value, num, param) == 0)
-		return (NULL);
-	custom->next = get_custom_name(array->next, num + 1, param);
-	return (custom);
-}
-
 //TODO CAMERA
 
 int			camera_storage(t_jobject *obj, t_param *param)
@@ -587,11 +526,4 @@ t_light		*lights_storage(t_jobject *obj)
 t_object	*objects_storage(t_jobject *obj, t_param *param)
 {
 	return (get_object(get_jobject(obj, OBJECTS_KEY)->value, 1, param));
-}
-
-t_custom	*customs_storage(t_jobject *obj, t_param *param)
-{
-	param->customs = get_custom_name(get_jobject(obj, CUSTOMS_KEY)->value, 1, param);
-	param->customs = get_custom(get_jobject(obj, CUSTOMS_KEY)->value, 1, param, param->customs);
-	return (param->customs);
 }

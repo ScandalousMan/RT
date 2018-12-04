@@ -6,7 +6,7 @@
 /*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 16:39:54 by aguemy            #+#    #+#             */
-/*   Updated: 2018/09/08 17:00:42 by malexand         ###   ########.fr       */
+/*   Updated: 2018/12/04 16:01:22 by jbouille         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,6 +176,7 @@ typedef struct	s_cube
 typedef struct	s_limit
 {
 	t_plane			plane;
+	char			type;
 	struct s_limit	*next;
 }				t_limit;
 
