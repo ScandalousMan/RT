@@ -5,7 +5,7 @@ void gui_plan(t_param *param)
 {
 	t_plane *plane;
 
-	plane = (t_plane *)param->graph->current_object->dim;
+	plane = (t_plane *)param->graph->current_object->parsed;
 	nukl_objects_show_pos(param, &plane->ref[0]);
 	nk_layout_row_begin(param->graph->ctx, NK_DYNAMIC, 30, 6);
 	{
@@ -26,7 +26,7 @@ void gui_cylinder(t_param *param)
 {
 	t_cylindre *cylindre;
 
-	cylindre = (t_cylindre *)param->graph->current_object->dim;
+	cylindre = (t_cylindre *)param->graph->current_object->parsed;
 	nukl_objects_show_pos(param, &cylindre->org[0]);
 	nukl_objects_show_edit_double(param, "Radius:", &cylindre->radius, 0.5);
 	nk_layout_row_end(param->graph->ctx);
@@ -36,7 +36,7 @@ void gui_sphere(t_param *param)
 {
 	t_sphere *sphere;
 
-	sphere = (t_sphere *)param->graph->current_object->dim;
+	sphere = (t_sphere *)param->graph->current_object->parsed;
 	nukl_objects_show_pos(param, &sphere->center[0]);
 	nukl_objects_show_edit_double(param, "Radius:", &sphere->radius, 0.5);
 	nk_layout_row_end(param->graph->ctx);

@@ -5,7 +5,7 @@ void gui_cone(t_param *param)
 {
 	t_cone *cone;
 
-	cone = (t_cone *)param->graph->current_object->dim;
+	cone = (t_cone *)param->graph->current_object->parsed;
 	nukl_objects_show_pos(param, &cone->org[0]);
 	nk_layout_row_begin(param->graph->ctx, NK_DYNAMIC, 30, 6);
 	{
@@ -28,7 +28,7 @@ void gui_quadric(t_param *param)
 {
 	t_quadric *quadric;
 
-	quadric = (t_quadric *)param->graph->current_object->dim;
+	quadric = (t_quadric *)param->graph->current_object->parsed;
 	nukl_objects_show_pos(param, &quadric->center[0]);
 }
 
@@ -36,7 +36,7 @@ void gui_cube(t_param *param)
 {
 	t_cube *cube;
 
-	cube = (t_cube *)param->graph->current_object->dim;
+	cube = (t_cube *)param->graph->current_object->parsed;
 	nukl_objects_show_pos(param, &cube->center[0]);
 	nk_layout_row_begin(param->graph->ctx, NK_DYNAMIC, 30, 6);
 	{
