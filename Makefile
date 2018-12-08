@@ -57,6 +57,8 @@ SDIR =		./srcs/
 SRCS =		components.c \
 			colors.c \
 			constructor.c \
+			constructor_pixel.c \
+			constructor_stereoscopy.c \
 			display.c \
 			distance.c \
 			file.c \
@@ -82,6 +84,7 @@ SRCS =		components.c \
 			objects/quadric.c \
 			objects/quadric_tools.c \
 			objects/sphere.c \
+			objects/sphere_tools.c \
 			objects_duplicate.c \
 			objects_moves.c \
 			objects_router.c \

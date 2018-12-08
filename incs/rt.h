@@ -363,6 +363,8 @@ int 							color_absorber(int obj_col, int light_col);
 t_param							*struct_create(void);
 t_param							*stereoscopy_cpy(t_param *param1);
 void								stereoscopy_free(t_param *param);
+t_sdl								*copy_pxls(t_param *param);
+t_param							*pxl_infos_create(t_param *param);
 t_param							*new_content(t_param *param);
 //t_light							*add_light(t_light **lights, double *src, double i, int col);
 t_light							*light_copy(t_light *src);
@@ -408,26 +410,21 @@ void							display_objects(t_param *param);
 int								point_display(t_param *param);
 void							light_display_objects(t_param *param);
 /*
-**-----------------------------------distance-----------------------------------
+**------------------------------------sphere------------------------------------
 */
 double			distance_calc(t_object *tmp, double *from, double *to);
-double			distance_to_sphere(t_object *tmp, double *from,
-				double *to);
+double			distance_to_sphere(t_object *tmp, double *from, double *to);
 int					is_inside_sphere(double *pt, t_object *tmp);
 double 			*sphere_position(double *pt, t_object *obj);
+void				display_sphere(t_object *objs);
+/*
+**------------------------------------plane-------------------------------------
+*/
 double			plane_distance(double *from, double *to, double *n, double *ref);
-double			distance_to_plane(t_object *tmp, double *from,
-				double *to);
+double			distance_to_plane(t_object *tmp, double *from, double *to);
 int					is_inside_plane(double *pt, t_object *tmp);
 double			*plane_position(double *pt, t_object *obj);
-double			distance_to_cone(t_object *tmp, double *from, double *to);
-double			*cone_position(double *pt, t_object *object);
-double			distance_to_cylindre(t_object *tmp, double *from, double *to);
-double			*cylindre_position(double *pt, t_object *object);
-double			distance_to_quadric(t_object *tmp, double *from, double *to);
-double			*quadric_position(double *pt, t_object *object);
-double			distance_to_cube(t_object *t, double *from, double *to);
-double			*cube_position(double *pt, t_object *obj);
+void				display_plane(t_object *objs);
 /*
 **-------------------------------------cone-------------------------------------
 */
@@ -435,6 +432,9 @@ double			cone_first_term(t_object *tmp, double *to);
 double			cone_second_term(t_object *tmp, double *to, double *x);
 double			cone_third_term(t_object *tmp, double *x);
 int					is_inside_cone(double *pt, t_object *tmp);
+void				display_cone(t_object *objs);
+double			distance_to_cone(t_object *tmp, double *from, double *to);
+double			*cone_position(double *pt, t_object *object);
 /*
 **-----------------------------------cylindre-----------------------------------
 */
@@ -442,6 +442,9 @@ double			cylindre_first_term(t_object *tmp, double *to);
 double			cylindre_second_term(t_object *tmp, double *to);
 double			cylindre_third_term(t_object *tmp);
 int					is_inside_cylindre(double *pt, t_object *tmp);
+void				display_cylindre(t_object *objs);
+double			distance_to_cylindre(t_object *tmp, double *from, double *to);
+double			*cylindre_position(double *pt, t_object *object);
 /*
 **------------------------------------quadric-----------------------------------
 */
@@ -449,17 +452,19 @@ double			quadric_first_term(t_quadric *tmp, double *to);
 double			quadric_second_term(t_quadric *tmp, double *from, double *to);
 double			quadric_third_term(t_quadric *tmp, double *from);
 int					is_inside_quadric(double *pt, t_quadric *tmp);
-
+double			distance_to_quadric(t_object *tmp, double *from, double *to);
+double			*quadric_position(double *pt, t_object *object);
+void				display_quadric(t_object *objs);
 /*
-**-----------------------------------cube-----------------------------------
+**-------------------------------------cube-------------------------------------
 */
 int					is_inside_cube(double *pt, t_object *tmp);
 double			distance_to_face1(t_object *tmp, double *from, double *to, double face);
 double			distance_to_face2(t_object *tmp, double *from, double *to, double face);
 double			distance_to_face3(t_object *tmp, double *from, double *to, double face);
-// double			distance_to_face4(t_object *tmp, double *from, double *to);
-// double			distance_to_face5(t_object *tmp, double *from, double *to);
-// double			distance_to_face6(t_object *tmp, double *from, double *to);
+void				display_cube(t_object *objs);
+double			distance_to_cube(t_object *t, double *from, double *to);
+double			*cube_position(double *pt, t_object *obj);
 
 double			ft_absdbl(double a);
 int 				ft_absint(int a);

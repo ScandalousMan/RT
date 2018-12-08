@@ -1,4 +1,47 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   json_to_objects.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jbouille <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/10/24 17:32:22 by jbouille          #+#    #+#             */
+/*   Updated: 2018/12/04 17:59:14 by jbouille         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "rt_objects.h"
+
+void	object_common_display(t_object *objs)
+{
+	ft_putchar('#');
+	ft_putnbr(objs->num);
+	ft_putstr("\ncolor = ");
+	ft_putnbr(objs->col);
+	ft_putstr("\nindex = ");
+	ft_putdbl(objs->index, 2);
+	ft_putstr("\nmirror:");
+	ft_putdbl(objs->reflection, 4);
+	ft_putstr("\nreferential: ");
+	ft_putdbl(objs->ref.i[0], 2);
+	ft_putstr(", ");
+	ft_putdbl(objs->ref.i[1], 2);
+	ft_putstr(", ");
+	ft_putdbl(objs->ref.i[2], 2);
+	ft_putstr(" | ");
+	ft_putdbl(objs->ref.j[0], 2);
+	ft_putstr(", ");
+	ft_putdbl(objs->ref.j[1], 2);
+	ft_putstr(", ");
+	ft_putdbl(objs->ref.j[2], 2);
+	ft_putstr(" | ");
+	ft_putdbl(objs->ref.k[0], 2);
+	ft_putstr(", ");
+	ft_putdbl(objs->ref.k[1], 2);
+	ft_putstr(", ");
+	ft_putdbl(objs->ref.k[2], 2);
+	ft_putstr("\n***************\n");
+}
 
 void	display_objects(t_param *param)
 {
@@ -7,122 +50,18 @@ void	display_objects(t_param *param)
 	{
 		ft_putstr("\n***************\n");
 		if (objs->type == RTSPHERE)
-		{
-			ft_putstr("** new sphere **\n");
-			ft_putstr("centre : ");
-			ft_putvec(((t_sphere*)(objs->parsed))->center);
-			ft_putchar('\n');
-			ft_putstr("radius : ");
-			ft_putnbr(((t_sphere*)(objs->parsed))->radius);
-			ft_putchar('\n');
-		}
+			display_sphere(objs);
 		if (objs->type == RTPLAN)
-		{
-			ft_putstr("** new plane **\n");
-			ft_putstr("point : ");
-			ft_putvec(((t_plane*)(objs->parsed))->ref);
-			ft_putchar('\n');
-			ft_putstr("normal : ");
-			ft_putvec(((t_plane*)(objs->parsed))->n);
-			ft_putchar('\n');
-		}
+			display_plane(objs);
 		if (objs->type == RTCONE)
-		{
-			ft_putstr("** new cone **\n");
-			ft_putstr("origin : ");
-			ft_putvec(((t_cone*)(objs->parsed))->org);
-			ft_putchar('\n');
-			ft_putstr("vector : ");
-			ft_putvec(((t_cone*)(objs->parsed))->u);
-			ft_putchar('\n');
-			ft_putstr("angle : ");
-			ft_putnbr(((t_cone*)(objs->parsed))->angle);
-			ft_putchar('\n');
-		}
+			display_cone(objs);
 		if (objs->type == RTCYLINDER)
-		{
-			ft_putstr("** new cylindre **\n");
-			ft_putstr("origin : ");
-			ft_putvec(((t_cylindre*)(objs->parsed))->org);
-			ft_putchar('\n');
-			ft_putstr("normal : ");
-			ft_putvec(((t_cylindre*)(objs->parsed))->u);
-			ft_putchar('\n');
-			ft_putstr("radius : ");
-			ft_putnbr(((t_cylindre*)(objs->parsed))->radius);
-			ft_putchar('\n');
-		}
+			display_cylindre(objs);
 		if (objs->type == RTQUADRIC)
-		{
-			ft_putstr("** new quadric **\n");
-			ft_putstr("centre : ");
-			ft_putvec(((t_quadric*)(objs->parsed))->center);
-			ft_putchar('\n');
-			ft_putstr("a: ");
-			ft_putdbl(((t_quadric*)(objs->parsed))->a, 4);
-			ft_putchar('\n');
-			ft_putstr("b: ");
-			ft_putdbl(((t_quadric*)(objs->parsed))->b, 4);
-			ft_putchar('\n');
-			ft_putstr("c: ");
-			ft_putdbl(((t_quadric*)(objs->parsed))->c, 4);
-			ft_putchar('\n');
-			ft_putstr("d: ");
-			ft_putdbl(((t_quadric*)(objs->parsed))->d, 4);
-			ft_putchar('\n');
-			ft_putstr("e: ");
-			ft_putdbl(((t_quadric*)(objs->parsed))->e, 4);
-			ft_putchar('\n');
-			ft_putstr("f: ");
-			ft_putdbl(((t_quadric*)(objs->parsed))->f, 4);
-			ft_putchar('\n');
-			ft_putstr("g: ");
-			ft_putdbl(((t_quadric*)(objs->parsed))->g, 4);
-			ft_putchar('\n');
-			ft_putstr("h: ");
-			ft_putdbl(((t_quadric*)(objs->parsed))->h, 4);
-			ft_putchar('\n');
-			ft_putstr("i: ");
-			ft_putdbl(((t_quadric*)(objs->parsed))->i, 4);
-			ft_putchar('\n');
-		}
+			display_quadric(objs);
 		if (objs->type == RTCUBE)
-		{
-			ft_putstr("** new cube **\n");
-			ft_putstr("h: ");
-			ft_putnbr(((t_cube*)(objs->parsed))->h);
-			ft_putchar('\n');
-			ft_putstr("centre: ");
-			ft_putvec(((t_cube*)(objs->parsed))->center);
-			ft_putchar('\n');
-		}
-		ft_putchar('#');
-		ft_putnbr(objs->num);
-		ft_putstr("\ncolor = ");
-		ft_putnbr(objs->col);
-		ft_putstr("\nindex = ");
-		ft_putdbl(objs->index, 2);
-		ft_putstr("\nmirror:");
-		ft_putdbl(objs->reflection, 4);
-		ft_putstr("\nreferential: ");
-		ft_putdbl(objs->ref.i[0], 2);
-		ft_putstr(", ");
-		ft_putdbl(objs->ref.i[1], 2);
-		ft_putstr(", ");
-		ft_putdbl(objs->ref.i[2], 2);
-		ft_putstr(" | ");
-		ft_putdbl(objs->ref.j[0], 2);
-		ft_putstr(", ");
-		ft_putdbl(objs->ref.j[1], 2);
-		ft_putstr(", ");
-		ft_putdbl(objs->ref.j[2], 2);
-		ft_putstr(" | ");
-		ft_putdbl(objs->ref.k[0], 2);
-		ft_putstr(", ");
-		ft_putdbl(objs->ref.k[1], 2);
-		ft_putstr(", ");
-		ft_putdbl(objs->ref.k[2], 2);
-		ft_putstr("\n***************\n");
+			display_cube(objs);
+		object_common_display(objs);
 		objs = objs->next;
 	}
 }
@@ -149,12 +88,14 @@ void	light_display_objects(t_param *param)
 
 	tmp = param->objects;
 	while (tmp) {
-		printf("number object: %d, type: %d, address: %p\n", tmp->num, tmp->type, tmp);
+		printf("number object: %d, type: %d, address: %p\n",
+			tmp->num, tmp->type, tmp);
 		tmp = tmp->next;
 	}
 }
 
 int		point_display(t_param *param)
 {
-	return (!param->is_for_light && ft_absint(param->i[0] - 357) <= 0 && ft_absint(param->i[1] - 329) <= 0);
+	return (!param->is_for_light && ft_absint(param->i[0] - 357) <= 0 &&
+		ft_absint(param->i[1] - 329) <= 0);
 }

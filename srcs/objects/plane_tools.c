@@ -29,3 +29,14 @@ int		is_in_limits(double *pt, t_object *obj, t_limit *limit)
 	}
 	return (1);
 }
+
+void	display_plane(t_object *objs)
+{
+	ft_putstr("** new plane **\n");
+	ft_putstr("point : ");
+	ft_putvec(((t_plane*)(objs->parsed))->ref);
+	ft_putchar('\n');
+	ft_putstr("normal : ");
+	ft_putvec(((t_plane*)(objs->parsed))->n);
+	ft_putchar('\n');
+}
