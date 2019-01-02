@@ -54,15 +54,18 @@ INC_DIR = incs
 
 SDIR =		./srcs/
 
-SRCS =		components.c \
+SRCS =		blur.c \
+			components.c \
 			colors.c \
 			constructor.c \
+			constructor_pixel.c \
+			constructor_stereoscopy.c \
 			display.c \
 			distance.c \
 			file.c \
 			first_obj_hit.c \
+			free.c \
 			json_to_objects.c \
-			key_func.c \
 			light.c \
 			main.c \
 			nukl_gui/camera.c \
@@ -82,6 +85,7 @@ SRCS =		components.c \
 			objects/quadric.c \
 			objects/quadric_tools.c \
 			objects/sphere.c \
+			objects/sphere_tools.c \
 			objects_duplicate.c \
 			objects_moves.c \
 			objects_router.c \
@@ -89,8 +93,11 @@ SRCS =		components.c \
 			perlin.c \
 			perturbations.c \
 			postprocessing.c \
+			postprocessing_2.c \
+			ray_color.c \
 			referential.c \
 			refraction.c \
+			rotations.c \
 			rt_parser.c \
 			rt_tracer.c \
 			save_img.c \

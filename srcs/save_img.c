@@ -12,10 +12,18 @@
 
 #include "rt.h"
 
+void	save_img_log(SDL_Surface *surf, char *name)
+{
+	if (IMG_SavePNG(surf, name))
+		error(0, 0, "Cannot save the image");
+	else 
+		mprintf(1, "Image has been saved\n");
+}
+
 void	save_img(t_param *param, char *name)
 {
-	int 			count;
-	SDL_Surface 	*surf;
+	int 				count;
+	SDL_Surface *surf;
 	SDL_Rect 		rect_to;
 
 	count = 0;
@@ -28,15 +36,15 @@ void	save_img(t_param *param, char *name)
 		rect_to.y = count * WINDOW_SDL_HEIGHT / NB_THREAD;
 		rect_to.w = WINDOW_SDL_WIDTH;
 		rect_to.h = WINDOW_SDL_HEIGHT / NB_THREAD;
-		if ((param->graph->show_tmp == 0 && SDL_BlitSurface(param->graph->surfs[count], NULL, surf, &rect_to)) || (param->graph->show_tmp == 1 && SDL_BlitSurface(param->graph->tmp_surfs[count], NULL, surf, &rect_to)))
+		if ((param->graph->show_tmp == 0 &&
+			SDL_BlitSurface(param->graph->surfs[count], NULL, surf, &rect_to)) ||
+			(param->graph->show_tmp == 1 &&
+				SDL_BlitSurface(param->graph->tmp_surfs[count], NULL, surf, &rect_to)))
 			error(0, 0, "cannot copy surface on total image");
 		count++;
 	}
 	name = ft_strjoin_free(name, ft_strdup(".png"));
-	if (IMG_SavePNG(surf, name))
-		error(0, 0, "Cannot save the image");
-	else 
-		mprintf(1, "Image has been saved\n");
+	save_img_log(surf, name);
 	ft_strdel(&name);
 	SDL_FreeSurface(surf);
 }

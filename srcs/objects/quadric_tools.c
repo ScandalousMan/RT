@@ -41,3 +41,29 @@ double	quadric_third_term(t_quadric *tmp, double *from)
 		(tmp->c + tmp->g) * tmp->center[0] * tmp->center[2] +
 		(tmp->h + tmp->f) * tmp->center[1] * tmp->center[2] - tmp->r * tmp->r);
 }
+
+void	display_quadric(t_object *objs)
+{
+	ft_putstr("** new quadric **\n");
+	ft_putstr("centre : ");
+	ft_putvec(((t_quadric*)(objs->parsed))->center);
+	ft_putstr("\na: ");
+	ft_putdbl(((t_quadric*)(objs->parsed))->a, 4);
+	ft_putstr("\nb: ");
+	ft_putdbl(((t_quadric*)(objs->parsed))->b, 4);
+	ft_putstr("\nc: ");
+	ft_putdbl(((t_quadric*)(objs->parsed))->c, 4);
+	ft_putstr("\nd: ");
+	ft_putdbl(((t_quadric*)(objs->parsed))->d, 4);
+	ft_putstr("\ne: ");
+	ft_putdbl(((t_quadric*)(objs->parsed))->e, 4);
+	ft_putstr("\nf: ");
+	ft_putdbl(((t_quadric*)(objs->parsed))->f, 4);
+	ft_putstr("\ng: ");
+	ft_putdbl(((t_quadric*)(objs->parsed))->g, 4);
+	ft_putstr("\nh: ");
+	ft_putdbl(((t_quadric*)(objs->parsed))->h, 4);
+	ft_putstr("\ni: ");
+	ft_putdbl(((t_quadric*)(objs->parsed))->i, 4);
+	ft_putchar('\n');
+}

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   objects_moves.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/09/21 17:02:46 by malexand          #+#    #+#             */
+/*   Updated: 2018/10/31 21:49:47 by malexand         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "rt_objects.h"
 
 void	limits_move(double *o, t_object *obj, t_param *param)
@@ -9,10 +21,8 @@ void	limits_move(double *o, t_object *obj, t_param *param)
 	{
 		if (tmp->type == RT_C_RELATIVE)
 		{
-			printf("\n<>\norigin before: %f, %f, %f\n", tmp->plane.ref[0], tmp->plane.ref[1], tmp->plane.ref[2]);
 			matrice_product(param->rot, tmp->plane.n, tmp->plane.n);
 			pt_translated(o, tmp->plane.ref, tmp->plane.ref);
-			printf("\n><\norigin after: %f, %f, %f\n", tmp->plane.ref[0], tmp->plane.ref[1], tmp->plane.ref[2]);
 		}
 		tmp = tmp->next;
 	}

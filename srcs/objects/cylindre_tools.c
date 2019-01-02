@@ -47,3 +47,17 @@ double	cylindre_third_term(t_object *tmp)
 							((t_cylindre*)(tmp->dim))->radius *
 							((t_cylindre*)(tmp->dim))->radius);
 }
+
+void	display_cylindre(t_object *objs)
+{
+	ft_putstr("** new cylindre **\n");
+	ft_putstr("origin : ");
+	ft_putvec(((t_cylindre*)(objs->parsed))->org);
+	ft_putchar('\n');
+	ft_putstr("normal : ");
+	ft_putvec(((t_cylindre*)(objs->parsed))->u);
+	ft_putchar('\n');
+	ft_putstr("radius : ");
+	ft_putnbr(((t_cylindre*)(objs->parsed))->radius);
+	ft_putchar('\n');
+}
