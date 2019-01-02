@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   objects_duplicate.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/09/21 17:02:46 by malexand          #+#    #+#             */
+/*   Updated: 2018/10/31 21:49:47 by malexand         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "rt_objects.h"
 
 void		*duplicate(void *src, size_t size)
@@ -47,10 +59,7 @@ t_object	*object_copy(t_object *src)
 		return (NULL);
 	if (src->limits && (copy->limits = limits_copy(src->limits)) == NULL)
 		return (NULL);
-	if (src->next)
-	{
-		if (!(copy->next = object_copy(src->next)))
-			return (NULL);
-	}
+	if (src->next && !(copy->next = object_copy(src->next)))
+		return (NULL);
 	return (copy);
 }

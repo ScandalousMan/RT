@@ -31,3 +31,17 @@ double	cone_third_term(t_object *tmp, double *x)
 		scalar_product(x, ((t_cone*)(tmp->dim))->u));
 	return (0);
 }
+
+void		display_cone(t_object *objs)
+{
+	ft_putstr("** new cone **\n");
+	ft_putstr("origin : ");
+	ft_putvec(((t_cone*)(objs->parsed))->org);
+	ft_putchar('\n');
+	ft_putstr("vector : ");
+	ft_putvec(((t_cone*)(objs->parsed))->u);
+	ft_putchar('\n');
+	ft_putstr("angle : ");
+	ft_putnbr(((t_cone*)(objs->parsed))->angle);
+	ft_putchar('\n');
+}

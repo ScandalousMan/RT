@@ -19,17 +19,6 @@
 //FOR PRINTF
 #include <stdio.h>
 
-/*					DEBUG													  */
-
-void	print_lst(t_list *lst)
-{
-	ft_putendl((char*)(lst->content));
-	ft_putnbr((int)(lst->content_size));
-	ft_putchar('\n');
-}
-
-/*					END														  */
-
 static size_t get_string_size(t_list *lst)
 {
 	size_t	size;
@@ -75,7 +64,6 @@ int	read_lines(int fd, t_list **lst)
 	tmp_prev = NULL;
 	while ((ret = get_next_line(fd, &line)) > 0)
 	{
-		// ft_putendl(line);
 		stringify(line);
 		if ((tmp = ft_lstnew((const void*)line, ft_strlen(line) + 1)) == NULL)
 			return (EXIT_FAILURE);
@@ -120,12 +108,6 @@ char *read_file(const char *path)
 		return (NULL);
 	if (close(fd) != 0)
 		return (NULL);
-
-/* DEBUG */
-	// ft_lstiter(lst, &print_lst);
-	// ft_putendl(lst_to_string(lst));
-/* END */
-
 	json = lst_to_string(lst);
 	free_lst(lst);
 	return (json);

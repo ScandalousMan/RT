@@ -1,35 +1,35 @@
-#include "rt.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   perlin.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/09/21 17:02:46 by malexand          #+#    #+#             */
+/*   Updated: 2018/10/31 21:49:47 by malexand         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "rt.h"
 
 double smoothNoise(double x, double y, t_param *param)
 {
 	double	fractX;
 	double	fractY;
-	int 		x1;
-	int 		x2;
-	int 		y1;
-	int 		y2;
+	int			i[4];
 	double	value;
 
-  //get fractional part of x and y
   fractX = x - floor(x);
   fractY = y - floor(y);
-
-	//wrap around
-	x1 = ((int)(floor(x) + NOISE_SIZE)) % NOISE_SIZE;
-	y1 = ((int)(floor(y) + NOISE_SIZE)) % NOISE_SIZE;
-
-	//neighbor values
-	x2 = (x1 + NOISE_SIZE - 1) % NOISE_SIZE;
-	y2 = (y1 + NOISE_SIZE - 1) % NOISE_SIZE;
-
-	//smooth the noise with bilinear interpolation
+	i[0] = ((int)(floor(x) + NOISE_SIZE)) % NOISE_SIZE;
+	i[2] = ((int)(floor(y) + NOISE_SIZE)) % NOISE_SIZE;
+	i[1] = (i[0] + NOISE_SIZE - 1) % NOISE_SIZE;
+	i[3] = (i[2] + NOISE_SIZE - 1) % NOISE_SIZE;
 	value = 0.0;
-	value += fractX     * fractY     * param->perlin_noise[y1][x1];
-	value += (1 - fractX) * fractY     * param->perlin_noise[y1][x2];
-	value += fractX     * (1 - fractY) * param->perlin_noise[y2][x1];
-	value += (1 - fractX) * (1 - fractY) * param->perlin_noise[y2][x2];
-
+	value += fractX     * fractY     * param->perlin_noise[i[2]][i[0]];
+	value += (1 - fractX) * fractY     * param->perlin_noise[i[2]][i[1]];
+	value += fractX     * (1 - fractY) * param->perlin_noise[i[3]][i[0]];
+	value += (1 - fractX) * (1 - fractY) * param->perlin_noise[i[3]][i[1]];
   return value;
 }
 

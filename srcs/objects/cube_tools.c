@@ -72,3 +72,14 @@ void	update_cube(t_object *obj, t_param *param)
 	ref_move(obj, param);
 	limits_move(((t_cube*)(obj->dim))->center, obj, param);
 }
+
+void	display_cube(t_object *objs)
+{
+	ft_putstr("** new cube **\n");
+	ft_putstr("h: ");
+	ft_putnbr(((t_cube*)(objs->parsed))->h);
+	ft_putchar('\n');
+	ft_putstr("centre: ");
+	ft_putvec(((t_cube*)(objs->parsed))->center);
+	ft_putchar('\n');
+}
