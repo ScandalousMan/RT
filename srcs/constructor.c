@@ -12,7 +12,7 @@
 
 #include <rt.h>
 
-t_path			*path_create(t_param *param, int index)
+t_path	*path_create(t_param *param, int index)
 {
 	t_path		*path;
 
@@ -27,7 +27,7 @@ t_path			*path_create(t_param *param, int index)
 	return (path);
 }
 
-void				struct_args_init(t_param *param)
+void	struct_args_init(t_param *param)
 {
 	param->brightness = 1;
 	param->quit = FALSE;
@@ -54,13 +54,14 @@ void				struct_args_init(t_param *param)
 	param->macro.filter = 0;
 }
 
-t_param			*struct_create(void)
+t_param	*struct_create(void)
 {
 	t_param		*param;
 
 	if (!(param = (t_param*)malloc(sizeof(t_param))))
 		return (NULL);
-	if (!(param->thread = (SDL_Thread**)malloc(sizeof(SDL_Thread*) * NB_THREAD)))
+	if (!(param->thread = (SDL_Thread**)malloc(sizeof(SDL_Thread*) *
+		NB_THREAD)))
 		return (NULL);
 	struct_args_init(param);
 	if (!(param->path = path_create(param, 0)))

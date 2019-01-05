@@ -21,8 +21,8 @@ void	get_blurred(t_param *param, int *i, double *j, double *res)
 		i[0] = param->i[1] - i[1];
 		while (i[0] < param->i[1] + i[1] + 1)
 		{
-			j[2] = (double)((param->i[1] - i[0]) * (i[0] - param->i[1]) + (i[2] -
-				param->i[0]) * (param->i[0] - i[2]));
+			j[2] = (double)((param->i[1] - i[0]) * (i[0] - param->i[1]) +
+				(i[2] - param->i[0]) * (param->i[0] - i[2]));
 			j[1] = exp(j[2] / (double)(2 * param->macro.blur_radius *
 				param->macro.blur_radius)) / M_PI / (double)(2 *
 				param->macro.blur_radius * param->macro.blur_radius);
@@ -42,8 +42,8 @@ void	get_blurred(t_param *param, int *i, double *j, double *res)
 
 void	blur(t_param *param)
 {
-	double 	res[3];
-	int			i[3];
+	double	res[3];
+	int		i[3];
 	double	j[3];
 
 	i[1] = (int)ceil((double)param->macro.blur_radius * 2.57);

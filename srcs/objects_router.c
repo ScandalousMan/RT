@@ -17,17 +17,17 @@ int			is_inside_object(double *pt, t_object *obj, t_limit *limit)
 	if (!(is_in_limits(pt, obj, limit)))
 		return (0);
 	if (obj->type == RTSPHERE)
-		return is_inside_sphere(pt, obj);
+		return (is_inside_sphere(pt, obj));
 	else if (obj->type == RTPLAN)
-		return is_inside_plane(pt, obj);
+		return (is_inside_plane(pt, obj));
 	else if (obj->type == RTCONE)
-		return is_inside_cone(pt, obj);
+		return (is_inside_cone(pt, obj));
 	else if (obj->type == RTCYLINDER)
-		return is_inside_cylindre(pt, obj);
+		return (is_inside_cylindre(pt, obj));
 	else if (obj->type == RTQUADRIC)
-		return is_inside_quadric(pt, (t_quadric*)(obj->dim));
+		return (is_inside_quadric(pt, (t_quadric*)(obj->dim)));
 	else if (obj->type == RTCUBE)
-		return is_inside_cube(pt, obj);
+		return (is_inside_cube(pt, obj));
 	return (0);
 }
 

@@ -98,8 +98,8 @@ void	rt_loop(t_param *param)
 int		main(int ac, char **av)
 {
 	t_param	*param;
-	char	*filename;
-	
+	char		*filename;
+
 	if (ac == 2)
 		filename = av[1];
 	else

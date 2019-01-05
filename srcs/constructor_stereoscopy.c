@@ -12,7 +12,7 @@
 
 #include <rt.h>
 
-void				stereoscopy_args_cpy(t_param *param, t_param *param1)
+void	stereoscopy_args_cpy(t_param *param, t_param *param1)
 {
 	param->path = param1->path;
 	param->customs = param1->customs;
@@ -30,7 +30,7 @@ void				stereoscopy_args_cpy(t_param *param, t_param *param1)
 	param->pxl_infos = param1->pxl_infos;
 }
 
-t_param			*stereoscopy_cpy(t_param *param1)
+t_param	*stereoscopy_cpy(t_param *param1)
 {
 	t_param	*param;
 
@@ -49,9 +49,9 @@ t_param			*stereoscopy_cpy(t_param *param1)
 	return (param);
 }
 
-void				stereoscopy_free(t_param *param)
+void	stereoscopy_free(t_param *param)
 {
-	int 	count;
+	int		count;
 
 	count = 0;
 	while (count < NB_THREAD)

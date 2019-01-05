@@ -45,9 +45,11 @@ void			limit_checker(t_param *param, t_object *objs, t_path *path)
 		{
 			param->tmp_d = plane_distance(path->from, path->to, limits->plane.n,
 				limits->plane.ref);
-			vec_multiply(param->tmp_d + param->epsilon, path->to, path->valid_x);
+			vec_multiply(param->tmp_d + param->epsilon, path->to,
+				path->valid_x);
 			pt_translated(path->from, path->valid_x, path->valid_x);
-			if (param->tmp_d > 0 && is_inside_object(path->valid_x, objs, limits))
+			if (param->tmp_d > 0 &&
+				is_inside_object(path->valid_x, objs, limits))
 			{
 				param->is_cut = 0;
 				vec_copy(limits->plane.n, path->valid_n);
@@ -60,11 +62,12 @@ void			limit_checker(t_param *param, t_object *objs, t_path *path)
 	not_cut_updater(param, objs, path);
 }
 
-t_object	*first_obj_hit(t_param *param, double *from, double *to, t_path *path)
+t_object	*first_obj_hit(t_param *param, double *from, double *to,
+	t_path *path)
 {
 	t_object	*objs;
 
-	param->obj_d= -1.0;
+	param->obj_d = -1.0;
 	objs = param->objects;
 	while (objs)
 	{
@@ -72,8 +75,8 @@ t_object	*first_obj_hit(t_param *param, double *from, double *to, t_path *path)
 		{
 			param->is_cut = -1;
 			param->tmp_d = distance_calc(objs, from, to);
-			if (param->tmp_d > 0.0 && (param->is_for_light || (param->obj_d < 0.0 ||
-				param->tmp_d < param->obj_d)))
+			if (param->tmp_d > 0.0 && (param->is_for_light ||
+				(param->obj_d < 0.0 || param->tmp_d < param->obj_d)))
 			{
 				vec_multiply(param->tmp_d + param->epsilon, to, path->valid_x);
 				pt_translated(from, path->valid_x, path->valid_x);

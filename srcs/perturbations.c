@@ -12,7 +12,7 @@
 
 #include "rt_objects.h"
 
-int			sierpinski_carpet(int u, int v)
+int		sierpinski_carpet(int u, int v)
 {
 	int i;
 
@@ -21,15 +21,15 @@ int			sierpinski_carpet(int u, int v)
 	{
 		if ((u / ((int)ft_pow(3, i - 2))) % 3 == 1 &&
 			(v / ((int)ft_pow(3, i - 2))) % 3 == 1)
-			return 0;
+			return (0);
 		i--;
 	}
-	return 1;
+	return (1);
 }
 
-void		complex_object_colors(t_object *object, t_param *param)
+void	complex_object_colors(t_object *object, t_param *param)
 {
-	char 	t;
+	char	t;
 
 	if (object->effects.color == RT_C_CLOUD)
 	{
@@ -51,7 +51,7 @@ void		complex_object_colors(t_object *object, t_param *param)
 	}
 }
 
-void 		object_color_changer(t_object *object, t_param *param)
+void	object_color_changer(t_object *object, t_param *param)
 {
 	if (object->type == RTQUADRIC || object->effects.color == RT_C_NONE)
 		param->texture_col = object->col;
@@ -67,10 +67,10 @@ void 		object_color_changer(t_object *object, t_param *param)
 		complex_object_colors(object, param);
 }
 
-void		object_normal_changer(t_object *object, t_param *param, t_path *path)
+void	object_normal_changer(t_object *object, t_param *param, t_path *path)
 {
 	if (object->type == RTQUADRIC || object->effects.normal == RT_N_NONE)
-		return;
+		return ;
 	else if (object->effects.normal == RT_N_SINUS)
 	{
 		rotation_matrice(0, 0, 45 * sin(object->uv_map[0] * 2.0 * M_PI * 20),

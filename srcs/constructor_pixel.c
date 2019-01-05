@@ -12,7 +12,7 @@
 
 #include <rt.h>
 
-t_param			*pxl_infos_create(t_param *param)
+t_param	*pxl_infos_create(t_param *param)
 {
 	if (!(param->pxl_infos = (int**)malloc(sizeof(int*) * WINDOW_SDL_HEIGHT)))
 		return (NULL);
@@ -33,9 +33,9 @@ t_param			*pxl_infos_create(t_param *param)
 	return (param);
 }
 
-void		free_pxl_infos(int **pxl_infos)
+void	free_pxl_infos(int **pxl_infos)
 {
-	int i;
+	int		i;
 
 	i = 0;
 	while (i < WINDOW_SDL_HEIGHT)
@@ -46,9 +46,9 @@ void		free_pxl_infos(int **pxl_infos)
 	free(pxl_infos);
 }
 
-t_sdl				*copy_pxls(t_param *param)
+t_sdl	*copy_pxls(t_param *param)
 {
-	t_sdl *graph;
+	t_sdl	*graph;
 	int 	count;
 
 	count = 0;
@@ -71,5 +71,5 @@ t_sdl				*copy_pxls(t_param *param)
 		count++;
 	}
 	graph->show_tmp = 0;
-	return graph;
+	return (graph);
 }

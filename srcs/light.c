@@ -12,7 +12,7 @@
 
 #include "rt_objects.h"
 
-t_light	*light_copy(t_light *src)
+t_light		*light_copy(t_light *src)
 {
 	t_light	*copy;
 
@@ -28,7 +28,8 @@ t_light	*light_copy(t_light *src)
 	return (copy);
 }
 
-t_object	*light_masked(t_param *param, double *from, double *to, t_path *path)
+t_object	*light_masked(t_param *param, double *from, double *to,
+	t_path *path)
 {
 	param->intersect_object = NULL;
 	param->is_for_light = 1;

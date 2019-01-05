@@ -21,12 +21,12 @@ void		*duplicate(void *src, size_t size)
 	return (ft_memcpy(copy, src, size));
 }
 
-t_limit 	*limits_copy(t_limit *src)
+t_limit		*limits_copy(t_limit *src)
 {
 	t_limit *copy;
 
 	if ((copy = duplicate(src, sizeof(t_limit))) == NULL)
-		return NULL;
+		return (NULL);
 	if (src->next)
 	{
 		if (!(copy->next = limits_copy(src->next)))

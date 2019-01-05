@@ -22,30 +22,14 @@ void	object_common_display(t_object *objs)
 	ft_putdbl(objs->index, 2);
 	ft_putstr("\nmirror:");
 	ft_putdbl(objs->reflection, 4);
-	ft_putstr("\nreferential: ");
-	ft_putdbl(objs->ref.i[0], 2);
-	ft_putstr(", ");
-	ft_putdbl(objs->ref.i[1], 2);
-	ft_putstr(", ");
-	ft_putdbl(objs->ref.i[2], 2);
-	ft_putstr(" | ");
-	ft_putdbl(objs->ref.j[0], 2);
-	ft_putstr(", ");
-	ft_putdbl(objs->ref.j[1], 2);
-	ft_putstr(", ");
-	ft_putdbl(objs->ref.j[2], 2);
-	ft_putstr(" | ");
-	ft_putdbl(objs->ref.k[0], 2);
-	ft_putstr(", ");
-	ft_putdbl(objs->ref.k[1], 2);
-	ft_putstr(", ");
-	ft_putdbl(objs->ref.k[2], 2);
 	ft_putstr("\n***************\n");
 }
 
 void	display_objects(t_param *param)
 {
-	t_object *objs = param->objects;
+	t_object *objs;
+
+	objs = param->objects;
 	while (objs && DEBUG)
 	{
 		ft_putstr("\n***************\n");
@@ -87,8 +71,9 @@ void	light_display_objects(t_param *param)
 	t_object *tmp;
 
 	tmp = param->objects;
-	while (tmp) {
-		printf("number object: %d, type: %d, address: %p\n",
+	while (tmp)
+	{
+		mprintf(1, "number object: %d, type: %d, address: %p\n",
 			tmp->num, tmp->type, tmp);
 		tmp = tmp->next;
 	}

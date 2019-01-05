@@ -12,15 +12,15 @@
 
 #include "rt.h"
 
-double smoothNoise(double x, double y, t_param *param)
+double	smoothNoise(double x, double y, t_param *param)
 {
 	double	fractX;
 	double	fractY;
-	int			i[4];
+	int		i[4];
 	double	value;
 
-  fractX = x - floor(x);
-  fractY = y - floor(y);
+	fractX = x - floor(x);
+	fractY = y - floor(y);
 	i[0] = ((int)(floor(x) + NOISE_SIZE)) % NOISE_SIZE;
 	i[2] = ((int)(floor(y) + NOISE_SIZE)) % NOISE_SIZE;
 	i[1] = (i[0] + NOISE_SIZE - 1) % NOISE_SIZE;
@@ -30,43 +30,44 @@ double smoothNoise(double x, double y, t_param *param)
 	value += (1 - fractX) * fractY     * param->perlin_noise[i[2]][i[1]];
 	value += fractX     * (1 - fractY) * param->perlin_noise[i[3]][i[0]];
 	value += (1 - fractX) * (1 - fractY) * param->perlin_noise[i[3]][i[1]];
-  return value;
+	return (value);
 }
 
-double turbulence(double x, double y, double size, t_param *param)
+double	turbulence(double x, double y, double size, t_param *param)
 {
-  double	value = 0.0;
-  double	initialSize = size;
+	double	value = 0.0;
+	double	initialSize;
 
-  while (size >= 1)
-  {
-    value += smoothNoise(x / size, y / size, param) * size;
-    size /= 2.0;
-  }
-
-  return(128.0 * value / initialSize);
+	initialSize = size;
+	while (size >= 1)
+	{
+		value += smoothNoise(x / size, y / size, param) * size;
+		size /= 2.0;
+	}
+	return(128.0 * value / initialSize);
 }
 
 double	marble_ratio(double u, double v, double size, t_param *param)
 {
-	double xPeriod;
-	double yPeriod;
+	double x_period;
+	double y_period;
 
-	xPeriod = 5.0;
-	yPeriod = 10.0;
-	return ft_absdbl(M_PI * (u * xPeriod / (double)NOISE_SIZE +
-		v * yPeriod / (double)NOISE_SIZE +
+	x_period = 5.0;
+	y_period = 10.0;
+	return ft_absdbl(M_PI * (u * x_period / (double)NOISE_SIZE +
+		v * y_period / (double)NOISE_SIZE +
 		TURB_POWER * turbulence(u, v, size, param) / 256.0));
 }
 
-char 		wood_ratio(double u, double v, double size, t_param *param)
+char	wood_ratio(double u, double v, double size, t_param *param)
 {
 	double sineValue;
-	double xyPeriod = 12.0;
+	double xy_period;
 
-	sineValue = 128.0 * ft_absdbl(sin(2.0 * xyPeriod * sqrt(
+	xy_period = 12.0;
+	sineValue = 128.0 * ft_absdbl(sin(2.0 * xy_period * sqrt(
 			ft_pow((u - NOISE_SIZE / 2) / (double)NOISE_SIZE, 2) +
 			ft_pow((v - NOISE_SIZE / 2) / (double)NOISE_SIZE, 2)
 		) + TURB_POWER * turbulence(u, v, size, param) / 256.0 * M_PI));
-	return (char)sineValue;
+	return ((char)sineValue);
 }

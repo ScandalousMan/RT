@@ -30,7 +30,8 @@ void	limits_move(double *o, t_object *obj, t_param *param)
 
 void	ref_move(t_object *obj, t_param *param)
 {
-	rotation_matrice(obj->rotation[0], obj->rotation[1], obj->rotation[2], param);
+	rotation_matrice(obj->rotation[0], obj->rotation[1], obj->rotation[2],
+		param);
 	matrice_product(param->rot, obj->ref.i, obj->ref.i);
 	matrice_product(param->rot, obj->ref.j, obj->ref.j);
 	matrice_product(param->rot, obj->ref.k, obj->ref.k);
