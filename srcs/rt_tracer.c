@@ -62,8 +62,9 @@ void	tracer_color(t_param *param, int *col)
 			ray_direction(param,
 				param->macro.anti_aliasing * param->i[0] + alias[0],
 				param->macro.anti_aliasing * param->i[1] + alias[1]);
-			tmp_col = ray_color(param, param->eye, param->path->v, 0,
-				param->path);
+			vec_copy(param->eye, param->path->from);
+			vec_copy(param->path->v, param->path->to);
+			tmp_col = ray_color(param, 0, param->path);
 			col[0] += (tmp_col >> 16) & 0xFF;
 			col[1] += (tmp_col >> 8) & 0xFF;
 			col[2] += (tmp_col) & 0xFF;

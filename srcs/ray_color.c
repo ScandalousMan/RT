@@ -21,27 +21,26 @@ int		refraction_ray_color(t_param *param, t_path *path, int index)
 	vec_multiply(EPSILON, path->transmitted->v, param->tmp_vec);
 	pt_translated(path->transmitted->from, param->tmp_vec,
 		path->transmitted->from);
+	vec_copy(path->transmitted->v, path->transmitted->to);
+	vec_copy(path->reflected->v, path->reflected->to);
 	return (color_summer(color_summer(rgb_ratio(object_color(param, path),
 		(1.0 - path->current_object->transparency -
 			path->current_object->reflection)),
-		color_absorber(rgb_ratio(ray_color(param, path->transmitted->from,
-			path->transmitted->v, index + 1, path->transmitted),
+		color_absorber(rgb_ratio(ray_color(param, index + 1, path->transmitted),
 			path->current_object->transparency), path->current_object->col)),
-		color_absorber(rgb_ratio(ray_color(param, path->reflected->from,
-			path->reflected->v, index + 1, path->reflected),
+		color_absorber(rgb_ratio(ray_color(param, index + 1, path->reflected),
 			path->current_object->reflection), path->current_object->col)));
 }
 
 int		reflection_ray_color(t_param *param, t_path *path, int index)
 {
+	vec_copy(path->reflected->v, path->reflected->to);
 	return (color_summer(rgb_ratio(object_color(param, path),
 		(1.0 - path->current_object->transparency -
 			path->current_object->reflection)),
-		color_absorber(rgb_ratio(ray_color(param,
-			path->reflected->from, path->reflected->v, index + 1,
-			path->reflected), path->current_object->reflection +
-			path->current_object->transparency),
-			path->current_object->col)));
+		color_absorber(rgb_ratio(ray_color(param, index + 1, path->reflected),
+			path->current_object->reflection +
+			path->current_object->transparency), path->current_object->col)));
 }
 
 int		object_hit_color(t_param *param, t_path *path, int index)
@@ -64,18 +63,17 @@ int		object_hit_color(t_param *param, t_path *path, int index)
 		return (object_color(param, path));
 }
 
-int		ray_color(t_param *param, double *from, double *to, int index,
-	t_path *path)
+int		ray_color(t_param *param, int index, t_path *path)
 {
 	path->current_object = NULL;
 	param->intersect_object = NULL;
 	param->is_for_light = 0;
-	path->current_object = first_obj_hit(param, from, to, path);
+	path->current_object = first_obj_hit(param, path->from, path->to, path);
 	if (!path->current_object)
 	{
 		if (!index)
 			param->pxl_infos[param->i[0]][param->i[1]] = 0;
-		return 0;
+		return (0);
 	}
 	else
 		return (object_hit_color(param, path, index));
