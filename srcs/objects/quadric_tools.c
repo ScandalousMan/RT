@@ -65,5 +65,7 @@ void	display_quadric(t_object *objs)
 	ft_putdbl(((t_quadric*)(objs->parsed))->h, 4);
 	ft_putstr("\ni: ");
 	ft_putdbl(((t_quadric*)(objs->parsed))->i, 4);
+	ft_putstr("\nr: ");
+	ft_putdbl(((t_quadric*)(objs->parsed))->r, 4);
 	ft_putchar('\n');
 }

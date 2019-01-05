@@ -19,5 +19,6 @@
 int			camera_storage(t_jobject *obj, t_param *param);
 t_light		*lights_storage(t_jobject *obj);
 t_object	*objects_storage(t_jobject *obj, t_param *param);
+void	fill_vector(double vector[1][VEC_SIZE], t_jarray *array);
 
 #endif

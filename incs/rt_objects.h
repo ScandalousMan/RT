@@ -201,6 +201,18 @@ size_t	jarray_len(t_jarray *array);
 int	is_rt_object(t_jobject *obj);
 size_t	jobject_len(t_jobject *obj);
 int	jobject_contains(t_jobject *obj, t_key key);
+t_custom	*get_custom_ptr(char *name, t_custom *list);
+int	get_color(t_jarray *array);
+t_jobject	*get_jobject(t_jobject *obj, const char *key);
+t_object_def	get_object_def_by_name(const char *name);
+double	get_double(t_jtype type, void *value);
+t_limit	*get_limits(t_jarray *array);
+void	fill_vector(double vector[1][VEC_SIZE], t_jarray *array);
+void	fill_moves(t_jobject *jobj, t_object *obj);
+int	fill_light(t_light *light, t_jobject *jobj, int num);
+t_light		*get_light(t_jarray *array, int num);
+int	fill_object(t_object *obj, t_jobject *jobj, int num, t_param *param);
+t_object	*get_object(t_jarray *array, int num, t_param *param);
 
 static const t_object_def		g_objects[] = {
 	{"sphere", RTSPHERE, g_sphere_keys, RT_KEYS_SIZE(g_sphere_keys), &fill_sphere},

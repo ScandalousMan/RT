@@ -69,6 +69,7 @@ SRCS =		blur.c \
 			json_to_objects.c \
 			json_to_objects_2.c \
 			light.c \
+			lights_storage.c \
 			main.c \
 			nukl_gui/camera.c \
 			nukl_gui/global_settings.c \
@@ -76,7 +77,15 @@ SRCS =		blur.c \
 			nukl_gui/objects_plus.c \
 			nukl_gui/objects_utils.c \
 			nukl_gui/objects.c \
-			object_color.c \
+			objects_color.c \
+			objects_duplicate.c \
+			objects_filler_1.c \
+			objects_filler_2.c \
+			objects_moves.c \
+			objects_router.c \
+			objects_storage.c \
+			objects_storage_2.c \
+			objects_storage_3.c \
 			objects/cone.c \
 			objects/cone_tools.c \
 			objects/cube.c \
@@ -89,10 +98,6 @@ SRCS =		blur.c \
 			objects/quadric_tools.c \
 			objects/sphere.c \
 			objects/sphere_tools.c \
-			objects_duplicate.c \
-			objects_moves.c \
-			objects_router.c \
-			objects_storage.c \
 			perlin.c \
 			perturbations.c \
 			postprocessing.c \

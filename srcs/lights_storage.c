@@ -16,69 +16,34 @@
 #include <stdlib.h>
 #include <stdint.h>
 
-t_custom			*get_custom_ptr(char *name, t_custom *list)
-{
-	t_custom	*tmp;
-
-	tmp = list;
-	while (tmp)
-	{
-		if (ft_strequ(name, tmp->name))
-			return (tmp);
-		tmp = tmp->next;
-	}
-	return (NULL);
-}
-
-int					get_color(t_jarray *array)
-{
-	int			rgb[VEC_SIZE];
-	int			i;
-	t_jarray	*tmp;
-
-	i = 0;
-	tmp = array;
-	while (tmp && i < VEC_SIZE)
-	{
-		rgb[i] = *((int*)(tmp->value));
-		++i;
-		tmp = tmp->next;
-	}
-	return ((rgb[0] << 16) | (rgb[1] << 8) | rgb[2]);
-}
-
-t_jobject			*get_jobject(t_jobject *obj, const char *key)
+int		fill_light(t_light *light, t_jobject *jobj, int num)
 {
 	t_jobject	*tmp;
 
-	int i = 0;
-	tmp = obj;
-	while (tmp)
-	{
-		if (ft_strequ(tmp->key, key))
-			return (tmp);
-		tmp = tmp->next;
-		++i;
-	}
-	return (NULL);
+	light->num = num;
+	tmp = get_jobject(jobj, "type");
+	if (ft_strequ((char*)tmp->value, "spot"))
+		light->type = RTSPOT;
+	else if (ft_strequ((char*)tmp->value, "parallel"))
+		light->type = RTPARALLEL;
+	tmp = get_jobject(jobj, "color");
+	light->col = get_color((t_jarray*)(tmp->value));
+	fill_vector(&(light->src), (t_jarray*)(get_jobject(jobj, "u")->value));
+	tmp = get_jobject(jobj, "intensity");
+	light->i = get_double(tmp->type, tmp->value);
+	return (1);
 }
 
-t_object_def	get_object_def_by_name(const char *name)
+t_light	*get_light(t_jarray *array, int num)
 {
-	size_t	i;
+	t_light	*new;
 
-	i = 0;
-	while (i < sizeof(g_objects) / sizeof(t_object_def))
-	{
-		if (ft_strequ(name, g_objects[i].name))
-			return (g_objects[i]);
-		++i;
-	}
-	return (g_objects[0]);
-}
-
-double				get_double(t_jtype type, void *value)
-{
-	return ((type == JINT) ?
-			(double)(*(int*)(value)) : (double)(*((double*)value)));
+	if (array == NULL)
+		return (NULL);
+	if (!(new = (t_light*)malloc(sizeof(t_light))))
+		return (NULL);
+	if (fill_light(new, array->value, num) == 0)
+		return (NULL);
+	new->next = get_light(array->next, num + 1);
+	return (new);
 }

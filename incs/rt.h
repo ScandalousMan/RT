@@ -20,7 +20,7 @@
 #  define M_PI 3.141592653589793238462643383279
 # endif
 # define EPSILON 0.000001
-# define DEBUG 0
+# define DEBUG 1
 
 # define MIN_DOUBLE_OBJECT -5000.0f
 # define MAX_DOUBLE_OBJECT 5000.0f
@@ -338,16 +338,13 @@ typedef struct		s_param
 	int				current_thread;
 	t_update_img	up_img;
 	int					**pxl_infos;
-	double			ia;//intensité de la lumiere ambiante
-	double			m[VEC_SIZE];//triplet intermediaire pour calculs ombres
+	double			ia;
+	double			m[VEC_SIZE];
 	double			perlin_noise[NOISE_SIZE][NOISE_SIZE];
-
 	int				to_pix;
 	clock_t			last_mv;
-
-	t_macro			macro; // Contain all global variable across program
-
-	char			quit; // Used to know if program must exit
+	t_macro			macro;
+	char			quit;
 	SDL_Surface		*texture;
 }				t_param;
 
