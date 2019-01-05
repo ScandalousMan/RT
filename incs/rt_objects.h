@@ -193,6 +193,15 @@ void	*fill_cone			(t_jobject *jobj, t_object *c_obj);
 void	*fill_cylinder		(t_jobject *jobj, t_object *c_obj);
 void	*fill_quadric		(t_jobject *jobj, t_object *q_obj);
 void	*fill_cube			(t_jobject *jobj, t_object *c_obj);
+
+int						is_type(void* value, t_jtype jtype, t_rt_type type, t_rt_type subtype);
+int	is_object(t_jobject *obj, const t_key *keys, const size_t keys_size, int is_common);
+int	check_subtypes(t_jarray *array, t_rt_type subtype);
+size_t	jarray_len(t_jarray *array);
+int	is_rt_object(t_jobject *obj);
+size_t	jobject_len(t_jobject *obj);
+int	jobject_contains(t_jobject *obj, t_key key);
+
 static const t_object_def		g_objects[] = {
 	{"sphere", RTSPHERE, g_sphere_keys, RT_KEYS_SIZE(g_sphere_keys), &fill_sphere},
 	{"plane", RTPLAN, g_plan_keys, RT_KEYS_SIZE(g_plan_keys), &fill_plane},

@@ -65,7 +65,9 @@ SRCS =		blur.c \
 			file.c \
 			first_obj_hit.c \
 			free.c \
+			json_is_type.c \
 			json_to_objects.c \
+			json_to_objects_2.c \
 			light.c \
 			main.c \
 			nukl_gui/camera.c \
