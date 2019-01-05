@@ -12,7 +12,7 @@
 
 #include "rt.h"
 
-double	smoothNoise(double x, double y, t_param *param)
+double	smooth_noise(double x, double y, t_param *param)
 {
 	double	fract_x;
 	double	fract_y;
@@ -42,7 +42,7 @@ double	turbulence(double x, double y, double size, t_param *param)
 	value = 0.0;
 	while (size >= 1)
 	{
-		value += smoothNoise(x / size, y / size, param) * size;
+		value += smooth_noise(x / size, y / size, param) * size;
 		size /= 2.0;
 	}
 	return (128.0 * value / initial_size);

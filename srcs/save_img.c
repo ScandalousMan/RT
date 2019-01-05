@@ -16,7 +16,7 @@ void	save_img_log(SDL_Surface *surf, char *name)
 {
 	if (IMG_SavePNG(surf, name))
 		error(0, 0, "Cannot save the image");
-	else 
+	else
 		mprintf(1, "Image has been saved\n");
 }
 
