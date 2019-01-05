@@ -46,7 +46,7 @@ size_t	jarray_len(t_jarray *array)
 	return (size);
 }
 
-int			jobject_contains(t_jobject *obj, t_key key)
+int		jobject_contains(t_jobject *obj, t_key key)
 {
 	t_jobject	*tmp;
 

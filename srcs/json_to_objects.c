@@ -86,7 +86,7 @@ int			is_object(t_jobject *obj, const t_key *keys, const size_t keys_size,
 	return (1);
 }
 
-int	json_to_objects(t_jobject *obj, t_param *param)
+int			json_to_objects(t_jobject *obj, t_param *param)
 {
 	if (is_object(obj, g_main_object_keys,
 		RT_KEYS_SIZE(g_main_object_keys), 0) == 0)

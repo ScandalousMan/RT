@@ -16,7 +16,7 @@
 #include <libft.h>
 #include <objects_storage.h>
 
-int is_type_3(void* value, t_jtype jtype, t_rt_type type)
+int	is_type_3(void *value, t_jtype jtype, t_rt_type type)
 {
 	if (type == RTN)
 		return ((jtype == JINT && *((int*)value) >= 1)
@@ -31,10 +31,11 @@ int is_type_3(void* value, t_jtype jtype, t_rt_type type)
 	else if (type == RTLIGHTTYPE)
 		return (jtype == JSTRING && (ft_strequ((char*)value, "spot") ||
 			ft_strequ((char*)value, "parallel")));
-	return (0);
+	else
+		return (0);
 }
 
-int is_type_2(void* value, t_jtype jtype, t_rt_type type, t_rt_type subtype)
+int	is_type_2(void *value, t_jtype jtype, t_rt_type type, t_rt_type subtype)
 {
 	if (type == RTOBJECT)
 		return (jtype == JOBJECT && is_rt_object((t_jobject*)value));
@@ -57,7 +58,7 @@ int is_type_2(void* value, t_jtype jtype, t_rt_type type, t_rt_type subtype)
 		return (is_type_3(value, jtype, type));
 }
 
-int	is_type(void* value, t_jtype jtype, t_rt_type type, t_rt_type subtype)
+int	is_type(void *value, t_jtype jtype, t_rt_type type, t_rt_type subtype)
 {
 	if (type == RTNULL)
 		return (jtype == JNULL);
@@ -79,9 +80,8 @@ int	is_type(void* value, t_jtype jtype, t_rt_type type, t_rt_type subtype)
 				&& is_object((t_jobject*)value, g_camera_keys,
 					RT_KEYS_SIZE(g_camera_keys), 0));
 	else if (type == RTLIGHT)
-		return (jtype == JOBJECT
-				&& is_object((t_jobject*)value, g_light_keys,
-					RT_KEYS_SIZE(g_light_keys), 0));
+		return (jtype == JOBJECT && is_object((t_jobject*)value, g_light_keys,
+			RT_KEYS_SIZE(g_light_keys), 0));
 	else
 		return (is_type_2(value, jtype, type, subtype));
 }
