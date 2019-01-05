@@ -88,6 +88,7 @@
 # include <SDL_opengl.h>
 
 # include <libft.h>
+# include <json.h>
 
 # define NK_INCLUDE_FIXED_TYPES
 # define NK_INCLUDE_STANDARD_IO
@@ -334,7 +335,6 @@ typedef struct		s_param
 	double			epsilon;
 	t_sdl			*graph;
 	SDL_Thread		**thread;
-	
 	int				current_thread;
 	t_update_img	up_img;
 	int					**pxl_infos;
@@ -475,6 +475,8 @@ void				rotation_matrice(double alpha, double beta, double gamma, t_param *param
 /*
 **------------------------------------parser------------------------------------
 */
+
+int		json_to_objects(t_jobject *obj, t_param* param);
 //t_param	*rt_parser(t_param *param);
 //t_parse	*split_whitespace(char *line);
 //int 	rt_light_parser(t_param *param, t_parse *config);
@@ -563,38 +565,31 @@ void							nk_sdl_device_create(void);
 /*
 ** NK_API Prototypes
 */
-
 /*
 ** Nuklear function
 */
-
 void							nukl_gui(t_param *param);
 void							nukl_camera(t_param *param);
 void							nukl_objects(t_param *param);
 void 							nukl_global_app_setting(t_param *param);
-
 void 							nukl_objects_show_pos(t_param *param,
 									double *pos);
 void 							nukl_objects_show_edit_double(t_param *param,
 									char *name, double *dbl, double step);
-
 void							global_settings_1(t_param *param);
 void							global_settings_2(t_param *param);
 void							global_settings_3(t_param *param);
 void							global_settings_4(t_param *param);
 void							global_settings_filters(t_param *param);
-
 void 							gui_sphere(t_param *param);
 void 							gui_plane(t_param *param);
 void 							gui_cylindre(t_param *param);
 void 							gui_quadric(t_param *param);
 void 							gui_cone(t_param *param);
 void 							gui_cube(t_param *param);
-
 /*
 ** SDL2 Prototypes
 */
-
 int								convert_Uint32_to_int(Uint32 pixel,SDL_PixelFormat *fmt);
 Uint32							format_Uint32(Uint32 pixel, SDL_PixelFormat *fmt);
 Uint32 							getpxl(t_param *param, int y, int x);
@@ -607,24 +602,18 @@ void							sdl_init_window(t_sdl *graph);
 void							sdl_init_nuklear(t_sdl *graph);
 void							sdl_pull_evts(t_param *param);
 void							sdl_quit(t_sdl *graph);
-
 /**
  * SDL_Event protos
 **/
-
 void 							handle_keyboard(int keycode, t_param *param);
 void 							handle_keyboard_caps(int keycode, t_param *param);
-
 /*
 ** Graph prototype
 */
-
 void							launch_threads(t_param *param);
-
 /*
 ** Free functions
 */
-
 void 							free_objects(t_param *param, char final);
 void 							free_lights(t_light *lights);
 void							free_pxl_infos(int **pxl_infos);

@@ -49,7 +49,7 @@ void	free_pxl_infos(int **pxl_infos)
 t_sdl	*copy_pxls(t_param *param)
 {
 	t_sdl	*graph;
-	int 	count;
+	int		count;
 
 	count = 0;
 	if (!(graph = (t_sdl*)malloc(sizeof(t_sdl))))

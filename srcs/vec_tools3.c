@@ -32,7 +32,8 @@ double	second_level(double a, double b, double c)
 		return ((-b - det) / 2.0 / a);
 }
 
-void	matrice_product(double mat[VEC_SIZE][VEC_SIZE], double *col, double *dest)
+void	matrice_product(double mat[VEC_SIZE][VEC_SIZE], double *col,
+	double *dest)
 {
 	double	a;
 	double	b;
@@ -51,7 +52,7 @@ double	*vec_dup(double *vec)
 	double	*res;
 
 	if (!(res = (double*)malloc(sizeof(double) * 3)))
-		return NULL;
+		return (NULL);
 	vec_copy(vec, res);
-	return res;
+	return (res);
 }

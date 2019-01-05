@@ -12,7 +12,7 @@
 
 #include "rt_objects.h"
 
-void			not_cut_updater(t_param *param, t_object *obj, t_path *path)
+void		not_cut_updater(t_param *param, t_object *obj, t_path *path)
 {
 	if (param->is_cut != 1 && param->tmp_d > 0.0)
 	{
@@ -34,7 +34,7 @@ void			not_cut_updater(t_param *param, t_object *obj, t_path *path)
 	}
 }
 
-void			limit_checker(t_param *param, t_object *objs, t_path *path)
+void		limit_checker(t_param *param, t_object *objs, t_path *path)
 {
 	t_limit		*limits;
 

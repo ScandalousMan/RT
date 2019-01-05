@@ -83,8 +83,6 @@ void	rt_loop(t_param *param)
 		update_objects(param);
 		launch_threads(param);
 		param->end = clock();
-		mprintf(1, "Render %.5lf secondes...\n",
-			(double)(param->end - param->start) / CLOCKS_PER_SEC);
 	}
 	apply_filters(param);
 	if (param->up_img.process == TRUE || param->up_img.post_process == TRUE)
@@ -98,7 +96,7 @@ void	rt_loop(t_param *param)
 int		main(int ac, char **av)
 {
 	t_param	*param;
-	char		*filename;
+	char	*filename;
 
 	if (ac == 2)
 		filename = av[1];

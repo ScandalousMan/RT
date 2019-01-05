@@ -100,9 +100,7 @@ typedef struct			s_object_def
 # define OBJECTS_KEY		"objects"
 # define RT_KEYS_SIZE(keys)	(sizeof(keys) / sizeof(t_key))
 
-# ifdef MY_GLOBALS
-
-const t_key				g_common_keys[] = {
+static const t_key				g_common_keys[] = {
 	{RT_OBJECT_TYPE, RTSTRING, RTNULL},
 	{"color", RTVECTOR, RTCHAR},
 	{"kd", RTCOEF, RTNULL},
@@ -117,29 +115,29 @@ const t_key				g_common_keys[] = {
 	{"limits", RTARRAY, RTLIMIT}
 };
 
-const t_key				g_plan_keys[] = {
+static const t_key				g_plan_keys[] = {
 	{"normal", RTVECTOR, RTDOUBLE},
 	{"point", RTVECTOR, RTDOUBLE}
 };
 
-const t_key				g_sphere_keys[] = {
+static const t_key				g_sphere_keys[] = {
 	{"center", RTVECTOR, RTDOUBLE},
 	{"radius", RTUDOUBLE, RTNULL}
 };
 
-const t_key				g_cone_keys[] = {
+static const t_key				g_cone_keys[] = {
 	{"center", RTVECTOR, RTDOUBLE},
 	{"angle", RTDOUBLE, RTNULL},
 	{"vector", RTVECTOR, RTDOUBLE}
 };
 
-const t_key				g_cylinder_keys[] = {
+static const t_key				g_cylinder_keys[] = {
 	{"center", RTVECTOR, RTDOUBLE},
 	{"radius", RTUDOUBLE, RTNULL},
 	{"vector", RTVECTOR, RTDOUBLE}
 };
 
-const t_key				g_quadric_keys[] = {
+static const t_key				g_quadric_keys[] = {
 	{"center", RTVECTOR, RTDOUBLE},
 	{"a", RTDOUBLE, RTNULL},
 	{"b", RTDOUBLE, RTNULL},
@@ -153,43 +151,37 @@ const t_key				g_quadric_keys[] = {
 	{"r", RTDOUBLE, RTNULL}
 };
 
-const t_key				g_cube_keys[] = {
+static const t_key				g_cube_keys[] = {
 	{"center", RTVECTOR, RTDOUBLE},
 	{"h", RTDOUBLE, RTNULL},
 };
 
-
-const t_key				g_limit_keys[] = {
+static const t_key				g_limit_keys[] = {
 	{"normal", RTVECTOR, RTDOUBLE},
 	{"point", RTVECTOR, RTDOUBLE},
 	{RT_LIMITS_TYPE, RTSTRING, RTNULL}
 };
 
-// const t_key				g_customobject_keys[] = {
-// 	{"name", RTSTRING, RTNULL},
-// 	{"center", RTVECTOR, RTDOUBLE}
-// };
-
-const t_key				g_camera_keys[] = {
+static const t_key				g_camera_keys[] = {
 	{"eye", RTVECTOR, RTDOUBLE},
 	{"look", RTVECTOR, RTDOUBLE},
 	{"align", RTVECTOR, RTDOUBLE},
 };
 
-const t_key				g_light_keys[] = {
+static const t_key				g_light_keys[] = {
 	{"type", RTLIGHTTYPE, RTNULL},
 	{"u", RTVECTOR, RTDOUBLE},
 	{"color", RTVECTOR, RTCHAR},
 	{"intensity", RTCOEF, RTNULL},
 };
 
-const t_key				g_main_object_keys[] = {
+static const t_key				g_main_object_keys[] = {
 	{CAMERA_KEY, RTCAMERA, RTNULL},
 	{LIGHTS_KEY, RTARRAY, RTLIGHT},
 	{OBJECTS_KEY, RTARRAY, RTOBJECT}
 };
 
-const t_key				g_texture_keys[] = {
+static const t_key			g_texture_keys[] = {
 	{RT_OBJECT_TYPE, RTSTRING, RTNULL},
 	{"name", RTSTRING, RTNULL},
 };
@@ -201,7 +193,7 @@ void	*fill_cone			(t_jobject *jobj, t_object *c_obj);
 void	*fill_cylinder		(t_jobject *jobj, t_object *c_obj);
 void	*fill_quadric		(t_jobject *jobj, t_object *q_obj);
 void	*fill_cube			(t_jobject *jobj, t_object *c_obj);
-const t_object_def		g_objects[] = {
+static const t_object_def		g_objects[] = {
 	{"sphere", RTSPHERE, g_sphere_keys, RT_KEYS_SIZE(g_sphere_keys), &fill_sphere},
 	{"plane", RTPLAN, g_plan_keys, RT_KEYS_SIZE(g_plan_keys), &fill_plane},
 	{"cone", RTCONE, g_cone_keys, RT_KEYS_SIZE(g_cone_keys), &fill_cone},
@@ -209,24 +201,5 @@ const t_object_def		g_objects[] = {
 	{"quadric", RTQUADRIC, g_quadric_keys, RT_KEYS_SIZE(g_quadric_keys), &fill_quadric},
 	{"cube", RTCUBE, g_cube_keys, RT_KEYS_SIZE(g_cube_keys), &fill_cube}
 };
-
-#else
-
-extern const t_object_def		g_objects[6];
-extern const t_key				g_common_keys[12];//todo change for optionnal
-extern const t_key				g_optionnal_keys[1];
-extern const t_key				g_sphere_keys[2];
-extern const t_key				g_plan_keys[2];
-extern const t_key				g_cone_keys[3];
-extern const t_key				g_cylinder_keys[3];
-extern const t_key				g_quadric_keys[];
-extern const t_key				g_cube_keys[2];
-extern const t_key				g_camera_keys[3];
-extern const t_key				g_light_keys[4];
-extern const t_key				g_main_object_keys[3];
-extern const t_key				g_texture_keys[2];
-extern const t_key				g_limit_keys[3];
-
-#endif
 
 #endif

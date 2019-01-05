@@ -16,10 +16,7 @@
 #include <json.h>
 #include <json_parse.h>
 
-//FOR PRINTF
-#include <stdio.h>
-
-static size_t get_string_size(t_list *lst)
+static size_t	get_string_size(t_list *lst)
 {
 	size_t	size;
 	t_list	*tmp;
@@ -34,7 +31,7 @@ static size_t get_string_size(t_list *lst)
 	return (size + 1);
 }
 
-char	*lst_to_string(t_list *lst)
+char					*lst_to_string(t_list *lst)
 {
 	char	*s;
 	size_t	size;
@@ -53,7 +50,7 @@ char	*lst_to_string(t_list *lst)
 	return (s);
 }
 
-int	read_lines(int fd, t_list **lst)
+int						read_lines(int fd, t_list **lst)
 {
 	char	*line;
 	int		ret;
@@ -77,7 +74,7 @@ int	read_lines(int fd, t_list **lst)
 	return (EXIT_SUCCESS);
 }
 
-void	free_lst(t_list *lst)
+void					free_lst(t_list *lst)
 {
 	t_list *tmp;
 	t_list *to_free;
@@ -94,7 +91,7 @@ void	free_lst(t_list *lst)
 	}
 }
 
-char *read_file(const char *path)
+char					*read_file(const char *path)
 {
 	int		fd;
 	char	*json;

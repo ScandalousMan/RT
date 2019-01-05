@@ -15,11 +15,13 @@
 double	*ray_direction(t_param *param, int i, int j)
 {
 	vec_multiply(param->f, param->look, param->path->v);
-	vec_multiply(((double)WINDOW_SDL_HEIGHT * param->macro.anti_aliasing / 2.0 - (double)i) * 40.0 /
-		(double)WINDOW_SDL_HEIGHT / param->macro.anti_aliasing, param->third, param->tmp_vec);
+	vec_multiply(((double)WINDOW_SDL_HEIGHT * param->macro.anti_aliasing / 2.0 -
+		(double)i) * 40.0 / (double)WINDOW_SDL_HEIGHT /
+		param->macro.anti_aliasing, param->third, param->tmp_vec);
 	pt_translated(param->path->v, param->tmp_vec, param->path->v);
-	vec_multiply(((double)j - (double)WINDOW_SDL_WIDTH * param->macro.anti_aliasing / 2.0) * 40.0 /
-		(double)WINDOW_SDL_WIDTH / param->macro.anti_aliasing, param->align, param->tmp_vec);
+	vec_multiply(((double)j - (double)WINDOW_SDL_WIDTH *
+		param->macro.anti_aliasing / 2.0) * 40.0 / (double)WINDOW_SDL_WIDTH /
+		param->macro.anti_aliasing, param->align, param->tmp_vec);
 	pt_translated(param->path->v, param->tmp_vec, param->path->v);
 	vec_to_unit_norm(param->path->v);
 	return (param->path->v);
@@ -28,7 +30,7 @@ double	*ray_direction(t_param *param, int i, int j)
 void	tracer_pixel(t_param *param, int pixelisation, int db_antialiasing,
 	int *col)
 {
-	int			x[2];
+	int	x[2];
 
 	x[1] = 0;
 	while (x[1] < pixelisation)
@@ -38,18 +40,18 @@ void	tracer_pixel(t_param *param, int pixelisation, int db_antialiasing,
 		{
 			putpxl(param, param->i[0] + x[0], param->i[1] + x[1],
 				rgb_color((unsigned char)(col[0] / db_antialiasing),
-					(unsigned char)(col[1] / db_antialiasing),
-					(unsigned char)(col[2] / db_antialiasing)));
+				(unsigned char)(col[1] / db_antialiasing),
+				(unsigned char)(col[2] / db_antialiasing)));
 			++x[0];
 		}
-	++x[1];
+		++x[1];
 	}
 }
 
 void	tracer_color(t_param *param, int *col)
 {
-	int			tmp_col;
-	int 		alias[2];
+	int	tmp_col;
+	int	alias[2];
 
 	alias[0] = 0;
 	while (alias[0] < param->macro.anti_aliasing)
@@ -60,7 +62,8 @@ void	tracer_color(t_param *param, int *col)
 			ray_direction(param,
 				param->macro.anti_aliasing * param->i[0] + alias[0],
 				param->macro.anti_aliasing * param->i[1] + alias[1]);
-			tmp_col = ray_color(param, param->eye, param->path->v, 0, param->path);
+			tmp_col = ray_color(param, param->eye, param->path->v, 0,
+				param->path);
 			col[0] += (tmp_col >> 16) & 0xFF;
 			col[1] += (tmp_col >> 8) & 0xFF;
 			col[2] += (tmp_col) & 0xFF;
@@ -72,9 +75,9 @@ void	tracer_color(t_param *param, int *col)
 
 void	rt_tracer(t_param *param)
 {
-	int			col[3];
-	int			pixelisation;
-	int			db_antialiasing;
+	int	col[3];
+	int	pixelisation;
+	int	db_antialiasing;
 
 	db_antialiasing = param->macro.anti_aliasing * param->macro.anti_aliasing;
 	pixelisation = (param->to_pix) ? PIXELISATION : 1;

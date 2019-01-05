@@ -12,7 +12,7 @@
 
 #include "rt_objects.h"
 
-int			is_inside_object(double *pt, t_object *obj, t_limit *limit)
+int		is_inside_object(double *pt, t_object *obj, t_limit *limit)
 {
 	if (!(is_in_limits(pt, obj, limit)))
 		return (0);
@@ -31,7 +31,7 @@ int			is_inside_object(double *pt, t_object *obj, t_limit *limit)
 	return (0);
 }
 
-void		update_normal_vector(t_object *tmp, t_path *path, double *pt)
+void	update_normal_vector(t_object *tmp, t_path *path, double *pt)
 {
 	if (tmp->type == RTSPHERE)
 		update_normal_sphere(tmp, path);
@@ -50,7 +50,7 @@ void		update_normal_vector(t_object *tmp, t_path *path, double *pt)
 	vec_to_unit_norm(path->valid_n);
 }
 
-void		object_position(double *pt, t_object *object)
+void	object_position(double *pt, t_object *object)
 {
 	if (object->type == RTSPHERE)
 		sphere_position(pt, object);

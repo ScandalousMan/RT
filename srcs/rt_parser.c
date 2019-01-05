@@ -11,20 +11,14 @@
 /* ************************************************************************** */
 
 #include <stdlib.h>
-#include <stdio.h>
-
 #include <json_parse.h>
 #include <json_free.h>
 #include <rt.h>
-int	json_to_objects(t_jobject *obj, t_param* param);
 #include <file.h>
-
-#define MY_GLOBALS
-#include <rt_objects.h>
 
 void	update_eye_n(t_param *param)
 {
-	t_object *obj;
+	t_object	*obj;
 
 	obj = param->objects;
 	while (obj)
@@ -33,7 +27,6 @@ void	update_eye_n(t_param *param)
 			param->path->inside_obj = obj;
 		obj = obj->next;
 	}
-	printf("eye is in index %f\n", param->path->inside_obj ? param->path->inside_obj->index : 1.0);
 }
 
 int		rt_parser(t_param *param, char *file)

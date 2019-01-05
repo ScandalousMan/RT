@@ -20,11 +20,22 @@ void	save_img_log(SDL_Surface *surf, char *name)
 		mprintf(1, "Image has been saved\n");
 }
 
+int		save_img_thread(t_param *param, SDL_Surface *surf, int count,
+	SDL_Rect rect_to)
+{
+	if ((param->graph->show_tmp == 0 &&
+		SDL_BlitSurface(param->graph->surfs[count], NULL, surf, &rect_to)) ||
+		(param->graph->show_tmp == 1 &&
+		SDL_BlitSurface(param->graph->tmp_surfs[count], NULL, surf, &rect_to)))
+		return (1);
+	return (0);
+}
+
 void	save_img(t_param *param, char *name)
 {
-	int 				count;
+	int			count;
 	SDL_Surface *surf;
-	SDL_Rect 		rect_to;
+	SDL_Rect	rect_to;
 
 	count = 0;
 	if (!(surf = SDL_CreateRGBSurfaceWithFormat(0,
@@ -36,10 +47,7 @@ void	save_img(t_param *param, char *name)
 		rect_to.y = count * WINDOW_SDL_HEIGHT / NB_THREAD;
 		rect_to.w = WINDOW_SDL_WIDTH;
 		rect_to.h = WINDOW_SDL_HEIGHT / NB_THREAD;
-		if ((param->graph->show_tmp == 0 &&
-			SDL_BlitSurface(param->graph->surfs[count], NULL, surf, &rect_to)) ||
-			(param->graph->show_tmp == 1 &&
-				SDL_BlitSurface(param->graph->tmp_surfs[count], NULL, surf, &rect_to)))
+		if (save_img_thread(param, surf, count, rect_to))
 			error(0, 0, "cannot copy surface on total image");
 		count++;
 	}

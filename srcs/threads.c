@@ -116,9 +116,8 @@ void		launch_threads(t_param *param)
 			error(0, 0, "Create new thread failed!");
 		count++;
 	}
-	param->end = clock();// Clock
-	printf("Create threads takes %.5lf secondes...\n", (double)(param->end - start) / CLOCKS_PER_SEC);
-	start = clock();// Clock
+	param->end = clock();
+	start = clock();
 	count = 0;
 	while (count < NB_THREAD)
 	{
@@ -138,6 +137,5 @@ void		launch_threads(t_param *param)
 		free(params[count]);
 		++count;
 	}
-	param->end = clock();// Clock
-	printf("Calculs %.5lf secondes...\n", (double)(param->end - start) / CLOCKS_PER_SEC);
+	param->end = clock();
 }
