@@ -74,6 +74,7 @@ SRCS =		blur.c \
 			nukl_gui/objects_plus.c \
 			nukl_gui/objects_utils.c \
 			nukl_gui/objects.c \
+			object_color.c \
 			objects/cone.c \
 			objects/cone_tools.c \
 			objects/cube.c \

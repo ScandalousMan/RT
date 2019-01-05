@@ -482,6 +482,7 @@ int		json_to_objects(t_jobject *obj, t_param* param);
 //int 	rt_light_parser(t_param *param, t_parse *config);
 //int 	rt_objects_lights_parser(t_param *param, t_parse *config);
 int 	rt_init(t_param *param, char *line, int count);
+int		object_color(t_param *param, t_path *path);
 int		ray_color(t_param *param, double *from, double *to, int index,
 	t_path *path);
 //int 	rt_object_parser(t_param *param, t_parse *config);
