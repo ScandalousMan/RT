@@ -75,7 +75,7 @@ void	*fill_cone(t_jobject *jobj, t_object *c_obj)
 	fill_vector(&(obj->org), (t_jarray*)(get_jobject(jobj, "center")->value));
 	fill_vector(&(obj->u), (t_jarray*)(get_jobject(jobj, "vector")->value));
 	tmp = get_jobject(jobj, "angle");
-	obj->angle =  M_PI / 180.0 * get_double(tmp->type, tmp->value);
+	obj->angle = M_PI / 180.0 * get_double(tmp->type, tmp->value);
 	vec_to_unit_norm(obj->u);
 	fill_moves(jobj, c_obj);
 	return (obj);
@@ -118,10 +118,10 @@ void	*fill_cube(t_jobject *jobj, t_object *c_obj)
 	if (!(c_obj->dim = (void*)malloc(sizeof(t_cube))))
 		return (NULL);
 	c_obj->parsed = obj;
-	fill_vector(&(obj->center), (t_jarray*)(get_jobject(jobj, "center")->value));
+	fill_vector(&(obj->center),
+		(t_jarray*)(get_jobject(jobj, "center")->value));
 	tmp = get_jobject(jobj, "h");
 	obj->h = get_double(tmp->type, tmp->value);
 	fill_moves(jobj, c_obj);
 	return (obj);
 }
-

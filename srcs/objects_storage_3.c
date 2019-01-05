@@ -20,7 +20,7 @@ int				fill_custom_obj(t_custom_obj *custom_obj, t_jobject *jobj,
 	t_param *param)
 {
 	t_jobject	*tmp;
-	
+
 	tmp = get_jobject(jobj, "intersection");
 	custom_obj->op = ((char*)(tmp->value))[0];
 	printf("OP: %c\n", custom_obj->op);

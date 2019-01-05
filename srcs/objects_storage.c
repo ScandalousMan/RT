@@ -16,7 +16,7 @@
 #include <stdlib.h>
 #include <stdint.h>
 
-t_custom			*get_custom_ptr(char *name, t_custom *list)
+t_custom		*get_custom_ptr(char *name, t_custom *list)
 {
 	t_custom	*tmp;
 
@@ -30,7 +30,7 @@ t_custom			*get_custom_ptr(char *name, t_custom *list)
 	return (NULL);
 }
 
-int					get_color(t_jarray *array)
+int				get_color(t_jarray *array)
 {
 	int			rgb[VEC_SIZE];
 	int			i;
@@ -47,11 +47,12 @@ int					get_color(t_jarray *array)
 	return ((rgb[0] << 16) | (rgb[1] << 8) | rgb[2]);
 }
 
-t_jobject			*get_jobject(t_jobject *obj, const char *key)
+t_jobject		*get_jobject(t_jobject *obj, const char *key)
 {
 	t_jobject	*tmp;
+	int			i;
 
-	int i = 0;
+	i = 0;
 	tmp = obj;
 	while (tmp)
 	{
@@ -77,7 +78,7 @@ t_object_def	get_object_def_by_name(const char *name)
 	return (g_objects[0]);
 }
 
-double				get_double(t_jtype type, void *value)
+double			get_double(t_jtype type, void *value)
 {
 	return ((type == JINT) ?
 			(double)(*(int*)(value)) : (double)(*((double*)value)));
