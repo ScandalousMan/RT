@@ -42,10 +42,62 @@ void gui_sphere(t_param *param)
 	nk_layout_row_end(param->graph->ctx);
 }
 
+void gui_object_rotation(t_param *param)
+{
+	nk_layout_row_begin(param->graph->ctx, NK_DYNAMIC, 15, 6);
+	{
+		nk_layout_row_push(param->graph->ctx, 1.0f);
+		nk_label(param->graph->ctx, "Rotation:", NK_TEXT_ALIGN_CENTERED);
+	}
+	nk_layout_row_begin(param->graph->ctx, NK_DYNAMIC, 30, 6);
+	{
+		nk_layout_row_push(param->graph->ctx, 0.33f);
+		nk_property_double(param->graph->ctx, "Rx:", MIN_DOUBLE_OBJECT, 
+			&param->graph->current_object->rotation[0],
+			MAX_DOUBLE_OBJECT, 2.0f, 0.2f);
+		nk_layout_row_push(param->graph->ctx, 0.33f);
+		nk_property_double(param->graph->ctx, "Ry:", MIN_DOUBLE_OBJECT, 
+			&param->graph->current_object->rotation[1],
+			MAX_DOUBLE_OBJECT, 2.0f, 0.2f);
+		nk_layout_row_push(param->graph->ctx, 0.33f);
+		nk_property_double(param->graph->ctx, "Rz:", MIN_DOUBLE_OBJECT, 
+			&param->graph->current_object->rotation[2],
+			MAX_DOUBLE_OBJECT, 2.0f, 0.2f);
+	}
+	nk_layout_row_end(param->graph->ctx);
+}
+
+void gui_object_translation(t_param *param)
+{
+	nk_layout_row_begin(param->graph->ctx, NK_DYNAMIC, 15, 6);
+	{
+		nk_layout_row_push(param->graph->ctx, 1.0f);
+		nk_label(param->graph->ctx, "Translation:", NK_TEXT_ALIGN_CENTERED);
+	}
+	nk_layout_row_begin(param->graph->ctx, NK_DYNAMIC, 30, 6);
+	{
+		nk_layout_row_push(param->graph->ctx, 0.33f);
+		nk_property_double(param->graph->ctx, "Tx:", MIN_DOUBLE_OBJECT,
+			&param->graph->current_object->translation[0],
+			MAX_DOUBLE_OBJECT, 2.0f, 0.2f);
+		nk_layout_row_push(param->graph->ctx, 0.33f);
+		nk_property_double(param->graph->ctx, "Ty:", MIN_DOUBLE_OBJECT,
+			&param->graph->current_object->translation[1],
+			MAX_DOUBLE_OBJECT, 2.0f, 0.2f);
+		nk_layout_row_push(param->graph->ctx, 0.33f);
+		nk_property_double(param->graph->ctx, "Tz:", MIN_DOUBLE_OBJECT,
+			&param->graph->current_object->translation[2],
+			MAX_DOUBLE_OBJECT, 2.0f, 0.2f);
+	}
+	nk_layout_row_end(param->graph->ctx);
+}
+
 void nukl_objects(t_param *param)
 {
 	if (nk_tree_push(param->graph->ctx, NK_TREE_NODE, "Object", NK_MAXIMIZED))
 	{
+		gui_object_rotation(param);
+		gui_object_translation(param);
 		if (param->graph->current_object->type == RTSPHERE)
 			gui_sphere(param);
 		if (param->graph->current_object->type == RTPLAN)
