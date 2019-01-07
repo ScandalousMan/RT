@@ -204,7 +204,7 @@ typedef struct	s_object
 	int					num;
 	int					type;//1 for sphere, 2 for plane, 3 for cone, 4 for cylindre
 //	double			shadow;
-	t_reference	ref;
+	t_reference		ref;
 	double			tmp_vec[VEC_SIZE];
 	int					col;//couleur de surface de l'objet
 	double			kd;//coefficient de réflexion diffuse de l'objet

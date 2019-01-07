@@ -92,6 +92,64 @@ void gui_object_translation(t_param *param)
 	nk_layout_row_end(param->graph->ctx);
 }
 
+void gui_color_effect(t_param *param)
+{
+	int tmp_color;
+	const struct nk_vec2 sizeButton = {
+		470.0,
+		150.0};
+	const char *effects[6] = {
+		"None",
+		"Chess",
+		"Sierpinski",
+		"Cloud",
+		"Marble",
+		"Wood"};
+
+	nk_layout_row_begin(param->graph->ctx, NK_DYNAMIC, 15, 6);
+	{
+		nk_layout_row_push(param->graph->ctx, 1.0f);
+		nk_label(param->graph->ctx, "Color effect:", NK_TEXT_ALIGN_CENTERED);
+	}
+	nk_layout_row_begin(param->graph->ctx, NK_DYNAMIC, 30, 1);
+	nk_layout_row_push(param->graph->ctx, 1.0f);
+	tmp_color = nk_combo(param->graph->ctx, effects, 6,
+		param->graph->current_object->effects.color, 30, sizeButton);
+	if (param->graph->current_object->effects.color != tmp_color)
+	{
+		param->graph->current_object->effects.color = tmp_color;
+		param->up_img.process = TRUE;
+	}
+	nk_layout_row_end(param->graph->ctx);
+}
+
+void gui_normal_effect(t_param *param)
+{
+	int tmp_normal;
+	const struct nk_vec2 sizeButton = {
+		470.0,
+		150.0};
+	const char *effects[2] = {
+		"None",
+		"Sinus"};
+
+	nk_layout_row_begin(param->graph->ctx, NK_DYNAMIC, 15, 6);
+	{
+		nk_layout_row_push(param->graph->ctx, 1.0f);
+		nk_label(param->graph->ctx, "Normal effect:", NK_TEXT_ALIGN_CENTERED);
+	}
+	nk_layout_row_begin(param->graph->ctx, NK_DYNAMIC, 30, 1);
+	nk_layout_row_push(param->graph->ctx, 1.0f);
+	tmp_normal = nk_combo(param->graph->ctx, effects, 2,
+		param->graph->current_object->effects.normal, 30, sizeButton);
+	if (param->graph->current_object->effects.normal != tmp_normal)
+	{
+		param->graph->current_object->effects.normal = tmp_normal;
+		param->up_img.process = FALSE;
+	}
+	nk_layout_row_end(param->graph->ctx);
+}
+
 void nukl_objects(t_param *param)
 {
 	if (nk_tree_push(param->graph->ctx, NK_TREE_NODE, "Object", NK_MAXIMIZED))
@@ -110,6 +168,8 @@ void nukl_objects(t_param *param)
 			gui_quadric(param);
 		if (param->graph->current_object->type == RTCUBE)
 			gui_cube(param);
+		gui_color_effect(param);
+		gui_normal_effect(param);
 	}
 	nk_tree_pop(param->graph->ctx);
 }
