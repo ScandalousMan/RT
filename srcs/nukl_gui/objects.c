@@ -150,10 +150,24 @@ void gui_normal_effect(t_param *param)
 	nk_layout_row_end(param->graph->ctx);
 }
 
+void gui_object_color(t_param *param)
+{
+	nk_layout_row_begin(param->graph->ctx, NK_DYNAMIC, 20, 2);
+	{
+		nk_layout_row_push(param->graph->ctx, 0.5f);
+		nk_label(param->graph->ctx, "Object color:", NK_TEXT_ALIGN_CENTERED);
+		nk_layout_row_push(param->graph->ctx, 0.5f);
+		nk_property_int(param->graph->ctx, "Color:", INT_MIN,
+						   &param->graph->current_object->col,
+						   INT_MAX, 1, 1);
+	}
+}
+
 void nukl_objects(t_param *param)
 {
 	if (nk_tree_push(param->graph->ctx, NK_TREE_NODE, "Object", NK_MAXIMIZED))
 	{
+		gui_object_color(param);
 		gui_object_rotation(param);
 		gui_object_translation(param);
 		if (param->graph->current_object->type == RTSPHERE)
