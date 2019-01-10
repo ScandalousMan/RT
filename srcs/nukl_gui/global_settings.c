@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   global_settings.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/01/10 21:42:49 by malexand          #+#    #+#             */
+/*   Updated: 2019/01/12 14:12:54 by malexand         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "rt.h"
 
-void	global_settings_1(t_param * param)
+void	global_settings_1(t_param *param)
 {
 	char *number;
 
@@ -103,25 +115,23 @@ void	global_settings_4(t_param *param)
 	nk_layout_row_end(param->graph->ctx);
 }
 
-void global_settings_filters(t_param *param)
+void	global_settings_filters(t_param *param)
 {
-	int tmp_filter;
-	const struct nk_vec2 sizeButton = {
-		470.0,
-		150.0};
-	const char *filter[7] = {
-		"None",
-		"Cartoon",
-		"Greyscale",
-		"Sepia",
-		"Blur",
-		"Stéréoscopie",
-		"Négatif"};
+	int						tmp_filter;
+	const char				*filter[7] = {
+								"None",
+								"Cartoon",
+								"Greyscale",
+								"Sepia",
+								"Blur",
+								"Stéréoscopie",
+								"Négatif"};
+	const struct nk_vec2	size_button = {470.0, 150.0};
 
 	nk_layout_row_begin(param->graph->ctx, NK_DYNAMIC, 30, 1);
 	nk_layout_row_push(param->graph->ctx, 1.0f);
 	tmp_filter = nk_combo(param->graph->ctx, filter, 7,
-						  param->macro.filter, 30, sizeButton);
+		param->macro.filter, 30, size_button);
 	if (param->macro.filter != tmp_filter)
 	{
 		param->macro.filter = tmp_filter;

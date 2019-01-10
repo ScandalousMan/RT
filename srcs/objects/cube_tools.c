@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cube_tools.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/01/10 22:31:21 by malexand          #+#    #+#             */
+/*   Updated: 2019/01/10 22:32:01 by malexand         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "rt.h"
 
 double	distance_to_face1(t_object *tmp, double *from, double *to, double face)
@@ -11,7 +23,8 @@ double	distance_to_face1(t_object *tmp, double *from, double *to, double face)
 	{
 		vec_multiply(res, to, tmp->tmp_vec);
 		pt_translated(from, tmp->tmp_vec, tmp->tmp_vec);
-		vec_soustraction(tmp->tmp_vec, ((t_cube*)(tmp->dim))->center, tmp->tmp_vec);
+		vec_soustraction(tmp->tmp_vec, ((t_cube*)(tmp->dim))->center,
+			tmp->tmp_vec);
 		if (ft_absdbl(scalar_product(tmp->tmp_vec, tmp->ref.j)) >
 			((t_cube*)(tmp->dim))->h / 2.0f ||
 			ft_absdbl(scalar_product(tmp->tmp_vec, tmp->ref.k)) >
@@ -32,7 +45,8 @@ double	distance_to_face2(t_object *tmp, double *from, double *to, double face)
 	{
 		vec_multiply(res, to, tmp->tmp_vec);
 		pt_translated(from, tmp->tmp_vec, tmp->tmp_vec);
-		vec_soustraction(tmp->tmp_vec, ((t_cube*)(tmp->dim))->center, tmp->tmp_vec);
+		vec_soustraction(tmp->tmp_vec, ((t_cube*)(tmp->dim))->center,
+			tmp->tmp_vec);
 		if (ft_absdbl(scalar_product(tmp->tmp_vec, tmp->ref.i)) >
 			((t_cube*)(tmp->dim))->h / 2.0f ||
 			ft_absdbl(scalar_product(tmp->tmp_vec, tmp->ref.k)) >
@@ -53,7 +67,8 @@ double	distance_to_face3(t_object *tmp, double *from, double *to, double face)
 	{
 		vec_multiply(res, to, tmp->tmp_vec);
 		pt_translated(from, tmp->tmp_vec, tmp->tmp_vec);
-		vec_soustraction(tmp->tmp_vec, ((t_cube*)(tmp->dim))->center, tmp->tmp_vec);
+		vec_soustraction(tmp->tmp_vec, ((t_cube*)(tmp->dim))->center,
+			tmp->tmp_vec);
 		if (ft_absdbl(scalar_product(tmp->tmp_vec, tmp->ref.j)) >
 			((t_cube*)(tmp->dim))->h / 2.0f ||
 			ft_absdbl(scalar_product(tmp->tmp_vec, tmp->ref.i)) >

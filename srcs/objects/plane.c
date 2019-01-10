@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   plane.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itsalex <itsalex@student.42.fr>            +#+  +:+       +#+        */
+/*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/29 14:43:35 by itsalex           #+#    #+#             */
-/*   Updated: 2018/08/29 14:43:36 by itsalex          ###   ########.fr       */
+/*   Updated: 2019/01/10 21:59:43 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ double	plane_distance(double *from, double *to, double *n, double *ref)
 
 double	distance_to_plane(t_object *tmp, double *from, double *to)
 {
-	return plane_distance(from, to, ((t_plane*)(tmp->dim))->n,
-		((t_plane*)(tmp->dim))->ref);
+	return (plane_distance(from, to, ((t_plane*)(tmp->dim))->n,
+		((t_plane*)(tmp->dim))->ref));
 }
 
 void	update_normal_plane(t_object *tmp, t_path *path)
@@ -39,7 +39,7 @@ void	update_normal_plane(t_object *tmp, t_path *path)
 		vec_multiply(-1.0, path->valid_n, path->valid_n);
 }
 
-double *plane_position(double *pt, t_object *obj)
+double	*plane_position(double *pt, t_object *obj)
 {
 	double scalar;
 

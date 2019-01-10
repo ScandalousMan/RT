@@ -6,7 +6,7 @@
 /*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 16:39:54 by aguemy            #+#    #+#             */
-/*   Updated: 2019/01/10 21:50:53 by malexand         ###   ########.fr       */
+/*   Updated: 2019/01/12 14:25:48 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,10 +100,10 @@
 # include "nuklear.h"
 # include "nuklear_sdl_gl3.h"
 
-# define WINDOW_GUI_WIDTH 650
-# define WINDOW_GUI_HEIGHT 950
-# define WINDOW_SDL_WIDTH 950
-# define WINDOW_SDL_HEIGHT 950
+# define WINDOW_GUI_WIDTH 600
+# define WINDOW_GUI_HEIGHT 900
+# define WINDOW_SDL_WIDTH 900
+# define WINDOW_SDL_HEIGHT 900
 
 # define NB_THREAD 4
 
@@ -601,6 +601,11 @@ void							gui_cylindre(t_param *param);
 void							gui_quadric(t_param *param);
 void							gui_cone(t_param *param);
 void							gui_cube(t_param *param);
+void							gui_object_rotation(t_param *param);
+void							gui_object_translation(t_param *param);
+void							gui_color_effect(t_param *param);
+void							gui_normal_effect(t_param *param);
+void							gui_text_stretcher(t_param *param);
 /*
 ** SDL2 Prototypes
 */
@@ -630,6 +635,11 @@ void							handle_keyboard_caps(int keycode,
 ** Graph prototype
 */
 void							launch_threads(t_param *param);
+t_param							*param_cpy(t_param *param, int count);
+void							perlin_noise_copy(t_param *param1,
+									t_param *param2);
+void							init_params(t_param *param,
+									t_param *params[NB_THREAD]);
 /*
 ** Free functions
 */

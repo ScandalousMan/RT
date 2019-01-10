@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   camera.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/01/10 21:42:53 by malexand          #+#    #+#             */
+/*   Updated: 2019/01/12 14:22:57 by malexand         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "rt.h"
 
 void	show_eye(t_param *param)
@@ -64,9 +76,8 @@ void	show_align(t_param *param)
 	}
 }
 
-void nukl_camera(t_param *param)
+void	nukl_camera(t_param *param)
 {
-
 	if (nk_tree_push(param->graph->ctx, NK_TREE_NODE, "Eye", NK_MAXIMIZED))
 	{
 		show_eye(param);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_key_value.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 00:28:41 by jbouille          #+#    #+#             */
-/*   Updated: 2018/03/20 18:55:20 by jbouille         ###   ########.fr       */
+/*   Updated: 2019/01/12 14:28:14 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,12 +102,10 @@ char					*get_value(char *json, t_jtype *type, void **value)
 		if (g_func_parse[i].type == *type)
 		{
 			json = (g_func_parse[i].f)(json, value);
-			// printf("get_value: %s\n", json);//todo delete
 			break ;
 		}
 		++i;
 	}
-	// debug(json, type, value);//todo delete
 	return (json);
 }
 
@@ -123,7 +121,6 @@ char					*parse_key_value(char *json, t_jobject **obj)
 	(*obj)->next = NULL;
 	(*obj)->value = NULL;
 	json = get_key(json, &((*obj)->key));
-	// printf("%s\n", (char*)((*obj)->key));
 	if (json && json[0] == ':')
 	{
 		json = get_value(json + 1, &((*obj)->type), &((*obj)->value));
@@ -133,6 +130,6 @@ char					*parse_key_value(char *json, t_jobject **obj)
 			json = parse_key_value(json + 1, &((*obj)->next));
 	}
 	else
-		return (NULL);//error
+		return (NULL);
 	return (json);
 }

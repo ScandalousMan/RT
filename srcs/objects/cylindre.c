@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cylindre.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itsalex <itsalex@student.42.fr>            +#+  +:+       +#+        */
+/*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/29 14:43:25 by itsalex           #+#    #+#             */
-/*   Updated: 2018/08/29 14:43:26 by itsalex          ###   ########.fr       */
+/*   Updated: 2019/01/10 22:36:06 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int		is_inside_cylindre(double *pt, t_object *tmp)
 	return (vec_norm(tmp->tmp_vec) > ((t_cylindre*)(tmp->dim))->radius ? 0 : 1);
 }
 
-double *cylindre_position(double *pt, t_object *obj)
+double	*cylindre_position(double *pt, t_object *obj)
 {
 	double	scalar;
 

@@ -6,7 +6,7 @@
 #    By: malexand <malexand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/08/21 18:23:32 by malexand          #+#    #+#              #
-#    Updated: 2018/09/08 16:49:52 by malexand         ###   ########.fr        #
+#    Updated: 2019/01/12 14:24:35 by malexand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,10 +39,10 @@ LIBJSON_DEP = $(LIBJSON_PATH)/sources/*
 
 ifeq ($(OS), Linux)
 	LFLAGS = -L./libjson -ljson -L./libft -lft `pkg-config --libs glew` `pkg-config --libs sdl2` -lSDL2_image -lGL -lm -lGLU
-	INCLUDE = -I./incs -I./libft/incs -I./libjson
+	INCLUDE = -I./incs -I./libft/incs -I./libjson -I./nuklear
 else
 	LFLAGS = -L./libft -lft -L./libjson -ljson `pkg-config --libs glew` `pkg-config --libs sdl2` -lSDL2_image -framework OpenGL -lm
-	INCLUDE = -I./incs -I./libft/incs -I./libjson
+	INCLUDE = -I./incs -I./libft/incs -I./libjson -I./nuklear
 endif
 
 OUT_DIR = objs
@@ -55,26 +55,27 @@ INC_DIR = incs
 SDIR =		./srcs/
 
 SRCS =		blur.c \
-			components.c \
 			colors.c \
-			constructor.c \
+			components.c \
 			constructor_pixel.c \
 			constructor_stereoscopy.c \
+			constructor.c \
 			display.c \
 			distance.c \
 			file.c \
 			first_obj_hit.c \
 			free.c \
 			json_is_type.c \
-			json_to_objects.c \
 			json_to_objects_2.c \
+			json_to_objects.c \
 			light.c \
 			lights_storage.c \
 			main.c \
 			nukl_gui/camera.c \
 			nukl_gui/global_settings.c \
 			nukl_gui/gui.c \
-			nukl_gui/objects_plus.c \
+			nukl_gui/objects_1.c \
+			nukl_gui/objects_utils_1.c \
 			nukl_gui/objects_utils.c \
 			nukl_gui/objects.c \
 			objects_color.c \
@@ -83,25 +84,25 @@ SRCS =		blur.c \
 			objects_filler_2.c \
 			objects_moves.c \
 			objects_router.c \
-			objects_storage.c \
 			objects_storage_2.c \
 			objects_storage_3.c \
-			objects/cone.c \
+			objects_storage.c \
 			objects/cone_tools.c \
-			objects/cube.c \
+			objects/cone.c \
 			objects/cube_tools.c \
-			objects/cylindre.c \
+			objects/cube.c \
 			objects/cylindre_tools.c \
-			objects/plane.c \
+			objects/cylindre.c \
 			objects/plane_tools.c \
-			objects/quadric.c \
+			objects/plane.c \
 			objects/quadric_tools.c \
-			objects/sphere.c \
+			objects/quadric.c \
 			objects/sphere_tools.c \
+			objects/sphere.c \
 			perlin.c \
 			perturbations.c \
-			postprocessing.c \
 			postprocessing_2.c \
+			postprocessing.c \
 			ray_color.c \
 			referential.c \
 			refraction.c \
@@ -115,6 +116,7 @@ SRCS =		blur.c \
 			sdl/init.c \
 			sdl/keyboard.c \
 			sdl/utils.c \
+			threads_init.c \
 			threads.c \
 			vec_tools.c \
 			vec_tools2.c \

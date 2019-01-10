@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cube.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/01/10 22:18:12 by malexand          #+#    #+#             */
+/*   Updated: 2019/01/10 22:18:48 by malexand         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "rt.h"
 
 double	distance_to_cube2(t_object *tmp, double *from, double *to, double res)
@@ -66,7 +78,7 @@ int		is_inside_cube(double *pt, t_object *tmp)
 	return (1);
 }
 
-double *cube_position(double *pt, t_object *obj)
+double	*cube_position(double *pt, t_object *obj)
 {
 	double s[3];
 

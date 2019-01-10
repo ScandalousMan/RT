@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   nukl_gui.c                                         :+:      :+:    :+:   */
+/*   gui.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itsalex <itsalex@student.42.fr>            +#+  +:+       +#+        */
+/*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/25 13:04:37 by malexand          #+#    #+#             */
-/*   Updated: 2018/08/29 11:15:20 by itsalex          ###   ########.fr       */
+/*   Updated: 2019/01/12 14:23:33 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	nukl_save(t_param *param)
 {
-	static char name[16];
-	static int len;
-	nk_flags active;
+	static char		name[16];
+	static int		len;
+	nk_flags		active;
 
 	nk_layout_row_begin(param->graph->ctx, NK_DYNAMIC, 30, 2);
 	{

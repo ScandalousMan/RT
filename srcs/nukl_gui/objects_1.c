@@ -1,7 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   objects_1.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/01/10 21:42:42 by malexand          #+#    #+#             */
+/*   Updated: 2019/01/12 14:22:25 by malexand         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "rt.h"
 #include "rt_objects.h"
 
-void gui_cone(t_param *param)
+void	gui_cone(t_param *param)
 {
 	t_cone *cone;
 
@@ -24,7 +36,7 @@ void gui_cone(t_param *param)
 	nk_layout_row_end(param->graph->ctx);
 }
 
-void gui_quadric(t_param *param)
+void	gui_quadric(t_param *param)
 {
 	t_quadric *quadric;
 
@@ -32,7 +44,7 @@ void gui_quadric(t_param *param)
 	nukl_objects_show_pos(param, &quadric->center[0]);
 }
 
-void gui_cube(t_param *param)
+void	gui_cube(t_param *param)
 {
 	t_cube *cube;
 

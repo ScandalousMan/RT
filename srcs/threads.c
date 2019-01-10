@@ -6,13 +6,13 @@
 /*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/27 15:05:21 by malexand          #+#    #+#             */
-/*   Updated: 2018/10/31 22:09:19 by malexand         ###   ########.fr       */
+/*   Updated: 2019/01/12 14:02:26 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-void			perlin_noise_copy(t_param *param1, t_param *param2)
+void		perlin_noise_copy(t_param *param1, t_param *param2)
 {
 	param2->i[0] = 0;
 	while (param2->i[0] < NOISE_SIZE)
@@ -28,62 +28,6 @@ void			perlin_noise_copy(t_param *param1, t_param *param2)
 	}
 }
 
-t_param		*param_cpy2(t_param *param, int count, t_param *param_cpy)
-{
-	param_cpy->macro.anti_aliasing = param->macro.anti_aliasing;
-	param_cpy->macro.recursion = param->macro.recursion;
-	param_cpy->macro.cartoon_factor = param->macro.cartoon_factor;
-	param_cpy->macro.blur_radius = param->macro.blur_radius;
-	param_cpy->macro.specular_exp = param->macro.specular_exp;
-	param_cpy->macro.rotation_angle = param->macro.rotation_angle;
-	param_cpy->macro.k_ambience = param->macro.k_ambience;
-	param_cpy->macro.filter = param->macro.filter;
-	param_cpy->to_pix = param->to_pix;
-	param_cpy->last_mv = param->last_mv;
-	param_cpy->graph = param->graph;
-	param_cpy->current_thread = count;
-	ft_memcpy(&(param_cpy->eye), &(param->eye), VEC_SIZE * sizeof(double));
-	ft_memcpy(&(param_cpy->look), &(param->look), VEC_SIZE * sizeof(double));
-	ft_memcpy(&(param_cpy->align), &(param->align), VEC_SIZE * sizeof(double));
-	ft_memcpy(&(param_cpy->third), &(param->third), VEC_SIZE * sizeof(double));
-	param_cpy->objects = object_copy(param->objects);
-	param_cpy->lights = light_copy(param->lights);
-	param_cpy->num_objects = param->num_objects;
-	param_cpy->pxl_infos = param->pxl_infos;
-	if (!(param_cpy->path = path_create(param_cpy, 0)))
-		return (NULL);
-	param_cpy->path->inside_obj = param->path->inside_obj;
-	perlin_noise_copy(param, param_cpy);
-	return (param_cpy);
-}
-
-t_param		*param_cpy(t_param *param, int count)
-{
-	t_param		*param_cpy;
-
-	if (!(param_cpy = (t_param *)malloc(sizeof(t_param))))
-		return (NULL);
-	param_cpy->brightness = 1;
-	param_cpy->quit = FALSE;
-	param_cpy->epsilon = EPSILON;
-	param_cpy->customs = NULL;
-	param_cpy->objects = NULL;
-	param_cpy->lights = NULL;
-	param_cpy->tmp_light = NULL;
-	param_cpy->intersect_object = NULL;
-	param_cpy->f = FOCAL_VALUE;
-	param_cpy->ia = 1.0;
-	param_cpy->num_lights = 0;
-	param_cpy->num_objects = 0;
-	param_cpy->up_img.process = param->up_img.process;
-	param_cpy->up_img.post_process = param->up_img.post_process;
-	param_cpy->current_thread = 0;
-	param_cpy->texture = param->texture;
-	if (!(param_cpy2(param, count, param_cpy)))
-		return (NULL);
-	return (param_cpy);
-}
-
 static int	calc(void *ptr)
 {
 	t_param		*param;
@@ -93,44 +37,28 @@ static int	calc(void *ptr)
 	return (0);
 }
 
-void		launch_threads(t_param *param)
+void		threads_loop(t_param *param, t_param *params[NB_THREAD])
 {
-	int			threadReturnValue;
-	int			count;
-	t_param		*params[NB_THREAD];
+	int count;
 
-	ft_putstr("==> Launch thread\n");
-	count = 0;
-	while (count < NB_THREAD)
-	{
-		mprintf(1, "Create param_cpy %d\n", count);
-		if (!(params[count] = param_cpy(param, count)))
-			error(1, 0, "failed to copy param in thread\n");
-		++count;
-	}
-	clock_t start = clock();
 	count = 0;
 	while (count < NB_THREAD)
 	{
 		mprintf(1, "Create thread %d\n", count);
-		if (!(param->thread[count] = SDL_CreateThread(calc, "", (void*)params[count])))
+		if (!(param->thread[count] = SDL_CreateThread(calc,
+			"", (void *)params[count])))
 			error(0, 0, "Create new thread failed!");
 		count++;
 	}
-	param->end = clock();
-	start = clock();
+}
+
+void		free_params(t_param *params[NB_THREAD])
+{
+	int count;
+
 	count = 0;
 	while (count < NB_THREAD)
 	{
-		mprintf(1, "Wait thread %d\n", count);
-		SDL_WaitThread(param->thread[count], &threadReturnValue);
-		if (threadReturnValue != 0)
-			error(0, 0, "Thread wrong return value");
-		count++;
-	}
-
-	count = 0;
-	while (count < NB_THREAD) {
 		mprintf(1, "Free param_cpy %d\n", count);
 		free_path(params[count]->path);
 		free_lights(params[count]->lights);
@@ -138,5 +66,30 @@ void		launch_threads(t_param *param)
 		free(params[count]);
 		++count;
 	}
+}
+
+void		launch_threads(t_param *param)
+{
+	int			count;
+	int			thread_return_value;
+	clock_t		start;
+	t_param		*params[NB_THREAD];
+
+	count = 0;
+	start = clock();
+	ft_putstr("==> Launch thread\n");
+	init_params(param, params);
+	start = clock();
+	threads_loop(param, params);
+	param->end = clock();
+	while (count < NB_THREAD)
+	{
+		mprintf(1, "Wait thread %d\n", count);
+		SDL_WaitThread(param->thread[count], &thread_return_value);
+		if (thread_return_value != 0)
+			error(0, 0, "Thread wrong return value");
+		count++;
+	}
+	free_params(params);
 	param->end = clock();
 }
