@@ -6,7 +6,7 @@
 /*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 16:39:54 by aguemy            #+#    #+#             */
-/*   Updated: 2019/01/10 21:29:45 by vacrozet         ###   ########.fr       */
+/*   Updated: 2019/01/10 21:50:53 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,10 +100,10 @@
 # include "nuklear.h"
 # include "nuklear_sdl_gl3.h"
 
-# define WINDOW_GUI_WIDTH 500
-# define WINDOW_GUI_HEIGHT 800
-# define WINDOW_SDL_WIDTH 800
-# define WINDOW_SDL_HEIGHT 800
+# define WINDOW_GUI_WIDTH 650
+# define WINDOW_GUI_HEIGHT 950
+# define WINDOW_SDL_WIDTH 950
+# define WINDOW_SDL_HEIGHT 950
 
 # define NB_THREAD 4
 
