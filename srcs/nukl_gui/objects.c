@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   objects.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/01/10 20:43:35 by malexand          #+#    #+#             */
+/*   Updated: 2019/01/10 20:43:40 by malexand         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "rt.h"
 #include "rt_objects.h"
 
@@ -134,7 +146,7 @@ void gui_normal_effect(t_param *param)
 		"None",
 		"Sinus"};
 
-	nk_layout_row_begin(param->graph->ctx, NK_DYNAMIC, 15, 6);
+	nk_layout_row_begin(param->graph->ctx, NK_DYNAMIC, 15, 1);
 	{
 		nk_layout_row_push(param->graph->ctx, 1.0f);
 		nk_label(param->graph->ctx, "Normal effect:", NK_TEXT_ALIGN_CENTERED);
@@ -153,15 +165,31 @@ void gui_normal_effect(t_param *param)
 
 void gui_object_color(t_param *param)
 {
+	int r;
+	int g;
+	int b;
+
+	r = ((param->graph->current_object->col >> 16) & 0xFF);
+	g = ((param->graph->current_object->col >> 8) & 0xFF);
+	b = ((param->graph->current_object->col) & 0xFF);
+	nk_layout_row_begin(param->graph->ctx, NK_DYNAMIC, 15, 1);
+	{
+		nk_layout_row_push(param->graph->ctx, 1.0f);
+		nk_label(param->graph->ctx, "Object color:", NK_TEXT_ALIGN_CENTERED);
+	}
 	nk_layout_row_begin(param->graph->ctx, NK_DYNAMIC, 20, 2);
 	{
-		nk_layout_row_push(param->graph->ctx, 0.5f);
-		nk_label(param->graph->ctx, "Object color:", NK_TEXT_ALIGN_CENTERED);
-		nk_layout_row_push(param->graph->ctx, 0.5f);
-		nk_property_int(param->graph->ctx, "Color:", INT_MIN,
-						   &param->graph->current_object->col,
-						   INT_MAX, 1, 1);
+		nk_layout_row_push(param->graph->ctx, 0.33f);
+		nk_property_int(param->graph->ctx, "Cr:", 0, 
+			&r, 255, 2.0f, 0.2f);
+		nk_layout_row_push(param->graph->ctx, 0.33f);
+		nk_property_int(param->graph->ctx, "Cg:", 0, 
+			&g, 255, 2.0f, 0.2f);
+		nk_layout_row_push(param->graph->ctx, 0.33f);
+		nk_property_int(param->graph->ctx, "Cb:", 0, 
+			&b, 255, 2.0f, 0.2f);
 	}
+	param->graph->current_object->col = rgb_color(r, g, b);
 }
 
 void nukl_objects(t_param *param)
