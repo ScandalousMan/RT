@@ -6,7 +6,7 @@
 /*   By: jbouille <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 14:13:11 by jbouille          #+#    #+#             */
-/*   Updated: 2018/12/04 17:57:16 by jbouille         ###   ########.fr       */
+/*   Updated: 2019/01/10 21:29:34 by vacrozet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,24 +16,30 @@
 # include <json.h>
 # include <stddef.h>
 # include <rt.h>
+# define RT_OBJECT_TYPE			"type"
+# define RT_LIMITS_TYPE			"type"
+# define CAMERA_KEY				"camera"
+# define LIGHTS_KEY				"lights"
+# define OBJECTS_KEY			"objects"
+# define RT_KEYS_SIZE(keys)		(sizeof(keys) / sizeof(t_key))
 
-typedef enum			e_object_type
+typedef enum					e_object_type
 {
-	RTSPHERE=1,
+	RTSPHERE = 1,
 	RTPLAN,
 	RTCONE,
 	RTCYLINDER,
 	RTQUADRIC,
 	RTCUBE
-}						t_object_type;
+}								t_object_type;
 
-typedef enum			e_light_type
+typedef enum					e_light_type
 {
 	RTSPOT,
 	RTPARALLEL
-}						t_light_type;
+}								t_light_type;
 
-typedef enum			e_rt_type
+typedef enum					e_rt_type
 {
 	RTNULL,
 	RTSTRING,
@@ -53,9 +59,9 @@ typedef enum			e_rt_type
 	RTSIGN,
 	RTLIMIT,
 	RTLIGHTTYPE
-}						t_rt_type;
+}								t_rt_type;
 
-typedef enum			e_color_effect
+typedef enum					e_color_effect
 {
 	RT_C_NONE,
 	RT_C_CHESS,
@@ -63,42 +69,35 @@ typedef enum			e_color_effect
 	RT_C_CLOUD,
 	RT_C_MARBLE,
 	RT_C_WOOD
-}						t_color_effect;
+}								t_color_effect;
 
-typedef enum			e_limit_type
+typedef enum					e_limit_type
 {
 	RT_C_RELATIVE,
 	RT_C_ABSOLUTE
-}						t_limit_type;
+}								t_limit_type;
 
-typedef enum			e_normal_effect
+typedef enum					e_normal_effect
 {
 	RT_N_NONE,
 	RT_N_SINUS
-}						t_normal_effect;
+}								t_normal_effect;
 
-typedef struct			s_key
+typedef struct					s_key
 {
-	const char			*key;
-	const t_rt_type		type;
-	const t_rt_type		content_type;
-}						t_key;
+	const char					*key;
+	const t_rt_type				type;
+	const t_rt_type				content_type;
+}								t_key;
 
-typedef struct			s_object_def
+typedef struct					s_object_def
 {
-	const char			*name;
-	const t_object_type	type;
-	const t_key			*key;
-	const size_t		size;
-	void				*(*fill)(t_jobject*, t_object*);
-}						t_object_def;
-
-# define RT_OBJECT_TYPE		"type"
-# define RT_LIMITS_TYPE		"type"
-# define CAMERA_KEY			"camera"
-# define LIGHTS_KEY			"lights"
-# define OBJECTS_KEY		"objects"
-# define RT_KEYS_SIZE(keys)	(sizeof(keys) / sizeof(t_key))
+	const char					*name;
+	const t_object_type			type;
+	const t_key					*key;
+	const size_t				size;
+	void						*(*fill)(t_jobject*, t_object*);
+}								t_object_def;
 
 static const t_key				g_common_keys[] = {
 	{RT_OBJECT_TYPE, RTSTRING, RTNULL},
@@ -181,45 +180,59 @@ static const t_key				g_main_object_keys[] = {
 	{OBJECTS_KEY, RTARRAY, RTOBJECT}
 };
 
-static const t_key			g_texture_keys[] = {
+static const t_key				g_texture_keys[] = {
 	{RT_OBJECT_TYPE, RTSTRING, RTNULL},
 	{"name", RTSTRING, RTNULL},
 };
 
-/* TODO CHANGE FUNCTIONS DECLARATIONS */
-void	*fill_sphere		(t_jobject *jobj, t_object *s_obj);
-void	*fill_plane			(t_jobject *jobj, t_object *p_obj);
-void	*fill_cone			(t_jobject *jobj, t_object *c_obj);
-void	*fill_cylinder		(t_jobject *jobj, t_object *c_obj);
-void	*fill_quadric		(t_jobject *jobj, t_object *q_obj);
-void	*fill_cube			(t_jobject *jobj, t_object *c_obj);
-
-int						is_type(void* value, t_jtype jtype, t_rt_type type, t_rt_type subtype);
-int	is_object(t_jobject *obj, const t_key *keys, const size_t keys_size, int is_common);
-int	check_subtypes(t_jarray *array, t_rt_type subtype);
-size_t	jarray_len(t_jarray *array);
-int	is_rt_object(t_jobject *obj);
-size_t	jobject_len(t_jobject *obj);
-int	jobject_contains(t_jobject *obj, t_key key);
-t_custom	*get_custom_ptr(char *name, t_custom *list);
-int	get_color(t_jarray *array);
-t_jobject	*get_jobject(t_jobject *obj, const char *key);
-t_object_def	get_object_def_by_name(const char *name);
-double	get_double(t_jtype type, void *value);
-t_limit	*get_limits(t_jarray *array);
-void	fill_vector(double vector[1][VEC_SIZE], t_jarray *array);
-void	fill_moves(t_jobject *jobj, t_object *obj);
-int	fill_light(t_light *light, t_jobject *jobj, int num);
-t_light		*get_light(t_jarray *array, int num);
-int	fill_object(t_object *obj, t_jobject *jobj, int num, t_param *param);
-t_object	*get_object(t_jarray *array, int num, t_param *param);
+void							*fill_sphere(t_jobject *jobj,
+									t_object *s_obj);
+void							*fill_plane(t_jobject *jobj,
+									t_object *p_obj);
+void							*fill_cone(t_jobject *jobj,
+									t_object *c_obj);
+void							*fill_cylinder(t_jobject *jobj,
+									t_object *c_obj);
+void							*fill_quadric(t_jobject *jobj,
+									t_object *q_obj);
+void							*fill_cube(t_jobject *jobj,
+									t_object *c_obj);
+int								is_type(void *value, t_jtype jtype,
+									t_rt_type type, t_rt_type subtype);
+int								is_object(t_jobject *obj, const t_key *keys,
+									const size_t keys_size, int is_common);
+int								check_subtypes(t_jarray *array,
+									t_rt_type subtype);
+size_t							jarray_len(t_jarray *array);
+int								is_rt_object(t_jobject *obj);
+size_t							jobject_len(t_jobject *obj);
+int								jobject_contains(t_jobject *obj, t_key key);
+t_custom						*get_custom_ptr(char *name, t_custom *list);
+int								get_color(t_jarray *array);
+t_jobject						*get_jobject(t_jobject *obj, const char *key);
+t_object_def					get_object_def_by_name(const char *name);
+double							get_double(t_jtype type, void *value);
+t_limit							*get_limits(t_jarray *array);
+void							fill_vector(double vector[1][VEC_SIZE],
+									t_jarray *array);
+void							fill_moves(t_jobject *jobj, t_object *obj);
+int								fill_light(t_light *light, t_jobject *jobj,
+									int num);
+t_light							*get_light(t_jarray *array, int num);
+int								fill_object(t_object *obj, t_jobject *jobj,
+									int num, t_param *param);
+t_object						*get_object(t_jarray *array, int num,
+									t_param *param);
 
 static const t_object_def		g_objects[] = {
-	{"sphere", RTSPHERE, g_sphere_keys, RT_KEYS_SIZE(g_sphere_keys), &fill_sphere},
+	{"sphere", RTSPHERE, g_sphere_keys, RT_KEYS_SIZE(g_sphere_keys),
+		&fill_sphere},
 	{"plane", RTPLAN, g_plan_keys, RT_KEYS_SIZE(g_plan_keys), &fill_plane},
 	{"cone", RTCONE, g_cone_keys, RT_KEYS_SIZE(g_cone_keys), &fill_cone},
-	{"cylinder", RTCYLINDER, g_cylinder_keys, RT_KEYS_SIZE(g_cylinder_keys), &fill_cylinder},
-	{"quadric", RTQUADRIC, g_quadric_keys, RT_KEYS_SIZE(g_quadric_keys), &fill_quadric},
+	{"cylinder", RTCYLINDER, g_cylinder_keys, RT_KEYS_SIZE(g_cylinder_keys),
+		&fill_cylinder},
+	{"quadric", RTQUADRIC, g_quadric_keys, RT_KEYS_SIZE(g_quadric_keys),
+		&fill_quadric},
 	{"cube", RTCUBE, g_cube_keys, RT_KEYS_SIZE(g_cube_keys), &fill_cube}
 };
 
