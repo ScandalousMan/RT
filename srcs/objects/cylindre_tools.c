@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cylindre_tools.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/01/10 21:37:03 by malexand          #+#    #+#             */
+/*   Updated: 2019/01/10 22:35:14 by malexand         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "rt.h"
 
 double	cylindre_first_term(t_object *tmp, double *to)
@@ -22,10 +34,12 @@ double	cylindre_second_term(t_object *tmp, double *to)
 		((t_cylindre*)(tmp->dim))->u[1] * to[2]) *
 		(((t_cylindre*)(tmp->dim))->u[2] * tmp->tmp_vec[1] -
 		((t_cylindre*)(tmp->dim))->u[1] * tmp->tmp_vec[2]) +
-		(((t_cylindre*)(tmp->dim))->u[0] * to[2] - ((t_cylindre*)(tmp->dim))->u[2] *
+		(((t_cylindre*)(tmp->dim))->u[0] * to[2] -
+		((t_cylindre*)(tmp->dim))->u[2] *
 		to[0]) * (((t_cylindre*)(tmp->dim))->u[0] * tmp->tmp_vec[2] -
 		((t_cylindre*)(tmp->dim))->u[2] * tmp->tmp_vec[0]) +
-		(((t_cylindre*)(tmp->dim))->u[1] * to[0] - ((t_cylindre*)(tmp->dim))->u[0] *
+		(((t_cylindre*)(tmp->dim))->u[1] * to[0] -
+		((t_cylindre*)(tmp->dim))->u[0] *
 		to[1]) * (((t_cylindre*)(tmp->dim))->u[1] * tmp->tmp_vec[0] -
 		((t_cylindre*)(tmp->dim))->u[0] * tmp->tmp_vec[1])));
 }

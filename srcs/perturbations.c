@@ -6,13 +6,11 @@
 /*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/21 17:02:46 by malexand          #+#    #+#             */
-/*   Updated: 2018/10/31 21:49:47 by malexand         ###   ########.fr       */
+/*   Updated: 2019/01/10 22:17:12 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt_objects.h"
-
-
 
 int		sierpinski_carpet(int u, int v)
 {
@@ -53,8 +51,8 @@ void	complex_object_colors(t_object *object, t_param *param)
 	}
 	else if (object->effects.color == RT_C_TEXTURE)
 	{
-		param->texture_col = jpg_find_pxl(param, object->uv_map[0] *
-			object->texture_stretch, object->uv_map[1] * object->texture_stretch);
+		param->texture_col = jpg_find_pxl(param, object->uv_map[0] /
+		object->texture_stretch, object->uv_map[1] / object->texture_stretch);
 	}
 }
 

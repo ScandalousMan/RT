@@ -1,16 +1,29 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   plane_tools.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/01/10 22:29:42 by malexand          #+#    #+#             */
+/*   Updated: 2019/01/10 22:31:01 by malexand         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "rt_objects.h"
 
 int		is_inside_plane(double *pt, t_object *tmp)
 {
 	vec_soustraction(pt, ((t_plane*)(tmp->dim))->ref, tmp->tmp_vec);
-	return scalar_product(tmp->tmp_vec, ((t_plane*)(tmp->dim))->n) == 0.0 ? 1 : 0;
+	return (scalar_product(tmp->tmp_vec,
+		((t_plane*)(tmp->dim))->n) == 0.0 ? 1 : 0);
 }
 
 int		is_in_limit(double *pt, t_limit *limit)
 {
 	double tmp[3];
 
- 	vec_soustraction(pt, limit->plane.ref, tmp);
+	vec_soustraction(pt, limit->plane.ref, tmp);
 	if (scalar_product(tmp, limit->plane.n) > 0.0)
 		return (0);
 	return (1);

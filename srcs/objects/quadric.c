@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quadric.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itsalex <itsalex@student.42.fr>            +#+  +:+       +#+        */
+/*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/29 14:43:38 by itsalex           #+#    #+#             */
-/*   Updated: 2018/08/29 14:43:41 by itsalex          ###   ########.fr       */
+/*   Updated: 2019/01/10 21:38:58 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int		is_inside_quadric(double *pt, t_quadric *tmp)
 {
 	return (
 		tmp->a * (pt[0] - tmp->center[0]) * (pt[0] - tmp->center[0]) +
-		tmp->d * (pt[0] - tmp->center[0]) * (pt[1] - tmp->center[1]) + 
+		tmp->d * (pt[0] - tmp->center[0]) * (pt[1] - tmp->center[1]) +
 		tmp->g * (pt[0] - tmp->center[0]) * (pt[2] - tmp->center[2]) +
 		tmp->b * (pt[1] - tmp->center[1]) * (pt[0] - tmp->center[0]) +
 		tmp->e * (pt[1] - tmp->center[1]) * (pt[1] - tmp->center[1]) +
@@ -48,7 +48,7 @@ int		is_inside_quadric(double *pt, t_quadric *tmp)
 			tmp->r * tmp->r <= 0.0 ? 1 : 0);
 }
 
-double *quadric_position(double *pt, t_object *obj)
+double	*quadric_position(double *pt, t_object *obj)
 {
 	if (pt)
 		return (obj->uv_map);
@@ -58,11 +58,8 @@ double *quadric_position(double *pt, t_object *obj)
 void	update_quadric(t_object *obj, t_param *param)
 {
 	default_ref_updater(obj);
-	pt_translated(((t_quadric*)(obj->parsed))->center, obj->translation, ((t_quadric*)(obj->dim))->center);
-	// fill_vector(&tr, (t_jarray*)(get_jobject(jobj, "rotation")->value));
-	// rotation_matrice(tr[0], tr[1], tr[2], param);
-	//rotation quadrique
+	pt_translated(((t_quadric*)(obj->parsed))->center, obj->translation,
+		((t_quadric*)(obj->dim))->center);
 	ref_move(obj, param);
 	limits_move(((t_plane*)(obj->dim))->ref, obj, param);
-	// reset_moves(obj);
 }

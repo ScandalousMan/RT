@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cone.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itsalex <itsalex@student.42.fr>            +#+  +:+       +#+        */
+/*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/29 14:43:31 by itsalex           #+#    #+#             */
-/*   Updated: 2018/08/29 14:43:32 by itsalex          ###   ########.fr       */
+/*   Updated: 2019/01/12 13:58:36 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int		is_inside_cone(double *pt, t_object *tmp)
 		((t_cone*)(tmp->dim))->angle ? 1 : 0);
 }
 
-double *cone_position(double *pt, t_object *obj)
+double	*cone_position(double *pt, t_object *obj)
 {
 	double	scalar;
 
