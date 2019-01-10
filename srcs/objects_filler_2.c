@@ -108,5 +108,6 @@ int				fill_object(t_object *obj, t_jobject *jobj, int num,
 	tmp = get_jobject(jobj, "limits");
 	obj->limits = get_limits(tmp->value);
 	tmp = get_jobject(jobj, "texture");
+	obj->texture_stretch = 1.0;
 	return (1);
 }

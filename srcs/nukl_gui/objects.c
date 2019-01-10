@@ -98,22 +98,23 @@ void gui_color_effect(t_param *param)
 	const struct nk_vec2 sizeButton = {
 		470.0,
 		150.0};
-	const char *effects[6] = {
+	const char *effects[7] = {
 		"None",
 		"Chess",
 		"Sierpinski",
 		"Cloud",
 		"Marble",
-		"Wood"};
+		"Wood",
+		"Texture1"};
 
-	nk_layout_row_begin(param->graph->ctx, NK_DYNAMIC, 15, 6);
+	nk_layout_row_begin(param->graph->ctx, NK_DYNAMIC, 15, 1);
 	{
 		nk_layout_row_push(param->graph->ctx, 1.0f);
 		nk_label(param->graph->ctx, "Color effect:", NK_TEXT_ALIGN_CENTERED);
 	}
 	nk_layout_row_begin(param->graph->ctx, NK_DYNAMIC, 30, 1);
 	nk_layout_row_push(param->graph->ctx, 1.0f);
-	tmp_color = nk_combo(param->graph->ctx, effects, 6,
+	tmp_color = nk_combo(param->graph->ctx, effects, 7,
 		param->graph->current_object->effects.color, 30, sizeButton);
 	if (param->graph->current_object->effects.color != tmp_color)
 	{

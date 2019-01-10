@@ -68,7 +68,8 @@ typedef enum					e_color_effect
 	RT_C_SIERPINSKI,
 	RT_C_CLOUD,
 	RT_C_MARBLE,
-	RT_C_WOOD
+	RT_C_WOOD,
+	RT_C_TEXTURE
 }								t_color_effect;
 
 typedef enum					e_limit_type

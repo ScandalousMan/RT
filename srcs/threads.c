@@ -78,6 +78,7 @@ t_param		*param_cpy(t_param *param, int count)
 	param_cpy->up_img.process = param->up_img.process;
 	param_cpy->up_img.post_process = param->up_img.post_process;
 	param_cpy->current_thread = 0;
+	param_cpy->texture = param->texture;
 	if (!(param_cpy2(param, count, param_cpy)))
 		return (NULL);
 	return (param_cpy);

@@ -12,6 +12,8 @@
 
 #include "rt_objects.h"
 
+
+
 int		sierpinski_carpet(int u, int v)
 {
 	int i;
@@ -48,6 +50,11 @@ void	complex_object_colors(t_object *object, t_param *param)
 		t = wood_ratio(object->uv_map[0] * 128.0, object->uv_map[1] * 128.0,
 			TURB_SIZE, param);
 		param->texture_col = rgb_color(80 + t, 30 + t, 30);
+	}
+	else if (object->effects.color == RT_C_TEXTURE)
+	{
+		param->texture_col = jpg_find_pxl(param, object->uv_map[0] *
+			object->texture_stretch, object->uv_map[1] * object->texture_stretch);
 	}
 }
 

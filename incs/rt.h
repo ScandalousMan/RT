@@ -217,10 +217,12 @@ typedef struct					s_object
 	t_effects					effects;
 	double						rotation[VEC_SIZE];
 	double						translation[VEC_SIZE];
+	double						texture_stretch;
 	struct s_object				*next;
 }								t_object;
 
 typedef struct					s_light
+
 {
 	int							type;
 	int							num;

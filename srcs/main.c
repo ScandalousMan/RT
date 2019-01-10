@@ -104,7 +104,7 @@ int		main(int ac, char **av)
 		filename = "scenes/rt.json";
 	if (!(param = struct_create()))
 		return (-1);
-	param->texture = IMG_Load("rouge.jpg");
+	param->texture = IMG_Load("valou.jpeg");
 	perlin_noise_generator(param);
 	param->to_pix = 0;
 	param->last_mv = clock();
