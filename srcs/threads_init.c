@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   threads.c                                          :+:      :+:    :+:   */
+/*   threads_init.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/27 15:05:21 by malexand          #+#    #+#             */
-/*   Updated: 2019/01/10 22:28:59 by malexand         ###   ########.fr       */
+/*   Updated: 2019/01/12 15:39:26 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,8 @@ void			init_params(t_param *param, t_param *params[NB_THREAD])
 	count = 0;
 	while (count < NB_THREAD)
 	{
-		mprintf(1, "Create param_cpy %d\n", count);
+		if (DEBUG)
+			mprintf(1, "Create param_cpy %d\n", count);
 		if (!(params[count] = param_cpy(param, count)))
 			error(1, 0, "failed to copy param in thread\n");
 		++count;

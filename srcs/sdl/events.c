@@ -6,7 +6,7 @@
 /*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/25 09:46:28 by malexand          #+#    #+#             */
-/*   Updated: 2019/01/10 21:21:09 by malexand         ###   ########.fr       */
+/*   Updated: 2019/01/12 15:38:42 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ static	void	handle_clic(t_param *param, SDL_MouseButtonEvent evt)
 
 static	void	handle_keyboard_events_sdl(t_param *param, SDL_Event evt)
 {
-	printf("Keycode: %d, Charac: %c\n", evt.key.keysym.sym,
+	if (DEBUG)
+		mprintf(1, "Keycode: %d, Charac: %c\n", evt.key.keysym.sym,
 		evt.key.keysym.sym);
 	if (SDL_GetModState() != KMOD_LSHIFT && SDL_GetModState() != KMOD_RSHIFT &&
 	SDL_GetModState() != KMOD_CAPS)
@@ -49,7 +50,8 @@ static	void	handle_keyboard_events_sdl(t_param *param, SDL_Event evt)
 
 static	void	handle_keyboard_events_nkl(t_param *param, SDL_Event evt)
 {
-	printf("Keycode: %d, Charac: %c\n", evt.key.keysym.sym,
+	if (DEBUG)
+		mprintf(1, "Keycode: %d, Charac: %c\n", evt.key.keysym.sym,
 		evt.key.keysym.sym);
 	if (SDL_GetModState() != KMOD_LSHIFT && SDL_GetModState() != KMOD_RSHIFT &&
 	SDL_GetModState() != KMOD_CAPS)

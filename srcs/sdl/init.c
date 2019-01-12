@@ -6,7 +6,7 @@
 /*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/25 11:06:38 by malexand          #+#    #+#             */
-/*   Updated: 2018/09/08 17:02:40 by malexand         ###   ########.fr       */
+/*   Updated: 2019/01/12 15:47:05 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ void			sdl_init(t_sdl *graph)
 	if (SDL_CreateWindowAndRenderer(WINDOW_SDL_WIDTH, WINDOW_SDL_HEIGHT,
 	SDL_WINDOW_SHOWN, &graph->win_sdl, &graph->render_sdl) < 0)
 	{
-		printf("Erreur lors de la creation d'un renderer : %s", SDL_GetError());
+		mprintf(2, "Erreur lors de la creation d'un renderer : %s",
+			SDL_GetError());
 		exit(0);
 	}
 	while (count < NB_THREAD)

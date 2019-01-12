@@ -6,7 +6,7 @@
 /*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 00:28:41 by jbouille          #+#    #+#             */
-/*   Updated: 2019/01/12 14:28:14 by malexand         ###   ########.fr       */
+/*   Updated: 2019/01/12 15:46:06 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,17 +74,17 @@ void					debug(char *json, t_jtype *type, void **value)
 	if (*value)
 	{
 		if (*type == JSTRING)
-			printf("%p\n", *value);
+			mprintf(1, "%p\n", *value);
 		else if (*type == JINT)
-			printf("%i\n", (int)(((int*)(*value))[0]));
+			mprintf(1, "%i\n", (int)(((int*)(*value))[0]));
 		else if (*type == JDOUBLE)
-			printf("%f\n", (double)(((double*)(*value))[0]));
+			mprintf(1, "%f\n", (double)(((double*)(*value))[0]));
 		else if (*type == JBOOL)
-			printf("%d\n", (t_jbool)(((t_jbool*)(*value))[0]));
+			mprintf(1, "%d\n", (t_jbool)(((t_jbool*)(*value))[0]));
 		else if (*type == JNULL)
-			printf("%p\n", *value);
+			mprintf(1, "%p\n", *value);
 	}
-	printf("%s\n", json);
+	mprintf(1, "%s\n", json);
 }
 
 char					*get_value(char *json, t_jtype *type, void **value)
