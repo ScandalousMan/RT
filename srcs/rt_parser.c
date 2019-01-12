@@ -6,7 +6,7 @@
 /*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 01:40:48 by jbouille          #+#    #+#             */
-/*   Updated: 2019/01/12 15:14:19 by malexand         ###   ########.fr       */
+/*   Updated: 2019/01/12 15:32:27 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,15 @@ int		rt_parser(t_param *param, char *file)
 	int			ret;
 
 	if (!(json = read_file(file)))
-		return (0);
+		return (1);
 	obj = NULL;
 	ret = json_parse(json, &obj);
 	free(json);
 	if (!ret)
-		printf("json_to_objects: %d\n", json_to_objects(obj, param));
+		json_to_objects(obj, param);
 	update_eye_n(param);
-	printf("num_objects: %i\n", param->num_objects);
+	if (param->num_objects == 0)
+		error(0, 0, "No objects found in scene");
 	free_jobject(obj);
-	return (1);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/21 17:02:46 by malexand          #+#    #+#             */
-/*   Updated: 2019/01/12 15:23:56 by malexand         ###   ########.fr       */
+/*   Updated: 2019/01/12 15:32:23 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ int		main(int ac, char **av)
 	else
 		filename = "scenes/rt.json";
 	if (!(param = struct_create()))
-		return (-1);
+		error(0, 0, "Can't allocate param struct");
 	param->texture = IMG_Load("custom_texture.jpeg");
 	if (!param->texture)
 		mprintf(1, "Can't load texture: %s\n", IMG_GetError());
@@ -114,8 +114,8 @@ int		main(int ac, char **av)
 	param->start = clock();
 	if ((param->graph = (t_sdl*)malloc(sizeof(t_sdl))) == NULL)
 		error(0, 0, "Can't allocate graph struct");
-	if (!rt_parser(param, filename))
-		return (1);
+	if (rt_parser(param, filename) != 0)
+		error(0, 1, "");
 	sdl_init(param->graph);
 	while (param->quit == FALSE)
 		rt_loop(param);
