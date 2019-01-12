@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   constructor.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: itsalex <itsalex@student.42.fr>            +#+  +:+       +#+        */
+/*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/27 14:57:42 by aguemy            #+#    #+#             */
-/*   Updated: 2018/08/12 18:58:38 by itsalex          ###   ########.fr       */
+/*   Updated: 2019/01/12 15:52:22 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ void	struct_args_init(t_param *param)
 	param->macro.recursion = RECURSION;
 	param->macro.cartoon_factor = CARTOON_FACTOR;
 	param->macro.blur_radius = BLUR_RADIUS;
-	param->macro.specular_exp = SPECULAR_EXP;
 	param->macro.rotation_angle = ROTATION_ANGLE;
 	param->macro.k_ambience = K_AMBIENCE;
 	param->macro.filter = 0;

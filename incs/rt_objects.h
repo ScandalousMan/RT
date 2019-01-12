@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rt_objects.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbouille <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 14:13:11 by jbouille          #+#    #+#             */
-/*   Updated: 2019/01/10 21:29:34 by vacrozet         ###   ########.fr       */
+/*   Updated: 2019/01/12 15:57:20 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,7 +221,7 @@ int								fill_light(t_light *light, t_jobject *jobj,
 									int num);
 t_light							*get_light(t_jarray *array, int num);
 int								fill_object(t_object *obj, t_jobject *jobj,
-									int num, t_param *param);
+									int num);
 t_object						*get_object(t_jarray *array, int num,
 									t_param *param);
 

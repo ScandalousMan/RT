@@ -6,7 +6,7 @@
 /*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 21:42:49 by malexand          #+#    #+#             */
-/*   Updated: 2019/01/12 14:12:54 by malexand         ###   ########.fr       */
+/*   Updated: 2019/01/12 16:00:58 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,17 +80,6 @@ void	global_settings_3(t_param *param)
 		&param->macro.rotation_angle, MAX_ROTATION_ANGLE, STEP_ROTATION_ANGLE);
 	nk_layout_row_push(param->graph->ctx, 0.15f);
 	number = ft_itoa(param->macro.rotation_angle);
-	nk_label(param->graph->ctx, number, NK_TEXT_CENTERED);
-	ft_strdel(&number);
-	nk_layout_row_end(param->graph->ctx);
-	nk_layout_row_begin(param->graph->ctx, NK_DYNAMIC, 30, 3);
-	nk_layout_row_push(param->graph->ctx, 0.25f);
-	nk_label(param->graph->ctx, "Specular exp:", NK_TEXT_RIGHT);
-	nk_layout_row_push(param->graph->ctx, 0.6f);
-	nk_slider_int(param->graph->ctx, MIN_SPECULAR_EXP,
-		&param->macro.specular_exp, MAX_SPECULAR_EXP, STEP_SPECULAR_EXP);
-	nk_layout_row_push(param->graph->ctx, 0.15f);
-	number = ft_itoa(param->macro.specular_exp);
 	nk_label(param->graph->ctx, number, NK_TEXT_CENTERED);
 	ft_strdel(&number);
 	nk_layout_row_end(param->graph->ctx);

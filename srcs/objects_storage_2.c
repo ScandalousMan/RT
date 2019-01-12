@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   objects_storage.c                                  :+:      :+:    :+:   */
+/*   objects_storage_2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbouille <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 15:43:31 by jbouille          #+#    #+#             */
-/*   Updated: 2018/12/04 17:56:23 by jbouille         ###   ########.fr       */
+/*   Updated: 2019/01/12 15:56:25 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ t_object	*get_object(t_jarray *array, int num, t_param *param)
 		return (NULL);
 	if (!(new = (t_object*)malloc(sizeof(t_object))))
 		return (NULL);
-	if (fill_object(new, array->value, num, param) == 0)
+	if (fill_object(new, array->value, num) == 0)
 		return (NULL);
 	param->num_objects++;
 	if (param->num_objects >= 256)
