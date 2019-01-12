@@ -6,7 +6,7 @@
 /*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/21 17:02:46 by malexand          #+#    #+#             */
-/*   Updated: 2018/10/31 21:49:47 by malexand         ###   ########.fr       */
+/*   Updated: 2019/01/12 15:23:56 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 
 void	end_program(t_param *param)
 {
+	sdl_quit(param->graph);
 	free_objects(param, 1);
 	free_lights(param->lights);
 	free_path(param->path);
@@ -104,7 +105,9 @@ int		main(int ac, char **av)
 		filename = "scenes/rt.json";
 	if (!(param = struct_create()))
 		return (-1);
-	param->texture = IMG_Load("valou.jpeg");
+	param->texture = IMG_Load("custom_texture.jpeg");
+	if (!param->texture)
+		mprintf(1, "Can't load texture: %s\n", IMG_GetError());
 	perlin_noise_generator(param);
 	param->to_pix = 0;
 	param->last_mv = clock();
@@ -116,7 +119,6 @@ int		main(int ac, char **av)
 	sdl_init(param->graph);
 	while (param->quit == FALSE)
 		rt_loop(param);
-	sdl_quit(param->graph);
 	end_program(param);
 	return (0);
 }

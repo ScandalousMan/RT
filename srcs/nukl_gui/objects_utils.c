@@ -6,7 +6,7 @@
 /*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 21:42:37 by malexand          #+#    #+#             */
-/*   Updated: 2019/01/12 14:16:11 by malexand         ###   ########.fr       */
+/*   Updated: 2019/01/12 15:19:26 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,10 @@ void	gui_object_translation(t_param *param)
 
 void	gui_color_effect(t_param *param)
 {
-	int						tmp_color;
+	int						tmp_texture;
 	const struct nk_vec2	size_button = {470.0, 150.0};
 	const char				*effects[7] = {"None", "Chess",
-		"Sierpinski", "Cloud", "Marble", "Wood", "Texture1"};
+		"Sierpinski", "Cloud", "Marble", "Wood", "Custom texture"};
 
 	nk_layout_row_begin(param->graph->ctx, NK_DYNAMIC, 15, 1);
 	{
@@ -77,11 +77,16 @@ void	gui_color_effect(t_param *param)
 	}
 	nk_layout_row_begin(param->graph->ctx, NK_DYNAMIC, 30, 1);
 	nk_layout_row_push(param->graph->ctx, 1.0f);
-	tmp_color = nk_combo(param->graph->ctx, effects, 7,
+	tmp_texture = nk_combo(param->graph->ctx, effects, 7,
 		param->graph->current_object->effects.color, 30, size_button);
-	if (param->graph->current_object->effects.color != tmp_color)
+	if (tmp_texture == 6 && !param->texture)
 	{
-		param->graph->current_object->effects.color = tmp_color;
+		tmp_texture = 0;
+		mprintf(1, "Custom texture can't be used!\n");
+	}
+	if (param->graph->current_object->effects.color != tmp_texture)
+	{
+		param->graph->current_object->effects.color = tmp_texture;
 		param->up_img.process = TRUE;
 	}
 	nk_layout_row_end(param->graph->ctx);

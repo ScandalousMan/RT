@@ -6,7 +6,7 @@
 /*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 20:43:35 by malexand          #+#    #+#             */
-/*   Updated: 2019/01/12 14:08:28 by malexand         ###   ########.fr       */
+/*   Updated: 2019/01/12 15:08:15 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,8 @@ void	nukl_objects(t_param *param)
 			gui_quadric(param);
 		if (param->graph->current_object->type == RTCUBE)
 			gui_cube(param);
-		gui_text_stretcher(param);
+		if (param->texture)
+			gui_text_stretcher(param);
 		gui_color_effect(param);
 		gui_normal_effect(param);
 	}

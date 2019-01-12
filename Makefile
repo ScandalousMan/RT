@@ -6,7 +6,7 @@
 #    By: malexand <malexand@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/08/21 18:23:32 by malexand          #+#    #+#              #
-#    Updated: 2019/01/12 14:24:35 by malexand         ###   ########.fr        #
+#    Updated: 2019/01/12 15:14:53 by malexand         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -160,7 +160,7 @@ else
 	@$(CC) $(CFLAGS) -o $@ $(OBCC) $(INCLUDE) $(LFLAGS)
 	@echo "\x1b[36m  + Compile program:\x1B[0m $@"
 	@echo "\x1B[31m\c"
-	# @norminette srcs/* incs/* | grep -B 1 "Error" || true
+	@norminette srcs/* incs/* | grep -B 1 "Error" || true
 	@echo "\x1B[0m\c"
 endif
 
