@@ -213,6 +213,7 @@ typedef struct					s_object
 	double						index;
 	int							phong;
 	t_limit						*limits;
+	t_limit						*limits_parsed;
 	double						uv_map[2];
 	t_effects					effects;
 	double						rotation[VEC_SIZE];

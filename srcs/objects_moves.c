@@ -14,17 +14,26 @@
 
 void	limits_move(double *o, t_object *obj, t_param *param)
 {
-	t_limit	*tmp;
+	t_limit	*tmp[2];
 
-	tmp = obj->limits;
-	while (tmp)
+	tmp[0] = obj->limits_parsed;
+	tmp[1] = obj->limits;
+	while (tmp[0] && tmp[1])
 	{
-		if (tmp->type == RT_C_RELATIVE)
+		if (tmp[0]->type == RT_C_RELATIVE)
 		{
-			matrice_product(param->rot, tmp->plane.n, tmp->plane.n);
-			pt_translated(o, tmp->plane.ref, tmp->plane.ref);
+			printf("ooooo\n");
+			matrice_product(param->rot, tmp[0]->plane.n, tmp[1]->plane.n);
+			pt_translated(o, tmp[0]->plane.ref, tmp[1]->plane.ref);
 		}
-		tmp = tmp->next;
+		else
+		{
+			printf("ooooo\n");
+			vec_copy(tmp[0]->plane.ref, tmp[1]->plane.ref);
+			vec_copy(tmp[0]->plane.n, tmp[1]->plane.n);
+		}
+		tmp[0] = tmp[0]->next;
+		tmp[1] = tmp[1]->next;
 	}
 }
 

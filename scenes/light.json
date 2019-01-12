@@ -4,7 +4,6 @@
 		"look": [0, 1, 0],
 		"align": [1, 0, 0]
 	},
-
 	"lights": [
 		{
 			"type": "parallel",
@@ -13,9 +12,6 @@
 			"intensity": 1
 		}
 	],
-
-	"custom_objects": [],
-
 	"objects": [
 		{
 			"type": "sphere",
@@ -36,11 +32,13 @@
 			"limits": [
 				{
 					"point": [1.5, 9, 3],
-					"normal": [34, 7.8, 4]
+					"normal": [34, 7.8, 4],
+					"type": "relative"
 				},
 				{
 					"point": [3.5, 5, 1],
-					"normal": [56, 4.2, 6]
+					"normal": [56, 4.2, 6],
+					"type": "relative"
 				}
 			],
 	
@@ -66,14 +64,15 @@
 			"limits": [
 				{
 					"point": [1.5, 9, 3],
-					"normal": [34, 7.8, 4]
+					"normal": [34, 7.8, 4],
+					"type": "relative"
 				},
 				{
 					"point": [3.5, 5, 1],
-					"normal": [56, 4.2, 6]
+					"normal": [56, 4.2, 6],
+					"type": "relative"
 				}
 			],
-	
 			"center": [-200, 0, 0],
 			"radius": 57.0
 		},
@@ -96,17 +95,17 @@
 			"limits": [
 				{
 					"point": [1.5, 9, 3],
-					"normal": [34, 7.8, 4]
+					"normal": [34, 7.8, 4],
+					"type": "relative"
 				},
 				{
 					"point": [3.5, 5, 1],
-					"normal": [56, 4.2, 6]
+					"normal": [56, 4.2, 6],
+					"type": "relative"
 				}
 			],
-	
 			"center": [100, 0, 100],
 			"radius": 57.0
 		}
-
 	]
 }

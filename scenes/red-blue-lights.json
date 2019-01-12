@@ -4,18 +4,20 @@
 		"look": [0, 1, 0],
 		"align": [1, 0, 0]
 	},
-
 	"lights": [
 		{
 			"type": "spot",
 			"u": [100, -200, 80],
-			"color": [255, 255, 255],
+			"color": [0, 0, 255],
+			"intensity": 1
+		},
+		{
+			"type": "parallel",
+			"u": [100, 100, 80],
+			"color": [255, 0, 0],
 			"intensity": 1
 		}
 	],
-
-	"custom_objects": [],
-
 	"objects": [
 		{
 			"type": "plane",
@@ -34,7 +36,6 @@
 			"translation": [0, 100, 0],
 			"rotation": [0, 0, 0],
 			"limits": [],
-
 			"normal": [0, 1, 0],
 			"point": [0, 100, 0]
 		},
@@ -57,7 +58,8 @@
 			"limits": [
 				{
 					"normal": [0, 0, -1],
-					"point": [40, 0, -10]
+					"point": [0, 0, -10],
+					"type": "relative"
 				}
 			],
 			"center": [40, 0, 0],
@@ -83,27 +85,33 @@
 			"limits": [
 				{
 					"normal": [0, 1, 0],
-					"point": [0, 55, 0]
+					"point": [0, 55, 0],
+					"type": "relative"
 				},
 				{
 					"normal": [0, -1, 0],
-					"point": [0, 45, 0]
+					"point": [0, 45, 0],
+					"type": "relative"
 				},
 				{
 					"normal": [1, 0, 0],
-					"point": [5, 50, 0]
+					"point": [5, 50, 0],
+					"type": "relative"
 				},
 				{
 					"normal": [-1, 0, 0],
-					"point": [-5, 50, 0]
+					"point": [-5, 50, 0],
+					"type": "relative"
 				},
 				{
 					"normal": [0, 0, 1],
-					"point": [0, 50, 5]
+					"point": [0, 50, 5],
+					"type": "relative"
 				},
 				{
 					"normal": [0, 0, -1],
-					"point": [0, 50, -5]
+					"point": [0, 50, -5],
+					"type": "relative"
 				}
 			],
 	
@@ -129,7 +137,8 @@
 			"limits": [
 				{
 					"normal": [1, -1, -1],
-					"point": [50, 10, -30]
+					"point": [-60, 10, 10],
+					"type": "relative"
 				}
 			],
 

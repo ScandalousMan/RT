@@ -4,7 +4,6 @@
 		"look": [0, 1, 0],
 		"align": [1, 0, 0]
 	},
-
 	"lights": [
 		{
 			"type": "spot",
@@ -13,9 +12,6 @@
 			"intensity": 1
 		}
 	],
-
-	"custom_objects": [],
-
 	"objects": [
 		{
 			"type": "plane",
@@ -34,11 +30,6 @@
 			"translation": [0, 100, 0],
 			"rotation": [0, 0, 0],
 			"limits": [],
-			"reference":
-				{
-					"i": [0,0,1],
-					"j": [1,0,0]
-				},
 			"normal": [0, 1, 0],
 			"point": [0, 100, 0]
 		},
@@ -61,37 +52,37 @@
 			"limits": [
 				{
 					"normal": [0, 1, 0],
-					"point": [0, 55, 0]
+					"point": [0, 5, 0],
+					"type": "relative"
 				},
 				{
 					"normal": [0, -1, 0],
-					"point": [0, 45, 0]
+					"point": [0, -5, 0],
+					"type": "relative"
 				},
 				{
 					"normal": [1, 0, 0],
-					"point": [5, 50, 0]
+					"point": [5, 0, 0],
+					"type": "relative"
 				},
 				{
 					"normal": [-1, 0, 0],
-					"point": [-5, 50, 0]
+					"point": [-5, 0, 0],
+					"type": "relative"
 				},
 				{
 					"normal": [0, 0, 1],
-					"point": [0, 50, 5]
+					"point": [0, 0, 5],
+					"type": "relative"
 				},
 				{
 					"normal": [0, 0, -1],
-					"point": [0, 50, -5]
+					"point": [0, 0, -5],
+					"type": "relative"
 				}
 			],
-			"reference":
-				{
-					"i": [0,1,0],
-					"j": [0,0,1]
-				},
 			"center": [0, 50, 0],
 			"radius": 30.0
 		}
-
 	]
 }

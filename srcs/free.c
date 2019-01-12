@@ -28,7 +28,7 @@ void	free_parsed(t_object *obj)
 		free((t_cube*)(obj->parsed));
 }
 
-void	free_limits(t_object *obj)
+void	free_limits(t_object *obj, char final)
 {
 	t_limit		*l_tmp;
 
@@ -37,6 +37,15 @@ void	free_limits(t_object *obj)
 		l_tmp = obj->limits->next;
 		free(obj->limits);
 		obj->limits = l_tmp;
+	}
+	if (final)
+	{
+		while (obj->limits_parsed)
+		{
+			l_tmp = obj->limits_parsed->next;
+			free(obj->limits_parsed);
+			obj->limits_parsed = l_tmp;
+		}
 	}
 }
 
@@ -61,7 +70,7 @@ void	free_objects(t_param *param, char final)
 			free((t_cube*)(param->objects->dim));
 		if (final)
 			free_parsed(param->objects);
-		free_limits(param->objects);
+		free_limits(param->objects, final);
 		free(param->objects);
 		param->objects = tmp;
 	}

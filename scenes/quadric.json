@@ -32,9 +32,18 @@
 			"translation": [0, 0, 0],
 			"rotation": [0, 0, 0],
 			"limits": [
-
+				{
+					"normal": [0, 0, 1],
+					"point": [4, 4, 40],
+					"type": "absolute"
+				},
+				{
+					"normal": [0, 0, -1],
+					"point": [4, 4, -40],
+					"type": "absolute"
+				}
 			],
-			"center": [104, 4, -4],
+			"center": [4, 4, -4],
 			"a": 1,
 			"b": 0,
 			"c": 0,
