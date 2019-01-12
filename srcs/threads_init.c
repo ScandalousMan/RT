@@ -6,7 +6,7 @@
 /*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/27 15:05:21 by malexand          #+#    #+#             */
-/*   Updated: 2019/01/12 15:39:26 by malexand         ###   ########.fr       */
+/*   Updated: 2019/01/12 15:54:27 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ static t_param	*param_cpy2(t_param *param, int count, t_param *param_cpy)
 	param_cpy->macro.recursion = param->macro.recursion;
 	param_cpy->macro.cartoon_factor = param->macro.cartoon_factor;
 	param_cpy->macro.blur_radius = param->macro.blur_radius;
-	param_cpy->macro.specular_exp = param->macro.specular_exp;
 	param_cpy->macro.rotation_angle = param->macro.rotation_angle;
 	param_cpy->macro.k_ambience = param->macro.k_ambience;
 	param_cpy->macro.filter = param->macro.filter;

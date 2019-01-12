@@ -6,7 +6,7 @@
 /*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 15:43:31 by jbouille          #+#    #+#             */
-/*   Updated: 2019/01/12 15:40:54 by malexand         ###   ########.fr       */
+/*   Updated: 2019/01/12 15:58:17 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@
 #include <stdlib.h>
 #include <stdint.h>
 
-int				fill_custom_obj(t_custom_obj *custom_obj, t_jobject *jobj,
-	t_param *param)
+int				fill_custom_obj(t_custom_obj *custom_obj, t_jobject *jobj)
 {
 	t_jobject	*tmp;
 
@@ -28,7 +27,7 @@ int				fill_custom_obj(t_custom_obj *custom_obj, t_jobject *jobj,
 	tmp = get_jobject(jobj, "object");
 	if (!(custom_obj->object = (t_object*)malloc(sizeof(t_object))))
 		return (0);
-	return (fill_object(custom_obj->object, tmp->value, 1, param));
+	return (fill_object(custom_obj->object, tmp->value, 1));
 }
 
 t_custom_obj	*get_custom_obj(t_jarray *array, t_param *param,
@@ -38,7 +37,7 @@ t_custom_obj	*get_custom_obj(t_jarray *array, t_param *param,
 		return (NULL);
 	if (!(custom_obj = (t_custom_obj*)malloc(sizeof(t_custom_obj))))
 		return (NULL);
-	if (fill_custom_obj(custom_obj, array->value, param) == 0)
+	if (fill_custom_obj(custom_obj, array->value) == 0)
 		return (NULL);
 	custom_obj->next = get_custom_obj(array->next, param, custom_obj->next);
 	return (custom_obj);

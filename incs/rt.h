@@ -6,7 +6,7 @@
 /*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 16:39:54 by aguemy            #+#    #+#             */
-/*   Updated: 2019/01/12 15:36:50 by malexand         ###   ########.fr       */
+/*   Updated: 2019/01/12 16:07:46 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,6 @@
 # define MAX_RECURSION 10
 # define MIN_RECURSION 0
 
-# define SPECULAR_EXP 1
-# define STEP_SPECULAR_EXP 1
-# define MAX_SPECULAR_EXP 16
-# define MIN_SPECULAR_EXP 1
-
 # define ROTATION_ANGLE 30
 # define STEP_ROTATION_ANGLE 1
 # define MAX_ROTATION_ANGLE 90
@@ -62,7 +57,7 @@
 # define BLUR_RADIUS 4
 # define STEP_BLUR_RADIUS 1
 # define MIN_BLUR_RADIUS 0
-# define MAX_BLUR_RADIUS 50
+# define MAX_BLUR_RADIUS 15
 
 # define SIERPINSKI 4
 
@@ -278,7 +273,6 @@ typedef struct					s_macro
 	int							filter;
 	int							recursion;
 	int							rotation_angle;
-	int							specular_exp;
 }								t_macro;
 
 typedef	struct					s_update_img

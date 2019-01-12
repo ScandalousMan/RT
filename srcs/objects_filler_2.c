@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   objects_storage.c                                  :+:      :+:    :+:   */
+/*   objects_filler_2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbouille <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 15:43:31 by jbouille          #+#    #+#             */
-/*   Updated: 2018/12/04 17:56:23 by jbouille         ###   ########.fr       */
+/*   Updated: 2019/01/12 15:57:13 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,7 @@ void			*fill_quadric(t_jobject *jobj, t_object *q_obj)
 	return (obj);
 }
 
-t_object_def	fill_object_init(t_jobject *jobj, t_object *obj, t_param *param,
-	int num)
+t_object_def	fill_object_init(t_jobject *jobj, t_object *obj, int num)
 {
 	t_object_def	obj_def;
 
@@ -74,7 +73,7 @@ t_object_def	fill_object_init(t_jobject *jobj, t_object *obj, t_param *param,
 	obj->tmp_vec[0] = 0;
 	obj->tmp_vec[1] = 0;
 	obj->tmp_vec[2] = 0;
-	obj->phong = param->macro.specular_exp;
+	obj->phong = 1;
 	obj->effects.color = RT_C_NONE;
 	obj->effects.normal = RT_N_NONE;
 	if (obj_def.fill)
@@ -84,13 +83,12 @@ t_object_def	fill_object_init(t_jobject *jobj, t_object *obj, t_param *param,
 	return (obj_def);
 }
 
-int				fill_object(t_object *obj, t_jobject *jobj, int num,
-	t_param *param)
+int				fill_object(t_object *obj, t_jobject *jobj, int num)
 {
 	t_object_def	obj_def;
 	t_jobject		*tmp;
 
-	obj_def = fill_object_init(jobj, obj, param, num);
+	obj_def = fill_object_init(jobj, obj, num);
 	tmp = get_jobject(jobj, "color");
 	obj->col = get_color((t_jarray*)(tmp->value));
 	tmp = get_jobject(jobj, "kd");
