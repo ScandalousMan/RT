@@ -22,13 +22,11 @@ void	limits_move(double *o, t_object *obj, t_param *param)
 	{
 		if (tmp[0]->type == RT_C_RELATIVE)
 		{
-			printf("ooooo\n");
 			matrice_product(param->rot, tmp[0]->plane.n, tmp[1]->plane.n);
 			pt_translated(o, tmp[0]->plane.ref, tmp[1]->plane.ref);
 		}
 		else
 		{
-			printf("ooooo\n");
 			vec_copy(tmp[0]->plane.ref, tmp[1]->plane.ref);
 			vec_copy(tmp[0]->plane.n, tmp[1]->plane.n);
 		}
