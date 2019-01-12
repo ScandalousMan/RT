@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sdl_draw.c                                         :+:      :+:    :+:   */
+/*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alex <alex@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/25 14:46:21 by malexand          #+#    #+#             */
-/*   Updated: 2017/11/19 23:56:46 by alex             ###   ########.fr       */
+/*   Updated: 2019/01/12 15:42:28 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static	void		apply_texture(t_sdl *graph, int count, SDL_Rect dest,
 	}
 	else
 	{
-		mprintf(1, "Can't create texture to apply on screen: %s",
+		mprintf(2, "Can't create texture to apply on screen: %s",
 			SDL_GetError());
 		exit(0);
 	}

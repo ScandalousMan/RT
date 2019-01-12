@@ -6,7 +6,7 @@
 /*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/25 13:04:37 by malexand          #+#    #+#             */
-/*   Updated: 2019/01/12 14:23:33 by malexand         ###   ########.fr       */
+/*   Updated: 2019/01/12 15:40:01 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ void	nukl_refresh(t_param *param)
 		{
 			param->up_img.process = TRUE;
 			param->up_img.post_process = TRUE;
-			mprintf(1, "Refresh engaged\n");
+			if (DEBUG)
+				mprintf(1, "Refresh engaged\n");
 		}
 	}
 	nk_layout_row_end(param->graph->ctx);

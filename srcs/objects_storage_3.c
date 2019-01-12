@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   objects_storage.c                                  :+:      :+:    :+:   */
+/*   objects_storage_3.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbouille <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 15:43:31 by jbouille          #+#    #+#             */
-/*   Updated: 2018/12/04 17:56:23 by jbouille         ###   ########.fr       */
+/*   Updated: 2019/01/12 15:40:54 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ int				fill_custom_obj(t_custom_obj *custom_obj, t_jobject *jobj,
 
 	tmp = get_jobject(jobj, "intersection");
 	custom_obj->op = ((char*)(tmp->value))[0];
-	printf("OP: %c\n", custom_obj->op);
+	if (DEBUG)
+		mprintf(1, "OP: %c\n", custom_obj->op);
 	tmp = get_jobject(jobj, "object");
 	if (!(custom_obj->object = (t_object*)malloc(sizeof(t_object))))
 		return (0);

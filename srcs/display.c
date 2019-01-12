@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbouille <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 17:32:22 by jbouille          #+#    #+#             */
-/*   Updated: 2018/12/04 17:59:14 by jbouille         ###   ########.fr       */
+/*   Updated: 2019/01/12 15:42:59 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,8 @@ void	light_display_objects(t_param *param)
 	tmp = param->objects;
 	while (tmp)
 	{
-		mprintf(1, "number object: %d, type: %d, address: %p\n",
+		if (DEBUG)
+			mprintf(1, "number object: %d, type: %d, address: %p\n",
 			tmp->num, tmp->type, tmp);
 		tmp = tmp->next;
 	}

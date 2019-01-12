@@ -6,7 +6,7 @@
 /*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/02/27 16:39:54 by aguemy            #+#    #+#             */
-/*   Updated: 2019/01/12 14:25:48 by malexand         ###   ########.fr       */
+/*   Updated: 2019/01/12 15:36:50 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 #  define M_PI 3.141592653589793238462643383279
 # endif
 # define EPSILON 0.000001
-# define DEBUG 1
+# define DEBUG 0
 
 # define MIN_DOUBLE_OBJECT -5000.0f
 # define MAX_DOUBLE_OBJECT 5000.0f

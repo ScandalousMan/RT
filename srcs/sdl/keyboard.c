@@ -6,7 +6,7 @@
 /*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/25 14:46:21 by malexand          #+#    #+#             */
-/*   Updated: 2019/01/10 21:33:12 by malexand         ###   ########.fr       */
+/*   Updated: 2019/01/12 15:42:09 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ void	handle_keyboard(int keycode, t_param *param)
 
 void	handle_keyboard_caps(int keycode, t_param *param)
 {
-	printf(" /!\\ Handle SHIFT KEY /!\\");
+	if (DEBUG)
+		mprintf(1, " /!\\ Handle SHIFT KEY /!\\");
 	if (keycode == SDLK_x)
 	{
 		eye_rotation(0.0, param->macro.rotation_angle, 0.0, param);

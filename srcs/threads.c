@@ -6,7 +6,7 @@
 /*   By: malexand <malexand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/27 15:05:21 by malexand          #+#    #+#             */
-/*   Updated: 2019/01/12 14:02:26 by malexand         ###   ########.fr       */
+/*   Updated: 2019/01/12 15:38:12 by malexand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ void		threads_loop(t_param *param, t_param *params[NB_THREAD])
 	count = 0;
 	while (count < NB_THREAD)
 	{
-		mprintf(1, "Create thread %d\n", count);
+		if (DEBUG)
+			mprintf(1, "Create thread %d\n", count);
 		if (!(param->thread[count] = SDL_CreateThread(calc,
 			"", (void *)params[count])))
 			error(0, 0, "Create new thread failed!");
@@ -59,7 +60,8 @@ void		free_params(t_param *params[NB_THREAD])
 	count = 0;
 	while (count < NB_THREAD)
 	{
-		mprintf(1, "Free param_cpy %d\n", count);
+		if (DEBUG)
+			mprintf(1, "Free param_cpy %d\n", count);
 		free_path(params[count]->path);
 		free_lights(params[count]->lights);
 		free_objects(params[count], 0);
@@ -77,14 +79,16 @@ void		launch_threads(t_param *param)
 
 	count = 0;
 	start = clock();
-	ft_putstr("==> Launch thread\n");
+	if (DEBUG)
+		ft_putstr("==> Launch thread\n");
 	init_params(param, params);
 	start = clock();
 	threads_loop(param, params);
 	param->end = clock();
 	while (count < NB_THREAD)
 	{
-		mprintf(1, "Wait thread %d\n", count);
+		if (DEBUG)
+			mprintf(1, "Wait thread %d\n", count);
 		SDL_WaitThread(param->thread[count], &thread_return_value);
 		if (thread_return_value != 0)
 			error(0, 0, "Thread wrong return value");
